@@ -1,0 +1,214 @@
+
+html, body {
+    margin: 0px;
+    height: 100%;
+}
+
+#header{
+    background: url('/securitysys/resources/images/bg_header.png') repeat-x;
+    height: 88px;
+}
+
+#headerlogo{
+    float: left;
+    margin: 10px 40px;
+}
+
+#headertitle{
+    float: right;
+    color: #fff;
+    font-size: 18px;
+    font-family: Arial;
+    margin: 34px 42px 0px 0px;
+}
+
+#menu{
+    background-color: #3469B2;
+    clear: both;
+    color: #FFF;
+    height: 27px;
+    font-family: Tahoma, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+#mainmenu{
+    float: left;
+}
+#usermenu{
+    float: right;
+    margin-right: 20px;
+    padding:5px;
+}
+#usermenu a{
+    color: #FFF;
+}
+
+#content{
+    margin: 20px 15px 10px 15px;
+    min-height: 60%;
+}
+
+#footer{
+    color:#aaa;
+    font-family: Arial;
+    font-size: 11px;
+    border-top: solid #ccc 1px;
+    padding: 2px;
+    margin: 10px 15px; 
+}
+
+#footer img{
+    margin-bottom: -10px;
+    margin-right: 10px;
+}
+
+.containerTitle{
+    color: #06C;
+    font-size: 16px;
+    display: block;
+    border-bottom:solid #06C 1px;
+    margin: 10px 0px;
+    font-weight: bolder;
+    font-family: Arial;
+}
+
+.commandlink{
+    display: block;
+    font-size: 12px;
+    text-align: right;
+}
+
+
+.ui-datatable{
+    font-size: 10px;
+}
+.ui-datatable th{
+    font-size: 11px;
+    font-weight: bold;
+}
+.ui-datatable tr{
+    font-size: 11px;
+    line-height: 18px;
+    background: none;
+}
+.ui-datatable tbody tr:hover{
+    background-color: #e5f3fc;
+}
+.ui-datatable-header{
+    line-height: 18px;
+    font-size: 11px;
+}
+
+.ui-datatable a{
+    color: blue;
+}
+
+.centercolumn{
+   text-align: center;
+}
+
+
+#form label{
+    display: inline-block;
+    font-size: 13px;
+    min-width: 130px;
+    color: #666;
+    text-align: right;
+}
+
+#form .bg_label{
+    font-family: Tahoma;
+    color:#fff;
+    background-color: #3469B2;
+    padding: 4px 0px;
+}
+
+#form input, #form select{
+    margin: 5px 4px;
+    font-size: 13px;
+    color: #333;
+    padding: 2px 3px;
+    
+}
+
+#form .ui-message{
+  font-size: 11px;
+  display: inline-block;
+}
+#form .ui-messages{
+    font-size: 11px;
+}
+
+#form .button{
+    font-size: 13px;
+    margin: 10px 0 10px 3px;
+    min-width: 120px;
+}
+
+.ui-dialog-titlebar{
+    font-size: 16px;
+}
+
+.ui-messages{
+    font-size: 14px;
+}
+
+#confirmform{
+    font-size: 14px;
+}
+
+#pickList ul{
+    height: 160px !important;
+}
+
+#pickList2 ul{
+    height: 120px !important;
+}
+
+#pickList button, #pickList2 button{
+    width: 30px;
+    margin: 5px;
+    height: 30px;
+}
+
+.ui-widget-header{
+    font-size: 12px;
+}
+.ui-picklist-list{
+    font-size: 12px;
+}
+
+
+
+.filter label{
+    font-family: Tahoma;
+    font-size: 12px;
+    color: #2E6E9E;
+    display: inline-block;
+    min-width: 98px;
+    font-weight: bolder;
+}
+.filter input{
+    width: 150px;
+    box-shadow: none !important;
+    color: #2E6E9E;
+    padding: 0px;
+    border-radius: 3px;
+    font-size: 14px !important;
+    border:solid #bbb 1px !important;
+    margin: 3px 15px 3px 0px;
+    font-size: 14px;
+    padding: 3px 4px !important;
+}
+.filter select{
+    padding: 2px 4px;
+    min-width: 160px;
+    margin: 0;
+    font-size: 14px;
+    color: #2E6E9E;
+}
+.filter button{
+    font-size: 12px !important;
+    margin-top: 15px;
+}

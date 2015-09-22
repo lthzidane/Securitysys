@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Inicio de Sesion</title>
+        <h:outputStylesheet library="css" name="screenFeatures.css" />
+        <h:outputScript library="js" name="ajaxUIHandler.js" />
+    </h:head>
+    <h:body styleClass="bodyGray" onload="document.getElementById('loginForm:user').focus();">
+    <h:panelGroup id="globalContainerPanelGroup" layout="block" 
+                  style="width: 100%; min-height: 100%; height: auto !important;">
+        <f:event type="preRenderComponent" listener="home.xhtml" id="auditory" />
+        <!-- //////////////////////// HEADER //////////////////////// -->
+
+        <!-- //////////////////////// END HEADER //////////////////////// -->
+
+        <!-- //////////////////////// CONTAINER //////////////////////// -->
+        <div id="container_index">
+            <div id="login">
+                <div id="left"></div>
+                <div id="center">
+                    <div class="title">
+                        <table>
+                            <tr>
+                                <td rowspan="2">
+                                    <img src="#{facesContext.externalContext.requestContextPath}/resources/images/padlock_ico.png" width="48" height="46" align="absmiddle" />
+                                </td>
+                                <td style="padding-top: 6px;">
+                                    <strong>Inicio de Sesión</strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <p:growl id="growl" showDetail="true" sticky="false" />
+                    <div align="center">
+                        <h:form id="loginForm">
+                            <p:panel id="pnl">
+                                <table class="table_1">
+                                    <tr>
+                                        <td width="37%" class="txt_1">Usuario</td>
+                                        <td width="63%">
+                                            <h:inputText id="user" autocomplete="off" value="#{login.username}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="txt_1">Password</td>
+                                        <td>
+                                            <h:inputSecret id="password" autocomplete="off" value="#{login.password}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td style="text-align: right">
+                                            <!--<h:commandButton id="btnIn" value="Ingresar" styleClass="btn_std_small" action="/home.xhtml" onclick="showAjaxWaitMessage(true);" />-->
+                                            <h:commandButton id="btnIn" value="Ingresar" styleClass="btn_std_small" action="#{login.login}" onclick="showAjaxWaitMessage(true);" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:panel>
+                            <p:blockUI block="pnl" trigger="btnIn" />
+                        </h:form>
+                    </div>
+                </div>
+                <div id="right"></div>
+            </div>
+        </div>
+        <!-- //////////////////////// END CONTAINER //////////////////////// -->
+    </h:panelGroup>
+    </h:body>
+</html>
+
