@@ -7,7 +7,8 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Inicio de Sesion</title>
+        <title>SecuritySys</title>
+        <link type="image/x-icon" rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/resources/images/favicon.ico" />
         <h:outputStylesheet library="css" name="screenFeatures.css" />
         <h:outputScript library="js" name="ajaxUIHandler.js" />
     </h:head>
@@ -16,11 +17,22 @@
                   style="width: 100%; min-height: 100%; height: auto !important;">
         <f:event type="preRenderComponent" listener="home.xhtml" id="auditory" />
         <!-- //////////////////////// HEADER //////////////////////// -->
-
+        <div id="header">
+            <div id="header_in">
+                <div id="logo">
+                    <img src="#{facesContext.externalContext.requestContextPath}/resources/images/Security.png" />
+                </div>
+                <div id="logo_title">SecuritySys</div>
+            </div>
+        </div>
         <!-- //////////////////////// END HEADER //////////////////////// -->
 
         <!-- //////////////////////// CONTAINER //////////////////////// -->
         <div id="container_index">
+             <p:blockUI block="globalContainerPanelGroup" widgetVar="blocker">
+                "Procesando"<br />
+                <p:graphicImage value="/resources/images/wait.gif" />
+            </p:blockUI>
             <div id="login">
                 <div id="left"></div>
                 <div id="center">

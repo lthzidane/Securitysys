@@ -305,8 +305,8 @@ div.ui-datepicker{
 
 /* HEADER */
 #header {
-    background: url(/resources/images/bg_header.png) repeat-x;
-    height: 111px; /* antes 88px */
+    background: url('/securitysys/resources/images/bg_header.png') repeat-x;
+    height: 200px;/* antes 88px */
 }
 
 #header #header_in {
@@ -521,11 +521,11 @@ div.ui-datepicker{
 }
 
 #container_index #login #left {
-    background: url(/resources/images/login_left_border.png) no-repeat;
+    background: url('/securitysys/resources/images/login_left_border.png') no-repeat;
 }
 
 #container_index #login #right {
-    background: url(/resources/images/login_right_border.png) no-repeat;
+    background: url('/securitysys/resources/images/login_right_border.png') no-repeat;
 }
 
 #container_index #login #center {

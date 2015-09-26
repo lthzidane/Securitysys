@@ -138,7 +138,7 @@ body {
 #loginj {
 	height: 100%;
 	width: 100%;
-	background: url(images/header-bkg.png) repeat-x scroll left top
+	background: url('/securitysys/resources/images/bg_header.png') repeat-x scroll left top
 		transparent;
 	padding: 0;
 	/*min-width:1000px;*/

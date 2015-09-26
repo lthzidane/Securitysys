@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import lombok.Data;
 import bean.LoginDao;
+import javax.servlet.http.HttpServletRequest;
 /**
  *
  * @author 
@@ -27,6 +28,7 @@ public class Login  implements Serializable {
     private String username;
     private String password;
     private String msg;
+    private boolean logueado = false;
 
    public String getPassword() {
         return password;
@@ -51,6 +53,27 @@ public class Login  implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+    
+    public boolean isRenderPage() {
+        String currentPage = getRequestPage();
+
+        return true;
+    }
+    
+    public String getRequestPage() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String[] url = request.getRequestURI().split("/");
+        String page = url[url.length - 1];
+        return page.split("\\.")[0];
+    }
+    
+    public boolean showMenu(String menuTitle) {
+        //List<UiItems> items = uiItemsFacade.findByRole(current.getIdRole().getIdRole());
+        
+        return true;
+    }
+    
+    
     /**
      * Se crea una  nueva instancia para login
      * @return 
@@ -60,7 +83,8 @@ public class Login  implements Serializable {
         if (valid) {
             HttpSession session = SessionBean.getSession();
                session.setAttribute("username", username);
-                return "admin";
+                      logueado = true;
+                return "home";
         }else{
             FacesContext.getCurrentInstance().addMessage(null, 
                     new FacesMessage( FacesMessage.SEVERITY_WARN, 
