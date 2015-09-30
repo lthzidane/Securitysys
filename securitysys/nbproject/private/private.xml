@@ -7,15 +7,17 @@
             <file>file:/C:/Proyecto_svn/Securitysys/securitysys/src/java/bean/LoginDao.java</file>
             <file>file:/C:/Proyecto_svn/Securitysys/securitysys/src/java/bean/SessionBean.java</file>
             <file>file:/C:/Proyecto_svn/Securitysys/securitysys/src/java/bean/DataConnect.java</file>
-            <file>file:/C:/Proyecto_svn/Securitysys/securitysys/src/java/entities/Usuario.java</file>
-            <file>file:/C:/Proyecto_svn/Securitysys/securitysys/web/WEB-INF/faces-config.xml</file>
-            <file>file:/C:/Proyecto_svn/Securitysys/securitysys/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Proyecto_svn/Securitysys/securitysys/web/resources/css/menu.css</file>
             <file>file:/C:/Proyecto_svn/Securitysys/securitysys/web/login.xhtml</file>
+            <file>file:/C:/Proyecto_svn/Securitysys/securitysys/web/resources/css/cssLayout.css</file>
+            <file>file:/C:/Proyecto_svn/Securitysys/securitysys/web/resources/css/facade.css</file>
+            <file>file:/C:/Proyecto_svn/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
+            <file>file:/C:/Proyecto_svn/Securitysys/securitysys/web/home.xhtml</file>
             <file>file:/C:/Proyecto_svn/Securitysys/securitysys/web/admin.xhtml</file>
             <file>file:/C:/Proyecto_svn/Securitysys/securitysys/src/java/bean/Login.java</file>
             <file>file:/C:/Proyecto_svn/Securitysys/securitysys/web/resources/js/ajaxUIHandler.js</file>
             <file>file:/C:/Proyecto_svn/Securitysys/securitysys/web/index.xhtml</file>
-            <file>file:/C:/Proyecto_svn/Securitysys/securitysys/setup/glassfish-resources.xml</file>
+            <file>file:/C:/Proyecto_svn/Securitysys/securitysys/web/welcomePrimefaces.xhtml</file>
         </group>
     </open-files>
 </project-private>
