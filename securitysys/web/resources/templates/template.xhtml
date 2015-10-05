@@ -28,15 +28,102 @@
                         <ul id="navmenu-h">
                             <li><h:link outcome="home" value="Home"/></li>                            
                             <li>
-                                <h:commandLink value="Menu"/>
+                                <h:commandLink value="Referenciales"/>
                                 <ul>
                                     <!-- <li><h:link outcome="tipificaciones" value="Tipificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li> -->
-                                    <li><h:link outcome="admin" value="Administracion" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Cliente" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Ciudad" rendered="#{login.showMenu(access.Admin_View)}" /></li>                                   
+                                    <li><h:link outcome="admin" value="Pais" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Caja" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Usuario" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Estado" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Proveedor" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Tecnico" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Tipo de Servicio" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Zonas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Departamento" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Funcionario" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                 </ul>
-                            </li>                            
+                            </li>  
+                            <li>
+                                <h:commandLink value="Instalaciones"/>
+                                <ul>
+                                    <!-- <li><h:link outcome="tipificaciones" value="Tipificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li> -->
+                                    <li><h:link outcome="admin" value="Ingresar Orden de Trabajo" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Gestionar Instalacion" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Impresion de Orden de Trabajo" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Busqueda y Modificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Certificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h:commandLink value="Reclamos"/>
+                                <ul>
+                                    <!-- <li><h:link outcome="tipificaciones" value="Tipificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li> -->
+                                    <li><h:link outcome="admin" value="Gestionar reclamos" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Asignacion de tecnicos/zona" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Seguimiento de reclamos" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Monitoreo de Cliente" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                </ul>
+                            </li> 
+                            <li>
+                                <h:commandLink value="Compra"/>
+                                <ul>
+                                    <!-- <li><h:link outcome="tipificaciones" value="Tipificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li> -->
+                                    <li><h:link outcome="admin" value="Registrar Orden de compra" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Registrar transferencias" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Imprimir nota de remision" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Ajuste de stock por compras" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                </ul>
+                            </li> 
+                            
+                            <li>
+                                <h:commandLink value="Venta"/>
+                                <ul>
+                                    <!-- <li><h:link outcome="tipificaciones" value="Tipificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li> -->
+                                    <li><h:link outcome="admin" value="Elaborar Presupuesto" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Registrar pedido de ventas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Registrar cobros" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Generar Facturas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                </ul>
+                            </li> 
+                            
+                            <li>
+                                <h:commandLink value="Inventario"/>
+                                <ul>
+                                    <!-- <li><h:link outcome="tipificaciones" value="Tipificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li> -->
+                                    <li><h:link outcome="admin" value="Lista de Precios" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Inv. Repuestos y Articulos" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Busqueda y modificacion de articulos" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Ajustes de Stock" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Control de Stock" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                </ul>
+                            </li> 
+                            
+                            <li>
+                                <h:commandLink value="Caja"/>
+                                <ul>
+                                    <!-- <li><h:link outcome="tipificaciones" value="Tipificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li> -->
+                                    <li><h:link outcome="admin" value="Registrar cobros" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Apertura de caja" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Arqueo y cierre de cajas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Agregar caja" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Agregar cajero" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Agregar sucursal" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                </ul>
+                            </li> 
+                            
                         </ul>
+                        
+                        
                     </h:form>
                 </div>
+
 
                 <div id="usermenu">
                     <h:form id="formuser" prependId="false">
@@ -54,7 +141,7 @@
                 <!--<p:messages closable="true" for="generalMessage" autoUpdate="true" globalOnly="true"/>-->
                 <ui:insert name="container"></ui:insert>
             </div>
-            
+
         </h:panelGroup>
 
         <h:panelGroup rendered="#{!login.logueado}">
@@ -65,12 +152,12 @@
                 <br/>
                 <h:link outcome="login" value="Go To Login"/>
             </h:form>
-        
+
         </h:panelGroup>
-        
-        
+
+
         <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
-              
+
         <p:dialog modal="true" widgetVar="statusDialog" draggable="false" closable="false" resizable="false">  
             <h:graphicImage library="images" name="ajax-loader2.gif"/>  
         </p:dialog>  
