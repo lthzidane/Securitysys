@@ -11,7 +11,7 @@
         <h:outputStylesheet library="css" name="facade.css" />
         <h:outputStylesheet library="css" name="menu.css" />
     </h:head>
-    <h:body>
+    <h:body styleClass="bodyGray">
         <h:panelGroup rendered="#{login.logueado and login.renderPage}">
             <div id="header">
                 <div id="headerlogo">                    
@@ -28,41 +28,13 @@
                         <ul id="navmenu-h">
                             <li><h:link outcome="home" value="Home"/></li>                            
                             <li>
-                                <h:commandLink value="ABM"/>
+                                <h:commandLink value="Menu"/>
                                 <ul>
                                     <!-- <li><h:link outcome="tipificaciones" value="Tipificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li> -->
-                                    <li><h:link outcome="admin" value="Referenciales" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="admin" value="Administracion" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="OrdenCompra" value="Orden de Compra" rendered="#{login.showMenu(access.OrdenCompra_View)}" /></li>
                                 </ul>
-                            </li>  
-                             <li>
-                                <h:commandLink value="Instalaciones"/>
-                                <ul>
-                                    <!-- <li><h:link outcome="tipificaciones" value="Tipificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li> -->
-                                    <li><h:link outcome="admin" value="Orden de Trabajo" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                </ul>
-                             </li>
-                            <li>
-                                <h:commandLink value="Reclamos"/>
-                                <ul>
-                                    <!-- <li><h:link outcome="tipificaciones" value="Tipificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li> -->
-                                    <li><h:link outcome="admin" value="Carga de reclamos" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                </ul>
-                             </li> 
-                            <li>
-                                <h:commandLink value="Compra/Venta"/>
-                                <ul>
-                                    <!-- <li><h:link outcome="tipificaciones" value="Tipificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li> -->
-                                    <li><h:link outcome="admin" value="Orden de compra" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                </ul>
-                             </li> 
-                            <li>
-                                <h:commandLink value="Inventario"/>
-                                <ul>
-                                    <!-- <li><h:link outcome="tipificaciones" value="Tipificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li> -->
-                                    <li><h:link outcome="admin" value="Control de Stock" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                </ul>
-                             </li> 
+                            </li>                            
                         </ul>
                     </h:form>
                 </div>

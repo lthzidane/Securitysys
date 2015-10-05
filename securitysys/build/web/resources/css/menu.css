@@ -5,12 +5,9 @@
     background-color: #3D6EA8;
     clear: both;
     color: #FFF;
-    /*margin-top: 100px;*/
-    
     height: 26px;
-
 }
-/*Letra de los Menus con flechita*/
+
 #mainmenu a {
     color: #FFF;
     text-decoration: none;
