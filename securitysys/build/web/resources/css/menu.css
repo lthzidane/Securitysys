@@ -1,0 +1,134 @@
+
+
+/* HEADER - MENU */
+#mainmenu {
+    background-color: #3D6EA8;
+    clear: both;
+    color: #FFF;
+    height: 26px;
+}
+
+/*Letra de los Menus con flechita*/
+#mainmenu a {
+    color: #FFF;
+    text-decoration: none;
+    padding: 3px 12px 7px 20px;
+    font-weight: bold;
+    font-family: Tahoma, sans-serif;
+    font-size: 11px;
+    background: url(/securitysys/resources/images/menu_arrow_blue.png) no-repeat 0% 50%;
+}
+
+#mainmenu ul#navmenu-h {
+    /* Root = Horizontal, Secondary = Vertical */
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin: 3px 0px 0px 20px;
+}
+
+#mainmenu ul#navmenu-h li {
+    float: left; /* For Gecko */
+    display: inline;
+    list-style: none;
+    position: relative;
+    padding: 3px 0px 6px 0px;
+    /*border-right: 1px solid #9F9F9F;*/
+}
+
+#mainmenu ul#navmenu-h ul {
+    width: 200px;
+    list-style: none;
+    display: none;
+    position: absolute;
+    top: 23px;
+    left: 0;
+    padding: 0;
+}
+
+#mainmenu ul#navmenu-h ul:after {
+    /*From IE 7 lack of compliance*/
+    clear: both;
+    display: block;
+    font: 1px/0px serif;
+    content: ".";
+    height: 0;
+    visibility: hidden;
+}
+
+#mainmenu ul#navmenu-h ul li {
+    width: 200px;
+    float: left; /*For IE 7 lack of compliance*/
+    display: block !important;
+    display: inline; /*For IE*/
+    padding: 0;
+    border-bottom: 1px solid #c9c9c9;
+    border-right: 0;
+}
+
+/* Root Menu */
+#mainmenu ul#navmenu-h li ul li a {
+    /*padding: 9px 12px;*/
+    padding: 5px 12px 5px 2px;
+    float: none !important; /* For Opera */
+    float: left; /* For IE */
+    display: block;
+    color: #3469B2 !important;
+    font-weight: normal;
+    text-decoration: none;
+    height: auto !important;
+    height: 1%; /* For IE */
+}
+
+/* Root Menu Hover Persistence */
+#mainmenu ul#navmenu-h a:hover,
+#mainmenu ul#navmenu-h li:hover a,
+#mainmenu ul#navmenu-h li.iehover a {
+    color: #3469b2;
+    background: #F2F2F2;
+}
+
+#mainmenu ul#navmenu-h li:hover {
+    background: #F2F2F2;
+    color: #3469b2;
+}
+
+/* 2nd Menu */
+#mainmenu ul#navmenu-h li:hover li a,
+#mainmenu ul#navmenu-h li.iehover li a {
+    float: none;
+    padding: 8px 10px;
+}
+
+/* 2nd Menu Hover Persistence */
+#mainmenu ul#navmenu-h li:hover li a:hover, 
+#mainmenu ul#navmenu-h li:hover li:hover a,
+#mainmenu ul#navmenu-h li.iehover li a:hover, 
+#mainmenu ul#navmenu-h li.iehover li.iehover a {
+    background: #3469b2;
+    color: #F2F2F2 !important;
+}
+
+#mainmenu ul#navmenu-h ul ul,
+#mainmenu ul#navmenu-h ul ul ul {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 200px;
+}
+
+/* Do Not Move - Must Come Before display:block for Gecko */
+#mainmenu ul#navmenu-h li:hover ul ul, 
+#mainmenu ul#navmenu-h li:hover ul ul ul,
+#mainmenu ul#navmenu-h li.iehover ul ul, 
+#mainmenu ul#navmenu-h li.iehover ul ul ul {
+    display: none;
+}
+
+#mainmenu ul#navmenu-h li:hover ul, 
+#mainmenu ul#navmenu-h ul li:hover ul,
+#mainmenu ul#navmenu-h li.iehover ul, 
+#mainmenu ul#navmenu-h ul li.iehover ul {
+    display: block;
+}
+/* END HEADER - MENU */

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DepartamentoEditDlg" widgetVar="DepartamentoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDepartamentoTitle}">
+            <h:form id="DepartamentoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{departamentoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDepartamentoLabel_idDpto}" for="idDpto" />
+                        <p:inputText id="idDpto" value="#{departamentoController.selected.idDpto}" title="#{bundle.EditDepartamentoTitle_idDpto}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_idDpto}"/>
+                        <p:outputLabel value="#{bundle.EditDepartamentoLabel_nombreDpto}" for="nombreDpto" />
+                        <p:inputText id="nombreDpto" value="#{departamentoController.selected.nombreDpto}" title="#{bundle.EditDepartamentoTitle_nombreDpto}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_nombreDpto}"/>
+                        <p:outputLabel value="#{bundle.EditDepartamentoLabel_funcion}" for="funcion" />
+                        <p:inputText id="funcion" value="#{departamentoController.selected.funcion}" title="#{bundle.EditDepartamentoTitle_funcion}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_funcion}"/>
+                        <p:outputLabel value="#{bundle.EditDepartamentoLabel_responsable}" for="responsable" />
+                        <p:inputText id="responsable" value="#{departamentoController.selected.responsable}" title="#{bundle.EditDepartamentoTitle_responsable}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_responsable}"/>
+                        <p:outputLabel value="#{bundle.EditDepartamentoLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{departamentoController.selected.estado}" title="#{bundle.EditDepartamentoTitle_estado}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_estado}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{departamentoController.update}" value="#{bundle.Save}" update="display,:DepartamentoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DepartamentoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DepartamentoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
