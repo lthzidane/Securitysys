@@ -2,13 +2,78 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="login.xhtml" x="780" y="107" zoom="true"/>
-        <Node id="OrdenCompra.xhtml" x="400" y="150" zoom="true"/>
-        <Node id="index.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="ciudad/Edit.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="tipoDocumento/Create.xhtml" x="900" y="1050" zoom="true"/>
+        <Node id="tipoServicios/List.xhtml" x="1400" y="600" zoom="true"/>
         <Node id="welcomePrimefaces.xhtml" x="115" y="46" zoom="true"/>
-        <Node id="home.xhtml" x="150" y="450" zoom="true"/>
-        <Node id="resources/templates/template.xhtml" x="497" y="42" zoom="true"/>
+        <Node id="depositos/Edit.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="usuario/List.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="estado/Create.xhtml" x="150" y="1650" zoom="true"/>
+        <Node id="usuario/View.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="depositos/View.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="tecnicos/Edit.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="ciudad/View.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="depositos/List.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="usuario/Create.xhtml" x="400" y="1500" zoom="true"/>
+        <Node id="ciudad/List.xhtml" x="400" y="1350" zoom="true"/>
+        <Node id="estado/View.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="cliente/Create.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="estado/Edit.xhtml" x="2150" y="450" zoom="true"/>
+        <Node id="medidas/View.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="index.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="cliente/Edit.xhtml" x="1900" y="450" zoom="true"/>
+        <Node id="cajas/Create.xhtml" x="2400" y="150" zoom="true"/>
+        <Node id="tecnicos/List.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="usuario/Edit.xhtml" x="1400" y="900" zoom="true"/>
+        <Node id="tecnicos/View.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="tecnicos/Create.xhtml" x="1650" y="600" zoom="true"/>
+        <Node id="paises/List.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="tipoServicios/Edit.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="login.xhtml" x="780" y="107" zoom="true"/>
+        <Node id="funcionario/List.xhtml" x="1900" y="600" zoom="true"/>
+        <Node id="medidas/List.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="ciudad/Create.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="medidas/Create.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="funcionario/View.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="productos/Edit.xhtml" x="2400" y="300" zoom="true"/>
+        <Node id="cajas/Edit.xhtml" x="650" y="1350" zoom="true"/>
+        <Node id="tipoDocumento/View.xhtml" x="1650" y="450" zoom="true"/>
+        <Node id="funcionario/Create.xhtml" x="900" y="1200" zoom="true"/>
+        <Node id="proveedor/List.xhtml" x="2900" y="150" zoom="true"/>
+        <Node id="sucursales/View.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="tipoDocumento/Edit.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="tipoDocumento/List.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="departamento/Create.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="sucursales/List.xhtml" x="1900" y="300" zoom="true"/>
+        <Node id="productos/Create.xhtml" x="650" y="300" zoom="true"/>
         <Node id="admin.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="tipoServicios/Create.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="proveedor/View.xhtml" x="2400" y="450" zoom="true"/>
+        <Node id="cajas/List.xhtml" x="1150" y="900" zoom="true"/>
+        <Node id="departamento/View.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="proveedor/Edit.xhtml" x="1400" y="750" zoom="true"/>
+        <Node id="paises/View.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="home.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="paises/Edit.xhtml" x="650" y="1200" zoom="true"/>
+        <Node id="departamento/Edit.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="template.xhtml" x="1650" y="750" zoom="true"/>
+        <Node id="cajas/View.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="proveedor/Create.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="funcionario/Edit.xhtml" x="2650" y="300" zoom="true"/>
+        <Node id="productos/List.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="departamento/List.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="resources/templates/template.xhtml" x="497" y="42" zoom="true"/>
+        <Node id="estado/List.xhtml" x="2650" y="150" zoom="true"/>
+        <Node id="sucursales/Create.xhtml" x="150" y="1500" zoom="true"/>
+        <Node id="OrdenCompra.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="cliente/List.xhtml" x="900" y="900" zoom="true"/>
+        <Node id="cliente/View.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="depositos/Create.xhtml" x="1150" y="1050" zoom="true"/>
+        <Node id="medidas/Edit.xhtml" x="2150" y="300" zoom="true"/>
+        <Node id="sucursales/Edit.xhtml" x="650" y="1050" zoom="true"/>
+        <Node id="tipoServicios/View.xhtml" x="1150" y="750" zoom="true"/>
+        <Node id="paises/Create.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="productos/View.xhtml" x="1150" y="300" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">Orden de Trabajo</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="Orden de Trabajo"/>
+        </ui:define>
+        <ui:define name="container">
+            <script type="text/css">
+                .divider{
+                    position:absolute;
+                    left:50%;
+                    top:10%;
+                    bottom:10%;
+                    border-left:1px solid black;
+                }
+            </script>
+            <script name="jquery/jquery.js" library="primefaces"></script> 
+            <h:form id="form">
+                <p:panel header="Nueva Orden de Compra">
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Nro de Orden:" 
+                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <h:outputText id="nroOrden" value="#{OrdenTrabajoBean.nroDeOrden}" style="font-size: 11px;"/>
+                            <h:outputText value="Fecha Recepcion:"
+                                          style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <p:calendar id="buttonFR" value="#{OrdenTrabajoBean.fechaRecepcion}" pattern="dd/MM/yyyy"/>
+                            <h:outputText value="Equipo:"
+                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <h:inputText id="equipo" value="#{OrdenTrabajoBean.equipo}" required="true" label="Proveedor" maxlength="100" size="100"/>                                            
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Inicio del Trabajo:"
+                                          style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <p:calendar id="buttonIT" value="#{OrdenTrabajoBean.fechaInicio}" pattern="dd/MM/yyyy"/>
+                            <h:outputText value="Fin del Trabajo:"
+                                          style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <p:calendar id="buttonFT" value="#{OrdenTrabajoBean.fechaFin}" pattern="dd/MM/yyyy"/>                    
+                        </h:panelGrid>    
+                    </h:panelGrid>
+
+                </p:panel>  
+            </h:form>  
+        </ui:define>
+    </ui:composition>
+</html>
