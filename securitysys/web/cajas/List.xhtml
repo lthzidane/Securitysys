@@ -6,14 +6,17 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+   <ui:composition template="/resources/templates/template.xhtml">
 
-
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListCajasTitle}"></h:outputText>
+    <ui:define name="title">Caja</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="#{bundle.ListCajasTitle}"/>
         </ui:define>
 
-        <ui:define name="body">
+       <ui:define name="container">
+           <p:growl id="growl" life="3000" />
+           
+        <!--<ui:define name="body"> -->
             <h:form id="CajasListForm">
                 <p:panel header="#{bundle.ListCajasTitle}">
                     <p:dataTable id="datalist" value="#{cajasController.items}" var="item"

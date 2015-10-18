@@ -26,7 +26,7 @@
                 <div id="mainmenu">
                     <h:form id="formmenu" prependId="false">
                         <ul id="navmenu-h">
-                            <li><h:link outcome="home" value="Home"/></li>                            
+                            <li><h:link outcome="/home" value="Home"/></li>                            
                             <li>
                                 <h:commandLink value="Referenciales"/>
                                 <ul>
@@ -48,43 +48,43 @@
                             <li>
                                 <h:commandLink value="Instalaciones"/>
                                 <ul>
-                                    <li><h:link outcome="OrdenTrabajo" value="Ingresar Orden de Trabajo" rendered="#{login.showMenu(access.OrdenTrabajo_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Gestionar Instalacion" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Impresion de Orden de Trabajo" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Busqueda y Modificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Certificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/OrdenTrabajo" value="Ingresar Orden de Trabajo" rendered="#{login.showMenu(access.OrdenTrabajo_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Gestionar Instalacion" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Impresion de Orden de Trabajo" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Busqueda y Modificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Certificaciones" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                 </ul>
                             </li>
                             <li>
                                 <h:commandLink value="Reclamos"/>
                                 <ul>
-                                    <li><h:link outcome="admin" value="Gestionar reclamos" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Asignacion de tecnicos/zona" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Seguimiento de reclamos" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Monitoreo de Cliente" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Gestionar reclamos" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Asignacion de tecnicos/zona" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Seguimiento de reclamos" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Monitoreo de Cliente" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                 </ul>
                             </li> 
                             <li>
                                 <h:commandLink value="Compra"/>
                                 <ul>
-                                    <li><h:link outcome="OrdenCompra" value="Registrar Orden de compra" rendered="#{login.showMenu(access.OrdenCompra_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Registrar transferencias" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Imprimir nota de remision" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Ajuste de stock por compras" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/OrdenCompra" value="Registrar Orden de compra" rendered="#{login.showMenu(access.OrdenCompra_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Registrar transferencias" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Imprimir nota de remision" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Ajuste de stock por compras" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                 </ul>
                             </li> 
                             
                             <li>
                                 <h:commandLink value="Venta"/>
                                 <ul>
-                                    <li><h:link outcome="admin" value="Elaborar Presupuesto" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Registrar pedido de ventas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Registrar cobros" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Generar Facturas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Elaborar Presupuesto" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Registrar pedido de ventas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Registrar cobros" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Generar Facturas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                 </ul>
                             </li> 
                             
@@ -93,22 +93,22 @@
                                 <ul>
                                     <li><h:link outcome="/depositos/List" value="Listar Deposito" rendered="#{login.showMenu(access.Depositos_View)}" /></li>
                                     <li><h:link outcome="/productos/List" value="Productos" rendered="#{login.showMenu(access.Productos_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Busqueda y modificacion de articulos" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Ajustes de Stock" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Control de Stock" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Busqueda y modificacion de articulos" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Ajustes de Stock" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Control de Stock" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                 </ul>
                             </li> 
                             
                             <li>
                                 <h:commandLink value="Caja"/>
                                 <ul>
-                                    <li><h:link outcome="admin" value="Registrar cobros" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Apertura de caja" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Arqueo y cierre de cajas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Registrar cobros" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Apertura de caja" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Arqueo y cierre de cajas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                     <li><h:link outcome="/cajas/List" value="Agregar caja" rendered="#{login.showMenu(access.Cajas_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Agregar cajero" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="admin" value="Agregar sucursal" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Agregar cajero" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Agregar sucursal" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                 </ul>
                             </li> 
                             
