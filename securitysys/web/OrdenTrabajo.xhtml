@@ -22,27 +22,67 @@
             </script>
             <script name="jquery/jquery.js" library="primefaces"></script> 
             <h:form id="form">
-                <p:panel header="Nueva Orden de Compra">
+                <p:panel header="Orden de Trabajo Nro: #{OrdenTrabajoBean.nroDeOrden}">
                     <h:panelGrid columns="3" cellpadding="5">
                         <h:panelGrid columns="2" cellpadding="5">
-                            <h:outputText value="Nro de Orden:" 
-                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <h:outputText id="nroOrden" value="#{OrdenTrabajoBean.nroDeOrden}" style="font-size: 11px;"/>
                             <h:outputText value="Fecha Recepcion:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <p:calendar id="buttonFR" value="#{OrdenTrabajoBean.fechaRecepcion}" pattern="dd/MM/yyyy"/>
-                            <h:outputText value="Equipo:"
-                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <h:inputText id="equipo" value="#{OrdenTrabajoBean.equipo}" required="true" label="Proveedor" maxlength="100" size="100"/>                                            
-                        </h:panelGrid>
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <h:outputText value="Inicio del Trabajo:"
+                            <h:outputText id="buttonFR" value="#{OrdenTrabajoBean.fechaRecepcion}" style="font-size: 11px;"/>
+                            <h:outputText value="Tipo de Servicio:"
+                                      style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <h:selectOneMenu id="tipoServicio" label="Tipo de Servicio" value="#{OrdenTrabajoBean.tipoServicio}">
+                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Servicio 1" itemValue="1" />
+                                <f:selectItem itemLabel="Servicio 2" itemValue="2" />
+                                <f:selectItem itemLabel="Servicio 3" itemValue="3"/>
+                            </h:selectOneMenu>
+                            <h:outputText value="Tecnico:"
+                                      style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <h:selectOneMenu id="tecnico" label="Tecnico" value="#{OrdenTrabajoBean.tecnico}">
+                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Tecnico 1" itemValue="1" />
+                                <f:selectItem itemLabel="Tecnico 2" itemValue="2" />
+                                <f:selectItem itemLabel="Tecnico 3" itemValue="3"/>
+                            </h:selectOneMenu>
+                            <h:outputText value="Inicio Previsto del Trabajo:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <p:calendar id="buttonIT" value="#{OrdenTrabajoBean.fechaInicio}" pattern="dd/MM/yyyy"/>
-                            <h:outputText value="Fin del Trabajo:"
+                            <h:outputText value="Fin Previsto del Trabajo:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <p:calendar id="buttonFT" value="#{OrdenTrabajoBean.fechaFin}" pattern="dd/MM/yyyy"/>                    
-                        </h:panelGrid>    
+                            <h:outputText value="Estado del Trabajo:"
+                                      style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <h:selectOneMenu id="estado" label="Estado del Trabajo" value="#{OrdenTrabajoBean.estado}">
+                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Pendiente" itemValue="P" />
+                                <f:selectItem itemLabel="En ejecucion" itemValue="E" />
+                                <f:selectItem itemLabel="Finalizado" itemValue="F"/>
+                            </h:selectOneMenu>
+                            <h:outputText value="Observacion:" 
+                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <p:inputTextarea  id="observacion" rows="3" cols="33" value="#{OrdenTrabajoBean.observacion}" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="5" frame="lhs">
+                            <h:outputText value="Tarea a Realizar:" 
+                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <p:inputTextarea id="tareaARealizar" rows="3" cols="33" value="#{OrdenTrabajoBean.description}" />
+                            <h:outputText value="Buscar Cliente:" 
+                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <p:inputText id="codcliente" value="#{OrdenTrabajoBean.cliente}" />
+                            <h:outputText value="Ruc:" 
+                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <h:outputText id="rucCliente" value="#{OrdenTrabajoBean.ruc}" style="font-size: 11px;"/>
+                            <h:outputText value="Razon Social:" 
+                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <h:outputText id="razonSocialCliente" value="#{OrdenTrabajoBean.razonsocial}" style="font-size: 11px;"/>
+                            <h:outputText value="Direccion:" 
+                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <h:outputText id="direccionCliente" value="#{OrdenTrabajoBean.direccion}" style="font-size: 11px;"/>
+                            <h:outputText value="Telefono:" 
+                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <h:outputText id="telefonoCliente" value="#{OrdenTrabajoBean.telefono}" style="font-size: 11px;"/>
+                                                        
+                        </h:panelGrid>
                     </h:panelGrid>
 
                 </p:panel>  

@@ -40,6 +40,14 @@ public class OrdenTrabajoBean implements Serializable{
     private String fechaInicio;
     private String fechaFin;
     private String fechaRecepcion;
+    private String tipoServicio;
+    private String observacion;
+    private String tecnico;
+    private String cliente;
+    private String ruc;
+    private String razonsocial;
+    private String direccion;
+    private String telefono;
     
     private final static String[] nombreProducto;
     private List<Sale> detalleOC;
@@ -87,7 +95,7 @@ public class OrdenTrabajoBean implements Serializable{
             //
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String today = formatter.format(date);
-            //fechaRecepcion = today;
+            fechaRecepcion = today;
 
             pedido = null;
             estado = "Pendiente";
