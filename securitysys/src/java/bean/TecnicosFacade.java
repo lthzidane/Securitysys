@@ -8,6 +8,7 @@ package bean;
 import entities.Tecnicos;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -28,4 +29,11 @@ public class TecnicosFacade extends AbstractFacade<Tecnicos> {
         super(Tecnicos.class);
     }
     
+    public Tecnicos findByIdTecnico(Integer idTecnico) {
+        try {
+            return (Tecnicos) em.createNamedQuery("Tecnicos.findByIdTecnico").setParameter("idTecnico", idTecnico).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }    
 }

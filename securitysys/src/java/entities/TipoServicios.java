@@ -7,16 +7,20 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,6 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TipoServicios.findByIdServicio", query = "SELECT t FROM TipoServicios t WHERE t.idServicio = :idServicio"),
     @NamedQuery(name = "TipoServicios.findByDescripcion", query = "SELECT t FROM TipoServicios t WHERE t.descripcion = :descripcion")})
 public class TipoServicios implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServicio")
+    private List<OrdenTrabajoCab> ordenTrabajoCabList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -94,6 +100,15 @@ public class TipoServicios implements Serializable {
     @Override
     public String toString() {
         return "entities.TipoServicios[ idServicio=" + idServicio + " ]";
+    }
+
+    @XmlTransient
+    public List<OrdenTrabajoCab> getOrdenTrabajoCabList() {
+        return ordenTrabajoCabList;
+    }
+
+    public void setOrdenTrabajoCabList(List<OrdenTrabajoCab> ordenTrabajoCabList) {
+        this.ordenTrabajoCabList = ordenTrabajoCabList;
     }
     
 }

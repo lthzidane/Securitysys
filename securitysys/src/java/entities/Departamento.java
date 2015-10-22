@@ -38,6 +38,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Departamento.findByResponsable", query = "SELECT d FROM Departamento d WHERE d.responsable = :responsable"),
     @NamedQuery(name = "Departamento.findByEstado", query = "SELECT d FROM Departamento d WHERE d.estado = :estado")})
 public class Departamento implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDpto")
+    private List<Reclamo> reclamoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDpto")
+    private List<Tiporeclamo> tiporeclamoList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -165,6 +169,24 @@ public class Departamento implements Serializable {
     @Override
     public String toString() {
         return "entities.Departamento[ idDpto=" + idDpto + " ]";
+    }
+
+    @XmlTransient
+    public List<Reclamo> getReclamoList() {
+        return reclamoList;
+    }
+
+    public void setReclamoList(List<Reclamo> reclamoList) {
+        this.reclamoList = reclamoList;
+    }
+
+    @XmlTransient
+    public List<Tiporeclamo> getTiporeclamoList() {
+        return tiporeclamoList;
+    }
+
+    public void setTiporeclamoList(List<Tiporeclamo> tiporeclamoList) {
+        this.tiporeclamoList = tiporeclamoList;
     }
     
 }

@@ -8,6 +8,7 @@ package bean;
 import entities.Cliente;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -27,5 +28,13 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
     public ClienteFacade() {
         super(Cliente.class);
     }
+    
+    public Cliente findByIdCliente(Integer idCliente) {
+        try {
+            return (Cliente) em.createNamedQuery("Cliente.findByIdCliente").setParameter("idCliente", idCliente).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }    
     
 }

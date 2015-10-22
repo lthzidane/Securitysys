@@ -1,21 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package session;
+package bean;
 
-import entities.Proveedor;
+import entities.OrdenTrabajoCab;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Acer
+ * @author expsee
  */
 @Stateless
-public class ProveedorFacade extends AbstractFacade<Proveedor> {
+public class OrdenTrabajoCabFacade extends AbstractFacade<OrdenTrabajoCab> {
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -24,8 +23,8 @@ public class ProveedorFacade extends AbstractFacade<Proveedor> {
         return em;
     }
 
-    public ProveedorFacade() {
-        super(Proveedor.class);
+    public OrdenTrabajoCabFacade() {
+        super(OrdenTrabajoCab.class);
     }
     
 }

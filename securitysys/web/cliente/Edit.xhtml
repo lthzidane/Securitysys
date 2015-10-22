@@ -12,8 +12,8 @@
             <h:form id="ClienteEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditClienteLabel_idCliente}" for="idCliente" />
-                        <p:inputText id="idCliente" value="#{clienteController.selected.idCliente}" title="#{bundle.EditClienteTitle_idCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idCliente}"/>
+                        <p:outputLabel value="#{bundle.EditClienteLabel_idCliente}" for="idCliente" rendered="false"/>
+                        <p:inputText id="idCliente" value="#{clienteController.selected.idCliente}" title="#{bundle.EditClienteTitle_idCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idCliente}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditClienteLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{clienteController.selected.nombre}" title="#{bundle.EditClienteTitle_nombre}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.EditClienteLabel_apellido}" for="apellido" />
@@ -27,13 +27,15 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{ciudadController.itemsAvailableSelectOne}"
                                            var="idCiudadItem"
+                                           itemLabel="#{idCiudadItem.ciudad}"
                                            itemValue="#{idCiudadItem}"/>
-                        </p:selectOneMenu>
+                                                    </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditClienteLabel_idEstado}" for="idEstado" />
                         <p:selectOneMenu id="idEstado" value="#{clienteController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idEstado}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
                                            var="idEstadoItem"
+                                           itemLabel="#{idEstadoItem.estado}"
                                            itemValue="#{idEstadoItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditClienteLabel_idTipoDocu}" for="idTipoDocu" />
@@ -41,6 +43,7 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{tipoDocumentoController.itemsAvailableSelectOne}"
                                            var="idTipoDocuItem"
+                                           itemLabel="#{idTipoDocuItem.tipoDocu}"
                                            itemValue="#{idTipoDocuItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
