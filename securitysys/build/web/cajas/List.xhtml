@@ -40,7 +40,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCajasTitle_idUsuario}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idUsuario}"/>
+                            <h:outputText value="#{item.idUsuario.nombre}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cajasController.prepareCreate}" update=":CajasCreateForm" oncomplete="PF('CajasCreateDialog').show()"/>

@@ -10,10 +10,12 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,6 +41,8 @@ public class Proveedor implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "cod_prov")
+    @GeneratedValue(generator="ProvSeq") 
+    @SequenceGenerator(name="ProvSeq",sequenceName="cod_prov_proveedor_seq_1", allocationSize=1) 
     private Integer codProv;
     @Size(max = 30)
     @Column(name = "ruc_prov")

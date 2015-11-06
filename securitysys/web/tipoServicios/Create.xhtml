@@ -12,8 +12,8 @@
             <h:form id="TipoServiciosCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tipoServiciosController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateTipoServiciosLabel_idServicio}" for="idServicio" />
-                        <p:inputText id="idServicio" value="#{tipoServiciosController.selected.idServicio}" title="#{bundle.CreateTipoServiciosTitle_idServicio}" required="true" requiredMessage="#{bundle.CreateTipoServiciosRequiredMessage_idServicio}"/>
+                        <p:outputLabel value="#{bundle.CreateTipoServiciosLabel_idServicio}" for="idServicio" rendered="false"/>
+                        <p:inputText id="idServicio" value="#{tipoServiciosController.selected.idServicio}" title="#{bundle.CreateTipoServiciosTitle_idServicio}" required="true" requiredMessage="#{bundle.CreateTipoServiciosRequiredMessage_idServicio}" rendered="false"/>
                         <p:outputLabel value="#{bundle.CreateTipoServiciosLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{tipoServiciosController.selected.descripcion}" title="#{bundle.CreateTipoServiciosTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateTipoServiciosRequiredMessage_descripcion}"/>
                     </p:panelGrid>

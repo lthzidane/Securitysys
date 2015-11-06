@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -12,10 +12,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -42,8 +44,10 @@ public class Paises implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_pais")
+    @GeneratedValue(generator="PaisSeq") 
+    @SequenceGenerator(name="PaisSeq",sequenceName="id_pais_paises_seq_1", allocationSize=1) 
     private BigDecimal idPais;
-    @Basic(optional = false)
+       @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
     @Column(name = "prefijo")

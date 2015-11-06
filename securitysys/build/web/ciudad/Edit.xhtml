@@ -12,8 +12,8 @@
             <h:form id="CiudadEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ciudadController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditCiudadLabel_idCiudad}" for="idCiudad" />
-                        <p:inputText id="idCiudad" value="#{ciudadController.selected.idCiudad}" title="#{bundle.EditCiudadTitle_idCiudad}" required="true" requiredMessage="#{bundle.EditCiudadRequiredMessage_idCiudad}"/>
+                        <p:outputLabel value="#{bundle.EditCiudadLabel_idCiudad}" for="idCiudad"  rendered="false"/>
+                        <p:inputText id="idCiudad" value="#{ciudadController.selected.idCiudad}" title="#{bundle.EditCiudadTitle_idCiudad}" required="true" requiredMessage="#{bundle.EditCiudadRequiredMessage_idCiudad}"  rendered="false"/>
                         <p:outputLabel value="#{bundle.EditCiudadLabel_ciudad}" for="ciudad" />
                         <p:inputText id="ciudad" value="#{ciudadController.selected.ciudad}" title="#{bundle.EditCiudadTitle_ciudad}" required="true" requiredMessage="#{bundle.EditCiudadRequiredMessage_ciudad}"/>
                         <p:outputLabel value="#{bundle.EditCiudadLabel_idPais}" for="idPais" />
@@ -21,6 +21,7 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{paisesController.itemsAvailableSelectOne}"
                                            var="idPaisItem"
+                                           itemLabel="#{idPaisItem.nombre}"
                                            itemValue="#{idPaisItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>

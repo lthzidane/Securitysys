@@ -12,8 +12,9 @@
             <h:form id="TipoServiciosEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tipoServiciosController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditTipoServiciosLabel_idServicio}" for="idServicio" />
-                        <p:inputText id="idServicio" value="#{tipoServiciosController.selected.idServicio}" title="#{bundle.EditTipoServiciosTitle_idServicio}" required="true" requiredMessage="#{bundle.EditTipoServiciosRequiredMessage_idServicio}"/>
+                        <p:outputLabel value="#{bundle.EditTipoServiciosLabel_idServicio}" for="idServicio" rendered="false"
+                                       />
+                        <p:inputText id="idServicio" value="#{tipoServiciosController.selected.idServicio}" title="#{bundle.EditTipoServiciosTitle_idServicio}" required="true" requiredMessage="#{bundle.EditTipoServiciosRequiredMessage_idServicio}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditTipoServiciosLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{tipoServiciosController.selected.descripcion}" title="#{bundle.EditTipoServiciosTitle_descripcion}" required="true" requiredMessage="#{bundle.EditTipoServiciosRequiredMessage_descripcion}"/>
                     </p:panelGrid>

@@ -12,8 +12,8 @@
             <h:form id="ProveedorCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateProveedorLabel_codProv}" for="codProv" />
-                        <p:inputText id="codProv" value="#{proveedorController.selected.codProv}" title="#{bundle.CreateProveedorTitle_codProv}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_codProv}"/>
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_codProv}" for="codProv" rendered="false"/>
+                        <p:inputText id="codProv" value="#{proveedorController.selected.codProv}" title="#{bundle.CreateProveedorTitle_codProv}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_codProv}" rendered="false"/>
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_rucProv}" for="rucProv" />
                         <p:inputText id="rucProv" value="#{proveedorController.selected.rucProv}" title="#{bundle.CreateProveedorTitle_rucProv}" />
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_descriProv}" for="descriProv" />

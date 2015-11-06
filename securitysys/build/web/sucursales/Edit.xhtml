@@ -12,8 +12,8 @@
             <h:form id="SucursalesEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{sucursalesController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditSucursalesLabel_idSucursal}" for="idSucursal" />
-                        <p:inputText id="idSucursal" value="#{sucursalesController.selected.idSucursal}" title="#{bundle.EditSucursalesTitle_idSucursal}" required="true" requiredMessage="#{bundle.EditSucursalesRequiredMessage_idSucursal}"/>
+                        <p:outputLabel value="#{bundle.EditSucursalesLabel_idSucursal}" for="idSucursal" rendered="false"/>
+                        <p:inputText id="idSucursal" value="#{sucursalesController.selected.idSucursal}" title="#{bundle.EditSucursalesTitle_idSucursal}" required="true" requiredMessage="#{bundle.EditSucursalesRequiredMessage_idSucursal}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditSucursalesLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{sucursalesController.selected.descripcion}" title="#{bundle.EditSucursalesTitle_descripcion}" required="true" requiredMessage="#{bundle.EditSucursalesRequiredMessage_descripcion}"/>
                     </p:panelGrid>

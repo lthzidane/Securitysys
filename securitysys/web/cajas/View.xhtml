@@ -15,7 +15,7 @@
                         <h:outputText value="#{bundle.ViewCajasLabel_idCaja}"/>
                         <h:outputText value="#{cajasController.selected.idCaja}" title="#{bundle.ViewCajasTitle_idCaja}"/>
                         <h:outputText value="#{bundle.ViewCajasLabel_idUsuario}"/>
-                        <h:outputText value="#{cajasController.selected.idUsuario}" title="#{bundle.ViewCajasTitle_idUsuario}"/>
+                        <h:outputText value="#{cajasController.selected.idUsuario.nombre}" title="#{bundle.ViewCajasTitle_idUsuario}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="CajasViewDialog.hide()"/>
                 </h:panelGroup>

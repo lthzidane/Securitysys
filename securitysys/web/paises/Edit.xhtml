@@ -12,8 +12,8 @@
             <h:form id="PaisesEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{paisesController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditPaisesLabel_idPais}" for="idPais" />
-                        <p:inputText id="idPais" value="#{paisesController.selected.idPais}" title="#{bundle.EditPaisesTitle_idPais}" required="true" requiredMessage="#{bundle.EditPaisesRequiredMessage_idPais}"/>
+                        <p:outputLabel value="#{bundle.EditPaisesLabel_idPais}" for="idPais" rendered="false"/>
+                        <p:inputText id="idPais" value="#{paisesController.selected.idPais}" title="#{bundle.EditPaisesTitle_idPais}" required="true" requiredMessage="#{bundle.EditPaisesRequiredMessage_idPais}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditPaisesLabel_prefijo}" for="prefijo" />
                         <p:inputText id="prefijo" value="#{paisesController.selected.prefijo}" title="#{bundle.EditPaisesTitle_prefijo}" required="true" requiredMessage="#{bundle.EditPaisesRequiredMessage_prefijo}"/>
                         <p:outputLabel value="#{bundle.EditPaisesLabel_nombre}" for="nombre" />
