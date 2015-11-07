@@ -225,44 +225,50 @@ public class OrdenTrabajoBean implements Serializable{
     }
 
     public void obtenerDatosCliente() {
-        String nombreCliente = this.cliente;
-        Connection con = null;
-        PreparedStatement ps = null;
-        
-        try {
-            con = DataConnect.getConnection();
-            ps = con.prepareStatement("SELECT  cl.id_cliente, "
-                    + "ci.ciudad, es.estado, td.tipo_docu, "
-                    + "cl.nombre, cl.apellido, cl.direccion, "
-                    + "cl.telefono, cl.nro_documento FROM cliente cl, ciudad ci, "
-                    + "estado es, tipo_documento td where nombre like ? "
-                    + "and ci.id_ciudad = cl.id_ciudad "
-                    + "and es.id_estado = cl.id_estado "
-                    + "and td.id_tipo_docu = cl.id_tipo_docu");
+        String nroDocumentoCliente = this.cliente;
+        System.out.println("nroDocumentoCliente: " + nroDocumentoCliente);
+        if (nroDocumentoCliente != null && !"".equalsIgnoreCase(nroDocumentoCliente)) {
+            Connection con = null;
+            PreparedStatement ps = null;
 
-            ps.setString(1, nombreCliente+"%");
-            
-            ResultSet rs = ps.executeQuery();
+            try {
+                con = DataConnect.getConnection();
+                ps = con.prepareStatement("SELECT  cl.id_cliente, "
+                        + "ci.ciudad, es.estado, td.tipo_docu, "
+                        + "cl.nombre, cl.apellido, cl.direccion, "
+                        + "cl.telefono, cl.nro_documento "
+                        + "FROM cliente cl, ciudad ci, "
+                        + "estado es, tipo_documento td "
+                        + "where nro_documento = ? "
+                        + "and ci.id_ciudad = cl.id_ciudad "
+                        + "and es.id_estado = cl.id_estado "
+                        + "and td.id_tipo_docu = cl.id_tipo_docu");
 
-            while(rs.next()){
-                this.idCliente = rs.getInt("id_cliente");
-                this.nroDocumento = rs.getString("nro_documento");
-                this.razonsocial = rs.getString("nombre") + " " + rs.getString("apellido");
-                this.ciudad = rs.getString("ciudad");        
-                this.direccion = rs.getString("direccion");
-                this.telefono = rs.getString("telefono");
+                ps.setInt(1, Integer.parseInt(nroDocumentoCliente));
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    this.idCliente = rs.getInt("id_cliente");
+                    this.nroDocumento = rs.getString("nro_documento");
+                    this.razonsocial = rs.getString("nombre") + " " + rs.getString("apellido");
+                    this.ciudad = rs.getString("ciudad");
+                    this.direccion = rs.getString("direccion");
+                    this.telefono = rs.getString("telefono");
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al obtener Cliente -->" + ex.getMessage());
+
+            } finally {
+                DataConnect.close(con);
+
             }
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener Tecnicos -->" + ex.getMessage());
-            
-        } finally {
-            DataConnect.close(con);
-            
+
         }
-        
+
     }
-    
-    
+
+ 
     private void persistOTCab(JsfUtil.PersistAction persistAction, String successMessage) {
         if (ordenTrabajoCab != null) {
 
