@@ -6,15 +6,20 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,6 +38,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tecnicos.findByIdTecnico", query = "SELECT t FROM Tecnicos t WHERE t.idTecnico = :idTecnico"),
     @NamedQuery(name = "Tecnicos.findByNombre", query = "SELECT t FROM Tecnicos t WHERE t.nombre = :nombre")})
 public class Tecnicos implements Serializable {
+    @Column(name = "nro_documento")
+    private BigInteger nroDocumento;
+    @JoinColumn(name = "tipo_documento", referencedColumnName = "id_tipo_docu")
+    @ManyToOne
+    private TipoDocumento tipoDocumento;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTecnico")
     private List<OrdenTrabajoCab> ordenTrabajoCabList;
     private static final long serialVersionUID = 1L;
@@ -40,6 +50,8 @@ public class Tecnicos implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_tecnico")
+    @GeneratedValue(generator="TecSeq") 
+    @SequenceGenerator(name="TecSeq",sequenceName="id_tecnico_tecnicos_seq", allocationSize=1) 
     private Integer idTecnico;
     @Basic(optional = false)
     @NotNull
@@ -107,6 +119,22 @@ public class Tecnicos implements Serializable {
 
     public void setOrdenTrabajoCabList(List<OrdenTrabajoCab> ordenTrabajoCabList) {
         this.ordenTrabajoCabList = ordenTrabajoCabList;
+    }
+
+    public BigInteger getNroDocumento() {
+        return nroDocumento;
+    }
+
+    public void setNroDocumento(BigInteger nroDocumento) {
+        this.nroDocumento = nroDocumento;
+    }
+
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
     
 }

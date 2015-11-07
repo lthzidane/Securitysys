@@ -40,6 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Departamento.findByResponsable", query = "SELECT d FROM Departamento d WHERE d.responsable = :responsable"),
     @NamedQuery(name = "Departamento.findByEstado", query = "SELECT d FROM Departamento d WHERE d.estado = :estado")})
 public class Departamento implements Serializable {
+    @Size(max = 40)
+    @Column(name = "estado")
+    private String estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDpto")
     private List<Reclamo> reclamoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDpto")
@@ -68,10 +71,6 @@ public class Departamento implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "responsable")
     private String responsable;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "estado")
-    private BigInteger estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDpto")
     private List<Usuario> usuarioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDpto")
@@ -84,7 +83,7 @@ public class Departamento implements Serializable {
         this.idDpto = idDpto;
     }
 
-    public Departamento(BigDecimal idDpto, String nombreDpto, String funcion, String responsable, BigInteger estado) {
+    public Departamento(BigDecimal idDpto, String nombreDpto, String funcion, String responsable, String estado) {
         this.idDpto = idDpto;
         this.nombreDpto = nombreDpto;
         this.funcion = funcion;
@@ -124,13 +123,6 @@ public class Departamento implements Serializable {
         this.responsable = responsable;
     }
 
-    public BigInteger getEstado() {
-        return estado;
-    }
-
-    public void setEstado(BigInteger estado) {
-        this.estado = estado;
-    }
 
     @XmlTransient
     public List<Usuario> getUsuarioList() {
@@ -191,6 +183,14 @@ public class Departamento implements Serializable {
 
     public void setTiporeclamoList(List<Tiporeclamo> tiporeclamoList) {
         this.tiporeclamoList = tiporeclamoList;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

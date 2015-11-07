@@ -13,12 +13,15 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,6 +42,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByContrasenha", query = "SELECT u FROM Usuario u WHERE u.contrasenha = :contrasenha"),
     @NamedQuery(name = "Usuario.findByEstado", query = "SELECT u FROM Usuario u WHERE u.estado = :estado")})
 public class Usuario implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "estado")
+    private String estado;
+    @Size(max = 5)
+    @Column(name = "rol")
+    private String rol;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private List<Cajas> cajasList;
     private static final long serialVersionUID = 1L;
@@ -47,6 +58,8 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_usuario")
+    @GeneratedValue(generator="UsuSeq") 
+    @SequenceGenerator(name="UsuSeq",sequenceName="id_usuario_usuario_seq", allocationSize=1) 
     private BigDecimal idUsuario;
     @Basic(optional = false)
     @NotNull
@@ -58,10 +71,6 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "contrasenha")
     private String contrasenha;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "estado")
-    private BigInteger estado;
     @JoinColumn(name = "id_dpto", referencedColumnName = "id_dpto")
     @ManyToOne(optional = false)
     private Departamento idDpto;
@@ -75,10 +84,11 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(BigDecimal idUsuario, String nombre, String contrasenha, BigInteger estado) {
+    public Usuario(BigDecimal idUsuario, String nombre, String contrasenha, String rol, String estado) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.contrasenha = contrasenha;
+        this.rol = rol;
         this.estado = estado;
     }
 
@@ -106,13 +116,6 @@ public class Usuario implements Serializable {
         this.contrasenha = contrasenha;
     }
 
-    public BigInteger getEstado() {
-        return estado;
-    }
-
-    public void setEstado(BigInteger estado) {
-        this.estado = estado;
-    }
 
     public Departamento getIdDpto() {
         return idDpto;
@@ -163,6 +166,22 @@ public class Usuario implements Serializable {
 
     public void setCajasList(List<Cajas> cajasList) {
         this.cajasList = cajasList;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

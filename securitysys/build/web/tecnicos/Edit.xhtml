@@ -12,10 +12,19 @@
             <h:form id="TecnicosEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tecnicosController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditTecnicosLabel_idTecnico}" for="idTecnico" />
-                        <p:inputText id="idTecnico" value="#{tecnicosController.selected.idTecnico}" title="#{bundle.EditTecnicosTitle_idTecnico}" required="true" requiredMessage="#{bundle.EditTecnicosRequiredMessage_idTecnico}"/>
+                        <p:outputLabel value="#{bundle.EditTecnicosLabel_idTecnico}" for="idTecnico" rendered="false"/>
+                        <p:inputText id="idTecnico" value="#{tecnicosController.selected.idTecnico}" title="#{bundle.EditTecnicosTitle_idTecnico}" required="true" requiredMessage="#{bundle.EditTecnicosRequiredMessage_idTecnico}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditTecnicosLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{tecnicosController.selected.nombre}" title="#{bundle.EditTecnicosTitle_nombre}" required="true" requiredMessage="#{bundle.EditTecnicosRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.EditTecnicosLabel_tipoDocu}" for="tipoDocu" />                        
+                        <p:selectOneMenu id="tipoDocu" value="#{tecnicosController.selected.tipoDocumento}" required="true" requiredMessage="#{bundle.EditTecnicosRequiredMessage_tipoDocu}">
+                            <f:selectItems value="#{tipoDocumentoController.itemsAvailableSelectOne}"
+                                           var="idTipoDocuItem"
+                                           itemLabel="#{idTipoDocuItem.tipoDocu}"
+                                           itemValue="#{idTipoDocuItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTecnicosLabel_nroDocu}" for="nroDocu" />
+                        <p:inputText id="nroDocu" value="#{tecnicosController.selected.nroDocumento}" title="#{bundle.EditTecnicosTitle_nroDocu}" required="true" requiredMessage="#{bundle.EditTecnicosRequiredMessage_nroDocu}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{tecnicosController.update}" value="#{bundle.Save}" update="display,:TecnicosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TecnicosEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TecnicosEditDialog.hide()"/>

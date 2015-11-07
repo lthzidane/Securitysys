@@ -25,12 +25,13 @@
                                  rowKey="#{item.idTecnico}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No hay filas que mostrar"
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTecnicosTitle_idTecnico}"/>
                             </f:facet>
@@ -41,6 +42,18 @@
                                 <h:outputText value="#{bundle.ListTecnicosTitle_nombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTecnicosTitle_tipoDocu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoDocumento.tipoDocu}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTecnicosTitle_nroDocu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nroDocumento}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tecnicosController.prepareCreate}" update=":TecnicosCreateForm" oncomplete="PF('TecnicosCreateDialog').show()"/>

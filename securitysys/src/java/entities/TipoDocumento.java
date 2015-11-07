@@ -7,6 +7,7 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -36,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoDocumento.findByIdTipoDocu", query = "SELECT t FROM TipoDocumento t WHERE t.idTipoDocu = :idTipoDocu"),
     @NamedQuery(name = "TipoDocumento.findByTipoDocu", query = "SELECT t FROM TipoDocumento t WHERE t.tipoDocu = :tipoDocu")})
 public class TipoDocumento implements Serializable {
+    @OneToMany(mappedBy = "tipoDocumento")
+    private Collection<Tecnicos> tecnicosCollection;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -113,6 +116,15 @@ public class TipoDocumento implements Serializable {
     @Override
     public String toString() {
         return "entities.TipoDocumento[ idTipoDocu=" + idTipoDocu + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Tecnicos> getTecnicosCollection() {
+        return tecnicosCollection;
+    }
+
+    public void setTecnicosCollection(Collection<Tecnicos> tecnicosCollection) {
+        this.tecnicosCollection = tecnicosCollection;
     }
     
 }

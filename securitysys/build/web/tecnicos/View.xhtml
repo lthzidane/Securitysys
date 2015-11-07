@@ -16,6 +16,10 @@
                         <h:outputText value="#{tecnicosController.selected.idTecnico}" title="#{bundle.ViewTecnicosTitle_idTecnico}"/>
                         <h:outputText value="#{bundle.ViewTecnicosLabel_nombre}"/>
                         <h:outputText value="#{tecnicosController.selected.nombre}" title="#{bundle.ViewTecnicosTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewTecnicosLabel_tipoDocu}"/>
+                        <h:outputText value="#{tecnicosController.selected.tipoDocumento.tipoDocu}" title="#{bundle.ViewTecnicosTitle_tipoDocu}"/>
+                        <h:outputText value="#{bundle.ViewTecnicosLabel_nroDocu}"/>
+                        <h:outputText value="#{tecnicosController.selected.nroDocumento}" title="#{bundle.ViewTecnicosTitle_nroDocu}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="TecnicosViewDialog.hide()"/>
                 </h:panelGroup>

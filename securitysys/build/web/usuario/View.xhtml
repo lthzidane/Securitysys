@@ -18,10 +18,12 @@
                         <h:outputText value="#{usuarioController.selected.nombre}" title="#{bundle.ViewUsuarioTitle_nombre}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_contrasenha}"/>
                         <h:outputText value="#{usuarioController.selected.contrasenha}" title="#{bundle.ViewUsuarioTitle_contrasenha}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_rol}"/>
+                        <h:outputText value="#{usuarioController.selected.rol}" title="#{bundle.ViewUsuarioTitle_rol}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_estado}"/>
                         <h:outputText value="#{usuarioController.selected.estado}" title="#{bundle.ViewUsuarioTitle_estado}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_idDpto}"/>
-                        <h:outputText value="#{usuarioController.selected.idDpto}" title="#{bundle.ViewUsuarioTitle_idDpto}"/>
+                        <h:outputText value="#{usuarioController.selected.idDpto.nombreDpto}" title="#{bundle.ViewUsuarioTitle_idDpto}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="UsuarioViewDialog.hide()"/>
                 </h:panelGroup>

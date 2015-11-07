@@ -12,19 +12,23 @@
             <h:form id="UsuarioEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_idUsuario}" for="idUsuario" />
-                        <p:inputText id="idUsuario" value="#{usuarioController.selected.idUsuario}" title="#{bundle.EditUsuarioTitle_idUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idUsuario}"/>
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_idUsuario}" for="idUsuario" rendered="false"/>
+                        <p:inputText id="idUsuario" value="#{usuarioController.selected.idUsuario}" title="#{bundle.EditUsuarioTitle_idUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idUsuario}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{bundle.EditUsuarioTitle_nombre}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_contrasenha}" for="contrasenha" />
                         <p:inputText id="contrasenha" value="#{usuarioController.selected.contrasenha}" title="#{bundle.EditUsuarioTitle_contrasenha}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_contrasenha}"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{usuarioController.selected.estado}" title="#{bundle.EditUsuarioTitle_estado}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_estado}"/>
+                        <p:selectOneMenu id="estado" value="#{usuarioController.selected.estado}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_contrasenha}">
+                            <f:selectItem itemLabel="ACTIVO" itemValue="ACTIVO" />
+                            <f:selectItem itemLabel="HISTORICO" itemValue="HISTORICO" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_idDpto}" for="idDpto" />
                         <p:selectOneMenu id="idDpto" value="#{usuarioController.selected.idDpto}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idDpto}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"
                                            var="idDptoItem"
+                                           itemLabel="#{idDptoItem.nombreDpto}"
                                            itemValue="#{idDptoItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>

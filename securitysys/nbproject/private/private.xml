@@ -8,9 +8,8 @@
             <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/Bundle.properties</file>
         </group>
         <group name="otroGrupo">
-            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/UsuarioFacade.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/session/UsuarioController.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/usuario/List.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenTrabajoBean.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
         </group>
     </open-files>
 </project-private>
