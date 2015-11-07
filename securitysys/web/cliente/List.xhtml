@@ -33,7 +33,7 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_idCliente}"/>
                             </f:facet>
@@ -80,6 +80,12 @@
                                 <h:outputText value="#{bundle.ListClienteTitle_idTipoDocu}"/>
                             </f:facet>
                             <h:outputText value="#{item.idTipoDocu.tipoDocu}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_nroDocu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nroDocumento}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{clienteController.prepareCreate}" update=":ClienteCreateForm" oncomplete="PF('ClienteCreateDialog').show()"/>

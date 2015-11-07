@@ -46,6 +46,8 @@
                                            itemLabel="#{idTipoDocuItem.tipoDocu}"
                                            itemValue="#{idTipoDocuItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditClienteLabel_nroDocu}" for="nroDocumento" />
+                        <p:inputText id="nroDocumento" value="#{clienteController.selected.nroDocumento}" title="#{bundle.EditClienteTitle_nroDocu}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_nroDocu}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{clienteController.update}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ClienteEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClienteEditDialog.hide()"/>
