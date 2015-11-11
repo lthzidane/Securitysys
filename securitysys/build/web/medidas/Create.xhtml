@@ -12,8 +12,8 @@
             <h:form id="MedidasCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{medidasController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateMedidasLabel_idMedida}" for="idMedida" />
-                        <p:inputText id="idMedida" value="#{medidasController.selected.idMedida}" title="#{bundle.CreateMedidasTitle_idMedida}" required="true" requiredMessage="#{bundle.CreateMedidasRequiredMessage_idMedida}"/>
+                        <p:outputLabel value="#{bundle.CreateMedidasLabel_idMedida}" for="idMedida" rendered="false"/>
+                        <p:inputText id="idMedida" value="#{medidasController.selected.idMedida}" title="#{bundle.CreateMedidasTitle_idMedida}" required="true" requiredMessage="#{bundle.CreateMedidasRequiredMessage_idMedida}" rendered="false"/>
                         <p:outputLabel value="#{bundle.CreateMedidasLabel_descMedida}" for="descMedida" />
                         <p:inputText id="descMedida" value="#{medidasController.selected.descMedida}" title="#{bundle.CreateMedidasTitle_descMedida}" required="true" requiredMessage="#{bundle.CreateMedidasRequiredMessage_descMedida}"/>
                     </p:panelGrid>

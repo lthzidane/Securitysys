@@ -12,8 +12,8 @@
             <h:form id="MedidasEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{medidasController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditMedidasLabel_idMedida}" for="idMedida" />
-                        <p:inputText id="idMedida" value="#{medidasController.selected.idMedida}" title="#{bundle.EditMedidasTitle_idMedida}" required="true" requiredMessage="#{bundle.EditMedidasRequiredMessage_idMedida}"/>
+                        <p:outputLabel value="#{bundle.EditMedidasLabel_idMedida}" for="idMedida" rendered="false"/>
+                        <p:inputText id="idMedida" value="#{medidasController.selected.idMedida}" title="#{bundle.EditMedidasTitle_idMedida}" required="true" requiredMessage="#{bundle.EditMedidasRequiredMessage_idMedida}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditMedidasLabel_descMedida}" for="descMedida" />
                         <p:inputText id="descMedida" value="#{medidasController.selected.descMedida}" title="#{bundle.EditMedidasTitle_descMedida}" required="true" requiredMessage="#{bundle.EditMedidasRequiredMessage_descMedida}"/>
                     </p:panelGrid>

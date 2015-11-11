@@ -2,14 +2,19 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/sucursales/View.xhtml</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/sucursales/List.xhtml</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/Bundle.properties</file>
-        </group>
         <group name="otroGrupo">
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenTrabajoBean.java</file>
             <file>file:/C:/test/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
+        </group>
+        <group>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/medidas/List.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/medidas/Edit.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/home.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/medidas/Create.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/admin.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/entities/Medidas.java</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/Bundle.properties</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/template.xhtml</file>
         </group>
     </open-files>
 </project-private>

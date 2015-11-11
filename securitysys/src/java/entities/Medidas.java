@@ -12,10 +12,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,6 +42,8 @@ public class Medidas implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_medida")
+    @GeneratedValue(generator="MedidaSeq") 
+    @SequenceGenerator(name="MedidaSeq",sequenceName="id_medida_medidas_seq_1", allocationSize=1) 
     private BigDecimal idMedida;
     @Basic(optional = false)
     @NotNull
