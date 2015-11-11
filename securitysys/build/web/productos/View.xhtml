@@ -17,7 +17,7 @@
                         <h:outputText value="#{bundle.ViewProductosLabel_descripcion}"/>
                         <h:outputText value="#{productosController.selected.descripcion}" title="#{bundle.ViewProductosTitle_descripcion}"/>
                         <h:outputText value="#{bundle.ViewProductosLabel_idMedida}"/>
-                        <h:outputText value="#{productosController.selected.idMedida}" title="#{bundle.ViewProductosTitle_idMedida}"/>
+                        <h:outputText value="#{productosController.selected.idMedida.descMedida}" title="#{bundle.ViewProductosTitle_idMedida}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ProductosViewDialog.hide()"/>
                 </h:panelGroup>

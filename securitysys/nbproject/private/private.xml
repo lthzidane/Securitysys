@@ -7,14 +7,10 @@
             <file>file:/C:/test/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
         </group>
         <group>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/medidas/List.xhtml</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/medidas/Edit.xhtml</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/home.xhtml</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/medidas/Create.xhtml</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/admin.xhtml</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/entities/Medidas.java</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/Bundle.properties</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/template.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/productos/Edit.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/productos/List.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/productos/Create.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/productos/View.xhtml</file>
         </group>
     </open-files>
 </project-private>

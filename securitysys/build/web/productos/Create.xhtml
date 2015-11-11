@@ -12,14 +12,15 @@
             <h:form id="ProductosCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{productosController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateProductosLabel_codProducto}" for="codProducto" />
-                        <p:inputText id="codProducto" value="#{productosController.selected.codProducto}" title="#{bundle.CreateProductosTitle_codProducto}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_codProducto}"/>
+                        <p:outputLabel value="#{bundle.CreateProductosLabel_codProducto}" for="codProducto" rendered="false"/>
+                        <p:inputText id="codProducto" value="#{productosController.selected.codProducto}" title="#{bundle.CreateProductosTitle_codProducto}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_codProducto}" rendered="false"/>
                         <p:outputLabel value="#{bundle.CreateProductosLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{productosController.selected.descripcion}" title="#{bundle.CreateProductosTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_descripcion}"/>
                         <p:outputLabel value="#{bundle.CreateProductosLabel_idMedida}" for="idMedida" />
                         <p:selectOneMenu id="idMedida" value="#{productosController.selected.idMedida}" required="true" requiredMessage="#{bundle.EditProductosRequiredMessage_idMedida}">
                             <f:selectItems value="#{medidasController.itemsAvailableSelectOne}"
                                            var="idMedidaItem"
+                                           itemLabel="#{idMedidaItem.descMedida}"
                                            itemValue="#{idMedidaItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
