@@ -12,12 +12,14 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author LOTHAR
+ * @author Acer
  */
 @Entity
 @Table(name = "funcionario")
@@ -43,6 +45,8 @@ public class Funcionario implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
+    @GeneratedValue(generator="FuncionarioSeq") 
+    @SequenceGenerator(name="FuncionarioSeq",sequenceName="id_funcionario_funcionario_seq", allocationSize=1) 
     @Column(name = "id_funcionario")
     private BigDecimal idFuncionario;
     @Basic(optional = false)

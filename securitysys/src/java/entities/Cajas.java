@@ -10,11 +10,13 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -36,6 +38,8 @@ public class Cajas implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_caja")
+    @GeneratedValue(generator="CajaSeq") 
+    @SequenceGenerator(name="CajaSeq",sequenceName="id_caja_cajas_seq", allocationSize=1) 
     private BigDecimal idCaja;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)

@@ -12,8 +12,8 @@
             <h:form id="DepositosEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{depositosController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditDepositosLabel_idDeposito}" for="idDeposito" />
-                        <p:inputText id="idDeposito" value="#{depositosController.selected.idDeposito}" title="#{bundle.EditDepositosTitle_idDeposito}" required="true" requiredMessage="#{bundle.EditDepositosRequiredMessage_idDeposito}"/>
+                        <p:outputLabel value="#{bundle.EditDepositosLabel_idDeposito}" for="idDeposito" rendered="false"/>
+                        <p:inputText id="idDeposito" value="#{depositosController.selected.idDeposito}" title="#{bundle.EditDepositosTitle_idDeposito}" required="true" requiredMessage="#{bundle.EditDepositosRequiredMessage_idDeposito}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditDepositosLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{depositosController.selected.descripcion}" title="#{bundle.EditDepositosTitle_descripcion}" required="true" requiredMessage="#{bundle.EditDepositosRequiredMessage_descripcion}"/>
                         <p:outputLabel value="#{bundle.EditDepositosLabel_idSucursal}" for="idSucursal" />
@@ -21,6 +21,7 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{sucursalesController.itemsAvailableSelectOne}"
                                            var="idSucursalItem"
+                                           itemLabel="#{idSucursalItem.descripcion}"
                                            itemValue="#{idSucursalItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>

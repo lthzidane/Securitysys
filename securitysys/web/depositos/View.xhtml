@@ -17,7 +17,7 @@
                         <h:outputText value="#{bundle.ViewDepositosLabel_descripcion}"/>
                         <h:outputText value="#{depositosController.selected.descripcion}" title="#{bundle.ViewDepositosTitle_descripcion}"/>
                         <h:outputText value="#{bundle.ViewDepositosLabel_idSucursal}"/>
-                        <h:outputText value="#{depositosController.selected.idSucursal}" title="#{bundle.ViewDepositosTitle_idSucursal}"/>
+                        <h:outputText value="#{depositosController.selected.idSucursal.descripcion}" title="#{bundle.ViewDepositosTitle_idSucursal}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="DepositosViewDialog.hide()"/>
                 </h:panelGroup>

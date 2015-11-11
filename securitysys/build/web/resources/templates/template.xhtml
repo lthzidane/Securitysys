@@ -32,6 +32,7 @@
                                 <h:commandLink value="Referenciales"/>
                                 <ul>
                                     <li><h:link outcome="/cliente/List" value="Cliente" rendered="#{login.showMenu(access.Cliente_View)}" /></li>
+                                    <li><h:link outcome="/tipo_cliente/List" value="Tipo de Cliente" rendered="#{login.showMenu(access.Productos_View)}" /></li>
                                     <li><h:link outcome="/ciudad/List" value="Ciudad" rendered="#{login.showMenu(access.Ciudad_View)}" /></li>                                   
                                     <li><h:link outcome="/paises/List" value="Pais" rendered="#{login.showMenu(access.Paises_View)}" /></li>
                                     <li><h:link outcome="/tipoDocumento/List" value="Tipo Documento" rendered="#{login.showMenu(access.TipoDocumento_View)}" /></li>
@@ -44,6 +45,7 @@
                                     <li><h:link outcome="/departamento/List" value="Departamento" rendered="#{login.showMenu(access.Departamento_View)}" /></li>
                                     <li><h:link outcome="/funcionario/List" value="Funcionario" rendered="#{login.showMenu(access.Funcionario_View)}" /></li>
                                     <li><h:link outcome="/medidas/List" value="Medidas" rendered="#{login.showMenu(access.Medidas_View)}" /></li>
+                                    <li><h:link outcome="/moviles/List" value="Movile" rendered="#{login.showMenu(access.Productos_View)}" /></li>
                                 </ul>
                             </li>  
                             <li>
@@ -93,7 +95,8 @@
                                 <h:commandLink value="Inventario"/>
                                 <ul>
                                     <li><h:link outcome="/depositos/List" value="Listar Deposito" rendered="#{login.showMenu(access.Depositos_View)}" /></li>
-                                    <li><h:link outcome="/productos/List" value="Productos" rendered="#{login.showMenu(access.Productos_View)}" /></li>
+                                    <li><h:link outcome="/productos_kit/List" value="Kit de Productos" rendered="#{login.showMenu(access.Productos_View)}" /></li>
+                                     <li><h:link outcome="/admin" value="Agregar sucursal" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                     <li><h:link outcome="/admin" value="Busqueda y modificacion de articulos" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                     <li><h:link outcome="/admin" value="Ajustes de Stock" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                     <li><h:link outcome="/admin" value="Control de Stock" rendered="#{login.showMenu(access.Admin_View)}" /></li>
@@ -109,7 +112,7 @@
                                     <li><h:link outcome="/admin" value="Arqueo y cierre de cajas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                     <li><h:link outcome="/cajas/List" value="Agregar caja" rendered="#{login.showMenu(access.Cajas_View)}" /></li>
                                     <li><h:link outcome="/admin" value="Agregar cajero" rendered="#{login.showMenu(access.Admin_View)}" /></li>
-                                    <li><h:link outcome="/admin" value="Agregar sucursal" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                   
                                 </ul>
                             </li> 
                             

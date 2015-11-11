@@ -12,8 +12,8 @@
             <h:form id="FuncionarioEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{funcionarioController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditFuncionarioLabel_idFuncionario}" for="idFuncionario" />
-                        <p:inputText id="idFuncionario" value="#{funcionarioController.selected.idFuncionario}" title="#{bundle.EditFuncionarioTitle_idFuncionario}" required="true" requiredMessage="#{bundle.EditFuncionarioRequiredMessage_idFuncionario}"/>
+                        <p:outputLabel value="#{bundle.EditFuncionarioLabel_idFuncionario}" for="idFuncionario" rendered="false"/>
+                        <p:inputText id="idFuncionario" value="#{funcionarioController.selected.idFuncionario}" title="#{bundle.EditFuncionarioTitle_idFuncionario}" required="true" requiredMessage="#{bundle.EditFuncionarioRequiredMessage_idFuncionario}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditFuncionarioLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{funcionarioController.selected.nombre}" title="#{bundle.EditFuncionarioTitle_nombre}" required="true" requiredMessage="#{bundle.EditFuncionarioRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.EditFuncionarioLabel_idDpto}" for="idDpto" />
@@ -21,6 +21,7 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"
                                            var="idDptoItem"
+                                           itemLabel="#{idDptoItem.nombreDpto}"
                                            itemValue="#{idDptoItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditFuncionarioLabel_idUsuario}" for="idUsuario" />
@@ -28,6 +29,7 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="idUsuarioItem"
+                                           itemLabel="#{idUsuarioItem.nombre}"
                                            itemValue="#{idUsuarioItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>

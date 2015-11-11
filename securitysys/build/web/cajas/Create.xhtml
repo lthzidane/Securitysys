@@ -12,12 +12,13 @@
             <h:form id="CajasCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{cajasController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateCajasLabel_idCaja}" for="idCaja" />
-                        <p:inputText id="idCaja" value="#{cajasController.selected.idCaja}" title="#{bundle.CreateCajasTitle_idCaja}" required="true" requiredMessage="#{bundle.CreateCajasRequiredMessage_idCaja}"/>
-                        <p:outputLabel value="#{bundle.CreateCajasLabel_idUsuario}" for="idUsuario" />
+                        <p:outputLabel value="#{bundle.CreateCajasLabel_idCaja}" for="idCaja" rendered="false"/>
+			<p:inputText id="idCaja" value="#{cajasController.selected.idCaja}" title="#{bundle.CreateCajasTitle_idCaja}" required="true" requiredMessage="#{bundle.CreateCajasRequiredMessage_idCaja}" rendered="false" />
+                        <p:outputLabel value="#{bundle.CreateCajasLabel_idUsuario}" for="idUsuario" rendered="false"/>
                         <p:selectOneMenu id="idUsuario" value="#{cajasController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditCajasRequiredMessage_idUsuario}">
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="idUsuarioItem"
+                                           itemLabel="#{idUsuarioItem.nombre}"
                                            itemValue="#{idUsuarioItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>

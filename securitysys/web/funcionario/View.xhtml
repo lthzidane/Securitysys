@@ -12,14 +12,14 @@
             <h:form id="FuncionarioViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{funcionarioController.selected != null}">
-                        <h:outputText value="#{bundle.ViewFuncionarioLabel_idFuncionario}"/>
-                        <h:outputText value="#{funcionarioController.selected.idFuncionario}" title="#{bundle.ViewFuncionarioTitle_idFuncionario}"/>
+                        <h:outputText value="#{bundle.ViewFuncionarioLabel_idFuncionario}" rendered="false"/>
+                        <h:outputText value="#{funcionarioController.selected.idFuncionario}" title="#{bundle.ViewFuncionarioTitle_idFuncionario}" rendered="false"/>
                         <h:outputText value="#{bundle.ViewFuncionarioLabel_nombre}"/>
                         <h:outputText value="#{funcionarioController.selected.nombre}" title="#{bundle.ViewFuncionarioTitle_nombre}"/>
                         <h:outputText value="#{bundle.ViewFuncionarioLabel_idDpto}"/>
-                        <h:outputText value="#{funcionarioController.selected.idDpto}" title="#{bundle.ViewFuncionarioTitle_idDpto}"/>
+                        <h:outputText value="#{funcionarioController.selected.idDpto.nombreDpto}" title="#{bundle.ViewFuncionarioTitle_idDpto}"/>
                         <h:outputText value="#{bundle.ViewFuncionarioLabel_idUsuario}"/>
-                        <h:outputText value="#{funcionarioController.selected.idUsuario}" title="#{bundle.ViewFuncionarioTitle_idUsuario}"/>
+                        <h:outputText value="#{funcionarioController.selected.idUsuario.nombre}" title="#{bundle.ViewFuncionarioTitle_idUsuario}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="FuncionarioViewDialog.hide()"/>
                 </h:panelGroup>

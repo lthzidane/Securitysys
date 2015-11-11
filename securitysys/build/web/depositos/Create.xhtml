@@ -12,14 +12,15 @@
             <h:form id="DepositosCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{depositosController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateDepositosLabel_idDeposito}" for="idDeposito" />
-                        <p:inputText id="idDeposito" value="#{depositosController.selected.idDeposito}" title="#{bundle.CreateDepositosTitle_idDeposito}" required="true" requiredMessage="#{bundle.CreateDepositosRequiredMessage_idDeposito}"/>
+                        <p:outputLabel value="#{bundle.CreateDepositosLabel_idDeposito}" for="idDeposito" rendered="false"/>
+                        <p:inputText id="idDeposito" value="#{depositosController.selected.idDeposito}" title="#{bundle.CreateDepositosTitle_idDeposito}" required="true" requiredMessage="#{bundle.CreateDepositosRequiredMessage_idDeposito}" rendered="false" />
                         <p:outputLabel value="#{bundle.CreateDepositosLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{depositosController.selected.descripcion}" title="#{bundle.CreateDepositosTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateDepositosRequiredMessage_descripcion}"/>
                         <p:outputLabel value="#{bundle.CreateDepositosLabel_idSucursal}" for="idSucursal" />
                         <p:selectOneMenu id="idSucursal" value="#{depositosController.selected.idSucursal}" required="true" requiredMessage="#{bundle.EditDepositosRequiredMessage_idSucursal}">
                             <f:selectItems value="#{sucursalesController.itemsAvailableSelectOne}"
                                            var="idSucursalItem"
+                                           itemLabel="#{idSucursalItem.descripcion}"
                                            itemValue="#{idSucursalItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>

@@ -12,13 +12,14 @@
             <h:form id="CajasEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{cajasController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditCajasLabel_idCaja}" for="idCaja" />
-                        <p:inputText id="idCaja" value="#{cajasController.selected.idCaja}" title="#{bundle.EditCajasTitle_idCaja}" required="true" requiredMessage="#{bundle.EditCajasRequiredMessage_idCaja}"/>
+                        <p:outputLabel value="#{bundle.EditCajasLabel_idCaja}" for="idCaja" rendered="false"/>
+                        <p:inputText id="idCaja" value="#{cajasController.selected.idCaja}" title="#{bundle.EditCajasTitle_idCaja}" required="true" requiredMessage="#{bundle.EditCajasRequiredMessage_idCaja}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditCajasLabel_idUsuario}" for="idUsuario" />
                         <p:selectOneMenu id="idUsuario" value="#{cajasController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditCajasRequiredMessage_idUsuario}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="idUsuarioItem"
+                                           itemLabel="#{idUsuarioItem.nombre}"
                                            itemValue="#{idUsuarioItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>

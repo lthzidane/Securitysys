@@ -46,7 +46,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDepositosTitle_idSucursal}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idSucursal}"/>
+                            <h:outputText value="#{item.idSucursal.descripcion}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{depositosController.prepareCreate}" update=":DepositosCreateForm" oncomplete="PF('DepositosCreateDialog').show()"/>
