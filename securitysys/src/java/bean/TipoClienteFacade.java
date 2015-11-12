@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package session;
+package bean;
 
-import entities.OrdenCompraDet;
+import entities.TipoCliente;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Acer
+ * @author LOTHAR
  */
 @Stateless
-public class OrdenCompraDetFacade extends AbstractFacade<OrdenCompraDet> {
+public class TipoClienteFacade extends AbstractFacade<TipoCliente> {
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class OrdenCompraDetFacade extends AbstractFacade<OrdenCompraDet> {
         return em;
     }
 
-    public OrdenCompraDetFacade() {
-        super(OrdenCompraDet.class);
+    public TipoClienteFacade() {
+        super(TipoCliente.class);
     }
     
 }

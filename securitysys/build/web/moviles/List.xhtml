@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+        
+        <ui:define name="title">Moviles</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="#{bundle.ListMovilesTitle}"/>
+        </ui:define>
+
+        <ui:define name="container">
+           <script name="jquery/jquery.js" library="primefaces"></script>
+           <h:outputStylesheet library="css" name="menu.css" />
+           <h:outputStylesheet library="css" name="facade.css" />
+           <p:growl id="growl" life="3000" />
+            <h:form id="MovilesListForm">
+                <p:panel header="#{bundle.ListMovilesTitle}">
+                    <p:dataTable id="datalist" value="#{movilesController.items}" var="item"
+                                 selectionMode="single" selection="#{movilesController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idMovil}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No hay filas que mostrar"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMovilesTitle_idMovil}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idMovil}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMovilesTitle_tipoMovil}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoMovil}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMovilesTitle_marca}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.marca}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMovilesTitle_año}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.año}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMovilesTitle_nroMatricula}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nroMatricula}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMovilesTitle_funcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.funcion}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{movilesController.prepareCreate}" update=":MovilesCreateForm" oncomplete="PF('MovilesCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MovilesViewForm" oncomplete="PF('MovilesViewDialog').show()" disabled="#{empty movilesController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MovilesEditForm" oncomplete="PF('MovilesEditDialog').show()" disabled="#{empty movilesController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{movilesController.destroy}" update=":growl,datalist" disabled="#{empty movilesController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

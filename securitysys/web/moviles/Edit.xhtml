@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MovilesEditDlg" widgetVar="MovilesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMovilesTitle}">
+            <h:form id="MovilesEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{movilesController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMovilesLabel_idMovil}" for="idMovil"  rendered="false"/>
+                        <p:inputText id="idMovil" value="#{movilesController.selected.idMovil}" title="#{bundle.EditMovilesTitle_idMovil}" required="true" requiredMessage="#{bundle.EditMovilesRequiredMessage_idMovil}" rendered="false"/>
+                        <p:outputLabel value="#{bundle.EditMovilesLabel_tipoMovil}" for="tipoMovil" />
+                        <p:inputText id="tipoMovil" value="#{movilesController.selected.tipoMovil}" title="#{bundle.EditMovilesTitle_tipoMovil}" />
+                        <p:outputLabel value="#{bundle.EditMovilesLabel_marca}" for="marca" />
+                        <p:inputText id="marca" value="#{movilesController.selected.marca}" title="#{bundle.EditMovilesTitle_marca}" />
+                        <p:outputLabel value="#{bundle.EditMovilesLabel_año}" for="año" />
+                        <p:inputText id="año" value="#{movilesController.selected.año}" title="#{bundle.EditMovilesTitle_año}" />
+                        <p:outputLabel value="#{bundle.EditMovilesLabel_nroMatricula}" for="nroMatricula" />
+                        <p:inputText id="nroMatricula" value="#{movilesController.selected.nroMatricula}" title="#{bundle.EditMovilesTitle_nroMatricula}" />
+                        <p:outputLabel value="#{bundle.EditMovilesLabel_funcion}" for="funcion" />
+                        <p:inputText id="funcion" value="#{movilesController.selected.funcion}" title="#{bundle.EditMovilesTitle_funcion}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{movilesController.update}" value="#{bundle.Save}" update="display,:MovilesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MovilesEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MovilesEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
