@@ -49,8 +49,8 @@
                                 <f:selectItems value="#{OrdenTrabajoBean.listaEstados}" var="est" itemLabel="#{est.estado}" itemValue="#{est.idEstadoTrab}"/>
                             </h:selectOneMenu>
                             <h:outputText value="Observacion:" 
-                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <p:inputTextarea id="observacion" rows="3" cols="33" value="#{OrdenTrabajoBean.observacion}" style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 12px;" />
+                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" rendered="false"/>
+                            <p:inputTextarea id="observacion" rows="3" cols="33" value="#{OrdenTrabajoBean.observacion}" style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 12px;" rendered="false"/>
                         </h:panelGrid>
                         <h:panelGrid columns="2" cellpadding="5" frame="lhs">
                             <h:outputText value="Tarea a Realizar:" 

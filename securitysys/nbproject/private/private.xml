@@ -7,8 +7,13 @@
             <file>file:/C:/test/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
         </group>
         <group>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
             <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/cajas/Create.xhtml</file>
             <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/productos/List.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/bean/OrdenTrabajoBean.java</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/entities/OrdenTrabajoDet.java</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/entities/OrdenCompraDetPK.java</file>
             <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/ciudad/Create.xhtml</file>
             <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/Bundle.properties</file>
         </group>

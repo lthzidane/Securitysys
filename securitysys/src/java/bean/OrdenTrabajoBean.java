@@ -138,6 +138,10 @@ public class OrdenTrabajoBean implements Serializable{
         
         ordenTrabajoDet = new OrdenTrabajoDet();
         ordenTrabajoDet.setNroOrden(ordenTrabajoCab);
+        //para probar cargar orden trabajo detalle
+        //BigDecimal sec = new BigDecimal("1");
+        //ordenTrabajoDet.setNroSecuencia(sec);
+        
         ordenTrabajoDet.setDetalle(description);
         persistOTDet(PersistAction.CREATE, "Orden de Trabajo guardada correctamente");
         System.out.println("se guardó la OTDet con exito");
@@ -243,8 +247,8 @@ public class OrdenTrabajoBean implements Serializable{
                         + "and ci.id_ciudad = cl.id_ciudad "
                         + "and es.id_estado = cl.id_estado "
                         + "and td.id_tipo_docu = cl.id_tipo_docu");
-
-                ps.setInt(1, Integer.parseInt(nroDocumentoCliente));
+                ps.setString(1, nroDocumentoCliente);
+                //ps.setInt(1, Integer.parseInt(nroDocumentoCliente));
 
                 ResultSet rs = ps.executeQuery();
 
