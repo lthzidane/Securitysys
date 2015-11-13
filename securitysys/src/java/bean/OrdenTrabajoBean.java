@@ -36,6 +36,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import lombok.Data;
+import org.primefaces.event.SelectEvent;
 import session.ClienteController;
 import session.TecnicosController;
 import session.util.JsfUtil;
@@ -75,6 +76,7 @@ public class OrdenTrabajoBean implements Serializable{
     private ArrayList<TipoServicios> listaServicios = new ArrayList<TipoServicios>();
     private ArrayList<Tecnicos> listaTecnicos = new ArrayList<Tecnicos>();
     private List<EstadoTrab> listaEstados = new ArrayList<EstadoTrab>();
+    private ArrayList<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
     
     @EJB
     private bean.TecnicosFacade tecnicoFacade =  new TecnicosFacade();
@@ -113,9 +115,16 @@ public class OrdenTrabajoBean implements Serializable{
             this.listaServicios = obtenerTiposDeServicio();
             this.listaTecnicos = obtenerTecnicos();
             this.listaEstados = estadoTrabFacade.findAll();
+            this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
             
             description = "";
 
+            for(int i=0; i<10; i++){
+                OrdenTrabajoDet otd = new OrdenTrabajoDet( BigDecimal.valueOf(i)  , "Tarea "+i);
+                this.listaDetalle.add(otd);
+            }
+            
+            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -131,7 +140,7 @@ public class OrdenTrabajoBean implements Serializable{
         ordenTrabajoCab.setFechaOrden( fechaOrden );
         ordenTrabajoCab.setIdEstado( null );
         ordenTrabajoCab.setIdServicio( tipoServiciosFacade.findByIdServicio(idServicio) );
-        ordenTrabajoCab.setIdEstadoTrab( estadoTrabFacade.findByIdEstadoTrab(idTecnico) );
+        ordenTrabajoCab.setIdEstadoTrab( estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab) );
         
         //persistOTCab(PersistAction.CREATE, "Orden de Trabajo Cab guardada correctamente.");
         System.out.println("se guardó la OTCab con exito > "+JsfUtil.isValidationFailed());
@@ -165,6 +174,9 @@ public class OrdenTrabajoBean implements Serializable{
         return null;
     }
     
+    public String volver(){
+        return "/home";
+    }
     
     private ArrayList<TipoServicios> obtenerTiposDeServicio() {
         Connection con = null;
@@ -329,4 +341,9 @@ public class OrdenTrabajoBean implements Serializable{
         }
     }
 
+    
+    public void onDateSelect(SelectEvent event) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        this.fechaInicio = format.format(event.getObject());
+    }
 }

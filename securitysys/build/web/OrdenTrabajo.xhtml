@@ -13,10 +13,12 @@
         <ui:define name="container">
             <p:growl id="growl" life="3000" />
             <script name="jquery/jquery.js" library="primefaces"></script> 
+            <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="form">
                 <p:remoteCommand name="buscarCliente" update="nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente" 
                                  actionListener="#{OrdenTrabajoBean.obtenerDatosCliente}" />
                 <p:panel header="Orden de Trabajo Nro: #{OrdenTrabajoBean.nroDeOrden}">
+                    <p:watermark for="clienteFilter" value="Nro. de Cedula o Ruc" id="watermark" />
                     <h:panelGrid columns="3" cellpadding="5">
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:outputText value="Fecha Recepcion:"
@@ -28,7 +30,7 @@
                                 <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{OrdenTrabajoBean.listaServicios}" var="servicio" itemValue="#{servicio.idServicio}" itemLabel="#{servicio.descripcion}"/>
                             </h:selectOneMenu>
-                            <h:outputText value="Tecnico:"
+                            <h:outputText value="Tecnico Responsable:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:selectOneMenu id="tecnico" label="Tecnico" value="#{OrdenTrabajoBean.idTecnico}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
@@ -37,10 +39,12 @@
 
                             <h:outputText value="Inicio Previsto del Trabajo:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <p:calendar id="buttonIT" value="#{OrdenTrabajoBean.fechaInicio}" pattern="dd/MM/yyyy"/>
+                            <p:calendar id="buttonIT" value="#{OrdenTrabajoBean.fechaInicio}" pattern="dd/MM/yyyy" locale="es" mindate="#{OrdenTrabajoBean.fechaRecepcion}">
+                                <p:ajax event="dateSelect" listener="#{OrdenTrabajoBean.onDateSelect}"  update="buttonFT"/>
+                            </p:calendar>
                             <h:outputText value="Fin Previsto del Trabajo:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <p:calendar id="buttonFT" value="#{OrdenTrabajoBean.fechaFin}" pattern="dd/MM/yyyy"/>                    
+                            <p:calendar id="buttonFT" value="#{OrdenTrabajoBean.fechaFin}" pattern="dd/MM/yyyy" locale="es" mindate="#{OrdenTrabajoBean.fechaInicio}"/>                    
 
                             <h:outputText value="Estado del Trabajo:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
@@ -52,13 +56,11 @@
                                           style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" rendered="false"/>
                             <p:inputTextarea id="observacion" rows="3" cols="33" value="#{OrdenTrabajoBean.observacion}" style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 12px;" rendered="false"/>
                         </h:panelGrid>
+                        
                         <h:panelGrid columns="2" cellpadding="5" frame="lhs">
-                            <h:outputText value="Tarea a Realizar:" 
+                            <h:outputText value="Buscar Cliente:" 
                                           style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <p:inputTextarea id="tareaARealizar" rows="3" cols="33" value="#{OrdenTrabajoBean.description}" style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 12px;"/>
-                            <h:outputText value="Buscar por Numero de Documento del Cliente:" 
-                                          style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <p:inputText id="clienteFilter" value="#{OrdenTrabajoBean.cliente}" onblur="buscarCliente()"/>
+                            <p:inputText id="clienteFilter" value="#{OrdenTrabajoBean.cliente}" onblur="buscarCliente()" />
                             <h:outputText value="Nro. Documento:" 
                                           style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:outputText id="nroDocCliente" value="#{OrdenTrabajoBean.nroDocumento}" style="font-size: 11px;"/>
@@ -74,14 +76,40 @@
                             <h:outputText value="Telefono:" 
                                           style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:outputText id="telefonoCliente" value="#{OrdenTrabajoBean.telefono}" style="font-size: 11px;"/>
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="5" frame="lhs">
+                            <p:dataTable id="datalist" value="#{OrdenTrabajoBean.listaDetalle}" var="item"
+                                         rowKey="#{item.detalle}"
+                                         rows="10" style="width: 500px;" 
+                                         scrollable="true" scrollHeight="150"
+                                         >
+                                <f:facet name="header">
+                                    Tareas a Realizar
+                                </f:facet>
+                                <p:column style="width: 80px;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Numero"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nroSecuencia}"/>
+                                </p:column>
+                                <p:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="Descripcion"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.detalle}"/>
+                                </p:column>
+                                <f:facet name="footer">
+                                    Cantidad de Tareas: #{OrdenTrabajoBean.listaDetalle.size()}
+                                </f:facet>
+                            </p:dataTable>
                             <br/><br/>
                             <h:panelGroup layout="block">
                                 <p:commandButton action="#{OrdenTrabajoBean.guardarOrdenTrabajo}" update=":growl" id="buttonGuardar" value="Guardar"/>
-                                <p:commandButton action="Volver" id="buttonCancelar" value="Cancelar" immediate="true"/>
+                                <p:commandButton action="#{OrdenTrabajoBean.volver}" id="buttonCancelar" value="Volver a Home" immediate="true"/>
                             </h:panelGroup>
 
                         </h:panelGrid>
-
                     </h:panelGrid>
 
                 </p:panel>  

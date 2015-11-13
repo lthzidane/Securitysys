@@ -39,6 +39,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono"),
     @NamedQuery(name = "Cliente.findByNroDocumento", query = "SELECT c FROM Cliente c WHERE c.nroDocumento = :nroDocumento")})
 public class Cliente implements Serializable {
+    @Size(max = 30)
+    @Column(name = "nro_documento")
+    private String nroDocumento;
+    @JoinColumn(name = "id_tipo_cliente", referencedColumnName = "id_tipo_cliente")
+    @ManyToOne
+    private TipoCliente idTipoCliente;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -77,8 +83,6 @@ public class Cliente implements Serializable {
     @JoinColumn(name = "id_tipo_docu", referencedColumnName = "id_tipo_docu")
     @ManyToOne(optional = false)
     private TipoDocumento idTipoDocu;
-    @Column(name = "nro_documento")
-    private BigInteger nroDocumento;
 
     public Cliente() {
     }
@@ -183,13 +187,21 @@ public class Cliente implements Serializable {
     public String toString() {
         return "entities.Cliente[ idCliente=" + idCliente + " ]";
     }
+
+    public String getNroDocumento(){
+        return this.nroDocumento;
+    }
     
-    public BigInteger getNroDocumento() {
-        return nroDocumento;
+    public void setNroDocumento(String nroDocumento) {
+        this.nroDocumento = nroDocumento;
     }
 
-    public void setNroDocumento(BigInteger nroDocumento) {
-        this.nroDocumento = nroDocumento;
+    public TipoCliente getIdTipoCliente() {
+        return idTipoCliente;
+    }
+
+    public void setIdTipoCliente(TipoCliente idTipoCliente) {
+        this.idTipoCliente = idTipoCliente;
     }
 
     }
