@@ -79,25 +79,42 @@
 
                         </h:panelGrid>
                         <h:panelGrid columns="2" cellpadding="5" frame="lhs">
-                            <p:dataTable id="datalist" value="#{OrdenTrabajoBean.listaDetalle}" var="item"
+                            <p:dataTable id="datatable" 
+                                         value="#{OrdenTrabajoBean.listaDetalle}" 
                                          rowKey="#{item.detalle}"
-                                         rows="10" style="width: 500px;" 
-                                         scrollable="true" scrollHeight="150"
+                                         var="item"
+                                         editable="true"
+                                         scrollable="true"
+                                         scrollHeight="150"
+                                         style="width: 500px;" 
+                                         emptyMessage="Aun no se han agregado Tareas"
                                          >
                                 <f:facet name="header">
                                     Tareas a Realizar
                                 </f:facet>
-                                <p:column style="width: 80px;">
-                                    <f:facet name="header">
-                                        <h:outputText value="Numero"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.nroSecuencia}"/>
+                                <p:ajax event="rowEdit" listener="#{OrdenTrabajoBean.onRowEditTarea}" update="datatable"/>
+                                <p:ajax event="rowEditCancel" listener="#{OrdenTrabajoBean.onRowCancelTarea}" update="datatable" />
+                                <p:column headerText="Numero" style="width: 80px;">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><div align="center"><h:outputText value="#{item.nroSecuencia}"/></div></f:facet>
+                                        <f:facet name="input"><div align="center"><h:outputText value="#{item.nroSecuencia}"/></div></f:facet>
+                                    </p:cellEditor>
                                 </p:column>
-                                <p:column >
+                                <p:column headerText="Descripcion">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{item.detalle}"/></f:facet>
+                                        <f:facet name="input"><h:inputText value="#{item.detalle}" style="width:95%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column style="width:40px">
                                     <f:facet name="header">
-                                        <h:outputText value="Descripcion"/>
+                                        <p:commandLink id="addTarea" action="#{OrdenTrabajoBean.addTarea}" update="datatable" immediate="true"
+                                                       oncomplete="jQuery('#form\\:datatable .ui-datatable-scrollable-body').scrollTop(100000);
+                                                       jQuery('#form\\:datatable .ui-datatable-data > tr').last().find('span.ui-icon-pencil').click()">
+                                            <h:graphicImage name="images/plus.png"/>
+                                        </p:commandLink>
                                     </f:facet>
-                                    <h:outputText value="#{item.detalle}"/>
+                                    <p:rowEditor/>
                                 </p:column>
                                 <f:facet name="footer">
                                     Cantidad de Tareas: #{OrdenTrabajoBean.listaDetalle.size()}
@@ -105,7 +122,7 @@
                             </p:dataTable>
                             <br/><br/>
                             <h:panelGroup layout="block">
-                                <p:commandButton action="#{OrdenTrabajoBean.guardarOrdenTrabajo}" update=":growl" id="buttonGuardar" value="Guardar"/>
+                                <p:commandButton action="#{OrdenTrabajoBean.guardarOrdenTrabajo}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatable clienteFilter nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente" id="buttonGuardar" value="Guardar"/>
                                 <p:commandButton action="#{OrdenTrabajoBean.volver}" id="buttonCancelar" value="Volver a Home" immediate="true"/>
                             </h:panelGroup>
 
