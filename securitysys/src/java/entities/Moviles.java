@@ -8,6 +8,7 @@ package entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,11 +16,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,6 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Moviles.findByNroMatricula", query = "SELECT m FROM Moviles m WHERE m.nroMatricula = :nroMatricula"),
     @NamedQuery(name = "Moviles.findByFuncion", query = "SELECT m FROM Moviles m WHERE m.funcion = :funcion")})
 public class Moviles implements Serializable {
+    @OneToMany(mappedBy = "idMovil")
+    private List<InstalacionCab> instalacionCabList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -139,6 +144,15 @@ public class Moviles implements Serializable {
     @Override
     public String toString() {
         return "entities.Moviles[ idMovil=" + idMovil + " ]";
+    }
+
+    @XmlTransient
+    public List<InstalacionCab> getInstalacionCabList() {
+        return instalacionCabList;
+    }
+
+    public void setInstalacionCabList(List<InstalacionCab> instalacionCabList) {
+        this.instalacionCabList = instalacionCabList;
     }
     
 }

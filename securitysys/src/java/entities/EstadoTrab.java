@@ -33,6 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "EstadoTrab.findByIdEstadoTrab", query = "SELECT e FROM EstadoTrab e WHERE e.idEstadoTrab = :idEstadoTrab"),
     @NamedQuery(name = "EstadoTrab.findByEstado", query = "SELECT e FROM EstadoTrab e WHERE e.estado = :estado")})
 public class EstadoTrab implements Serializable {
+    @OneToMany(mappedBy = "idEstadoTrab")
+    private List<InstalacionCab> instalacionCabList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -101,6 +103,15 @@ public class EstadoTrab implements Serializable {
     @Override
     public String toString() {
         return "entities.EstadoTrab[ idEstadoTrab=" + idEstadoTrab + " ]";
+    }
+
+    @XmlTransient
+    public List<InstalacionCab> getInstalacionCabList() {
+        return instalacionCabList;
+    }
+
+    public void setInstalacionCabList(List<InstalacionCab> instalacionCabList) {
+        this.instalacionCabList = instalacionCabList;
     }
     
 }

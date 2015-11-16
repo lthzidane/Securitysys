@@ -15,7 +15,7 @@
             <script name="jquery/jquery.js" library="primefaces"></script> 
             <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="form">
-                <p:remoteCommand name="buscarOrdenTrabajo"  
+                <p:remoteCommand name="buscarOrdenTrabajo"  update="tipoServicio tecnico nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente datatableTareas"
                                  actionListener="#{OrdenInstalacionBean.obtenerDatosOrdenTrabajo}" />
                 <p:panel header="Numero de Instalacion: #{OrdenInstalacionBean.nroDeInstalacion}">
                     <p:watermark for="ordenFilter" value="Nro. de Orden" id="watermark" />
@@ -24,12 +24,21 @@
                             <h:outputText value="Tipo de Instalacion:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:selectOneMenu id="tipoInstalacion" label="Tipo de Instalacion" value="#{OrdenInstalacionBean.tipoInstalacion}">
-                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Seleccione Tipo" itemValue="" noSelectionOption="true" />
                                 <f:selectItem itemLabel="Nueva" itemValue="Nueva"/>
                                 <f:selectItem itemLabel="Mantenimiento" itemValue="Mantenimiento"/>
                                 <f:selectItem itemLabel="Correctivo" itemValue="Correctivo"/>
                                 <f:selectItem itemLabel="Garantia" itemValue="Garantia"/>
                             </h:selectOneMenu>
+
+                            <h:outputText value="Movil a utilizar:"
+                                          style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <h:selectOneMenu id="movil" label="Movil a utilizar" value="#{OrdenInstalacionBean.movil}">
+                                <f:selectItem itemLabel="Seleccione Matricula" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{OrdenInstalacionBean.listaMoviles}" var="mov" itemLabel="#{mov.nroMatricula}" itemValue="#{mov}"/>
+                            </h:selectOneMenu>                            
+
+
                             <h:outputText value="Buscar Orden de Trabajo:" 
                                           style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <p:inputText id="ordenFilter" value="#{OrdenInstalacionBean.nroOrden}" onblur="buscarOrdenTrabajo()" />
@@ -101,7 +110,7 @@
                         </h:panelGrid>
 
                         <h:panelGrid columns="2" cellpadding="5" frame="lhs">
-
+                            
                             <p:outputLabel for="equipoTecnico" value="Tecnicos:" 
                                            style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;"/>
                             <p:selectManyMenu id="equipoTecnico" 
@@ -117,7 +126,6 @@
                                     <h:outputText value="#{t.nombre}" style="font-size: 11px;"/>
                                 </p:column>
                             </p:selectManyMenu>
-
 
                             <h:outputText value="Inicio de Instalacion:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
@@ -139,7 +147,7 @@
 
                             <br/><br/>
                             <h:panelGroup layout="block">
-                                <p:commandButton action="#{OrdenInstalacionBean.guardarOrdenTrabajo}"  id="buttonGuardar" value="Guardar"/>
+                                <p:commandButton action="#{OrdenInstalacionBean.guardarOrdenInstalacion}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatableTareas datatableKits nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente tipoInstalacion movil ordenFilter equipoTecnico observacion" id="buttonGuardar" value="Guardar"/>
                                 <p:commandButton action="#{OrdenInstalacionBean.volver}" id="buttonCancelar" value="Cancelar" immediate="true"/>
                             </h:panelGroup>
                             

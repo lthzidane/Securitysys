@@ -14,14 +14,10 @@
             <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/Bundle.properties</file>
         </group>
         <group name="otroGrupo">
-            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenTrabajoBean.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/session/ClienteController.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/resources/js/jsfcrud.js</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/entities/Cliente.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/productosKit/Create.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/cliente/List.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenTrabajoCabFacade.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/OrdenInstalacion.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenTrabajoDetFacade.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenInstalacionBean.java</file>
         </group>
     </open-files>
 </project-private>

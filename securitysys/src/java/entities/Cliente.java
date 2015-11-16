@@ -8,7 +8,9 @@ package entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,11 +19,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,6 +43,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono"),
     @NamedQuery(name = "Cliente.findByNroDocumento", query = "SELECT c FROM Cliente c WHERE c.nroDocumento = :nroDocumento")})
 public class Cliente implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
+    private List<Reclamo> reclamoList;
+    @OneToMany(mappedBy = "idCliente")
+    private List<InstalacionCab> instalacionCabList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
+    private List<OrdenTrabajoCab> ordenTrabajoCabList;
     @Size(max = 30)
     @Column(name = "nro_documento")
     private String nroDocumento;
@@ -202,6 +212,34 @@ public class Cliente implements Serializable {
 
     public void setIdTipoCliente(TipoCliente idTipoCliente) {
         this.idTipoCliente = idTipoCliente;
+    }
+
+
+    @XmlTransient
+    public List<Reclamo> getReclamoList() {
+        return reclamoList;
+    }
+
+    public void setReclamoList(List<Reclamo> reclamoList) {
+        this.reclamoList = reclamoList;
+    }
+
+    @XmlTransient
+    public List<InstalacionCab> getInstalacionCabList() {
+        return instalacionCabList;
+    }
+
+    public void setInstalacionCabList(List<InstalacionCab> instalacionCabList) {
+        this.instalacionCabList = instalacionCabList;
+    }
+
+    @XmlTransient
+    public List<OrdenTrabajoCab> getOrdenTrabajoCabList() {
+        return ordenTrabajoCabList;
+    }
+
+    public void setOrdenTrabajoCabList(List<OrdenTrabajoCab> ordenTrabajoCabList) {
+        this.ordenTrabajoCabList = ordenTrabajoCabList;
     }
 
     }

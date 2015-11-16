@@ -38,6 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tecnicos.findByIdTecnico", query = "SELECT t FROM Tecnicos t WHERE t.idTecnico = :idTecnico"),
     @NamedQuery(name = "Tecnicos.findByNombre", query = "SELECT t FROM Tecnicos t WHERE t.nombre = :nombre")})
 public class Tecnicos implements Serializable {
+    @OneToMany(mappedBy = "idTecnico")
+    private List<InstalacionCab> instalacionCabList;
     @Column(name = "nro_documento")
     private BigInteger nroDocumento;
     @JoinColumn(name = "tipo_documento", referencedColumnName = "id_tipo_docu")
@@ -135,6 +137,15 @@ public class Tecnicos implements Serializable {
 
     public void setTipoDocumento(TipoDocumento tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
+    }
+
+    @XmlTransient
+    public List<InstalacionCab> getInstalacionCabList() {
+        return instalacionCabList;
+    }
+
+    public void setInstalacionCabList(List<InstalacionCab> instalacionCabList) {
+        this.instalacionCabList = instalacionCabList;
     }
     
 }

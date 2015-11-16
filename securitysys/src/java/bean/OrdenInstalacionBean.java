@@ -7,6 +7,10 @@ package bean;
 
 import entities.Cliente;
 import entities.EstadoTrab;
+import entities.InstalacionCab;
+import entities.InstalacionDet;
+import entities.InstalacionDetPK;
+import entities.Moviles;
 import entities.OrdenTrabajoCab;
 import entities.OrdenTrabajoDet;
 import entities.ProductosKit;
@@ -21,6 +25,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,7 +65,7 @@ public class OrdenInstalacionBean implements Serializable{
     private BigDecimal pedido;
     private String estado;
     private String description;
-    private String fechaInicio;
+    private Date fechaInicio;
     private String fechaFin;
     private String fechaRecepcion;
     private Date fechaOrden;
@@ -85,6 +90,7 @@ public class OrdenInstalacionBean implements Serializable{
     private List<ProductosKit> listaKits = new ArrayList<ProductosKit>();
     private ArrayList<ProductosKit> selectedKits = new ArrayList<ProductosKit>();
     private ArrayList<Tecnicos> selectedTecnicos = new ArrayList<Tecnicos>();
+    private List<Moviles> listaMoviles = new ArrayList<Moviles>();
     
     @EJB
     private bean.TecnicosFacade tecnicoFacade =  new TecnicosFacade();
@@ -95,15 +101,24 @@ public class OrdenInstalacionBean implements Serializable{
     @EJB
     private bean.EstadoTrabFacade estadoTrabFacade = new EstadoTrabFacade();
     @EJB
-    private bean.OrdenTrabajoCabFacade ejbCabFacade;
+    private bean.OrdenTrabajoCabFacade ejbOTCabFacade;
     @EJB
-    private bean.OrdenTrabajoDetFacade ejbDetFacade;
-    
+    private bean.OrdenTrabajoDetFacade ejbOTDetFacade;
+    @EJB
+    private bean.InstalacionCabFacade ejbInstalCabFacade;
+    @EJB
+    private bean.InstalacionDetFacade ejbInstalDetFacade;
     @EJB
     private bean.ProductosKitFacade productoKitFacade = new ProductosKitFacade();
+    @EJB
+    private bean.MovilesFacade movilesFacade = new MovilesFacade();
     
     private OrdenTrabajoCab ordenTrabajoCab;
     private OrdenTrabajoDet ordenTrabajoDet;
+    private Moviles movil;
+    
+    private InstalacionCab instalacionCab;
+    private InstalacionDet instalacionDet;
     
     private Connection con = null;
     
@@ -118,7 +133,9 @@ public class OrdenInstalacionBean implements Serializable{
 
         try {
 
-            nroDeInstalacion = "000"+String.valueOf(obtenerNroOrden()+1) ;
+            int ultValSeq = obtenerNuevoIdInstalacion();
+            
+            nroDeInstalacion = "000"+String.valueOf(ultValSeq+1) ;
 
             Date date = Calendar.getInstance().getTime();
             fechaOrden = date;
@@ -131,10 +148,19 @@ public class OrdenInstalacionBean implements Serializable{
             this.listaEstados = estadoTrabFacade.findAll();
             this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
  
+            this.listaMoviles = movilesFacade.findAll();
             this.listaKits = productoKitFacade.findAll();
             
+            this.tipoInstalacion = null;
+            this.movil = null;
             description = "";
+            
+            this.selectedKits = new ArrayList<ProductosKit>();
+            this.selectedTecnicos = new ArrayList<Tecnicos>();
 
+            this.tipoServicio = "";
+            this.tecnicoResponsable = "";
+            
             listaDetalle = new ArrayList<OrdenTrabajoDet>();
     
                 this.idCliente = null;
@@ -160,10 +186,10 @@ public class OrdenInstalacionBean implements Serializable{
         }
     }
     
-    public int obtenerNroOrden() {
+    public int obtenerNuevoIdInstalacion() {
         int ultimoValor = 0;
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT last_value FROM nro_orden_orden_trabajo_cab_seq_1");
+            PreparedStatement ps = con.prepareStatement("SELECT last_value FROM id_instalacion_seq");
 
             ResultSet rs = ps.executeQuery();
 
@@ -173,28 +199,60 @@ public class OrdenInstalacionBean implements Serializable{
                ultimoValor = uv.toBigInteger().intValue();
             }
         } catch (SQLException ex) {
-            System.out.println("Error al obtener Tipos de Servicio -->" + ex.getMessage());
+            System.out.println("Error al obtener Secuencia de InstalacionCab -->" + ex.getMessage());
         }
 
         return ultimoValor;
     }
 
+    public BigInteger getNextValInstalacionDet() {
+        BigInteger nextVal = new BigInteger("0");
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT nextval('id_instalacion_seq')");
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+               BigDecimal uv =  rs.getBigDecimal("nextval");
+               
+               nextVal = uv.toBigInteger();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener Secuencia de InstalacionDet -->" + ex.getMessage());
+        }
+
+        return nextVal;
+    }
+    
    
-    public String guardarOrdenTrabajo(){
+    public String guardarOrdenInstalacion(){
+    
+        instalacionCab = new InstalacionCab();
         
-        ordenTrabajoCab = new OrdenTrabajoCab();
-        ordenTrabajoCab.setIdTecnico( tecnicoFacade.findByIdTecnico(idTecnico) );
-        ordenTrabajoCab.setIdCliente( clienteFacade.findByIdCliente(idCliente) );
-        ordenTrabajoCab.setIdReclamo( null );
-        ordenTrabajoCab.setFechaOrden( fechaOrden );
-        ordenTrabajoCab.setIdEstado( null );
-        ordenTrabajoCab.setIdServicio( tipoServiciosFacade.findByIdServicio(idServicio) );
-        ordenTrabajoCab.setIdEstadoTrab( estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab) );
+        try {
+            instalacionCab.setDescripcion(this.observacion);
+            instalacionCab.setNroOrden(this.ordenTrabajoCab);
+            instalacionCab.setIdTecnico(this.ordenTrabajoCab.getIdTecnico());
+            instalacionCab.setTipoInstalacion(this.tipoInstalacion);
+            System.out.println("fechaInicio: "+fechaInicio);
+            instalacionCab.setFechainstalacion( this.fechaInicio );
+            instalacionCab.setIdServicio(this.ordenTrabajoCab.getIdServicio());
+            instalacionCab.setIdMovil(this.movil);
+            instalacionCab.setIdCliente(this.ordenTrabajoCab.getIdCliente());
+            instalacionCab.setIdEstadoTrab(estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab));
+            
+            persistInstalCab(PersistAction.CREATE, null);
+            System.out.println("se guardó la InstalacionCab con exito > "+JsfUtil.isValidationFailed());
+
+            System.out.println("PK insertada: "+instalacionCab.getIdInstalacion());
         
-        persistOTCab(PersistAction.CREATE, null);
-        System.out.println("se guardó la OTCab con exito > "+JsfUtil.isValidationFailed());
+            persistInstalDet(PersistAction.CREATE, selectedKits, instalacionCab.getIdInstalacion(), "Instalacion guardada correctamente");
         
-        persistOTDet(PersistAction.CREATE, listaDetalle, "Orden de Trabajo guardada correctamente");
+        } catch (Exception ex) {
+            Logger.getLogger(OrdenInstalacionBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         
         System.out.println("se guardó la OTDet con exito");
         
@@ -277,60 +335,66 @@ public class OrdenInstalacionBean implements Serializable{
     public void obtenerDatosOrdenTrabajo() {
         String nroOrdenTrabajo = this.nroOrden;
         System.out.println("nroOrdenTrabajo: " + nroOrden);
+        
+        this.listaDetalle = new ArrayList<OrdenTrabajoDet>();
+        
         if (nroOrdenTrabajo != null && !"".equalsIgnoreCase(nroOrdenTrabajo)) {
-                    
-            Connection con = null;
-            PreparedStatement ps = null;
+            
+            OrdenTrabajoCab otCab = ejbOTCabFacade.findByNroOrden( Integer.valueOf(nroOrdenTrabajo) );
+            
+            if (otCab == null) {
+                //no encontré nada
+                //limpiar filtros
+                this.tipoServicio = "";
+                this.tecnicoResponsable = "";
+                this.nroDocumento = "";
+                this.razonsocial = "";
+                this.ciudad = "";
+                this.direccion = "";
+                this.telefono = "";
+                this.ordenTrabajoCab = null;
+            }else{
+                this.ordenTrabajoCab = otCab;
+                this.tipoServicio = otCab.getIdServicio().getDescripcion();
+                this.tecnicoResponsable = otCab.getIdTecnico().getNombre();
+                this.nroDocumento = otCab.getIdCliente().getNroDocumento();
+                this.razonsocial = otCab.getIdCliente().getNombre() + " " + otCab.getIdCliente().getApellido();
+                this.ciudad = otCab.getIdCliente().getIdCiudad().getCiudad();
+                this.direccion = otCab.getIdCliente().getDireccion();
+                this.telefono = otCab.getIdCliente().getTelefono();
 
-            try {
-                con = DataConnect.getConnection();
-                ps = con.prepareStatement("SELECT  cl.id_cliente, "
-                        + "ci.ciudad, es.estado, td.tipo_docu, "
-                        + "cl.nombre, cl.apellido, cl.direccion, "
-                        + "cl.telefono, cl.nro_documento "
-                        + "FROM cliente cl, ciudad ci, "
-                        + "estado es, tipo_documento td "
-                        + "where nro_documento = ? "
-                        + "and ci.id_ciudad = cl.id_ciudad "
-                        + "and es.id_estado = cl.id_estado "
-                        + "and td.id_tipo_docu = cl.id_tipo_docu");
-                ps.setString(1, nroOrdenTrabajo);
-                //ps.setInt(1, Integer.parseInt(nroOrdenTrabajo));
-
-                ResultSet rs = ps.executeQuery();
-
-                while (rs.next()) {
-                    this.idCliente = rs.getInt("id_cliente");
-                    this.nroDocumento = rs.getString("nro_documento");
-                    this.razonsocial = rs.getString("nombre") + " " + rs.getString("apellido");
-                    this.ciudad = rs.getString("ciudad");
-                    this.direccion = rs.getString("direccion");
-                    this.telefono = rs.getString("telefono");
+                for (OrdenTrabajoDet otDet : otCab.getOrdenTrabajoDetList()) {
+                    this.listaDetalle.add(otDet);
                 }
-            } catch (SQLException ex) {
-                System.out.println("Error al obtener Cliente -->" + ex.getMessage());
-
-            } finally {
-                DataConnect.close(con);
 
             }
 
+        }else{
+            //limpiar filtros
+            this.tipoServicio =  "";
+            this.tecnicoResponsable = "";
+            this.nroDocumento = "";
+            this.razonsocial = "";
+            this.ciudad = "";
+            this.direccion = "";
+            this.telefono = "";
+            this.ordenTrabajoCab = null;
         }
 
     }
 
  
-    private void persistOTCab(JsfUtil.PersistAction persistAction, String successMessage) {
-        if (ordenTrabajoCab != null) {
+    private void persistInstalCab(JsfUtil.PersistAction persistAction, String successMessage) {
+        if (instalacionCab != null) {
 
             try {
                 if (persistAction == JsfUtil.PersistAction.CREATE) {
-                    getEjbCabFacade().create(ordenTrabajoCab);
+                    getEjbInstalCabFacade().create(instalacionCab);
                 }
                 else if (persistAction == JsfUtil.PersistAction.UPDATE) {
-                    getEjbCabFacade().edit(ordenTrabajoCab);
+                    getEjbInstalCabFacade().edit(instalacionCab);
                 } else {
-                    getEjbCabFacade().remove(ordenTrabajoCab);
+                    getEjbInstalCabFacade().remove(instalacionCab);
                 }
                 
                 if(successMessage != null){
@@ -355,25 +419,31 @@ public class OrdenInstalacionBean implements Serializable{
         }
     }
 
-    private void persistOTDet(  JsfUtil.PersistAction persistAction, 
-                                ArrayList<OrdenTrabajoDet> listaDetalle,
+    private void persistInstalDet(  JsfUtil.PersistAction persistAction, 
+                                ArrayList<ProductosKit> selectedProdKits,
+                                BigDecimal idInstalCab,
                                 String successMessage) {
         
-        if (listaDetalle != null && !listaDetalle.isEmpty()) {
-            for (OrdenTrabajoDet otdet : listaDetalle) {
-                ordenTrabajoDet = new OrdenTrabajoDet();
-                ordenTrabajoDet.setNroOrden(ordenTrabajoCab);
-                ordenTrabajoDet.setDetalle(otdet.getDetalle());
-
+        if (selectedProdKits != null && !selectedProdKits.isEmpty()) {
+            for(ProductosKit prodKit : selectedKits ) {
+                instalacionDet = new InstalacionDet();
+                instalacionDet.setCodProducto(prodKit.getCodProducto().getCodProducto().toBigInteger());
+                instalacionDet.setIdProductosKit(prodKit.getIdProductosKit().toBigInteger());
+                
+                InstalacionDetPK pk =  new InstalacionDetPK();
+                pk.setIdInstalacion(idInstalCab.toBigInteger());
+                pk.setNroLinea(getNextValInstalacionDet());
+                instalacionDet.setInstalacionDetPK(pk);
+                
                 try {
                     if (persistAction == JsfUtil.PersistAction.CREATE) {
-                        getEjbDetFacade().create(ordenTrabajoDet);
+                        getEjbInstalDetFacade().create(instalacionDet);
                     }
                     else if (persistAction == JsfUtil.PersistAction.UPDATE) {
-                        getEjbDetFacade().edit(ordenTrabajoDet);
+                        getEjbInstalDetFacade().edit(instalacionDet);
                     } 
                     else {
-                        getEjbDetFacade().remove(ordenTrabajoDet);
+                        getEjbInstalDetFacade().remove(instalacionDet);
                     }
                     
                 } catch (EJBException ex) {
@@ -399,14 +469,6 @@ public class OrdenInstalacionBean implements Serializable{
         }
     }
 
-    
-    public void onDateSelect(SelectEvent event) {
-        if(event.getObject() != null){
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            this.fechaInicio = format.format(event.getObject());
-        }
-    }
-    
     public void onRowEditTarea(RowEditEvent event){
             System.out.println("Editando Tarea");
     }
