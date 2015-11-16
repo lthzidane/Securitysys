@@ -6,8 +6,10 @@
 package bean;
 
 import entities.ProductosKit;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -26,6 +28,15 @@ public class ProductosKitFacade extends AbstractFacade<ProductosKit> {
 
     public ProductosKitFacade() {
         super(ProductosKit.class);
+    }
+    
+    @Override
+     public List<ProductosKit> findAll() {
+        try {
+            return (List<ProductosKit>) em.createNamedQuery("ProductosKit.findAll").getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
     
 }
