@@ -2,22 +2,20 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/cajas/Create.xhtml</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/productos/List.xhtml</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/bean/OrdenTrabajoBean.java</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/entities/OrdenTrabajoDet.java</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/entities/OrdenCompraDetPK.java</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/ciudad/Create.xhtml</file>
-            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/Bundle.properties</file>
-        </group>
         <group name="otroGrupo">
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenTrabajoCabFacade.java</file>
             <file>file:/C:/test/Securitysys/securitysys/web/OrdenInstalacion.xhtml</file>
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenTrabajoDetFacade.java</file>
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenInstalacionBean.java</file>
+        </group>
+        <group>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/bean/OrdenInstalacionBean.java</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/bean/OrdenTrabajoBean.java</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/OrdenInstalacion.xhtml</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/bean/Login.java</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/src/java/bean/LoginDao.java</file>
+            <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/cliente/Create.xhtml</file>
         </group>
     </open-files>
 </project-private>

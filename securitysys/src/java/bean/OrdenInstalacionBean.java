@@ -52,7 +52,8 @@ import util.Sale;
 
 /**
  *
- * @author sebas
+ * @author Acer
+ *
  */
 @ManagedBean(name="OrdenInstalacionBean")
 @ViewScoped
@@ -135,7 +136,7 @@ public class OrdenInstalacionBean implements Serializable{
 
             int ultValSeq = obtenerNuevoIdInstalacion();
             
-            nroDeInstalacion = "000"+String.valueOf(ultValSeq+1) ;
+            nroDeInstalacion = "000"+String.valueOf(ultValSeq) ;
 
             Date date = Calendar.getInstance().getTime();
             fechaOrden = date;
@@ -174,6 +175,7 @@ public class OrdenInstalacionBean implements Serializable{
                 this.telefono = "";
                 this.direccion = "";
                 this.razonsocial = "";
+                this.observacion = "";
             
             /*for(int i=0; i<10; i++){
                 OrdenTrabajoDet otd = new OrdenTrabajoDet( BigDecimal.valueOf(i)  , "Tarea "+i);

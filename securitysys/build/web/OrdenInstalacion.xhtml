@@ -17,7 +17,7 @@
             <h:form id="form">
                 <p:remoteCommand name="buscarOrdenTrabajo"  update="tipoServicio tecnico nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente datatableTareas"
                                  actionListener="#{OrdenInstalacionBean.obtenerDatosOrdenTrabajo}" />
-                <p:panel header="Numero de Instalacion: #{OrdenInstalacionBean.nroDeInstalacion}">
+                <p:panel id="nroDeInstalacion" header="Numero de Instalacion: #{OrdenInstalacionBean.nroDeInstalacion}">
                     <p:watermark for="ordenFilter" value="Nro. de Orden" id="watermark" />
                     <h:panelGrid columns="3" cellpadding="5">
                         <h:panelGrid columns="2" cellpadding="5">
@@ -147,7 +147,7 @@
 
                             <br/><br/>
                             <h:panelGroup layout="block">
-                                <p:commandButton action="#{OrdenInstalacionBean.guardarOrdenInstalacion}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatableTareas datatableKits nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente tipoInstalacion movil ordenFilter equipoTecnico observacion" id="buttonGuardar" value="Guardar"/>
+                                <p:commandButton action="#{OrdenInstalacionBean.guardarOrdenInstalacion}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatableTareas datatableKits nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente tipoInstalacion movil ordenFilter equipoTecnico observacion nroDeInstalacion" id="buttonGuardar" value="Guardar"/>
                                 <p:commandButton action="#{OrdenInstalacionBean.volver}" id="buttonCancelar" value="Cancelar" immediate="true"/>
                             </h:panelGroup>
                             
