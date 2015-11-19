@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">Impresion de Orden de Trabajo</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="Impresion de Orden de Trabajo"/>
+        </ui:define>
+        <ui:define name="container">
+            <p:growl id="growl" life="3000" />
+            <script name="jquery/jquery.js" library="primefaces"></script> 
+            <script type="text/javascript">
+                function monitorExporting(start, complete) {
+                    if (PrimeFaces.cookiesEnabled()) {
+                        if (start) {
+                            start();
+                        }
+                        window.chartExportingMonitor = setInterval(function() {
+                            var exportingComplete = PrimeFaces.getCookie('cookie.pdf.exporting');
+                            console.log('exportingComplete:' + exportingComplete);
+                            if (exportingComplete === 'true') {
+                                if (complete) {
+                                    complete();
+                                }
+                                clearInterval(window.chartExportingMonitor);
+                                PrimeFaces.setCookie('cookie.pdf.exporting', null);
+                            }
+                        }, 3000);
+                    }
+                }
+
+                function showStatus() {
+                    PF('bui').show();
+                }
+
+                function hideStatus() {
+                    PF('bui').hide();
+                }
+            </script>
+            <h:outputScript library="js" name="jsfcrud.js"/>
+            <h:form id="form">
+
+
+                <p:dataTable id="datatable" 
+                             value="#{ImpresionOTBean.listaOrdenesTrabajo}" 
+                             rowKey="#{item.nroOrden}"
+                             filterEvent="enter"
+                             var="item"
+                             scrollable="true"
+                             scrollHeight="300"
+                             emptyMessage="Aun no se han agregado Tareas"
+
+                             >
+                    <f:facet name="header">
+                        Ordenes de Trabajo Existentes
+                    </f:facet>
+
+                    <p:column headerText="Nro. Orden" style="width: 80px;" filterBy="#{item.nroOrden}" filterMatchMode="contains" filterStyle="width:100%">
+                        <div align="center"><h:outputText value="#{item.nroOrden}"/></div>
+                    </p:column>
+                    <p:column headerText="Fecha" style="width: 80px;" filterBy="#{item.fechaOrden}" filterMatchMode="contains" filterStyle="width:100%">
+                        <h:outputText value="#{item.fechaOrden}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Tecnico" filterBy="#{item.idTecnico.nombre}" filterMatchMode="contains" filterStyle="width:100%">
+                        <h:outputText value="#{item.idTecnico.nombre}"/>
+                    </p:column>                                
+                    <p:column headerText="Cliente" filterBy="#{item.idCliente.nombre}" filterMatchMode="contains" filterStyle="width:100%">
+                        <h:outputText value="#{item.idCliente.nombre} #{item.idCliente.apellido}"/>
+                    </p:column>
+                    <p:column headerText="Servicio a Realizar" filterBy="#{item.idServicio.descripcion}" filterMatchMode="contains" filterStyle="width:100%">
+                        <h:outputText value="#{item.idServicio.descripcion}"/>
+                    </p:column>
+                    <p:column headerText="Estado" filterBy="#{item.idEstadoTrab.estado}" filterMatchMode="contains" filterStyle="width:100%">
+                        <h:outputText value="#{item.idEstadoTrab.estado}"/>
+                    </p:column>
+                    <p:column headerText="Imprimir" >
+                        <p:commandLink id="buttonMostrarReporte"
+                                       ajax="false"
+                                       onclick="monitorExporting(showStatus, hideStatus);"
+                                       value="Mostrar Reporte" 
+                                       action="#{ImpresionOTBean.mostrarReporte(item.nroOrden)}"
+                                       update="@form"/> 
+                    </p:column>
+
+                </p:dataTable>
+                
+                <p:blockUI block="datatable" widgetVar="bui">
+                    Cargando Reporte<br />
+                    <h:graphicImage library="images" name="ajaxloadingbar.gif"/>
+                </p:blockUI>
+
+            </h:form>  
+        </ui:define>
+    </ui:composition>
+</html>
