@@ -12,6 +12,7 @@
         </ui:define>
         <ui:define name="container">
             <p:growl id="growl" life="3000" />
+            <h:outputScript library="js" name="jsfcrud.js"/>
             <script name="jquery/jquery.js" library="primefaces"></script> 
             <script type="text/javascript">
                 function monitorExporting(start, complete) {
@@ -19,7 +20,7 @@
                         if (start) {
                             start();
                         }
-                        window.chartExportingMonitor = setInterval(function() {
+                        window.chartExportingMonitor = setInterval(function () {
                             var exportingComplete = PrimeFaces.getCookie('cookie.pdf.exporting');
                             console.log('exportingComplete:' + exportingComplete);
                             if (exportingComplete === 'true') {
@@ -41,10 +42,8 @@
                     PF('bui').hide();
                 }
             </script>
-            <h:outputScript library="js" name="jsfcrud.js"/>
+
             <h:form id="form">
-
-
                 <p:dataTable id="datatable" 
                              value="#{ImpresionOTBean.listaOrdenesTrabajo}" 
                              rowKey="#{item.nroOrden}"
@@ -89,7 +88,6 @@
                     </p:column>
 
                 </p:dataTable>
-                
                 <p:blockUI block="datatable" widgetVar="bui">
                     Cargando Reporte<br />
                     <h:graphicImage library="images" name="ajaxloadingbar.gif"/>

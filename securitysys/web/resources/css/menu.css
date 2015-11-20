@@ -33,7 +33,7 @@
     list-style: none;
     position: relative;
     padding: 3px 0px 6px 0px;
-    /*border-right: 1px solid #9F9F9F;*/
+    border-right: 1px solid #9F9F9F;
 }
 
 #mainmenu ul#navmenu-h ul {

@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">Buscar y Modificar</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="Buscar y Modificar"/>
+        </ui:define>
+        <ui:define name="container">
+            <p:growl id="growl" life="3000" />
+            <script name="jquery/jquery.js" library="primefaces"></script> 
+            <h:outputScript library="js" name="jsfcrud.js"/>
+            <style type="text/css">
+                .divider{
+                    width:5px;
+                    height:auto;
+                    display:inline-block;
+                }
+            </style>
+            <h:form id="form">
+                <p:tabView>
+                    <p:tab title="Ordenes de Trabajo" titleStyle="font-size: 12px;">
+                        <p:dataTable id="datatableOT" 
+                                     value="#{BuscarModificarOTBean.listaOrdenesTrabajo}" 
+                                     rowKey="#{item.nroOrden}"
+                                     filterEvent="enter"
+                                     var="item"
+                                     scrollable="true"
+                                     scrollHeight="300"
+                                     emptyMessage="Aun no se han agregado Tareas"
+                                     widgetVar="datatableOT">
+                            <f:facet name="header">
+                                Ordenes de Trabajo
+                            </f:facet>
+
+                            <p:column headerText="Nro. Orden" style="width: 80px;" filterBy="#{item.nroOrden}" filterMatchMode="contains" filterStyle="width:100%">
+                                <div align="center"><h:outputText value="#{item.nroOrden}"/></div>
+                            </p:column>
+                            <p:column headerText="Fecha" style="width: 80px;" filterBy="#{item.fechaOrden}" filterMatchMode="contains" filterStyle="width:100%">
+                                <f:facet name="filter">
+                                    <p:calendar onchange="PF('datatableOT').filter();" pattern="dd/MM/yyyy" locale="es"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fechaOrden}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Tecnico" filterBy="#{item.idTecnico.nombre}" filterMatchMode="contains" filterStyle="width:100%">
+                                <h:outputText value="#{item.idTecnico.nombre}"/>
+                            </p:column>                                
+                            <p:column headerText="Cliente" filterBy="#{item.idCliente.nombre}" filterMatchMode="contains" filterStyle="width:100%">
+                                <h:outputText value="#{item.idCliente.nombre} #{item.idCliente.apellido}"/>
+                            </p:column>
+                            <p:column headerText="Servicio a Realizar" filterBy="#{item.idServicio.descripcion}" filterMatchMode="contains" filterStyle="width:100%">
+                                <h:outputText value="#{item.idServicio.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Estado" filterBy="#{item.idEstadoTrab.estado}" filterMatchMode="contains" filterStyle="width:100%">
+                                <h:outputText value="#{item.idEstadoTrab.estado}"/>
+                            </p:column>
+                            <p:column headerText="Modificar/Eliminar" style="width: 100px;">
+                                <div align="center">
+                                    <p:commandButton id="buttonModificar"
+                                                     icon="ui-icon-pencil"
+                                                     title="Modificar"
+                                                     action="#{BuscarModificarOTBean.modificarOT}"
+                                                     update="datatableOT"/> 
+                                    <div class="divider"/>
+                                    <p:commandButton id="buttonEliminar"
+                                                     icon="ui-icon-trash"
+                                                     title="Eliminar"
+                                                     action="#{BuscarModificarOTBean.eliminarOT}"
+                                                     update="datatableOT"/> 
+                                </div>
+                            </p:column>
+                        </p:dataTable>
+
+                    </p:tab>
+                    <p:tab title="Instalaciones" titleStyle="font-size: 12px;">
+                        <p:dataTable id="datatableInst" 
+                                     value="#{BuscarModificarOTBean.listaInstalaciones}" 
+                                     rowKey="#{item.idInstalacion}"
+                                     filterEvent="enter"
+                                     var="item"
+                                     scrollable="true"
+                                     scrollHeight="300"
+                                     emptyMessage="Aun no se han agregado Instalaciones">
+                            <f:facet name="header">
+                                Ordenes de Instalacion
+                            </f:facet>
+
+                            <p:column headerText="Id Instalacion" style="width: 80px;" filterBy="#{item.idInstalacion}" filterMatchMode="contains" filterStyle="width:100%">
+                                <div align="center"><h:outputText value="#{item.idInstalacion}"/></div>
+                            </p:column>
+                            <p:column headerText="Tipo Instalacion" filterBy="#{item.tipoInstalacion}" filterMatchMode="contains" filterStyle="width:100%">
+                                <h:outputText value="#{item.tipoInstalacion}"/>
+                            </p:column>                                
+                            <p:column headerText="Descripcion" style="width: 80px;" filterBy="#{item.descripcion}" filterMatchMode="contains" filterStyle="width:100%">
+                                <h:outputText value="#{item.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Nro. Orden" filterBy="#{item.nroOrden.nroOrden}" filterMatchMode="contains" filterStyle="width:100%">
+                                <h:outputText value="#{item.nroOrden.nroOrden}"/>
+                            </p:column>
+                            <p:column headerText="Cliente" filterBy="#{item.nroOrden.idCliente.nombre}" filterMatchMode="contains" filterStyle="width:100%">
+                                <h:outputText value="#{item.idCliente.nombre} #{item.nroOrden.idCliente.apellido}"/>
+                            </p:column>
+                            <p:column headerText="Tipo Servicio" filterBy="#{item.nroOrden.idServicio.descripcion}" filterMatchMode="contains" filterStyle="width:100%">
+                                <h:outputText value="#{item.nroOrden.idServicio.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Responsable" filterBy="#{item.nroOrden.idTecnico.nombre}" filterMatchMode="contains" filterStyle="width:100%">
+                                <h:outputText value="#{item.nroOrden.idTecnico.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Estado" filterBy="#{item.idEstadoTrab.estado}" filterMatchMode="contains" filterStyle="width:100%">
+                                <h:outputText value="#{item.idEstadoTrab.estado}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                </p:tabView>
+
+            </h:form>  
+        </ui:define>
+    </ui:composition>
+</html>
