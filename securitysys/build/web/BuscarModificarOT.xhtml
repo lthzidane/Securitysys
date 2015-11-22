@@ -65,8 +65,11 @@
                                     <p:commandButton id="buttonModificar"
                                                      icon="ui-icon-pencil"
                                                      title="Modificar"
-                                                     action="#{BuscarModificarOTBean.modificarOT}"
-                                                     update="datatableOT"/> 
+                                                     action="OrdenTrabajo"
+                                                     update="datatableOT">
+                                        <f:param name="Editar" value="true"/>
+                                        <f:param name="OTNro" value="#{item.nroOrden}"/>
+                                    </p:commandButton> 
                                     <div class="divider"/>
                                     <p:commandButton id="buttonEliminar"
                                                      icon="ui-icon-trash"

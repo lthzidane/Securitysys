@@ -73,6 +73,7 @@ public class BuscarModificarOTBean implements Serializable{
     private static final long serialVersionUID = 1L;
     
     private ArrayList<OrdenTrabajoCab> listaOrdenesTrabajo = new ArrayList<OrdenTrabajoCab>();
+    private List<OrdenTrabajoDet> listaOrdenesTrabajoDet = new ArrayList<OrdenTrabajoDet>();
     private ArrayList<OrdenTrabajoCab> filteredListOTs = new ArrayList<OrdenTrabajoCab>();
     
     private ArrayList<InstalacionCab> listaInstalaciones = new ArrayList<InstalacionCab>();
@@ -117,6 +118,16 @@ public class BuscarModificarOTBean implements Serializable{
 
             listaOrdenesTrabajo = new ArrayList<OrdenTrabajoCab>();
             for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findAll()) {
+                System.out.println("ot.NroOrden:"+ot.getNroOrden()+" cantDet:"+ot.getOrdenTrabajoDetList().size());
+                
+                if(ot.getOrdenTrabajoDetList().isEmpty()){
+                    listaOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(ot.getNroOrden().intValue());
+                    if(listaOrdenesTrabajoDet.size() > 0){
+                        ot.setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
+                        System.out.println("seteo la cantitad real: "+listaOrdenesTrabajoDet.size());
+                    }
+                }
+                
                 listaOrdenesTrabajo.add(ot);
             }
             

@@ -4,9 +4,12 @@
  */
 package bean;
 
+import entities.OrdenTrabajoCab;
 import entities.OrdenTrabajoDet;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -25,6 +28,14 @@ public class OrdenTrabajoDetFacade extends AbstractFacade<OrdenTrabajoDet> {
 
     public OrdenTrabajoDetFacade() {
         super(OrdenTrabajoDet.class);
+    }
+ 
+    public List<OrdenTrabajoDet> findByNroOrden(Integer nroOrden) {
+        try {
+            return (List<OrdenTrabajoDet>) em.createNamedQuery("OrdenTrabajoDet.findByNroOrden").setParameter("nroOrden", nroOrden).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
     
 }

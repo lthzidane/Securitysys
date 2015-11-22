@@ -37,14 +37,14 @@
                                 <f:selectItems value="#{OrdenTrabajoBean.listaTecnicos}" var="tec" itemLabel="#{tec.nombre}" itemValue="#{tec.idTecnico}" />
                             </h:selectOneMenu>
 
-                            <h:outputText value="Inicio Previsto del Trabajo:"
+                            <h:outputText rendered="false" value="Inicio Previsto del Trabajo:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <p:calendar id="buttonIT" value="#{OrdenTrabajoBean.fechaInicio}" pattern="dd/MM/yyyy" locale="es" mindate="#{OrdenTrabajoBean.fechaRecepcion}">
+                            <p:calendar rendered="false" id="buttonIT" value="#{OrdenTrabajoBean.fechaInicio}" pattern="dd/MM/yyyy" locale="es" mindate="#{OrdenTrabajoBean.fechaRecepcion}">
                                 <p:ajax event="dateSelect" listener="#{OrdenTrabajoBean.onDateSelect}"  update="buttonFT"/>
                             </p:calendar>
-                            <h:outputText value="Fin Previsto del Trabajo:"
+                            <h:outputText rendered="false" value="Fin Previsto del Trabajo:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <p:calendar id="buttonFT" value="#{OrdenTrabajoBean.fechaFin}" pattern="dd/MM/yyyy" locale="es" mindate="#{OrdenTrabajoBean.fechaInicio}"/>                    
+                            <p:calendar rendered="false" id="buttonFT" value="#{OrdenTrabajoBean.fechaFin}" pattern="dd/MM/yyyy" locale="es" mindate="#{OrdenTrabajoBean.fechaInicio}"/>                    
 
                             <h:outputText value="Estado del Trabajo:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
@@ -57,7 +57,7 @@
                             <p:inputTextarea id="observacion" rows="3" cols="33" value="#{OrdenTrabajoBean.observacion}" style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 12px;" rendered="false"/>
                         </h:panelGrid>
                         
-                        <h:panelGrid columns="2" cellpadding="5" frame="lhs">
+                        <h:panelGrid columns="2" cellpadding="5"  frame="lhs">
                             <h:outputText value="Buscar Cliente:" 
                                           style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <p:inputText id="clienteFilter" value="#{OrdenTrabajoBean.cliente}" onblur="buscarCliente()" />
@@ -78,15 +78,17 @@
                             <h:outputText id="telefonoCliente" value="#{OrdenTrabajoBean.telefono}" style="font-size: 11px;"/>
 
                         </h:panelGrid>
-                        <h:panelGrid columns="2" cellpadding="5" frame="lhs">
+
+                    </h:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="5" >
                             <p:dataTable id="datatable" 
                                          value="#{OrdenTrabajoBean.listaDetalle}" 
                                          rowKey="#{item.detalle}"
                                          var="item"
                                          editable="true"
                                          scrollable="true"
-                                         scrollHeight="150"
-                                         style="width: 500px;" 
+                                         scrollHeight="100"
+                                         style="width: 800px;" 
                                          emptyMessage="Aun no se han agregado Tareas"
                                          >
                                 <f:facet name="header">
@@ -127,8 +129,6 @@
                             </h:panelGroup>
 
                         </h:panelGrid>
-                    </h:panelGrid>
-
                 </p:panel>  
             </h:form>  
         </ui:define>

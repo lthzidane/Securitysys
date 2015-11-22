@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "OrdenTrabajoDet.findAll", query = "SELECT o FROM OrdenTrabajoDet o"),
     @NamedQuery(name = "OrdenTrabajoDet.findByNroSecuencia", query = "SELECT o FROM OrdenTrabajoDet o WHERE o.nroSecuencia = :nroSecuencia"),
+    @NamedQuery(name = "OrdenTrabajoDet.findByNroOrden", query = "SELECT o FROM OrdenTrabajoDet o WHERE o.nroOrden.nroOrden = :nroOrden"),
     @NamedQuery(name = "OrdenTrabajoDet.findByDetalle", query = "SELECT o FROM OrdenTrabajoDet o WHERE o.detalle = :detalle")})
 public class OrdenTrabajoDet implements Serializable {
     private static final long serialVersionUID = 1L;

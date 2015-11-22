@@ -58,7 +58,6 @@ public class OrdenTrabajoBean implements Serializable{
     private String equipo; 
     private BigDecimal pedido;
     private String estado;
-    private String description;
     private String fechaInicio;
     private String fechaFin;
     private String fechaRecepcion;
@@ -88,14 +87,15 @@ public class OrdenTrabajoBean implements Serializable{
     @EJB
     private bean.EstadoTrabFacade estadoTrabFacade = new EstadoTrabFacade();
     @EJB
-    private bean.OrdenTrabajoCabFacade ejbCabFacade;
+    private bean.OrdenTrabajoCabFacade ordenTrabajoCabFacade;
     @EJB
-    private bean.OrdenTrabajoDetFacade ejbDetFacade;
+    private bean.OrdenTrabajoDetFacade ordenTrabajoDetFacade;
     
     private OrdenTrabajoCab ordenTrabajoCab;
     private OrdenTrabajoDet ordenTrabajoDet;
     
     private Connection con = null;
+    private boolean editando;
     
     @PostConstruct
     void initialiseSession() {
@@ -105,26 +105,29 @@ public class OrdenTrabajoBean implements Serializable{
     
     
     public void cargarVista() {
-
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
+            String editar = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("Editar");
 
-            nroDeOrden = "000"+String.valueOf(obtenerNroOrden()+1) ;
+            this.editando = "true".equalsIgnoreCase(editar) ? true : false;
 
-            Date date = Calendar.getInstance().getTime();
-            fechaOrden = date;
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            String today = formatter.format(date);
-            fechaRecepcion = today;
+            //si no estoy editando, estoy creando
+            if ( !editando ) {
+                nroDeOrden = "000" + String.valueOf(obtenerNroOrden() + 1);
 
-            this.listaServicios = obtenerTiposDeServicio();
-            this.listaTecnicos = obtenerTecnicos();
-            this.listaEstados = estadoTrabFacade.findAll();
-            this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
-            
-            description = "";
+                Date date = Calendar.getInstance().getTime();
+                fechaOrden = date;
+                
+                String today = formatter.format(date);
+                fechaRecepcion = today;
 
-            listaDetalle = new ArrayList<OrdenTrabajoDet>();
-    
+                this.listaServicios = obtenerTiposDeServicio();
+                this.listaTecnicos = obtenerTecnicos();
+                this.listaEstados = estadoTrabFacade.findAll();
+                this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
+
+                listaDetalle = new ArrayList<OrdenTrabajoDet>();
+
                 this.idCliente = null;
                 this.idTecnico = null;
                 this.fechaInicio = null;
@@ -136,13 +139,58 @@ public class OrdenTrabajoBean implements Serializable{
                 this.telefono = "";
                 this.direccion = "";
                 this.razonsocial = "";
-            
-            /*for(int i=0; i<10; i++){
-                OrdenTrabajoDet otd = new OrdenTrabajoDet( BigDecimal.valueOf(i)  , "Tarea "+i);
-                this.listaDetalle.add(otd);
-            }*/
-            
-            
+                
+            }else{
+                
+                String otNro = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("OTNro");
+                
+                OrdenTrabajoCab otCab = ordenTrabajoCabFacade.findByNroOrden(Integer.parseInt(otNro));
+                
+                if (otCab.getOrdenTrabajoDetList().isEmpty()) {
+                    List<OrdenTrabajoDet> listaOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(otCab.getNroOrden().intValue());
+                    if (listaOrdenesTrabajoDet.size() > 0) {
+                        otCab.setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
+                        System.out.println("seteo la cantitad real: " + listaOrdenesTrabajoDet.size());
+                    }
+                }
+
+
+                if (otCab != null) {
+                    nroDeOrden = "000" + otNro;
+
+                    fechaOrden = otCab.getFechaOrden();
+                    fechaRecepcion = formatter.format(otCab.getFechaOrden());
+
+                    this.listaServicios = obtenerTiposDeServicio();
+                    this.idServicio = otCab.getIdServicio().getIdServicio().intValue();
+                    
+                    this.listaTecnicos = obtenerTecnicos();
+                    this.idTecnico = otCab.getIdTecnico().getIdTecnico();
+                    
+                    this.listaEstados = estadoTrabFacade.findAll();
+                    this.idEstadoTrab = otCab.getIdEstadoTrab().getIdEstadoTrab().intValue();
+                    
+                    listaDetalle = new ArrayList<OrdenTrabajoDet>();
+                    System.out.println("trae OtDet: "+otCab.getOrdenTrabajoDetList().size());
+                    for (OrdenTrabajoDet otDet : otCab.getOrdenTrabajoDetList()) {
+                        listaDetalle.add(otDet);
+                    }
+                    
+                    this.idCliente = otCab.getIdCliente().getIdCliente().intValue();
+                    
+                    this.fechaInicio = null;
+                    this.fechaFin = null;
+                    
+                    this.nroDocumento = otCab.getIdCliente().getNroDocumento();
+                    this.ciudad = otCab.getIdCliente().getIdCiudad().getCiudad();
+                    this.telefono = otCab.getIdCliente().getTelefono();
+                    this.direccion = otCab.getIdCliente().getDireccion();
+                    this.razonsocial = otCab.getIdCliente().getNombre()+" "+otCab.getIdCliente().getApellido();
+
+                }
+                
+            }
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -170,26 +218,39 @@ public class OrdenTrabajoBean implements Serializable{
    
     public String guardarOrdenTrabajo(){
         
-        ordenTrabajoCab = new OrdenTrabajoCab();
-        ordenTrabajoCab.setIdTecnico( tecnicoFacade.findByIdTecnico(idTecnico) );
-        ordenTrabajoCab.setIdCliente( clienteFacade.findByIdCliente(idCliente) );
-        ordenTrabajoCab.setIdReclamo( null );
-        ordenTrabajoCab.setFechaOrden( fechaOrden );
-        ordenTrabajoCab.setIdEstado( null );
-        ordenTrabajoCab.setIdServicio( tipoServiciosFacade.findByIdServicio(idServicio) );
-        ordenTrabajoCab.setIdEstadoTrab( estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab) );
         
-        persistOTCab(PersistAction.CREATE, null);
-        System.out.println("se guardó la OTCab con exito > "+JsfUtil.isValidationFailed());
+            ordenTrabajoCab = new OrdenTrabajoCab();
+            ordenTrabajoCab.setIdTecnico(tecnicoFacade.findByIdTecnico(idTecnico));
+            ordenTrabajoCab.setIdCliente(clienteFacade.findByIdCliente(idCliente));
+            ordenTrabajoCab.setIdReclamo(null);
+            ordenTrabajoCab.setFechaOrden(fechaOrden);
+            ordenTrabajoCab.setIdEstado(null);
+            ordenTrabajoCab.setIdServicio(tipoServiciosFacade.findByIdServicio(idServicio));
+            ordenTrabajoCab.setIdEstadoTrab(estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab));
+
+            //estoy creando
+        if (!editando) {    
+            
+            persistOTCab(PersistAction.CREATE, null);
+            System.out.println("se guardó la OTCab con exito > " + JsfUtil.isValidationFailed());
+            persistOTDet(PersistAction.CREATE, listaDetalle, "Orden de Trabajo guardada correctamente");
+            System.out.println("se guardó la OTDet con exito");
+
+            //limpiar campos
+            cargarVista();
         
-        persistOTDet(PersistAction.CREATE, listaDetalle, "Orden de Trabajo guardada correctamente");
+        }else{
+            //estoy editando!
+            ordenTrabajoCab.setNroOrden(BigDecimal.valueOf(Integer.parseInt(this.nroDeOrden)));
+            persistOTCab(PersistAction.UPDATE, null);
+            System.out.println("se editó la OTCab con exito > " + JsfUtil.isValidationFailed());
+            persistOTDet(PersistAction.UPDATE, listaDetalle, "Orden de Trabajo modificada correctamente");
+            System.out.println("se editó la OTDet con exito");
+
+            return "BuscarModificarOT";
+        }
         
-        System.out.println("se guardó la OTDet con exito");
         
-        //limpiar campos
-        cargarVista();
-        
-        //return "/home";
         return null;
     }
     
@@ -312,12 +373,12 @@ public class OrdenTrabajoBean implements Serializable{
 
             try {
                 if (persistAction == JsfUtil.PersistAction.CREATE) {
-                    getEjbCabFacade().create(ordenTrabajoCab);
+                    ordenTrabajoCabFacade.create(ordenTrabajoCab);
                 }
                 else if (persistAction == JsfUtil.PersistAction.UPDATE) {
-                    getEjbCabFacade().edit(ordenTrabajoCab);
+                    ordenTrabajoCabFacade.edit(ordenTrabajoCab);
                 } else {
-                    getEjbCabFacade().remove(ordenTrabajoCab);
+                    ordenTrabajoCabFacade.remove(ordenTrabajoCab);
                 }
                 
                 if(successMessage != null){
@@ -348,19 +409,24 @@ public class OrdenTrabajoBean implements Serializable{
         
         if (listaDetalle != null && !listaDetalle.isEmpty()) {
             for (OrdenTrabajoDet otdet : listaDetalle) {
-                ordenTrabajoDet = new OrdenTrabajoDet();
-                ordenTrabajoDet.setNroOrden(ordenTrabajoCab);
-                ordenTrabajoDet.setDetalle(otdet.getDetalle());
-
+                
+                if ( otdet.getNroOrden() != null ){
+                    ordenTrabajoDet = otdet;
+                }else{
+                    ordenTrabajoDet = new OrdenTrabajoDet();
+                    ordenTrabajoDet.setNroOrden(ordenTrabajoCab);
+                    ordenTrabajoDet.setDetalle(otdet.getDetalle());
+                }
+                
                 try {
                     if (persistAction == JsfUtil.PersistAction.CREATE) {
-                        getEjbDetFacade().create(ordenTrabajoDet);
+                        ordenTrabajoDetFacade.create(ordenTrabajoDet);
                     }
                     else if (persistAction == JsfUtil.PersistAction.UPDATE) {
-                        getEjbDetFacade().edit(ordenTrabajoDet);
+                        ordenTrabajoDetFacade.edit(ordenTrabajoDet);
                     } 
                     else {
-                        getEjbDetFacade().remove(ordenTrabajoDet);
+                        ordenTrabajoDetFacade.remove(ordenTrabajoDet);
                     }
                     
                 } catch (EJBException ex) {
