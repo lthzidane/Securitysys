@@ -4,7 +4,6 @@
  */
 package bean;
 
-
 import entities.Cliente;
 import entities.EstadoTrab;
 import entities.OrdenTrabajoCab;
@@ -48,14 +47,15 @@ import util.Sale;
  *
  * @author sebas
  */
-@ManagedBean(name="OrdenTrabajoBean")
+@ManagedBean(name = "OrdenTrabajoBean")
 @ViewScoped
 @Data
-public class OrdenTrabajoBean implements Serializable{
+public class OrdenTrabajoBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     private String nroDeOrden;
-    private String equipo; 
+    private String equipo;
     private BigDecimal pedido;
     private String estado;
     private String fechaInicio;
@@ -77,9 +77,10 @@ public class OrdenTrabajoBean implements Serializable{
     private ArrayList<Tecnicos> listaTecnicos = new ArrayList<Tecnicos>();
     private List<EstadoTrab> listaEstados = new ArrayList<EstadoTrab>();
     private ArrayList<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
-    
+    private ArrayList<OrdenTrabajoDet> listaDetallesEliminados = new ArrayList<OrdenTrabajoDet>();
+
     @EJB
-    private bean.TecnicosFacade tecnicoFacade =  new TecnicosFacade();
+    private bean.TecnicosFacade tecnicoFacade = new TecnicosFacade();
     @EJB
     private bean.ClienteFacade clienteFacade = new ClienteFacade();
     @EJB
@@ -90,34 +91,35 @@ public class OrdenTrabajoBean implements Serializable{
     private bean.OrdenTrabajoCabFacade ordenTrabajoCabFacade;
     @EJB
     private bean.OrdenTrabajoDetFacade ordenTrabajoDetFacade;
-    
+
     private OrdenTrabajoCab ordenTrabajoCab;
     private OrdenTrabajoDet ordenTrabajoDet;
-    
+
     private Connection con = null;
     private boolean editando;
-    
+
     @PostConstruct
     void initialiseSession() {
         con = DataConnect.getConnection();
         this.cargarVista();
-    }   
-    
-    
+    }
+
     public void cargarVista() {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        listaDetallesEliminados.clear(); //limpio la lista de tareas eliminadas
+
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //defino el formato de fecha
         try {
             String editar = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("Editar");
 
             this.editando = "true".equalsIgnoreCase(editar) ? true : false;
 
             //si no estoy editando, estoy creando
-            if ( !editando ) {
+            if (!editando) {
                 nroDeOrden = "000" + String.valueOf(obtenerNroOrden() + 1);
 
                 Date date = Calendar.getInstance().getTime();
                 fechaOrden = date;
-                
+
                 String today = formatter.format(date);
                 fechaRecepcion = today;
 
@@ -139,13 +141,13 @@ public class OrdenTrabajoBean implements Serializable{
                 this.telefono = "";
                 this.direccion = "";
                 this.razonsocial = "";
-                
-            }else{
-                
+
+            } else {
+
                 String otNro = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("OTNro");
-                
+
                 OrdenTrabajoCab otCab = ordenTrabajoCabFacade.findByNroOrden(Integer.parseInt(otNro));
-                
+
                 if (otCab.getOrdenTrabajoDetList().isEmpty()) {
                     List<OrdenTrabajoDet> listaOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(otCab.getNroOrden().intValue());
                     if (listaOrdenesTrabajoDet.size() > 0) {
@@ -153,7 +155,6 @@ public class OrdenTrabajoBean implements Serializable{
                         System.out.println("seteo la cantitad real: " + listaOrdenesTrabajoDet.size());
                     }
                 }
-
 
                 if (otCab != null) {
                     nroDeOrden = "000" + otNro;
@@ -163,39 +164,39 @@ public class OrdenTrabajoBean implements Serializable{
 
                     this.listaServicios = obtenerTiposDeServicio();
                     this.idServicio = otCab.getIdServicio().getIdServicio().intValue();
-                    
+
                     this.listaTecnicos = obtenerTecnicos();
                     this.idTecnico = otCab.getIdTecnico().getIdTecnico();
-                    
+
                     this.listaEstados = estadoTrabFacade.findAll();
                     this.idEstadoTrab = otCab.getIdEstadoTrab().getIdEstadoTrab().intValue();
-                    
+
                     listaDetalle = new ArrayList<OrdenTrabajoDet>();
-                    System.out.println("trae OtDet: "+otCab.getOrdenTrabajoDetList().size());
+                    System.out.println("trae OtDet: " + otCab.getOrdenTrabajoDetList().size());
                     for (OrdenTrabajoDet otDet : otCab.getOrdenTrabajoDetList()) {
                         listaDetalle.add(otDet);
                     }
-                    
+
                     this.idCliente = otCab.getIdCliente().getIdCliente().intValue();
-                    
+
                     this.fechaInicio = null;
                     this.fechaFin = null;
-                    
+
                     this.nroDocumento = otCab.getIdCliente().getNroDocumento();
                     this.ciudad = otCab.getIdCliente().getIdCiudad().getCiudad();
                     this.telefono = otCab.getIdCliente().getTelefono();
                     this.direccion = otCab.getIdCliente().getDireccion();
-                    this.razonsocial = otCab.getIdCliente().getNombre()+" "+otCab.getIdCliente().getApellido();
+                    this.razonsocial = otCab.getIdCliente().getNombre() + " " + otCab.getIdCliente().getApellido();
 
                 }
-                
+
             }
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    
+
     public int obtenerNroOrden() {
         int ultimoValor = 0;
         try {
@@ -204,9 +205,9 @@ public class OrdenTrabajoBean implements Serializable{
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-               BigDecimal uv =  rs.getBigDecimal("last_value");
-               
-               ultimoValor = uv.toBigInteger().intValue();
+                BigDecimal uv = rs.getBigDecimal("last_value");
+
+                ultimoValor = uv.toBigInteger().intValue();
             }
         } catch (SQLException ex) {
             System.out.println("Error al obtener Tipos de Servicio -->" + ex.getMessage());
@@ -215,22 +216,20 @@ public class OrdenTrabajoBean implements Serializable{
         return ultimoValor;
     }
 
-   
-    public String guardarOrdenTrabajo(){
-        
-        
-            ordenTrabajoCab = new OrdenTrabajoCab();
-            ordenTrabajoCab.setIdTecnico(tecnicoFacade.findByIdTecnico(idTecnico));
-            ordenTrabajoCab.setIdCliente(clienteFacade.findByIdCliente(idCliente));
-            ordenTrabajoCab.setIdReclamo(null);
-            ordenTrabajoCab.setFechaOrden(fechaOrden);
-            ordenTrabajoCab.setIdEstado(null);
-            ordenTrabajoCab.setIdServicio(tipoServiciosFacade.findByIdServicio(idServicio));
-            ordenTrabajoCab.setIdEstadoTrab(estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab));
+    public String guardarOrdenTrabajo() {
 
-            //estoy creando
-        if (!editando) {    
-            
+        ordenTrabajoCab = new OrdenTrabajoCab();
+        ordenTrabajoCab.setIdTecnico(tecnicoFacade.findByIdTecnico(idTecnico));
+        ordenTrabajoCab.setIdCliente(clienteFacade.findByIdCliente(idCliente));
+        ordenTrabajoCab.setIdReclamo(null);
+        ordenTrabajoCab.setFechaOrden(fechaOrden);
+        ordenTrabajoCab.setIdEstado(null);
+        ordenTrabajoCab.setIdServicio(tipoServiciosFacade.findByIdServicio(idServicio));
+        ordenTrabajoCab.setIdEstadoTrab(estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab));
+
+        //estoy creando
+        if (!editando) {
+
             persistOTCab(PersistAction.CREATE, null);
             System.out.println("se guardó la OTCab con exito > " + JsfUtil.isValidationFailed());
             persistOTDet(PersistAction.CREATE, listaDetalle, "Orden de Trabajo guardada correctamente");
@@ -238,58 +237,63 @@ public class OrdenTrabajoBean implements Serializable{
 
             //limpiar campos
             cargarVista();
-        
-        }else{
+
+        } else {
             //estoy editando!
             ordenTrabajoCab.setNroOrden(BigDecimal.valueOf(Integer.parseInt(this.nroDeOrden)));
             persistOTCab(PersistAction.UPDATE, null);
             System.out.println("se editó la OTCab con exito > " + JsfUtil.isValidationFailed());
+
             persistOTDet(PersistAction.UPDATE, listaDetalle, "Orden de Trabajo modificada correctamente");
             System.out.println("se editó la OTDet con exito");
 
             return "BuscarModificarOT";
         }
-        
-        
+
         return null;
     }
-    
-    public String volver(){
+
+    public String volver() {
         return "/home";
     }
-    
-    public void addTarea(){
+
+    public void addTarea() {
         int i = this.listaDetalle.size() + 1;
-        OrdenTrabajoDet otd = new OrdenTrabajoDet( BigDecimal.valueOf(i)  , "");
+        OrdenTrabajoDet otd = new OrdenTrabajoDet(BigDecimal.valueOf(i), "");
         this.listaDetalle.add(otd);
     }
-    
+
+    public void removeTarea(OrdenTrabajoDet item) {
+        listaDetallesEliminados.add(item);
+        this.listaDetalle.remove(item);
+    }
+
     private ArrayList<TipoServicios> obtenerTiposDeServicio() {
         TipoServicios tipoServ = null;
         ArrayList<TipoServicios> list = new ArrayList<TipoServicios>();
 
         try {
-            
+
             PreparedStatement ps = con.prepareStatement("select id_servicio, descripcion from tipo_servicios");
 
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 tipoServ = new TipoServicios();
                 String id_servicio = rs.getString("id_servicio");
                 String descripcion = rs.getString("descripcion");
-                
+
                 tipoServ.setIdServicio(new BigDecimal(id_servicio));
                 tipoServ.setDescripcion(descripcion);
                 list.add(tipoServ);
             }
         } catch (SQLException ex) {
             System.out.println("Error al obtener Tipos de Servicio -->" + ex.getMessage());
-            
+
         } finally {
             return list;
         }
-        
+
     }
 
     private ArrayList<Tecnicos> obtenerTecnicos() {
@@ -304,23 +308,23 @@ public class OrdenTrabajoBean implements Serializable{
 
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 tecnico = new Tecnicos();
                 String id_tecnico = rs.getString("id_tecnico");
                 String nombre = rs.getString("nombre");
-                
+
                 tecnico.setIdTecnico(Integer.parseInt(id_tecnico));
                 tecnico.setNombre(nombre);
                 list.add(tecnico);
             }
         } catch (SQLException ex) {
             System.out.println("Error al obtener Tecnicos -->" + ex.getMessage());
-            
+
         } finally {
             DataConnect.close(con);
             return list;
         }
-        
+
     }
 
     public void obtenerDatosCliente() {
@@ -367,24 +371,22 @@ public class OrdenTrabajoBean implements Serializable{
 
     }
 
- 
     private void persistOTCab(JsfUtil.PersistAction persistAction, String successMessage) {
         if (ordenTrabajoCab != null) {
 
             try {
                 if (persistAction == JsfUtil.PersistAction.CREATE) {
                     ordenTrabajoCabFacade.create(ordenTrabajoCab);
-                }
-                else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+                } else if (persistAction == JsfUtil.PersistAction.UPDATE) {
                     ordenTrabajoCabFacade.edit(ordenTrabajoCab);
                 } else {
                     ordenTrabajoCabFacade.remove(ordenTrabajoCab);
                 }
-                
-                if(successMessage != null){
+
+                if (successMessage != null) {
                     JsfUtil.addSuccessMessage(successMessage);
                 }
-                
+
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
@@ -403,32 +405,14 @@ public class OrdenTrabajoBean implements Serializable{
         }
     }
 
-    private void persistOTDet(  JsfUtil.PersistAction persistAction, 
-                                ArrayList<OrdenTrabajoDet> listaDetalle,
-                                String successMessage) {
-        
-        if (listaDetalle != null && !listaDetalle.isEmpty()) {
-            for (OrdenTrabajoDet otdet : listaDetalle) {
-                
-                if ( otdet.getNroOrden() != null ){
-                    ordenTrabajoDet = otdet;
-                }else{
-                    ordenTrabajoDet = new OrdenTrabajoDet();
-                    ordenTrabajoDet.setNroOrden(ordenTrabajoCab);
-                    ordenTrabajoDet.setDetalle(otdet.getDetalle());
-                }
-                
+    private void persistOTDet(JsfUtil.PersistAction persistAction,
+            ArrayList<OrdenTrabajoDet> listaDetalle,
+            String successMessage) {
+
+        if (!listaDetallesEliminados.isEmpty()) { //si eliminé alguno de los detalles
+            for (OrdenTrabajoDet otdet : listaDetallesEliminados) {
                 try {
-                    if (persistAction == JsfUtil.PersistAction.CREATE) {
-                        ordenTrabajoDetFacade.create(ordenTrabajoDet);
-                    }
-                    else if (persistAction == JsfUtil.PersistAction.UPDATE) {
-                        ordenTrabajoDetFacade.edit(ordenTrabajoDet);
-                    } 
-                    else {
-                        ordenTrabajoDetFacade.remove(ordenTrabajoDet);
-                    }
-                    
+                    ordenTrabajoDetFacade.remove(otdet);
                 } catch (EJBException ex) {
                     String msg = "";
                     Throwable cause = ex.getCause();
@@ -445,36 +429,73 @@ public class OrdenTrabajoBean implements Serializable{
                     JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
                 }
             }
-            
+        }
+
+        if (listaDetalle != null && !listaDetalle.isEmpty()) {
+            for (OrdenTrabajoDet otdet : listaDetalle) {
+
+                if (otdet.getNroOrden() != null) {
+                    ordenTrabajoDet = otdet; //si mantiene el nro de orden, es que solo edite la descripción
+                } else {
+                    ordenTrabajoDet = new OrdenTrabajoDet();
+                    ordenTrabajoDet.setNroOrden(ordenTrabajoCab);
+                    ordenTrabajoDet.setDetalle(otdet.getDetalle());
+                }
+
+                try {
+                    if (persistAction == JsfUtil.PersistAction.CREATE) {
+                        ordenTrabajoDetFacade.create(ordenTrabajoDet);
+                    } else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+                        ordenTrabajoDetFacade.edit(ordenTrabajoDet);
+                    } else {
+                        ordenTrabajoDetFacade.remove(ordenTrabajoDet);
+                    }
+
+                } catch (EJBException ex) {
+                    String msg = "";
+                    Throwable cause = ex.getCause();
+                    if (cause != null) {
+                        msg = cause.getLocalizedMessage();
+                    }
+                    if (msg.length() > 0) {
+                        JsfUtil.addErrorMessage(msg);
+                    } else {
+                        JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            }
+
             if (successMessage != null) {
                 JsfUtil.addSuccessMessage(successMessage);
             }
         }
     }
 
-    
     public void onDateSelect(SelectEvent event) {
-        if(event.getObject() != null){
+        if (event.getObject() != null) {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             this.fechaInicio = format.format(event.getObject());
         }
     }
-    
-    public void onRowEditTarea(RowEditEvent event){
-            System.out.println("Editando Tarea");
+
+    public void onRowEditTarea(RowEditEvent event) {
+        System.out.println("Editando Tarea");
     }
-    
+
     public void onRowCancelTarea(RowEditEvent event) {
-        OrdenTrabajoDet det = (OrdenTrabajoDet)event.getObject();
-        
+        OrdenTrabajoDet det = (OrdenTrabajoDet) event.getObject();
+
         String descripcion = det.getDetalle(); //obtengo la descripción de la tarea
-        
+
         //si es vacio, es porque es nuevo
-        if( "".equalsIgnoreCase(descripcion) ){
+        if ("".equalsIgnoreCase(descripcion)) {
             //al cancelar borro la ultima fila insertada
-            listaDetalle.remove(det);        
+            listaDetalle.remove(det);
         }
-        
+
     }
-    
+
 }

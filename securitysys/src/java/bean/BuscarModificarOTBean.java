@@ -171,12 +171,11 @@ public class BuscarModificarOTBean implements Serializable{
         }
     }
     
-    public void modificarOT(){
-        System.out.println("Modificar Orden de Trabajo");
-    }
-    
-    public void EliminarOT(){
+    public void eliminarOT(OrdenTrabajoCab item){
         System.out.println("Eliminar Orden de Trabajo");
+        ordenTrabajoCab = item;
+        persistOTCab(PersistAction.DELETE, "Orden de Trabajo eliminada correctamente");
+        cargarVista();
     }
     
     public void modificarInstal(){
@@ -185,6 +184,40 @@ public class BuscarModificarOTBean implements Serializable{
     
     public void EliminarInstal(){
         System.out.println("Eliminar Instalacion");
+    }
+    
+    private void persistOTCab(JsfUtil.PersistAction persistAction, String successMessage) {
+        if (ordenTrabajoCab != null) {
+
+            try {
+                if (persistAction == JsfUtil.PersistAction.CREATE) {
+                    ordenTrabajoCabFacade.create(ordenTrabajoCab);
+                } else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+                    ordenTrabajoCabFacade.edit(ordenTrabajoCab);
+                } else {
+                    ordenTrabajoCabFacade.remove(ordenTrabajoCab);
+                }
+
+                if (successMessage != null) {
+                    JsfUtil.addSuccessMessage(successMessage);
+                }
+
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
     }
     
 }

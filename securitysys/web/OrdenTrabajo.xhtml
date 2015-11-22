@@ -109,6 +109,9 @@
                                     </p:cellEditor>
                                 </p:column>
                                 <p:column style="width:40px">
+                                    <p:rowEditor/>
+                                </p:column>
+                                <p:column style="width:40px">
                                     <f:facet name="header">
                                         <p:commandLink id="addTarea" action="#{OrdenTrabajoBean.addTarea}" update="datatable" immediate="true"
                                                        oncomplete="jQuery('#form\\:datatable .ui-datatable-scrollable-body').scrollTop(100000);
@@ -116,7 +119,13 @@
                                             <h:graphicImage name="images/plus.png"/>
                                         </p:commandLink>
                                     </f:facet>
-                                    <p:rowEditor/>
+                                    <p:commandButton id="buttonEliminar"
+                                                     action="#{OrdenTrabajoBean.removeTarea(item)}"
+                                                     icon="ui-icon-trash"
+                                                     title="Eliminar"
+                                                     update="datatable"
+                                                     ajax="true">
+                                    </p:commandButton> 
                                 </p:column>
                                 <f:facet name="footer">
                                     Cantidad de Tareas: #{OrdenTrabajoBean.listaDetalle.size()}
