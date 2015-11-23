@@ -35,15 +35,17 @@
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:selectOneMenu id="movil" label="Movil a utilizar" value="#{OrdenInstalacionBean.movil}">
                                 <f:selectItem itemLabel="Seleccione Matricula" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{OrdenInstalacionBean.listaMoviles}" var="mov" itemLabel="#{mov.nroMatricula}" itemValue="#{mov}"/>
+                                <f:selectItems value="#{OrdenInstalacionBean.listaMoviles}" var="mov" itemLabel="#{mov.funcion} (#{mov.nroMatricula})" itemValue="#{mov}"/>
                             </h:selectOneMenu>                            
 
                             <h:outputText value="Inicio de Instalacion:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <p:calendar id="buttonIT" value="#{OrdenInstalacionBean.fechaInicio}" pattern="dd/MM/yyyy" locale="es" mindate="#{OrdenInstalacionBean.fechaRecepcion}"/>
+                            <p:calendar id="buttonIT" value="#{OrdenInstalacionBean.fechaInicio}" pattern="dd/MM/yyyy" locale="es" mindate="#{OrdenInstalacionBean.fechaRecepcion}">
+                                <p:ajax event="dateSelect" listener="#{OrdenInstalacionBean.onDateSelect}"  update="buttonFT"/>
+                            </p:calendar>
                             <h:outputText value="Fin de Instalacion:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <p:calendar id="buttonFT" value="#{OrdenInstalacionBean.fechaFin}" pattern="dd/MM/yyyy" locale="es" mindate="#{OrdenInstalacionBean.fechaInicio}" disabled="true"/>                    
+                            <p:calendar id="buttonFT" value="#{OrdenInstalacionBean.fechaFin}" pattern="dd/MM/yyyy" locale="es" mindate="#{OrdenInstalacionBean.fechaInicio}" disabled="#{!OrdenInstalacionBean.editando}"/>                    
                             <h:outputText value="Estado de Instalacion:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:selectOneMenu id="estado" label="Estado de Instalacion" value="#{OrdenInstalacionBean.idEstadoTrab}">
@@ -128,7 +130,7 @@
                                 </p:column>
                             </p:dataTable>
                             <br/><br/>        
-                            <p:dataTable id="datatableEquipoTecnico" rendered="#{!OrdenInstalacionBean.editando}"
+                            <p:dataTable id="datatableEquipoTecnico" disabledSelection="#{OrdenInstalacionBean.editando}"
                                          var="tec" 
                                          value="#{OrdenInstalacionBean.listaTecnicos}" 
                                          selection="#{OrdenInstalacionBean.selectedTecnicos}" 

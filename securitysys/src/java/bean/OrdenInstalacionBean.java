@@ -91,6 +91,7 @@ public class OrdenInstalacionBean implements Serializable{
     private List<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
     private List<ProductosKit> listaKits = new ArrayList<ProductosKit>();
     private ArrayList<ProductosKit> selectedKits = new ArrayList<ProductosKit>();
+    private ArrayList<InstalacionDet> instalacionesDetList = new ArrayList<InstalacionDet>();
     private ArrayList<Tecnicos> selectedTecnicos = new ArrayList<Tecnicos>();
     private List<Moviles> listaMoviles = new ArrayList<Moviles>();
     
@@ -120,7 +121,6 @@ public class OrdenInstalacionBean implements Serializable{
     private Moviles movil;
     
     private InstalacionCab instalacionCab;
-    private InstalacionDet instalacionDet;
     
     private Connection con = null;
     private boolean editando = false;    
@@ -189,6 +189,8 @@ public class OrdenInstalacionBean implements Serializable{
                     this.listaServicios = obtenerTiposDeServicio();
                     this.idServicio = instalCab.getIdServicio().getIdServicio().intValue();
                     
+                    this.listaTecnicos = obtenerTecnicos();
+                    
                     this.listaEstados = estadoTrabFacade.findAll();
                     this.idEstadoTrab = instalCab.getIdEstadoTrab().getIdEstadoTrab().intValue();
 
@@ -204,6 +206,7 @@ public class OrdenInstalacionBean implements Serializable{
                     this.tipoServicio = instalCab.getNroOrden().getIdServicio().getDescripcion();
                     this.tecnicoResponsable = instalCab.getNroOrden().getIdTecnico().getNombre();
                     listaDetalle = instalCab.getNroOrden().getOrdenTrabajoDetList();
+                    this.ordenTrabajoCab = instalCab.getNroOrden();
                     this.idCliente = instalCab.getNroOrden().getIdCliente().getIdCliente().intValue();
                     this.fechaFin = instalCab.getFechaFinInstalacion();
                     
@@ -268,36 +271,30 @@ public class OrdenInstalacionBean implements Serializable{
     public String guardarOrdenInstalacion(){
     
         instalacionCab = new InstalacionCab();
-        
-        try {
-            instalacionCab.setDescripcion(this.observacion);
-            instalacionCab.setNroOrden(this.ordenTrabajoCab);
-            instalacionCab.setIdTecnico(this.ordenTrabajoCab.getIdTecnico());
-            instalacionCab.setTipoInstalacion(this.tipoInstalacion);
-            System.out.println("fechaInicio: "+fechaInicio);
-            instalacionCab.setFechainstalacion( this.fechaInicio );
-            instalacionCab.setIdServicio(this.ordenTrabajoCab.getIdServicio());
-            instalacionCab.setIdMovil(this.movil);
-            instalacionCab.setIdCliente(this.ordenTrabajoCab.getIdCliente());
-            instalacionCab.setIdEstadoTrab(estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab));
-            
-            persistInstalCab(PersistAction.CREATE, null);
-            System.out.println("se guardó la InstalacionCab con exito > "+JsfUtil.isValidationFailed());
+        instalacionCab.setDescripcion(this.observacion);
+        instalacionCab.setNroOrden(this.ordenTrabajoCab);
+        instalacionCab.setIdTecnico(this.ordenTrabajoCab.getIdTecnico());
+        instalacionCab.setTipoInstalacion(this.tipoInstalacion);
+        instalacionCab.setFechainstalacion(this.fechaInicio);
+        instalacionCab.setIdServicio(this.ordenTrabajoCab.getIdServicio());
+        instalacionCab.setIdMovil(this.movil);
+        instalacionCab.setIdCliente(this.ordenTrabajoCab.getIdCliente());
+        instalacionCab.setIdEstadoTrab(estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab));
 
-            System.out.println("PK insertada: "+instalacionCab.getIdInstalacion());
-        
+        if(!editando){
+            persistInstalCab(PersistAction.CREATE, null);
             persistInstalDet(PersistAction.CREATE, selectedKits, instalacionCab.getIdInstalacion(), "Instalacion guardada correctamente");
-        
-        } catch (Exception ex) {
-            Logger.getLogger(OrdenInstalacionBean.class.getName()).log(Level.SEVERE, null, ex);
+            
+            cargarVista();    
+        }else{
+            //estoy editando
+            instalacionCab.setIdInstalacion(BigDecimal.valueOf(Integer.parseInt(this.nroDeInstalacion)));
+            persistInstalCab(PersistAction.UPDATE, null);
+            persistInstalDet(PersistAction.UPDATE, selectedKits, instalacionCab.getIdInstalacion(), "Instalacion guardada correctamente");
+         
+            return "BuscarModificarOT";
         }
         
-        
-        
-        System.out.println("se guardó la OTDet con exito");
-        
-        //limpiar campos
-        cargarVista();
         
         //return "/home";
         return null;
@@ -464,17 +461,32 @@ public class OrdenInstalacionBean implements Serializable{
                                 BigDecimal idInstalCab,
                                 String successMessage) {
         
+        if(!instalacionesDetList.isEmpty()){
+            //borramos los que ya no están
+            for(InstalacionDet instalacionDet : instalacionesDetList){
+                ProductosKit instaDetPrkit = new ProductosKit( new BigDecimal(instalacionDet.getIdProductosKit()) );
+                if( !selectedKits.contains(instaDetPrkit) ){
+                    System.out.println("No esta el detalle en selectedKits, se debe eliminar");
+                    getEjbInstalDetFacade().remove(instalacionDet);
+                }else{
+                    //si es que está todavía, sacarlo de la lista de seleccionados, para que no inserte dos veces
+                    selectedKits.remove(instaDetPrkit);
+                }
+            }
+        }
+        
         if (selectedProdKits != null && !selectedProdKits.isEmpty()) {
             for(ProductosKit prodKit : selectedKits ) {
-                instalacionDet = new InstalacionDet();
+                //solo inserto si es nuevo
+                InstalacionDet instalacionDet = new InstalacionDet();
                 instalacionDet.setCodProducto(prodKit.getCodProducto().getCodProducto().toBigInteger());
                 instalacionDet.setIdProductosKit(prodKit.getIdProductosKit().toBigInteger());
-                
-                InstalacionDetPK pk =  new InstalacionDetPK();
+
+                InstalacionDetPK pk = new InstalacionDetPK();
                 pk.setIdInstalacion(idInstalCab.toBigInteger());
                 pk.setNroLinea(getNextValInstalacionDet());
                 instalacionDet.setInstalacionDetPK(pk);
-                
+
                 try {
                     if (persistAction == JsfUtil.PersistAction.CREATE) {
                         getEjbInstalDetFacade().create(instalacionDet);
@@ -533,13 +545,7 @@ public class OrdenInstalacionBean implements Serializable{
 
             try {
                 con = DataConnect.getConnection();
-                ps = con.prepareStatement("SELECT  p.id_productos_kit, "
-                        + "p.cantidad, pr.cod_producto, pr.descripcion, "
-                        + "m.id_medida, m.desc_medida FROM productos_kit p, "
-                        + "productos pr, medidas m where p.cod_producto = "
-                        + "pr.cod_producto and pr.id_medida = m.id_medida "
-                        + "and p.id_productos_kit in "
-                        + "(select id_productos_kit from instalacion_det where id_instalacion = ?);");
+                ps = con.prepareStatement("SELECT id.id_instalacion, id.nro_linea, pk.id_productos_kit, pk.cantidad, pr.cod_producto, pr.descripcion, m.id_medida, m.desc_medida FROM productos_kit pk, productos pr, medidas m, instalacion_det id where pk.cod_producto = pr.cod_producto and pr.id_medida = m.id_medida and pk.id_productos_kit = id.id_productos_kit and id.id_instalacion = ?");
                 ps.setInt(1, idInstalacionCab.intValue() );
                 //ps.setInt(1, Integer.parseInt(idInstalacionCab));
 
@@ -559,17 +565,28 @@ public class OrdenInstalacionBean implements Serializable{
                     prodKit.setCodProducto(prod);
                     
                     selectedKits.add(prodKit);
+                    
+                    InstalacionDetPK instaldetPK = new InstalacionDetPK( 
+                            BigInteger.valueOf(rs.getInt("id_instalacion")),
+                            BigInteger.valueOf(rs.getInt("nro_linea")));
+                    InstalacionDet instaldet = new InstalacionDet(instaldetPK);
+                    instaldet.setCodProducto(prodKit.getCodProducto().getCodProducto().toBigInteger());
+                    instaldet.setIdProductosKit(prodKit.getIdProductosKit().toBigInteger());
+                    instalacionesDetList.add(instaldet);
                 }
             } catch (SQLException ex) {
                 System.out.println("Error al obtener Productos Kit -->" + ex.getMessage());
 
             } finally {
                 DataConnect.close(con);
-
             }
-
         }
-
+    }
+    
+    public void onDateSelect(SelectEvent event) {
+        if (event.getObject() != null) {
+            this.fechaInicio = (Date)event.getObject();
+        }
     }
     
 }
