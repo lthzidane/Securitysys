@@ -171,20 +171,56 @@ public class BuscarModificarOTBean implements Serializable{
         }
     }
     
-    public void eliminarOT(OrdenTrabajoCab item){
+    public void eliminarOT(){
         System.out.println("Eliminar Orden de Trabajo");
-        ordenTrabajoCab = item;
+        //ordenTrabajoCab se setea con el item de la fila, via el serPropertyActionListener
         persistOTCab(PersistAction.DELETE, "Orden de Trabajo eliminada correctamente");
         cargarVista();
     }
     
-    public void modificarInstal(){
-        System.out.println("Modificar Instalacion");
+    public void eliminarInstalacion(){
+        System.out.println("Eliminar Instalacion");
+        //instalacionCab se setea con el item de la fila, via el serPropertyActionListener
+        persistInstalCab(PersistAction.DELETE, "Instalacion eliminada correctamente");
+        cargarVista();
+        
     }
     
-    public void EliminarInstal(){
-        System.out.println("Eliminar Instalacion");
+    private void persistInstalCab(JsfUtil.PersistAction persistAction, String successMessage) {
+        if (instalacionCab != null) {
+
+            try {
+                if (persistAction == JsfUtil.PersistAction.CREATE) {
+                    instalacionCabFacade.create(instalacionCab);
+                }
+                else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+                    instalacionCabFacade.edit(instalacionCab);
+                } else {
+                    instalacionCabFacade.remove(instalacionCab);
+                }
+                
+                if(successMessage != null){
+                    JsfUtil.addSuccessMessage(successMessage);
+                }
+                
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
     }
+    
     
     private void persistOTCab(JsfUtil.PersistAction persistAction, String successMessage) {
         if (ordenTrabajoCab != null) {
@@ -204,11 +240,20 @@ public class BuscarModificarOTBean implements Serializable{
 
             } catch (EJBException ex) {
                 String msg = "";
-                Throwable cause = ex.getCause();
+                Throwable cause = ex.getCause(); 
                 if (cause != null) {
                     msg = cause.getLocalizedMessage();
                 }
                 if (msg.length() > 0) {
+                    Exception cbe = ex.getCausedByException();
+                    if(cbe != null){
+                        if(cbe.getCause() != null){
+                            if (cbe.getCause().getLocalizedMessage().contains("viola la llave foránea")){
+                                msg = "La Orden de Trabajo no puede ser borrada debido a que esta asociada a una Instalación";
+                            }
+                        }
+                    }
+                    
                     JsfUtil.addErrorMessage(msg);
                 } else {
                     JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));

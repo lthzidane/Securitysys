@@ -74,12 +74,30 @@
                                     <p:commandButton id="buttonEliminar"
                                                      icon="ui-icon-trash"
                                                      title="Eliminar"
-                                                     action="#{BuscarModificarOTBean.eliminarOT(item)}"
-                                                     update=":growl datatableOT"/> 
+                                                     onclick="PF('deleteConfirmation').show();">
+                                        <f:setPropertyActionListener value="#{item}"
+                                                                     target="#{BuscarModificarOTBean.ordenTrabajoCab}" />
+                                    </p:commandButton> 
                                 </div>
                             </p:column>
                         </p:dataTable>
 
+                        <p:confirmDialog  id="deleteConfirmDialog" message="Proceder con eliminacion?"
+                                          header="Eliminar Orden de Trabajo" severity="alert"
+                                          widgetVar="deleteConfirmation">
+                            <div align="center">
+                                <p:commandButton id="confirm" value="Si"
+                                                 update=":growl datatableOT"
+                                                 oncomplete="PF('deleteConfirmation').hide();"
+                                                 actionListener="#{BuscarModificarOTBean.eliminarOT()}" />
+                                <p:commandButton id="decline" value="No"
+                                                 onclick="PF('deleteConfirmation').hide()"/>
+                            </div>
+
+                        </p:confirmDialog>
+
+                        
+                        
                     </p:tab>
                     <p:tab title="Instalaciones" titleStyle="font-size: 12px;">
                         <p:dataTable id="datatableInst" 
@@ -118,7 +136,42 @@
                             <p:column headerText="Estado" filterBy="#{item.idEstadoTrab.estado}" filterMatchMode="contains" filterStyle="width:100%">
                                 <h:outputText value="#{item.idEstadoTrab.estado}"/>
                             </p:column>
+                            <p:column headerText="Modificar/Eliminar" style="width: 100px;">
+                                <div align="center">
+                                    <p:commandButton id="buttonModificarInst"
+                                                     icon="ui-icon-pencil"
+                                                     title="Modificar"
+                                                     action="OrdenInstalacion"
+                                                     update="datatableInst">
+                                        <f:param name="Editar" value="true"/>
+                                        <f:param name="idInstal" value="#{item.idInstalacion}"/>
+                                    </p:commandButton> 
+                                    <div class="divider"/>
+                                    <p:commandButton id="buttonEliminarInst"
+                                                     icon="ui-icon-trash"
+                                                     title="Eliminar"
+                                                     onclick="PF('deleteConfirmationIns').show();">
+                                        <f:setPropertyActionListener value="#{item}"
+                                                                     target="#{BuscarModificarOTBean.instalacionCab}" />
+                                    </p:commandButton>
+                                </div>
+                            </p:column>
                         </p:dataTable>
+
+                        <p:confirmDialog  id="deleteConfirmDialogIns" message="Proceder con eliminacion?"
+                                          header="Eliminar Instalacion" severity="alert"
+                                          widgetVar="deleteConfirmationIns">
+                            <div align="center">
+                                <p:commandButton id="confirmIns" value="Si"
+                                                 update=":growl datatableInst"
+                                                 oncomplete="PF('deleteConfirmationIns').hide();"
+                                                 actionListener="#{BuscarModificarOTBean.eliminarInstalacion()}" />
+                                <p:commandButton id="declineIns" value="No"
+                                                 onclick="PF('deleteConfirmationIns').hide()"/>
+                            </div>
+
+                        </p:confirmDialog>
+                        
                     </p:tab>
                 </p:tabView>
 

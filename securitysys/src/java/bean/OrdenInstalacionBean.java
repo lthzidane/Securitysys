@@ -10,9 +10,11 @@ import entities.EstadoTrab;
 import entities.InstalacionCab;
 import entities.InstalacionDet;
 import entities.InstalacionDetPK;
+import entities.Medidas;
 import entities.Moviles;
 import entities.OrdenTrabajoCab;
 import entities.OrdenTrabajoDet;
+import entities.Productos;
 import entities.ProductosKit;
 import entities.Tecnicos;
 import entities.TipoServicios;
@@ -67,11 +69,10 @@ public class OrdenInstalacionBean implements Serializable{
     private String estado;
     private String description;
     private Date fechaInicio;
-    private String fechaFin;
+    private Date fechaFin;
     private String fechaRecepcion;
     private Date fechaOrden;
     private String tipoInstalacion;
-    private Integer idTecnico;
     private String tecnicoResponsable;
     private Integer idCliente;
     private Integer idEstadoTrab;
@@ -87,7 +88,7 @@ public class OrdenInstalacionBean implements Serializable{
     private ArrayList<TipoServicios> listaServicios = new ArrayList<TipoServicios>();
     private ArrayList<Tecnicos> listaTecnicos = new ArrayList<Tecnicos>();
     private List<EstadoTrab> listaEstados = new ArrayList<EstadoTrab>();
-    private ArrayList<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
+    private List<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
     private List<ProductosKit> listaKits = new ArrayList<ProductosKit>();
     private ArrayList<ProductosKit> selectedKits = new ArrayList<ProductosKit>();
     private ArrayList<Tecnicos> selectedTecnicos = new ArrayList<Tecnicos>();
@@ -122,6 +123,7 @@ public class OrdenInstalacionBean implements Serializable{
     private InstalacionDet instalacionDet;
     
     private Connection con = null;
+    private boolean editando = false;    
     
     @PostConstruct
     void initialiseSession() {
@@ -131,41 +133,38 @@ public class OrdenInstalacionBean implements Serializable{
     
     
     public void cargarVista() {
-
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
+            String editar = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("Editar");
 
-            int ultValSeq = obtenerNuevoIdInstalacion();
-            
-            nroDeInstalacion = "000"+String.valueOf(ultValSeq) ;
+            this.editando = "true".equalsIgnoreCase(editar) ? true : false;
 
-            Date date = Calendar.getInstance().getTime();
-            fechaOrden = date;
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            String today = formatter.format(date);
-            fechaRecepcion = today;
+            //si no estoy editando, estoy creando
+            if (!editando) {
+                int ultValSeq = obtenerNuevoIdInstalacion();
+                nroDeInstalacion = "000" + String.valueOf(ultValSeq);
 
-            this.listaServicios = obtenerTiposDeServicio();
-            this.listaTecnicos = obtenerTecnicos();
-            this.listaEstados = estadoTrabFacade.findAll();
-            this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
- 
-            this.listaMoviles = movilesFacade.findAll();
-            this.listaKits = productoKitFacade.findAll();
-            
-            this.tipoInstalacion = null;
-            this.movil = null;
-            description = "";
-            
-            this.selectedKits = new ArrayList<ProductosKit>();
-            this.selectedTecnicos = new ArrayList<Tecnicos>();
+                this.listaServicios = obtenerTiposDeServicio();
+                this.listaTecnicos = obtenerTecnicos();
+                this.listaEstados = estadoTrabFacade.findAll();
+                this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
 
-            this.tipoServicio = "";
-            this.tecnicoResponsable = "";
-            
-            listaDetalle = new ArrayList<OrdenTrabajoDet>();
-    
+                this.listaMoviles = movilesFacade.findAll();
+                this.listaKits = productoKitFacade.findAll();
+
+                this.tipoInstalacion = null;
+                this.movil = null;
+                description = "";
+
+                this.selectedKits = new ArrayList<ProductosKit>();
+                this.selectedTecnicos = new ArrayList<Tecnicos>();
+
+                this.tipoServicio = "";
+                this.tecnicoResponsable = "";
+
+                listaDetalle = new ArrayList<OrdenTrabajoDet>();
+
                 this.idCliente = null;
-                this.idTecnico = null;
                 this.fechaInicio = null;
                 this.fechaFin = null;
                 this.idServicio = null;
@@ -176,12 +175,51 @@ public class OrdenInstalacionBean implements Serializable{
                 this.direccion = "";
                 this.razonsocial = "";
                 this.observacion = "";
+
+            }else{
+                //estoy editando
+                String idInstal = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idInstal");
+                InstalacionCab instalCab = ejbInstalCabFacade.findByIdInstalacion(Integer.parseInt(idInstal));
+                
+                if (instalCab != null) {
+                    nroDeInstalacion = "000" + idInstal;
+
+                    this.fechaInicio = instalCab.getFechainstalacion();
+                    
+                    this.listaServicios = obtenerTiposDeServicio();
+                    this.idServicio = instalCab.getIdServicio().getIdServicio().intValue();
+                    
+                    this.listaEstados = estadoTrabFacade.findAll();
+                    this.idEstadoTrab = instalCab.getIdEstadoTrab().getIdEstadoTrab().intValue();
+
+                    this.listaMoviles = movilesFacade.findAll();
+                    this.movil = instalCab.getIdMovil();
+                    
+                    this.listaKits = productoKitFacade.findAll();
+                    //traemos los detalles
+                    obtenerDetallesInstalacion(instalCab.getIdInstalacion());
+                    
+                    this.tipoInstalacion = instalCab.getTipoInstalacion();
+                    this.movil = instalCab.getIdMovil();
+                    this.tipoServicio = instalCab.getNroOrden().getIdServicio().getDescripcion();
+                    this.tecnicoResponsable = instalCab.getNroOrden().getIdTecnico().getNombre();
+                    listaDetalle = instalCab.getNroOrden().getOrdenTrabajoDetList();
+                    this.idCliente = instalCab.getNroOrden().getIdCliente().getIdCliente().intValue();
+                    this.fechaFin = instalCab.getFechaFinInstalacion();
+                    
+                    this.nroOrden = instalCab.getNroOrden().getNroOrden().toString();
+                    this.nroDocumento = instalCab.getNroOrden().getIdCliente().getNroDocumento();
+                    this.ciudad = instalCab.getNroOrden().getIdCliente().getIdCiudad().getCiudad();
+                    this.telefono = instalCab.getNroOrden().getIdCliente().getTelefono();
+                    this.direccion = instalCab.getNroOrden().getIdCliente().getDireccion();
+                    this.razonsocial = instalCab.getNroOrden().getIdCliente().getNombre()+" "+instalCab.getNroOrden().getIdCliente().getApellido();
+                    this.observacion = instalCab.getDescripcion();
+                }
+            }
             
-            /*for(int i=0; i<10; i++){
-                OrdenTrabajoDet otd = new OrdenTrabajoDet( BigDecimal.valueOf(i)  , "Tarea "+i);
-                this.listaDetalle.add(otd);
-            }*/
             
+            
+
             
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -485,7 +523,53 @@ public class OrdenInstalacionBean implements Serializable{
             //al cancelar borro la ultima fila insertada
             listaDetalle.remove(det);        
         }
-        
+    }
+    
+    public void obtenerDetallesInstalacion(BigDecimal idInstalacionCab) {
+        System.out.println("nroDocumentoCliente: " + idInstalacionCab);
+        if (idInstalacionCab != null ) {
+            Connection con = null;
+            PreparedStatement ps = null;
+
+            try {
+                con = DataConnect.getConnection();
+                ps = con.prepareStatement("SELECT  p.id_productos_kit, "
+                        + "p.cantidad, pr.cod_producto, pr.descripcion, "
+                        + "m.id_medida, m.desc_medida FROM productos_kit p, "
+                        + "productos pr, medidas m where p.cod_producto = "
+                        + "pr.cod_producto and pr.id_medida = m.id_medida "
+                        + "and p.id_productos_kit in "
+                        + "(select id_productos_kit from instalacion_det where id_instalacion = ?);");
+                ps.setInt(1, idInstalacionCab.intValue() );
+                //ps.setInt(1, Integer.parseInt(idInstalacionCab));
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    ProductosKit prodKit = new ProductosKit(rs.getBigDecimal("id_productos_kit"));
+                    prodKit.setCantidad(BigInteger.valueOf(rs.getInt("cantidad")) );
+                    
+                    Productos prod = new Productos();
+                    prod.setCodProducto(rs.getBigDecimal("cod_producto"));
+                    prod.setDescripcion(rs.getString("descripcion"));
+                    
+                    Medidas med = new Medidas(rs.getBigDecimal("id_medida"), rs.getString("desc_medida"));
+                    
+                    prod.setIdMedida(med);
+                    prodKit.setCodProducto(prod);
+                    
+                    selectedKits.add(prodKit);
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al obtener Productos Kit -->" + ex.getMessage());
+
+            } finally {
+                DataConnect.close(con);
+
+            }
+
+        }
+
     }
     
 }
