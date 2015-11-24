@@ -148,15 +148,15 @@ public class OrdenTrabajoBean implements Serializable {
 
                 OrdenTrabajoCab otCab = ordenTrabajoCabFacade.findByNroOrden(Integer.parseInt(otNro));
 
-                if (otCab.getOrdenTrabajoDetList().isEmpty()) {
-                    List<OrdenTrabajoDet> listaOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(otCab.getNroOrden().intValue());
-                    if (listaOrdenesTrabajoDet.size() > 0) {
-                        otCab.setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
-                        System.out.println("seteo la cantitad real: " + listaOrdenesTrabajoDet.size());
-                    }
-                }
-
                 if (otCab != null) {
+                    if (otCab.getOrdenTrabajoDetList().isEmpty()) {
+                        List<OrdenTrabajoDet> listaOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(otCab.getNroOrden().intValue());
+                        if (listaOrdenesTrabajoDet.size() > 0) {
+                            otCab.setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
+                            System.out.println("seteo la cantitad real: " + listaOrdenesTrabajoDet.size());
+                        }
+                    }
+   
                     nroDeOrden = "000" + otNro;
 
                     fechaOrden = otCab.getFechaOrden();

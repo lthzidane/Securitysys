@@ -41,6 +41,12 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_tipoCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idTipoCliente.tipoCliente}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_nombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>

@@ -17,7 +17,7 @@
             <h:form id="form">
                 <p:remoteCommand name="buscarCliente" update="nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente" 
                                  actionListener="#{OrdenTrabajoBean.obtenerDatosCliente}" />
-                <p:panel header="Orden de Trabajo Nro: #{OrdenTrabajoBean.nroDeOrden}">
+                <p:panel id="encabezado" header="Orden de Trabajo Nro: #{OrdenTrabajoBean.nroDeOrden}">
                     <p:watermark for="clienteFilter" value="Nro. de Cedula o Ruc" id="watermark" />
                     <h:panelGrid columns="3" cellpadding="5">
                         <h:panelGrid columns="2" cellpadding="5">
@@ -133,7 +133,7 @@
                             </p:dataTable>
                             <br/><br/>
                             <h:panelGroup layout="block">
-                                <p:commandButton action="#{OrdenTrabajoBean.guardarOrdenTrabajo}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatable clienteFilter nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente" id="buttonGuardar" value="Guardar"/>
+                                <p:commandButton action="#{OrdenTrabajoBean.guardarOrdenTrabajo}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatable clienteFilter nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente encabezado" id="buttonGuardar" value="Guardar"/>
                                 <p:commandButton action="#{OrdenTrabajoBean.volver}" id="buttonCancelar" value="Cancelar" immediate="true"/>
                             </h:panelGroup>
 

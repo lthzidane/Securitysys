@@ -133,7 +133,6 @@ public class OrdenInstalacionBean implements Serializable{
     
     
     public void cargarVista() {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
             String editar = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("Editar");
 
@@ -182,6 +181,15 @@ public class OrdenInstalacionBean implements Serializable{
                 InstalacionCab instalCab = ejbInstalCabFacade.findByIdInstalacion(Integer.parseInt(idInstal));
                 
                 if (instalCab != null) {
+                    
+                    if (instalCab.getNroOrden().getOrdenTrabajoDetList().isEmpty()) {
+                        List<OrdenTrabajoDet> listaOrdenesTrabajoDet = ejbOTDetFacade.findByNroOrden(instalCab.getNroOrden().getNroOrden().intValue());
+                        if (listaOrdenesTrabajoDet.size() > 0) {
+                            instalCab.getNroOrden().setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
+                            System.out.println("seteo la cantitad real: " + listaOrdenesTrabajoDet.size());
+                        }
+                    }                    
+                    
                     nroDeInstalacion = "000" + idInstal;
 
                     this.fechaInicio = instalCab.getFechainstalacion();
@@ -292,6 +300,8 @@ public class OrdenInstalacionBean implements Serializable{
             persistInstalCab(PersistAction.UPDATE, null);
             persistInstalDet(PersistAction.UPDATE, selectedKits, instalacionCab.getIdInstalacion(), "Instalacion guardada correctamente");
          
+            this.editando = false;
+            
             return "BuscarModificarOT";
         }
         
@@ -399,6 +409,14 @@ public class OrdenInstalacionBean implements Serializable{
                 this.ciudad = otCab.getIdCliente().getIdCiudad().getCiudad();
                 this.direccion = otCab.getIdCliente().getDireccion();
                 this.telefono = otCab.getIdCliente().getTelefono();
+
+                if (ordenTrabajoCab.getOrdenTrabajoDetList().isEmpty()) {
+                    List<OrdenTrabajoDet> listaOrdenesTrabajoDet = ejbOTDetFacade.findByNroOrden(ordenTrabajoCab.getNroOrden().intValue());
+                    if (listaOrdenesTrabajoDet.size() > 0) {
+                        ordenTrabajoCab.setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
+                        System.out.println("seteo la cantitad real: " + listaOrdenesTrabajoDet.size());
+                    }
+                }
 
                 for (OrdenTrabajoDet otDet : otCab.getOrdenTrabajoDetList()) {
                     this.listaDetalle.add(otDet);

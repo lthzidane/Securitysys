@@ -14,6 +14,13 @@
                     <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateClienteLabel_idCliente}" for="idCliente" rendered="false"/>
                         <p:inputText id="idCliente" value="#{clienteController.selected.idCliente}" title="#{bundle.CreateClienteTitle_idCliente}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_idCliente}" rendered="false"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_idTipoCliente}" for="idTipoCliente" />
+                        <p:selectOneMenu id="idTipoCliente" value="#{clienteController.selected.idTipoCliente}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_idTipoCliente}">
+                            <f:selectItems value="#{tipoClienteController.itemsAvailableSelectOne}"
+                                           var="idTipoClienteItem"
+                                           itemLabel="#{idTipoClienteItem.tipoCliente}"
+                                           itemValue="#{idTipoClienteItem}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{clienteController.selected.nombre}" title="#{bundle.CreateClienteTitle_nombre}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_apellido}" for="apellido" />

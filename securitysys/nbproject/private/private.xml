@@ -12,8 +12,7 @@
             <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/cliente/Create.xhtml</file>
         </group>
         <group name="otroGrupo">
-            <file>file:/C:/test/Securitysys/securitysys/src/java/entities/InstalacionDet.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/InstalacionDetFacade.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenTrabajoBean.java</file>
             <file>file:/C:/test/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
             <file>file:/C:/test/Securitysys/securitysys/web/OrdenInstalacion.xhtml</file>
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenInstalacionBean.java</file>
