@@ -7,26 +7,20 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Acer
+ * @author LOTHAR
  */
 @Entity
 @Table(name = "tiporeclamo")
@@ -54,16 +48,6 @@ public class Tiporeclamo implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTiporecla")
-    private List<Reclamo> reclamoList;
-    @JoinColumn(name = "id_dpto", referencedColumnName = "id_dpto")
-    @ManyToOne(optional = false)
-    private Departamento idDpto;
-    @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
-    @ManyToOne(optional = false)
-    private Estado idEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTiporecla")
-    private List<Subtipo> subtipoList;
 
     public Tiporeclamo() {
     }
@@ -100,40 +84,6 @@ public class Tiporeclamo implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    @XmlTransient
-    public List<Reclamo> getReclamoList() {
-        return reclamoList;
-    }
-
-    public void setReclamoList(List<Reclamo> reclamoList) {
-        this.reclamoList = reclamoList;
-    }
-
-    public Departamento getIdDpto() {
-        return idDpto;
-    }
-
-    public void setIdDpto(Departamento idDpto) {
-        this.idDpto = idDpto;
-    }
-
-    public Estado getIdEstado() {
-        return idEstado;
-    }
-
-    public void setIdEstado(Estado idEstado) {
-        this.idEstado = idEstado;
-    }
-
-    @XmlTransient
-    public List<Subtipo> getSubtipoList() {
-        return subtipoList;
-    }
-
-    public void setSubtipoList(List<Subtipo> subtipoList) {
-        this.subtipoList = subtipoList;
     }
 
     @Override

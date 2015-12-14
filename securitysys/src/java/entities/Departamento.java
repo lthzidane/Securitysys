@@ -45,8 +45,6 @@ public class Departamento implements Serializable {
     private String estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDpto")
     private List<Reclamo> reclamoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDpto")
-    private List<Tiporeclamo> tiporeclamoList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -174,15 +172,6 @@ public class Departamento implements Serializable {
 
     public void setReclamoList(List<Reclamo> reclamoList) {
         this.reclamoList = reclamoList;
-    }
-
-    @XmlTransient
-    public List<Tiporeclamo> getTiporeclamoList() {
-        return tiporeclamoList;
-    }
-
-    public void setTiporeclamoList(List<Tiporeclamo> tiporeclamoList) {
-        this.tiporeclamoList = tiporeclamoList;
     }
 
     public String getEstado() {

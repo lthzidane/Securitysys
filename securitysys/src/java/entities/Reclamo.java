@@ -13,12 +13,14 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -50,6 +52,8 @@ public class Reclamo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_reclamo")
+    @GeneratedValue(generator="ReclamoSeq") 
+    @SequenceGenerator(name="ReclamoSeq",sequenceName="id_reclamo_reclamo_seq_1", allocationSize=1) 
     private BigDecimal idReclamo;
     @Basic(optional = false)
     @NotNull
