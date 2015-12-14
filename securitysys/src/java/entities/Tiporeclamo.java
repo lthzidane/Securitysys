@@ -7,16 +7,20 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,6 +35,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Tiporeclamo.findByTipo", query = "SELECT t FROM Tiporeclamo t WHERE t.tipo = :tipo"),
     @NamedQuery(name = "Tiporeclamo.findByDescripcion", query = "SELECT t FROM Tiporeclamo t WHERE t.descripcion = :descripcion")})
 public class Tiporeclamo implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTiporecla")
+    private Collection<Reclamo> reclamoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTiporecla")
+    private Collection<Subtipo> subtipoCollection;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -109,6 +117,24 @@ public class Tiporeclamo implements Serializable {
     @Override
     public String toString() {
         return "entities.Tiporeclamo[ idTiporecla=" + idTiporecla + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Reclamo> getReclamoCollection() {
+        return reclamoCollection;
+    }
+
+    public void setReclamoCollection(Collection<Reclamo> reclamoCollection) {
+        this.reclamoCollection = reclamoCollection;
+    }
+
+    @XmlTransient
+    public Collection<Subtipo> getSubtipoCollection() {
+        return subtipoCollection;
+    }
+
+    public void setSubtipoCollection(Collection<Subtipo> subtipoCollection) {
+        this.subtipoCollection = subtipoCollection;
     }
     
 }

@@ -7,8 +7,10 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -33,6 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "EstadoTrab.findByIdEstadoTrab", query = "SELECT e FROM EstadoTrab e WHERE e.idEstadoTrab = :idEstadoTrab"),
     @NamedQuery(name = "EstadoTrab.findByEstado", query = "SELECT e FROM EstadoTrab e WHERE e.estado = :estado")})
 public class EstadoTrab implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstadoTrab")
+    private Collection<Reclamo> reclamoCollection;
     @OneToMany(mappedBy = "idEstadoTrab")
     private List<InstalacionCab> instalacionCabList;
     private static final long serialVersionUID = 1L;
@@ -112,6 +116,15 @@ public class EstadoTrab implements Serializable {
 
     public void setInstalacionCabList(List<InstalacionCab> instalacionCabList) {
         this.instalacionCabList = instalacionCabList;
+    }
+
+    @XmlTransient
+    public Collection<Reclamo> getReclamoCollection() {
+        return reclamoCollection;
+    }
+
+    public void setReclamoCollection(Collection<Reclamo> reclamoCollection) {
+        this.reclamoCollection = reclamoCollection;
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package bean;
 
+import entities.Departamento;
 import entities.Subtipo;
 import entities.Tiporeclamo;
 import java.util.List;
@@ -40,4 +41,11 @@ public class SubtipoFacade extends AbstractFacade<Subtipo> {
         }
     }    
     
+    public Subtipo findByIdSubtipo(Integer idSubtipo) {
+        try {
+            return (Subtipo) em.createNamedQuery("Subtipo.findByIdSubtipo").setParameter("idSubtipo", idSubtipo).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }          
 }

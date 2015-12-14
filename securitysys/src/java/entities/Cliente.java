@@ -241,5 +241,4 @@ public class Cliente implements Serializable {
     public void setOrdenTrabajoCabList(List<OrdenTrabajoCab> ordenTrabajoCabList) {
         this.ordenTrabajoCabList = ordenTrabajoCabList;
     }
-
-    }
+}

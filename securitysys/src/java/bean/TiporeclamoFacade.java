@@ -6,6 +6,7 @@
 package bean;
 
 import entities.EstadoTrab;
+import entities.Subtipo;
 import entities.Tiporeclamo;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -35,6 +36,14 @@ public class TiporeclamoFacade extends AbstractFacade<Tiporeclamo> {
      public List<Tiporeclamo> findAll() {
         try {
             return (List<Tiporeclamo>) em.createNamedQuery("Tiporeclamo.findAll").getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+     
+    public Tiporeclamo findByIdTiporecla(Integer idTiporecla) {
+        try {
+            return (Tiporeclamo) em.createNamedQuery("Tiporeclamo.findByIdTiporecla").setParameter("idTiporecla", idTiporecla).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }

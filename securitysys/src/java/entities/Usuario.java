@@ -8,6 +8,7 @@ package entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -42,6 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByContrasenha", query = "SELECT u FROM Usuario u WHERE u.contrasenha = :contrasenha"),
     @NamedQuery(name = "Usuario.findByEstado", query = "SELECT u FROM Usuario u WHERE u.estado = :estado")})
 public class Usuario implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private Collection<Reclamo> reclamoCollection;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -182,6 +185,15 @@ public class Usuario implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    @XmlTransient
+    public Collection<Reclamo> getReclamoCollection() {
+        return reclamoCollection;
+    }
+
+    public void setReclamoCollection(Collection<Reclamo> reclamoCollection) {
+        this.reclamoCollection = reclamoCollection;
     }
     
 }
