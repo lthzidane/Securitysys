@@ -14,9 +14,7 @@
         <group name="otroGrupo">
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenTrabajoBean.java</file>
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/GestionarReclamoBean.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/entities/Reclamo.java</file>
             <file>file:/C:/test/Securitysys/securitysys/web/GestionarReclamo.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
         </group>
     </open-files>
 </project-private>
