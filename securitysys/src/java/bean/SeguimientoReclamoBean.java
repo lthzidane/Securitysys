@@ -175,8 +175,29 @@ public class SeguimientoReclamoBean implements Serializable{
         reclamo.setFechaSolucion(this.fechaFin);
         persistReclamo(PersistAction.UPDATE, "Reclamo Editado correctamente");
         this.editando = false;
-        
+        limpiarCampos();
         return null;
+    }
+    
+    public void limpiarCampos(){
+        this.nroDeReclamo = "";
+        this.idReclamo = null;
+        this.reclamo = null;
+        this.idEstadoTrab = "";
+        this.fechaRecepcion = "";
+        this.fechaInicio = null;
+        this.idDepartamento = "";
+        this.idTiporeclamo = "";
+        this.idSubTiporeclamo = "";
+        this.idNivel = "";
+        this.usuario = "";
+        this.descripcion = "";
+        this.nroDocumento = "";
+        this.razonsocial = "";
+        this.ciudad = "";
+        this.direccion = "";
+        this.telefono = "";
+        this.solucion = "";
     }
     
     public String volver(){
