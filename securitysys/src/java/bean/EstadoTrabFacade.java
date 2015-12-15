@@ -37,6 +37,14 @@ public class EstadoTrabFacade extends AbstractFacade<EstadoTrab> {
         }
     }
     
+    public EstadoTrab findByEstado(String estado) {
+        try {
+            return (EstadoTrab) em.createNamedQuery("EstadoTrab.findByEstado").setParameter("estado", estado).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
     @Override
      public List<EstadoTrab> findAll() {
         try {

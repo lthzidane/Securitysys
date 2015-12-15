@@ -70,6 +70,7 @@ public class SeguimientoReclamoBean implements Serializable{
     private static final long serialVersionUID = 1L;
     
     private String nroDeReclamo;
+    private Integer idReclamo;
     private String equipo; 
     private String cliente;
     private BigDecimal pedido;
@@ -169,20 +170,12 @@ public class SeguimientoReclamoBean implements Serializable{
     }
     
     public String guardarReclamo(){
-        reclamo = new Reclamo();
+        reclamo.setIdEstadoTrab(estadoTrabFacade.findByEstado("Cerrado"));
+        reclamo.setSolucion(this.solucion);
+        reclamo.setFechaSolucion(this.fechaFin);
+        persistReclamo(PersistAction.UPDATE, "Reclamo Editado correctamente");
+        this.editando = false;
         
-        if(!editando){
-            persistReclamo(PersistAction.CREATE, "Reclamo guardado correctamente");
-        }else{
-            //estoy editando -> todavía no implementado
-         
-            this.editando = false;
-            
-            //return "BuscarModificarOT";
-        }
-        
-        
-        //return "/home";
         return null;
     }
     
@@ -228,23 +221,24 @@ public class SeguimientoReclamoBean implements Serializable{
     public void obtenerDatosReclamo(){
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //defino el formato de fecha
         if(this.nroDeReclamo != null){
-            Integer idReclamo = Integer.parseInt(this.nroDeReclamo);
-            Reclamo reclamo = reclamoFacade.findByIdReclamo(idReclamo);
-            this.idEstadoTrab = reclamo.getIdEstadoTrab().getEstado();
-            this.fechaRecepcion = formatter.format(reclamo.getFechaIngreso());
-            this.idDepartamento = reclamo.getIdDpto().getNombreDpto();
-            this.idTiporeclamo = reclamo.getIdTiporecla().getDescripcion();
-            this.idSubTiporeclamo = reclamo.getIdSubtipo().getSubtipo();
-            this.idNivel = nivelFacade.findByIdNivel(reclamo.getIdNivel().intValue()).getNivel();  
-            this.usuario = reclamo.getIdUsuario().getNombre();
-            this.descripcion = reclamo.getDescripcion();
-            Cliente clienteAsociado = reclamo.getIdCliente();
+            System.out.println("Cargando datos del Reclamo: "+nroDeReclamo);
+            this.idReclamo = Integer.parseInt(this.nroDeReclamo);
+            this.reclamo = reclamoFacade.findByIdReclamo(idReclamo);
+            this.idEstadoTrab = this.reclamo.getIdEstadoTrab().getEstado();
+            this.fechaRecepcion = formatter.format(this.reclamo.getFechaIngreso());
+            this.fechaInicio = this.reclamo.getFechaIngreso();
+            this.idDepartamento = this.reclamo.getIdDpto().getNombreDpto();
+            this.idTiporeclamo = this.reclamo.getIdTiporecla().getDescripcion();
+            this.idSubTiporeclamo = this.reclamo.getIdSubtipo().getSubtipo();
+            this.idNivel = nivelFacade.findByIdNivel(this.reclamo.getIdNivel().intValue()).getNivel();  
+            this.usuario = this.reclamo.getIdUsuario().getNombre();
+            this.descripcion = this.reclamo.getDescripcion();
+            Cliente clienteAsociado = this.reclamo.getIdCliente();
             this.nroDocumento = clienteAsociado.getNroDocumento();
             this.razonsocial = clienteAsociado.getNombre()+" "+clienteAsociado.getApellido();
             this.ciudad = clienteAsociado.getIdCiudad().getCiudad();
             this.direccion = clienteAsociado.getDireccion();
-            this.telefono = clienteAsociado.getTelefono();
-            
+            this.telefono = clienteAsociado.getTelefono();        
         }
         
     } 
