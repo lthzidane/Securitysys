@@ -5,6 +5,7 @@
  */
 package bean;
 
+import entities.Cliente;
 import entities.Nivel;
 import entities.Subtipo;
 import java.util.List;
@@ -40,4 +41,11 @@ public class NivelFacade extends AbstractFacade<Nivel> {
         }
     }    
     
+    public Nivel findByIdNivel(Integer idNivel) {
+        try {
+            return (Nivel) em.createNamedQuery("Nivel.findByIdNivel").setParameter("idNivel", idNivel).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

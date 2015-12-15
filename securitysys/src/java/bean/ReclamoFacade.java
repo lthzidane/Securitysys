@@ -5,9 +5,11 @@
  */
 package bean;
 
+import entities.Cliente;
 import entities.Reclamo;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -27,5 +29,14 @@ public class ReclamoFacade extends AbstractFacade<Reclamo> {
     public ReclamoFacade() {
         super(Reclamo.class);
     }
+    
+    public Reclamo findByIdReclamo(Integer idReclamo) {
+        try {
+            return (Reclamo) em.createNamedQuery("Reclamo.findByIdReclamo").setParameter("idReclamo", idReclamo).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
     
 }
