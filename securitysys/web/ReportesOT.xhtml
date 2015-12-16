@@ -14,6 +14,65 @@
             <p:growl id="growl" life="3000" />
             <script name="jquery/jquery.js" library="primefaces"></script> 
             <h:outputScript library="js" name="jsfcrud.js"/>
+            <script type="text/javascript">
+               function monitorExporting(start, complete) {
+                   if (PrimeFaces.cookiesEnabled()) {
+                       if (start) {
+                           start();
+                       }
+                       window.chartExportingMonitor = setInterval(function () {
+                           var exportingComplete = PrimeFaces.getCookie('cookie.pdf.exporting');
+                           console.log('exportingComplete:'+exportingComplete);
+                           if (exportingComplete === 'true') {
+                               if (complete) {
+                                   complete();
+                               }
+                               clearInterval(window.chartExportingMonitor);
+                               PrimeFaces.setCookie('cookie.pdf.exporting', null);
+                           }
+                       }, 3000);
+                   }
+               }
+
+               function showStatus() {
+                   PF('bui').show();
+               }
+
+               function hideStatus() {
+                   PF('bui').hide();
+               }
+            </script>            
+            <script type="text/javascript">
+                function exportToPdfOT() {
+                    //get your image 
+                    var imageElement = PF('chartOT').exportAsImage();
+
+                    console.log($("chartImageSrc"));
+                    console.log($(imageElement).attr("src"));
+
+                    //get the value of the 'src' attribute of this object and fill the hidden input
+                    $("#form\\:chartImageSrc").val($(imageElement).attr("src"));
+                    //var hiden = 
+
+                    console.log($("#form\\:chartImageSrc").val());
+                }
+            </script>
+            
+            <script type="text/javascript">
+                function exportToPdfIns() {
+                    //get your image 
+                    var imageElement = PF('chartIns').exportAsImage();
+
+                    console.log($("chartImageSrc"));
+                    console.log($(imageElement).attr("src"));
+
+                    //get the value of the 'src' attribute of this object and fill the hidden input
+                    $("#form\\:chartImageSrc").val($(imageElement).attr("src"));
+                    //var hiden = 
+
+                    console.log($("#form\\:chartImageSrc").val());
+                }
+            </script>
             <style type="text/css">
                 .divider{
                     width:5px;
@@ -22,17 +81,43 @@
                 }
             </style>
             <h:form id="form">
-                <p:tabView>
+                <p:remoteCommand name="exportToPdfRemoteCommand" 
+                 action="#{ReportesOTBean.exportOT2Pdf}"/>
+                <h:inputHidden id="chartImageSrc" 
+                               value="#{ReportesOTBean.chartImageSrcBase64}" />
+                <p:tabView id="tabView" onTabChange="#{ReportesOTBean.createAnimatedModels()}">
                     <p:tab title="Ordenes de Trabajo" titleStyle="font-size: 12px;">
                         <h:panelGrid columns="2" columnClasses="left,right" style="width: 100%">
-                            <p:chart type="line" model="#{ReportesOTBean.animatedModel1}" style="height: 300px" />
+                            <p:chart  type="line" model="#{ReportesOTBean.animatedModelOT}" style="height: 300px" widgetVar="chartOT"/>
                         </h:panelGrid>
+                        <p:commandButton id="buttonMostrarReporte" 
+                                         value="Exportar a PDF" 
+                                         ajax="false" 
+                                         icon="ui-icon-extlink" 
+                                         onclick="exportToPdfOT();monitorExporting(showStatus, hideStatus);"
+                                         action="#{ReportesOTBean.exportOT2Pdf}"
+                                         update="@form"/>
                     </p:tab>
+                    
                     <p:tab title="Instalaciones" titleStyle="font-size: 12px;">
-                        
+                        <h:panelGrid columns="2" columnClasses="left,right" style="width: 100%">
+                            <p:chart type="line" model="#{ReportesOTBean.animatedModelIns}" style="height: 300px" widgetVar="chartIns"/>
+                        </h:panelGrid>
+                        <p:commandButton id="buttonMostrarReporteIns" 
+                                         value="Exportar a PDF" 
+                                         ajax="false" 
+                                         icon="ui-icon-extlink" 
+                                         onclick="exportToPdfIns();monitorExporting(showStatus, hideStatus);"
+                                         action="#{ReportesOTBean.exportIns2Pdf}"
+                                         update="@form"/>
                     </p:tab>
                 </p:tabView>
 
+                <p:blockUI block="tabView" widgetVar="bui">
+                     Cargando Reporte<br />
+                    <h:graphicImage library="images" name="ajaxloadingbar.gif"/>                   
+                </p:blockUI>
+                
             </h:form>  
         </ui:define>
     </ui:composition>
