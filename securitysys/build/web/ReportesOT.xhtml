@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">Reportes de Instalaciones</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="Reportes de Instalaciones"/>
+        </ui:define>
+        <ui:define name="container">
+            <p:growl id="growl" life="3000" />
+            <script name="jquery/jquery.js" library="primefaces"></script> 
+            <h:outputScript library="js" name="jsfcrud.js"/>
+            <style type="text/css">
+                .divider{
+                    width:5px;
+                    height:auto;
+                    display:inline-block;
+                }
+            </style>
+            <h:form id="form">
+                <p:tabView>
+                    <p:tab title="Ordenes de Trabajo" titleStyle="font-size: 12px;">
+                        <h:panelGrid columns="2" columnClasses="left,right" style="width: 100%">
+                            <p:chart type="line" model="#{ReportesOTBean.animatedModel1}" style="height: 300px" />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Instalaciones" titleStyle="font-size: 12px;">
+                        
+                    </p:tab>
+                </p:tabView>
+
+            </h:form>  
+        </ui:define>
+    </ui:composition>
+</html>

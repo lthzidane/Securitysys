@@ -12,10 +12,8 @@
             <file>file:/C:/proyecto_securitysys/Securitysys/securitysys/web/cliente/Create.xhtml</file>
         </group>
         <group name="otroGrupo">
-            <file>file:/C:/test/Securitysys/securitysys/web/SeguimientoReclamo.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/GestionarReclamoBean.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/GestionarReclamo.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/SeguimientoReclamoBean.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/ReportesOTBean.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/ReportesOT.xhtml</file>
         </group>
     </open-files>
 </project-private>

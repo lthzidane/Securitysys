@@ -4,7 +4,9 @@
  */
 package bean;
 
+import entities.Departamento;
 import entities.OrdenTrabajoCab;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -27,6 +29,16 @@ public class OrdenTrabajoCabFacade extends AbstractFacade<OrdenTrabajoCab> {
     public OrdenTrabajoCabFacade() {
         super(OrdenTrabajoCab.class);
     }
+    
+    @Override
+     public List<OrdenTrabajoCab> findAll() {
+        try {
+            return (List<OrdenTrabajoCab>) em.createNamedQuery("OrdenTrabajoCab.findAll").getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
     
     public OrdenTrabajoCab findByNroOrden(Integer nroOrden) {
         try {
