@@ -44,7 +44,6 @@ public class ReportesOTBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private ArrayList<OrdenTrabajoCab> listaOrdenesTrabajo = new ArrayList<OrdenTrabajoCab>();
-    
     private ArrayList<InstalacionCab> listaInstalaciones = new ArrayList<InstalacionCab>();
     
     private LineChartModel animatedModelOT;
@@ -59,36 +58,19 @@ public class ReportesOTBean implements Serializable {
     private bean.InstalacionCabFacade instalacionCabFacade;
     
     private OrdenTrabajoCab ordenTrabajoCab;
-    
     private InstalacionCab instalacionCab;
     
-    private Connection con = null;
-
     @PostConstruct
     void initialiseSession() {
-        con = DataConnect.getConnection();
-        cargarVista();
         createAnimatedModels();
     }
 
-    public void cargarVista() {
-        try {
+    public void createAnimatedModels() {
+    
             listaOrdenesTrabajo = new ArrayList<OrdenTrabajoCab>();
             for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findAll()) {
                 listaOrdenesTrabajo.add(ot);
             }
-
-            listaInstalaciones = new ArrayList<InstalacionCab>();
-            for (InstalacionCab ic : instalacionCabFacade.findAll()) {
-                listaInstalaciones.add(ic);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void createAnimatedModels() {
-        if(animatedModelOT == null){
             animatedModelOT = initLinearModelOT();
             animatedModelOT.setTitle("Ordenes de Trabajo por mes");
             animatedModelOT.setAnimate(true);
@@ -98,9 +80,11 @@ public class ReportesOTBean implements Serializable {
             animatedModelOT.getAxis(AxisType.Y).setLabel("Ordenes de Trabajo");
             animatedModelOT.getAxis(AxisType.Y).setMin(0);
             animatedModelOT.getAxis(AxisType.Y).setMax(10);
-        }
         
-        if (animatedModelIns == null) {
+            listaInstalaciones = new ArrayList<InstalacionCab>();
+            for (InstalacionCab ic : instalacionCabFacade.findAll()) {
+                listaInstalaciones.add(ic);
+            }
             animatedModelIns = initLinearModelIns();
             animatedModelIns.setTitle("Instalaciones por mes");
             animatedModelIns.setAnimate(true);
@@ -110,8 +94,6 @@ public class ReportesOTBean implements Serializable {
             animatedModelIns.getAxis(AxisType.Y).setLabel("Instalaciones");
             animatedModelIns.getAxis(AxisType.Y).setMin(0);
             animatedModelIns.getAxis(AxisType.Y).setMax(10);
-        }
-
     }
 
     private LineChartModel initLinearModelOT() {
@@ -122,55 +104,41 @@ public class ReportesOTBean implements Serializable {
         LineChartSeries series2 = new LineChartSeries();
         series2.setLabel("Diciembre");
         
-        
         int dia = 1;
         for (dia = 1; dia <= 31; dia++) {
             series1.set(dia, 0); //inicialmente todos los dias son cero
             series2.set(dia, 0); //inicialmente todos los dias son cero
         }
         
-        int mes = 10; //iniciamos en Noviembre que es 10, porque Enero es 0
+        int mes; //iniciamos en Noviembre que es 10, porque Enero es 0
         int cant = 0;
-        dia = 1;
+        dia = -1; //primer día
+        boolean cambioMes = false;
         for(OrdenTrabajoCab ot :listaOrdenesTrabajo){
-            //System.out.println("fecha: "+ot.getFechaOrden());
             Calendar fecha = Calendar.getInstance();
             fecha.setTime(ot.getFechaOrden());
             
-            //System.out.println("mes,dia -> "+fecha.get(Calendar.MONTH)+","+fecha.get(Calendar.DAY_OF_MONTH));
-            //System.out.println("es el día " + dia);
-            if( fecha.get(Calendar.MONTH) == mes ){
-                if (fecha.get(Calendar.DAY_OF_MONTH) == dia) {
-                    cant = cant+1;
-                    series1.set(dia, cant);
-                    //System.out.println("cantidad es " + cant);
-                }else if( fecha.get(Calendar.DAY_OF_MONTH) > dia  ){
-                    //ya me pase, aumento el dia y cero el contador
-                    while(fecha.get(Calendar.DAY_OF_MONTH) > dia ){
-                        dia++;
-                    }
+            mes = fecha.get(Calendar.MONTH); //obtengo el mes para saber en que lista va
+            if(mes == Calendar.NOVEMBER){
+                //es serie1
+                if(fecha.get(Calendar.DAY_OF_MONTH) > dia ){ //si es ya otra fecha
+                    dia = fecha.get(Calendar.DAY_OF_MONTH); //obtengo el día
                     cant = 0;
-                    series1.set(dia, cant = cant+1);
-                    //System.out.println("cantidad es " + cant);
                 }
-            }else if( fecha.get(Calendar.MONTH) > mes ){
-                mes = mes+1;
-                dia = 1;
-                cant = 0;
-                if (fecha.get(Calendar.DAY_OF_MONTH) == dia) {
-                    cant = cant+1;
-                    series2.set(dia, cant);
-                    //System.out.println("cantidad es " + cant);
-                }else if( fecha.get(Calendar.DAY_OF_MONTH) > dia  ){
-                    //ya me pase, aumento el dia y cero el contador
-                    while(fecha.get(Calendar.DAY_OF_MONTH) > dia ){
-                        dia++;
-                    }
+                series1.set(dia, ++cant);
+            }else{
+                //es serie2, debo cerar los días y el contador
+                if( !cambioMes ){
+                    cambioMes = true;
+                    dia = -1;
                     cant = 0;
-                    series2.set(dia, cant = cant+1);
-                    //System.out.println("cantidad es " + cant);
                 }
-            } 
+                if(fecha.get(Calendar.DAY_OF_MONTH) > dia ){ //si es ya otra fecha
+                    dia = fecha.get(Calendar.DAY_OF_MONTH); //obtengo el día
+                    cant = 0;
+                }
+                series2.set(dia, ++cant);
+            }
         }
 
         model.addSeries(series1);
@@ -194,48 +162,35 @@ public class ReportesOTBean implements Serializable {
             series2.set(dia, 0); //inicialmente todos los dias son cero
         }
         
-        int mes = 10; //iniciamos en Noviembre que es 10, porque Enero es 0
+        int mes; //iniciamos en Noviembre que es 10, porque Enero es 0
         int cant = 0;
-        dia = 1;
+        dia = -1; //primer día
+        boolean cambioMes = false;
         for(InstalacionCab ins :listaInstalaciones){
-            //System.out.println("fecha: "+ot.getFechaOrden());
             Calendar fecha = Calendar.getInstance();
             fecha.setTime(ins.getFechainstalacion());
             
-            //System.out.println("mes,dia -> "+fecha.get(Calendar.MONTH)+","+fecha.get(Calendar.DAY_OF_MONTH));
-            //System.out.println("es el día " + dia);
-            if( fecha.get(Calendar.MONTH) == mes ){
-                if (fecha.get(Calendar.DAY_OF_MONTH) == dia) {
-                    cant = cant+1;
-                    series1.set(dia, cant);
-                    //System.out.println("cantidad es " + cant);
-                }else if( fecha.get(Calendar.DAY_OF_MONTH) > dia  ){
-                    //ya me pase, aumento el dia y cero el contador
-                    while(fecha.get(Calendar.DAY_OF_MONTH) > dia ){
-                        dia++;
-                    }
+            mes = fecha.get(Calendar.MONTH); //obtengo el mes para saber en que lista va
+            if(mes == Calendar.NOVEMBER){
+                //es serie1
+                if(fecha.get(Calendar.DAY_OF_MONTH) > dia ){ //si es ya otra fecha
+                    dia = fecha.get(Calendar.DAY_OF_MONTH); //obtengo el día
                     cant = 0;
-                    series1.set(dia, cant = cant+1);
-                    //System.out.println("cantidad es " + cant);
                 }
-            }else if( fecha.get(Calendar.MONTH) > mes ){
-                mes = mes+1;
-                dia = 1;
-                cant = 0;
-                if (fecha.get(Calendar.DAY_OF_MONTH) == dia) {
-                    cant = cant+1;
-                    series2.set(dia, cant);
-                    //System.out.println("cantidad es " + cant);
-                }else if( fecha.get(Calendar.DAY_OF_MONTH) > dia  ){
-                    //ya me pase, aumento el dia y cero el contador
-                    while(fecha.get(Calendar.DAY_OF_MONTH) > dia ){
-                        dia++;
-                    }
+                series1.set(dia, ++cant);
+            }else{
+                //es serie2, debo cerar los días y el contador
+                if( !cambioMes ){
+                    cambioMes = true;
+                    dia = -1;
                     cant = 0;
-                    series2.set(dia, cant = cant+1);
-                    //System.out.println("cantidad es " + cant);
                 }
-            } 
+                if(fecha.get(Calendar.DAY_OF_MONTH) > dia ){ //si es ya otra fecha
+                    dia = fecha.get(Calendar.DAY_OF_MONTH); //obtengo el día
+                    cant = 0;
+                }
+                series2.set(dia, ++cant);
+            }
         }
 
         model.addSeries(series1);

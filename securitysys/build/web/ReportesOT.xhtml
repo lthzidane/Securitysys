@@ -85,7 +85,7 @@
                  action="#{ReportesOTBean.exportOT2Pdf}"/>
                 <h:inputHidden id="chartImageSrc" 
                                value="#{ReportesOTBean.chartImageSrcBase64}" />
-                <p:tabView id="tabView" onTabChange="#{ReportesOTBean.createAnimatedModels()}">
+                <p:tabView id="tabView">
                     <p:tab title="Ordenes de Trabajo" titleStyle="font-size: 12px;">
                         <h:panelGrid columns="2" columnClasses="left,right" style="width: 100%">
                             <p:chart  type="line" model="#{ReportesOTBean.animatedModelOT}" style="height: 300px" widgetVar="chartOT"/>
