@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title><ui:insert name="title">Home</ui:insert></title>
+        <title><ui:insert name="title">Inicio</ui:insert></title>
         <link type="image/x-icon" rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/resources/images/favicon.ico" />
         <h:outputStylesheet library="css" name="facade.css" />
         <h:outputStylesheet library="css" name="menu.css" />
@@ -27,7 +27,7 @@
                 <div id="mainmenu">
                     <h:form id="formmenu" prependId="false">
                         <ul id="navmenu-h">
-                            <li><h:link outcome="/home" value="Home"/></li>                            
+                            <li><h:link outcome="/home" value="Inicio"/></li>                            
                             <li>
                                 <h:commandLink value="Referenciales"/>
                                 <ul>
@@ -43,14 +43,18 @@
                                     <li><h:link outcome="/tipoServicios/List" value="Tipo de Servicio" rendered="#{login.showMenu(access.tipoServicio_View)}" /></li>
                                     <li><h:link outcome="/sucursales/List" value="Sucursal" rendered="#{login.showMenu(access.Sucursales_View)}" /></li>
                                     <li><h:link outcome="/departamento/List" value="Departamento" rendered="#{login.showMenu(access.Departamento_View)}" /></li>
-                                    <li><h:link outcome="/funcionario/List" value="Funcionario" rendered="#{login.showMenu(access.Funcionario_View)}" /></li>
+                                    <!--<<li><h:link outcome="/funcionario/List" value="Funcionario" rendered="#{login.showMenu(access.Funcionario_View)}" /></li>>-->
                                     <li><h:link outcome="/medidas/List" value="Medidas" rendered="#{login.showMenu(access.Medidas_View)}" /></li>
                                     <li><h:link outcome="/moviles/List" value="Moviles" rendered="#{login.showMenu(access.Moviles_View)}" /></li>
+                                    <!--<li><h:link outcome="/depositos/List" value="Listar Deposito" rendered="#{login.showMenu(access.Depositos_View)}" /></li>-->
+                                    <li><h:link outcome="/productos/List" value="Productos" rendered="#{login.showMenu(access.Productos_View)}"/></li>
+                                    <li><h:link outcome="/productosKit/List" value="Kit de Productos" rendered="#{login.showMenu(access.ProductosKit_View)}" /></li>
                                 </ul>
                             </li>  
                             <li>
                                 <h:commandLink value="Instalaciones"/>
                                 <ul>
+                                    <li><h:link outcome="/admin" value="Elaborar Presupuesto" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                     <li><h:link outcome="/OrdenTrabajo" value="Ingresar Orden de Trabajo" rendered="#{login.showMenu(access.OrdenTrabajo_View)}" /></li>
                                     <li><h:link outcome="/OrdenInstalacion" value="Gestionar Instalacion" rendered="#{login.showMenu(access.OrdenInstalacion_View)}" /></li>
                                     <li><h:link outcome="/ImpresionOT" value="Impresion de Orden de Trabajo" rendered="#{login.showMenu(access.ImpresionOT_View)}" /></li>
@@ -68,7 +72,7 @@
                                     <li><h:link outcome="/admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                 </ul>
                             </li> 
-                            <li>
+                             <!--<li>
                                 <h:commandLink value="Compra"/>
                                 <ul>
                                     <li><h:link outcome="/OrdenCompra" value="Registrar Orden de compra" rendered="#{login.showMenu(access.OrdenCompra_View)}" /></li>
@@ -77,20 +81,24 @@
                                     <li><h:link outcome="/admin" value="Ajuste de stock por compras" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                     <li><h:link outcome="/admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                 </ul>
-                            </li> 
+                            </li> -->
                             
                             <li>
-                                <h:commandLink value="Venta"/>
+                                <h:commandLink value="Ventas y Cobros"/>
                                 <ul>
-                                    <li><h:link outcome="/admin" value="Elaborar Presupuesto" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                   <!--<li><h:link outcome="/admin" value="Elaborar Presupuesto" rendered="#{login.showMenu(access.Admin_View)}" /></li>-->
                                     <li><h:link outcome="/admin" value="Registrar pedido de ventas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                     <li><h:link outcome="/admin" value="Registrar cobros" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                     <li><h:link outcome="/admin" value="Generar Facturas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Apertura de caja" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Arqueo y cierre de cajas" rendered="#{login.showMenu(access.Admin_View)}" /></li>
+                                    <li><h:link outcome="/cajas/List" value="Agregar caja" rendered="#{login.showMenu(access.Cajas_View)}" /></li>
+                                    <li><h:link outcome="/admin" value="Agregar cajero" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                     <li><h:link outcome="/admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                 </ul>
                             </li> 
                             
-                            <li>
+                            <!--<li>
                                 <h:commandLink value="Inventario"/>
                                 <ul>
                                     <li><h:link outcome="/depositos/List" value="Listar Deposito" rendered="#{login.showMenu(access.Depositos_View)}" /></li>
@@ -102,9 +110,9 @@
                                     <li><h:link outcome="/admin" value="Control de Stock" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                     <li><h:link outcome="/admin" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" /></li>
                                 </ul>
-                            </li> 
+                            </li> -->
                             
-                            <li>
+                            <!--<li>
                                 <h:commandLink value="Cobros"/>
                                 <ul>
                                     <li><h:link outcome="/admin" value="Registrar cobros" rendered="#{login.showMenu(access.Admin_View)}" /></li>
@@ -115,7 +123,7 @@
                                    
                                 </ul>
                             </li> 
-                            
+                            -->
                         </ul>
                         
                         
