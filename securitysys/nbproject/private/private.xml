@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="otroGrupo">
-            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenTrabajoCabFacade.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/entities/OrdenTrabajoCab.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/ReportesOTBean.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/BuscarModificarOT.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/OrdenInstalacion.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/ReportesOT.xhtml</file>
-        </group>
         <group>
             <file>file:/C:/test/Securitysys/securitysys/build/web/resources/templates/template.xhtml</file>
             <file>file:/C:/test/Securitysys/securitysys/web/login.xhtml</file>
@@ -23,6 +13,12 @@
             <file>file:/C:/test/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
             <file>file:/C:/test/Securitysys/securitysys/web/cliente/List.xhtml</file>
             <file>file:/C:/test/Securitysys/securitysys/web/resources/css/menu.css</file>
+        </group>
+        <group name="otroGrupo">
+            <file>file:/C:/test/Securitysys/Securitysys/securitysys/web/WEB-INF/faces-config.xml</file>
+            <file>file:/C:/test/Securitysys/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
+            <file>file:/C:/test/Securitysys/Securitysys/securitysys/src/java/bean/Login.java</file>
+            <file>file:/C:/test/Securitysys/Securitysys/securitysys/web/resources/css/menu.css</file>
         </group>
     </open-files>
 </project-private>

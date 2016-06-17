@@ -135,7 +135,7 @@
                     <h:form id="formuser" prependId="false">
                         <h:outputText value="Usuario: #{login.username}"/>
                         <h:outputText value=" "/>
-                        <h:commandLink value="Salir" title="Logout" action="#{login.logout}" />
+                        <h:commandLink value="Salir" title="Salir" action="#{login.logout}" />
                     </h:form>
                 </div>
             </div>
@@ -149,7 +149,7 @@
             </div>
 
         </h:panelGroup>
-
+<!--
         <h:panelGroup rendered="#{!login.logueado}">
             <br/>
             <h:form style="margin: 20px;">
@@ -160,7 +160,7 @@
             </h:form>
 
         </h:panelGroup>
-
+-->
 
         <!-- <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  -->
 <!--
