@@ -340,7 +340,7 @@ div.ui-datepicker{
     width: 10px;
     text-align: center;
     width: 600px;
-    font-family: Tahoma, sans-serif;
+    font-family: Arial;
     font-size: 11px;
     font-weight: bold;
 }
@@ -375,7 +375,7 @@ div.ui-datepicker{
     text-decoration: none;
     padding: 3px 12px 7px 20px;
     font-weight: bold;
-    font-family: Tahoma, sans-serif;
+    font-family: Arial;
     font-size: 11px;
     background: url(/resources/images/menu_arrow_blue.png) no-repeat 0% 50%;
 }

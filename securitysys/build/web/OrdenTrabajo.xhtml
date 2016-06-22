@@ -22,8 +22,8 @@
                     <h:panelGrid columns="3" cellpadding="5">
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:outputText value="Fecha Recepcion:"
-                                          style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <h:outputText id="buttonFR" value="#{OrdenTrabajoBean.fechaRecepcion}" style="font-size: 11px;"/>
+                                          style="color: #78797A; font: 80% Tahoma; text-decoration: none; font-size: 11px;" />
+                            <h:outputText id="buttonFR" value="#{OrdenTrabajoBean.fechaRecepcion}" style="font: 80% Tahoma; font-size: 11px;"/>
                             <h:outputText value="Tipo de Servicio:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:selectOneMenu id="tipoServicio" label="Tipo de Servicio" value="#{OrdenTrabajoBean.idServicio}">
@@ -133,8 +133,8 @@
                             </p:dataTable>
                             <br/><br/>
                             <h:panelGroup layout="block">
-                                <p:commandButton action="#{OrdenTrabajoBean.guardarOrdenTrabajo}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatable clienteFilter nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente encabezado" id="buttonGuardar" value="Guardar"/>
-                                <p:commandButton action="#{OrdenTrabajoBean.volver}" id="buttonCancelar" value="Cancelar" immediate="true"/>
+                                <p:commandButton action="#{OrdenTrabajoBean.guardarOrdenTrabajo}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatable clienteFilter nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente encabezado" id="buttonGuardar" value="Guardar" style="font-size: 12px;"/>
+                                <p:commandButton action="#{OrdenTrabajoBean.volver}" id="buttonCancelar" value="Cancelar" immediate="true" style="font-size: 12px;"/>
                             </h:panelGroup>
 
                         </h:panelGrid>

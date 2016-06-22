@@ -19,7 +19,7 @@
                                  actionListener="#{OrdenInstalacionBean.obtenerDatosOrdenTrabajo}" />
                 <p:panel id="nroDeInstalacion" header="Numero de Instalacion: #{OrdenInstalacionBean.nroDeInstalacion}">
                     <p:watermark for="ordenFilter" value="Nro. de Orden" id="watermark" />
-                    <h:panelGrid columns="2" cellpadding="5" >
+                    <h:panelGrid columns="2" cellpadding="80" >
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:outputText value="Tipo de Instalacion:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
@@ -154,8 +154,8 @@
 
                     <br/><br/>
                     <h:panelGroup layout="block">
-                        <p:commandButton action="#{OrdenInstalacionBean.guardarOrdenInstalacion}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatableTareas datatableKits nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente tipoInstalacion movil ordenFilter datatableEquipoTecnico observacion nroDeInstalacion" id="buttonGuardar" value="Guardar"/>
-                        <p:commandButton action="#{OrdenInstalacionBean.volver}" id="buttonCancelar" value="Cancelar" immediate="true"/>
+                        <p:commandButton action="#{OrdenInstalacionBean.guardarOrdenInstalacion}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatableTareas datatableKits nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente tipoInstalacion movil ordenFilter datatableEquipoTecnico observacion nroDeInstalacion" id="buttonGuardar" value="Guardar" style="font-size: 12px;"/>
+                        <p:commandButton action="#{OrdenInstalacionBean.volver}" id="buttonCancelar" value="Cancelar" immediate="true" style="font-size: 12px;"/>
                     </h:panelGroup>
 
                 </p:panel>  

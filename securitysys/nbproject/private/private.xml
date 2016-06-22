@@ -14,11 +14,6 @@
             <file>file:/C:/test/Securitysys/securitysys/web/cliente/List.xhtml</file>
             <file>file:/C:/test/Securitysys/securitysys/web/resources/css/menu.css</file>
         </group>
-        <group name="otroGrupo">
-            <file>file:/C:/test/Securitysys/Securitysys/securitysys/web/WEB-INF/faces-config.xml</file>
-            <file>file:/C:/test/Securitysys/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
-            <file>file:/C:/test/Securitysys/Securitysys/securitysys/src/java/bean/Login.java</file>
-            <file>file:/C:/test/Securitysys/Securitysys/securitysys/web/resources/css/menu.css</file>
-        </group>
+        <group name="otroGrupo"/>
     </open-files>
 </project-private>

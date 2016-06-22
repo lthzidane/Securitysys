@@ -5,7 +5,7 @@
     background-color: #3D6EA8;
     clear: both;
     color: #FFF;
-    height: 26px;
+    height: 16px;
 }
 
 /*Letra de los Menus con flechita*/
@@ -14,7 +14,7 @@
     text-decoration: none;
     padding: 3px 12px 7px 20px;
     font-weight: bold;
-    font-family: Tahoma, sans-serif;
+    font-family: Arial;
     font-size: 11px;
     background: url(/securitysys/resources/images/menu_arrow_blue.png) no-repeat 0% 50%;
 }
