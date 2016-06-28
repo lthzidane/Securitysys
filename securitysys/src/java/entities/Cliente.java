@@ -44,6 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByNroDocumento", query = "SELECT c FROM Cliente c WHERE c.nroDocumento = :nroDocumento")})
 public class Cliente implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
+    private List<PresupuestoCab> presupuestoCabList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
     private List<Reclamo> reclamoList;
     @OneToMany(mappedBy = "idCliente")
     private List<InstalacionCab> instalacionCabList;
@@ -240,5 +242,14 @@ public class Cliente implements Serializable {
 
     public void setOrdenTrabajoCabList(List<OrdenTrabajoCab> ordenTrabajoCabList) {
         this.ordenTrabajoCabList = ordenTrabajoCabList;
+    }
+
+    @XmlTransient
+    public List<PresupuestoCab> getPresupuestoCabList() {
+        return presupuestoCabList;
+    }
+
+    public void setPresupuestoCabList(List<PresupuestoCab> presupuestoCabList) {
+        this.presupuestoCabList = presupuestoCabList;
     }
 }

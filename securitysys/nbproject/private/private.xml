@@ -14,6 +14,14 @@
             <file>file:/C:/test/Securitysys/securitysys/web/cliente/List.xhtml</file>
             <file>file:/C:/test/Securitysys/securitysys/web/resources/css/menu.css</file>
         </group>
-        <group name="otroGrupo"/>
+        <group name="otroGrupo">
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/OrdenTrabajoBean.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/entities/PresupuestoDet.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/ElaborarPresupuesto.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/ElaborarPresupuestoBean.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/entities/Cliente.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/entities/PresupuestoDetPK.java</file>
+        </group>
     </open-files>
 </project-private>

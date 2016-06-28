@@ -37,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Estado.findByModulo", query = "SELECT e FROM Estado e WHERE e.modulo = :modulo"),
     @NamedQuery(name = "Estado.findByEstado", query = "SELECT e FROM Estado e WHERE e.estado = :estado")})
 public class Estado implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
+    private List<PresupuestoCab> presupuestoCabList;
     @OneToMany(mappedBy = "idEstado")
     private List<OrdenTrabajoCab> ordenTrabajoCabList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
@@ -152,6 +154,15 @@ public class Estado implements Serializable {
 
     public void setOrdenTrabajoCabList(List<OrdenTrabajoCab> ordenTrabajoCabList) {
         this.ordenTrabajoCabList = ordenTrabajoCabList;
+    }
+
+    @XmlTransient
+    public List<PresupuestoCab> getPresupuestoCabList() {
+        return presupuestoCabList;
+    }
+
+    public void setPresupuestoCabList(List<PresupuestoCab> presupuestoCabList) {
+        this.presupuestoCabList = presupuestoCabList;
     }
     
 }

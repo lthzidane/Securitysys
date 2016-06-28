@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">Elaborar Presupuesto</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="Elaborar Presupuesto"/>
+        </ui:define>
+        <ui:define name="container">
+            <script name="jquery/jquery.js" library="primefaces"></script> 
+            <h:form id="form">  
+                <p:remoteCommand name="buscarCliente" update="razonSocialCliente" 
+                                 actionListener="#{ElaborarPresupuestoBean.obtenerDatosCliente}" />
+                <p:panel header="Nuevo Presupuesto">
+                    <p:watermark for="clienteFilter" value="Nro. de Cedula o Ruc" id="watermark" />
+                    <h:panelGrid columns="4" cellpadding="10">
+                        <h:outputText value="Nro de Presupuesto:" 
+                                      style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                        <h:outputText id="nroOrden" value="#{ElaborarPresupuestoBean.nroDeOrden}" style="font-size: 11px;"/>
+                        <h:outputText value="Fecha Pedido:"
+                                      style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                        <h:outputText value="#{ElaborarPresupuestoBean.fechaPedido}" style="font-size: 11px;"/>                        
+                        <h:outputText value="Cliente: *" style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                        <h:inputText  id="clienteFilter" value="#{ElaborarPresupuestoBean.cliente}" required="true" label="Cliente" onblur="buscarCliente()" />                                            
+                        <h:outputText value="Nombre:" 
+                                      style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                        <h:outputText id="razonSocialCliente" value="#{ElaborarPresupuestoBean.razonsocial}" style="font-size: 11px;"/>
+                    </h:panelGrid>
+
+                    <p:dataTable id="datatable"
+                                 var="presupuesto" 
+                                 value="#{ElaborarPresupuestoBean.listaDetalle}"
+                                 emptyMessage="Aun no se han agregado articulos al productos"
+                                 editable="true"
+                                 scrollable="true"
+                                 scrollHeight="100">
+                        <f:facet name="header">
+                            Detalle de Presupuesto
+                        </f:facet>
+                        <p:ajax event="rowEdit" listener="#{ElaborarPresupuestoBean.onRowEditTarea}" update="datatable"/>
+                        <p:ajax event="rowEditCancel" listener="#{ElaborarPresupuestoBean.onRowCancelTarea}" update="datatable" />
+                        <p:column headerText="Cod Articulo" style="width: 80px;">
+                            <p:cellEditor>
+                                <f:facet name="output"><div align="center"><h:outputText value="#{presupuesto.presupuestoDetPK.nroSecuencia}" /></div></f:facet>
+                                <f:facet name="input"><div align="center"><h:outputText value="#{presupuesto.presupuestoDetPK.nroSecuencia}" /></div></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{presupuesto.codProducto.descripcion}" /></f:facet>
+                                <f:facet name="input"><h:inputText value="#{presupuesto.codProducto.descripcion}" style="width:95%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Cantidad" style="width:80px">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{presupuesto.cantidad}"/></f:facet>
+                                <f:facet name="input"><h:inputText value="#{presupuesto.cantidad}" style="width:80px"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Precio" style="width:80px">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{presupuesto.precio}">
+                                        <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                    </h:outputText>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{presupuesto.precio}" style="width:80px">
+                                        <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                    </h:inputText>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Descuento" style="width: 80px;">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{presupuesto.totalDescuento}">
+                                        <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                    </h:outputText>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:outputText value="#{presupuesto.totalDescuento}">
+                                        <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                    </h:outputText>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Importe" style="width: 80px;">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{presupuesto.totalDetalle}">
+                                        <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                    </h:outputText>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:outputText value="#{presupuesto.totalDetalle}">
+                                        <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                    </h:outputText>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column style="width:40px">
+                            <p:rowEditor/>
+                        </p:column>
+                        <p:column style="width:40px">
+                            <f:facet name="header">
+                                <p:commandLink id="addTarea" action="#{ElaborarPresupuestoBean.addTarea}" update="datatable" immediate="true"
+                                               oncomplete="jQuery('#form\\:datatable .ui-datatable-scrollable-body').scrollTop(100000);
+                                               jQuery('#form\\:datatable .ui-datatable-data > tr').last().find('span.ui-icon-pencil').click()">
+                                    <h:graphicImage name="images/plus.png"/>
+                                </p:commandLink>
+                            </f:facet>
+                            <p:commandButton id="buttonEliminar"
+                                             action="#{ElaborarPresupuestoBean.removeTarea(item)}"
+                                             icon="ui-icon-trash"
+                                             title="Eliminar"
+                                             update="datatable"
+                                             ajax="true">
+                            </p:commandButton> 
+                        </p:column>
+                        <p:columnGroup type="footer">
+                            <p:row>
+                                <p:column colspan="6" style="text-align:right" footerText="Total:" />
+                                <p:column footerText="$#{ElaborarPresupuestoBean.ordenCompraTotal}" />
+                            </p:row>
+                        </p:columnGroup>
+
+                        <f:facet name="footer">
+                            Elaborado por: #{login.username}
+                        </f:facet>
+                    </p:dataTable>
+
+                    <p:commandButton action="#{ElaborarPresupuestoBean.guardarProducto}" id="buttonGuardar" value="Guardar" 
+                                     ajax="true" icon="ui-icon-refresh" style="font-size: 12px;"/>
+                    <p:commandButton action="Volver" id="buttonCancelar" value="Cancelar" immediate="true" style="font-size: 12px;"/>
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>
+
