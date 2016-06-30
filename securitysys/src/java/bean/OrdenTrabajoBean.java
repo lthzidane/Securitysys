@@ -4,7 +4,6 @@
  */
 package bean;
 
-import entities.Cliente;
 import entities.EstadoTrab;
 import entities.OrdenTrabajoCab;
 import entities.OrdenTrabajoDet;
@@ -12,13 +11,11 @@ import entities.Tecnicos;
 import entities.TipoServicios;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,18 +27,14 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import lombok.Data;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
-import session.ClienteController;
-import session.TecnicosController;
 import session.util.JsfUtil;
 import session.util.JsfUtil.PersistAction;
-import util.Sale;
 
 /**
  *

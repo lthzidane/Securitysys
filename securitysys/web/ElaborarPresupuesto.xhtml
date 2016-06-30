@@ -15,7 +15,7 @@
             <h:form id="form">  
                 <p:remoteCommand name="buscarCliente" update="razonSocialCliente" 
                                  actionListener="#{ElaborarPresupuestoBean.obtenerDatosCliente}" />
-                <p:panel header="Nuevo Presupuesto">
+                <p:panel id="encabezado" header="Presupuesto Nro: #{ElaborarPresupuestoBean.nroDeOrden}">
                     <p:watermark for="clienteFilter" value="Nro. de Cedula o Ruc" id="watermark" />
                     <h:panelGrid columns="4" cellpadding="10">
                         <h:outputText value="Nro de Presupuesto:" 
@@ -32,72 +32,69 @@
                     </h:panelGrid>
 
                     <p:dataTable id="datatable"
-                                 var="presupuesto" 
                                  value="#{ElaborarPresupuestoBean.listaDetalle}"
-                                 emptyMessage="Aun no se han agregado articulos al productos"
+                                 rowKey="#{item.codProducto}"
+                                 var="item" 
                                  editable="true"
                                  scrollable="true"
-                                 scrollHeight="100">
+                                 scrollHeight="100"
+                                 emptyMessage="Aun no se han agregado articulos al productos">
                         <f:facet name="header">
                             Detalle de Presupuesto
                         </f:facet>
-                        <p:ajax event="rowEdit" listener="#{ElaborarPresupuestoBean.onRowEditTarea}" update="datatable"/>
-                        <p:ajax event="rowEditCancel" listener="#{ElaborarPresupuestoBean.onRowCancelTarea}" update="datatable" />
+                        <p:ajax event="rowEdit" listener="#{ElaborarPresupuestoBean.onRowEditDetalle}" update="datatable"/>
+                        <p:ajax event="rowEditCancel" listener="#{ElaborarPresupuestoBean.onRowCancelDetalle}" update="datatable" />
                         <p:column headerText="Cod Articulo" style="width: 80px;">
                             <p:cellEditor>
-                                <f:facet name="output"><div align="center"><h:outputText value="#{presupuesto.presupuestoDetPK.nroSecuencia}" /></div></f:facet>
-                                <f:facet name="input"><div align="center"><h:outputText value="#{presupuesto.presupuestoDetPK.nroSecuencia}" /></div></f:facet>
+                                <f:facet name="output"><div align="center"><h:outputText value="#{item.presupuestoDetPK.nroSecuencia}" /></div></f:facet>
+                                <f:facet name="input"><div align="center"><h:outputText value="#{item.presupuestoDetPK.nroSecuencia}" /></div></f:facet>
                             </p:cellEditor>
                         </p:column>
                         <p:column headerText="Descripcion">
                             <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{presupuesto.codProducto.descripcion}" /></f:facet>
-                                <f:facet name="input"><h:inputText value="#{presupuesto.codProducto.descripcion}" style="width:95%"/></f:facet>
+                                <f:facet name="output"><h:outputText value="#{item.codProducto.descripcion}" /></f:facet>
+                                <f:facet name="input"><h:inputText value="#{item.codProducto.descripcion}" style="width:95%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
                         <p:column headerText="Cantidad" style="width:80px">
                             <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{presupuesto.cantidad}"/></f:facet>
-                                <f:facet name="input"><h:inputText value="#{presupuesto.cantidad}" style="width:80px"/></f:facet>
+                                <f:facet name="output"><h:outputText value="#{item.cantidad}"/></f:facet>
+                                <f:facet name="input"><h:inputText value="#{item.cantidad}" style="width:80px"/></f:facet>
                             </p:cellEditor>
                         </p:column>
                         <p:column headerText="Precio" style="width:80px">
                             <p:cellEditor>
                                 <f:facet name="output">
-                                    <h:outputText value="#{presupuesto.precio}">
+                                    <h:outputText value="#{item.precio}">
                                         <f:convertNumber type="currency" currencySymbol="Gs. " />
                                     </h:outputText>
                                 </f:facet>
                                 <f:facet name="input">
-                                    <h:inputText value="#{presupuesto.precio}" style="width:80px">
-                                        <f:convertNumber type="currency" currencySymbol="Gs. " />
-                                    </h:inputText>
+                                    <h:inputText value="#{item.precio}" style="width:80px"/>
                                 </f:facet>
                             </p:cellEditor>
                         </p:column>
                         <p:column headerText="Descuento" style="width: 80px;">
                             <p:cellEditor>
                                 <f:facet name="output">
-                                    <h:outputText value="#{presupuesto.totalDescuento}">
+                                    <h:outputText value="#{item.totalDescuento}">
                                         <f:convertNumber type="currency" currencySymbol="Gs. " />
                                     </h:outputText>
                                 </f:facet>
                                 <f:facet name="input">
-                                    <h:outputText value="#{presupuesto.totalDescuento}">
-                                        <f:convertNumber type="currency" currencySymbol="Gs. " />
-                                    </h:outputText>
+                                    <h:inputText value="#{item.totalDescuento}" style="width: 80px;"/>
                                 </f:facet>
                             </p:cellEditor>
                         </p:column>
                         <p:column headerText="Importe" style="width: 80px;">
                             <p:cellEditor>
                                 <f:facet name="output">
-                                    <h:outputText value="#{presupuesto.totalDetalle}">
+                                    <h:outputText value="#{item.totalDetalle}">
                                         <f:convertNumber type="currency" currencySymbol="Gs. " />
                                     </h:outputText>
                                 </f:facet>
                                 <f:facet name="input">
-                                    <h:outputText value="#{presupuesto.totalDetalle}">
+                                    <h:outputText value="#{item.totalDetalle}">
                                         <f:convertNumber type="currency" currencySymbol="Gs. " />
                                     </h:outputText>
                                 </f:facet>
@@ -122,18 +119,14 @@
                                              ajax="true">
                             </p:commandButton> 
                         </p:column>
-                        <p:columnGroup type="footer">
+                        <!--<p:columnGroup type="footer">
                             <p:row>
                                 <p:column colspan="6" style="text-align:right" footerText="Total:" />
-                                <p:column footerText="$#{ElaborarPresupuestoBean.ordenCompraTotal}" />
+                                <p:column footerText="Gs. #{ElaborarPresupuestoBean.ordenCompraTotal}" id="totalFinal"/>
                             </p:row>
-                        </p:columnGroup>
-
-                        <f:facet name="footer">
-                            Elaborado por: #{login.username}
-                        </f:facet>
+                        </p:columnGroup>-->
                     </p:dataTable>
-
+                    <br/><br/>
                     <p:commandButton action="#{ElaborarPresupuestoBean.guardarProducto}" id="buttonGuardar" value="Guardar" 
                                      ajax="true" icon="ui-icon-refresh" style="font-size: 12px;"/>
                     <p:commandButton action="Volver" id="buttonCancelar" value="Cancelar" immediate="true" style="font-size: 12px;"/>

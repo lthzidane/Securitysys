@@ -1,6 +1,5 @@
 package bean;
 
-import entities.OrdenTrabajoDet;
 import entities.PresupuestoDet;
 import entities.PresupuestoDetPK;
 import entities.Productos;
@@ -50,32 +49,9 @@ public class ElaborarPresupuestoBean implements Serializable {
     private boolean editando = false;
     private String fechaPedido;
     private String fechaRecepcion;
-
-    private final static String[] nombreProducto;
-    private ArrayList<Sale> detalleOC;
     private ArrayList<PresupuestoDet> listaDetalle = new ArrayList<PresupuestoDet>();
     private ArrayList<PresupuestoDet> listaDetallesEliminados = new ArrayList<PresupuestoDet>();
-
-    static {
-        nombreProducto = new String[10];
-        nombreProducto[0] = "Apple";
-        nombreProducto[1] = "Samsung";
-        nombreProducto[2] = "Microsoft";
-        nombreProducto[3] = "Philips";
-        nombreProducto[4] = "Sony";
-        nombreProducto[5] = "LG";
-        nombreProducto[6] = "Sharp";
-        nombreProducto[7] = "Panasonic";
-        nombreProducto[8] = "HTC";
-        nombreProducto[9] = "Nokia";
-    }
-
-    /**
-     * @return the nombreProducto
-     */
-    public static String[] getNombreProducto() {
-        return nombreProducto;
-    }
+    private String ordenCompraTotal;
     private String cliente;
     private int idCliente;
     private String nroDocumento;
@@ -83,9 +59,6 @@ public class ElaborarPresupuestoBean implements Serializable {
     private String ciudad;
     private String direccion;
     private String telefono;
-
-    public ElaborarPresupuestoBean() {
-    }
 
     @PostConstruct
     void initialiseSession() {
@@ -96,7 +69,7 @@ public class ElaborarPresupuestoBean implements Serializable {
 
         try {
 
-            setDetalleOC(new ArrayList<Sale>());
+//            setDetalleOC(new ArrayList<Sale>());
 //            for (int i = 0; i < 10; i++) {
 //
 //                int cant = getRandomAmount();
@@ -148,31 +121,13 @@ public class ElaborarPresupuestoBean implements Serializable {
         return "Volver";
     }
 
-    private int getRandomAmount() {
-        return (int) (Math.random() * 10) + 1;
-    }
-
-    private int getRandomPercentage() {
-        return (int) (Math.random() * 100);
-    }
-
-    public String getLastYearTotal() {
+    public String refreshOrdenCompraTotal() {
         int total = 0;
 
-        for (Sale sale : getDetalleOC()) {
-            total += sale.getNroOrden();
+        for (PresupuestoDet det : listaDetalle) {
+            total += det.getTotalDetalle().intValue();
         }
-
-        return new DecimalFormat("###,###").format(total);
-    }
-
-    public String getOrdenCompraTotal() {
-        int total = 0;
-
-        for (Sale sale : getDetalleOC()) {
-            total += sale.getPrecioTotal();
-        }
-
+        System.out.println("Total: "+total);
         return new DecimalFormat("###,###").format(total);
     }
 
@@ -219,11 +174,17 @@ public class ElaborarPresupuestoBean implements Serializable {
         }
     }
 
-    public void onRowEditTarea(RowEditEvent event) {
-        System.out.println("Editando Tarea");
+    public void onRowEditDetalle(RowEditEvent event) {
+        PresupuestoDet det = (PresupuestoDet)event.getObject();
+        BigInteger precio = det.getPrecio();
+        BigInteger cantidad = det.getCantidad();
+        BigInteger descuento = det.getTotalDescuento();
+        int total = (precio.intValue()*cantidad.intValue()) - descuento.intValue();
+        det.setTotalDetalle(new BigInteger(total+""));
+        System.out.println("Editando Producto: "+det.getCodProducto().getDescripcion() + ", total a pagar: "+det.getTotalDetalle());
     }
 
-    public void onRowCancelTarea(RowEditEvent event) {
+    public void onRowCancelDetalle(RowEditEvent event) {
         PresupuestoDet det = (PresupuestoDet) event.getObject();
 
         String descripcion = det.getCodProducto().getDescripcion(); //obtengo la descripción de la tarea
@@ -241,6 +202,8 @@ public class ElaborarPresupuestoBean implements Serializable {
         detPK.setNroSecuencia(BigInteger.valueOf(i));
         PresupuestoDet predet = new PresupuestoDet(detPK);
         predet.setCodProducto(new Productos());
+        predet.setTotalDescuento(BigInteger.ZERO);
+        predet.setTotalDetalle(BigInteger.ZERO);
         this.listaDetalle.add(predet);
     }
 
