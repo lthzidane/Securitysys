@@ -1,5 +1,6 @@
 package bean;
 
+import entities.Departamento;
 import entities.PresupuestoDet;
 import entities.PresupuestoDetPK;
 import entities.Productos;
@@ -16,14 +17,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import lombok.Data;
 import org.primefaces.event.RowEditEvent;
-import util.Sale;
 
 /**
  *
@@ -51,7 +54,10 @@ public class ElaborarPresupuestoBean implements Serializable {
     private String fechaRecepcion;
     private ArrayList<PresupuestoDet> listaDetalle = new ArrayList<PresupuestoDet>();
     private ArrayList<PresupuestoDet> listaDetallesEliminados = new ArrayList<PresupuestoDet>();
-    private String ordenCompraTotal;
+    private List<Productos> listaProductos = new ArrayList<Productos>();
+    private String sumaTotal;
+    private String iva;
+    private String presupuestoTotal;
     private String cliente;
     private int idCliente;
     private String nroDocumento;
@@ -59,6 +65,10 @@ public class ElaborarPresupuestoBean implements Serializable {
     private String ciudad;
     private String direccion;
     private String telefono;
+
+    @EJB
+    private bean.ProductosFacade productoFacade = new ProductosFacade();
+    private String selectedItem;
 
     @PostConstruct
     void initialiseSession() {
@@ -80,14 +90,11 @@ public class ElaborarPresupuestoBean implements Serializable {
 //                        pUni,
 //                        cant * pUni));
 //            }
-
             nroDeOrden = "0001";
 
             Date date = Calendar.getInstance().getTime();
 
-            //
-            // Display a date in day, month, year format
-            //
+            this.listaProductos = productoFacade.findAll();
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String today = formatter.format(date);
             fechaPedido = today;
@@ -121,14 +128,47 @@ public class ElaborarPresupuestoBean implements Serializable {
         return "Volver";
     }
 
-    public String refreshOrdenCompraTotal() {
-        int total = 0;
+    public void refrescarFooter() {
+        System.out.println("Suma: " + getSumaTotal());
+        System.out.println("IVA: " + getIva());
+        System.out.println("Total: " + getPresupuestoTotal());
+    }
 
-        for (PresupuestoDet det : listaDetalle) {
+    public String getSumaTotal() {
+        int total = 0;
+        for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
             total += det.getTotalDetalle().intValue();
         }
-        System.out.println("Total: "+total);
-        return new DecimalFormat("###,###").format(total);
+        this.sumaTotal = new DecimalFormat("###,###").format(total);
+        return this.sumaTotal;
+    }
+
+    public String getIva() {
+        int ivaCalculado = 0;
+        int total = 0;
+        for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
+            total += det.getTotalDetalle().intValue();
+        }
+
+        ivaCalculado = total * 10 / 100;
+
+        this.iva = new DecimalFormat("###,###").format(ivaCalculado);
+        return this.iva;
+    }
+
+    public String getPresupuestoTotal() {
+        int ivaCalculado = 0;
+        int total = 0;
+        for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
+            total += det.getTotalDetalle().intValue();
+        }
+
+        ivaCalculado = total * 10 / 100;
+
+        int presupuestoCalculado = total + ivaCalculado;
+
+        this.presupuestoTotal = new DecimalFormat("###,###").format(presupuestoCalculado);
+        return this.presupuestoTotal;
     }
 
     public void obtenerDatosCliente() {
@@ -175,13 +215,14 @@ public class ElaborarPresupuestoBean implements Serializable {
     }
 
     public void onRowEditDetalle(RowEditEvent event) {
-        PresupuestoDet det = (PresupuestoDet)event.getObject();
+        PresupuestoDet det = (PresupuestoDet) event.getObject();
         BigInteger precio = det.getPrecio();
         BigInteger cantidad = det.getCantidad();
         BigInteger descuento = det.getTotalDescuento();
-        int total = (precio.intValue()*cantidad.intValue()) - descuento.intValue();
-        det.setTotalDetalle(new BigInteger(total+""));
-        System.out.println("Editando Producto: "+det.getCodProducto().getDescripcion() + ", total a pagar: "+det.getTotalDetalle());
+        int total = (precio.intValue() * cantidad.intValue()) - descuento.intValue();
+        det.setTotalDetalle(new BigInteger(total + ""));
+        //this.sumaTotal = refreshOrdenCompraTotal();
+        System.out.println("Editando Producto: " + det.getCodProducto().getDescripcion() + ", total a pagar: " + det.getTotalDetalle());
     }
 
     public void onRowCancelDetalle(RowEditEvent event) {

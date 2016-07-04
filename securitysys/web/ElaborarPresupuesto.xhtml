@@ -15,6 +15,9 @@
             <h:form id="form">  
                 <p:remoteCommand name="buscarCliente" update="razonSocialCliente" 
                                  actionListener="#{ElaborarPresupuestoBean.obtenerDatosCliente}" />
+
+                <p:remoteCommand name="refreshFooter" update="datatable" actionListener="#{ElaborarPresupuestoBean.refrescarFooter}" />
+                
                 <p:panel id="encabezado" header="Presupuesto Nro: #{ElaborarPresupuestoBean.nroDeOrden}">
                     <p:watermark for="clienteFilter" value="Nro. de Cedula o Ruc" id="watermark" />
                     <h:panelGrid columns="4" cellpadding="10">
@@ -37,12 +40,12 @@
                                  var="item" 
                                  editable="true"
                                  scrollable="true"
-                                 scrollHeight="100"
-                                 emptyMessage="Aun no se han agregado articulos al productos">
+                                 scrollHeight="300"
+                                 emptyMessage="Aun no se han agregado articulos al Detalle">
                         <f:facet name="header">
                             Detalle de Presupuesto
                         </f:facet>
-                        <p:ajax event="rowEdit" listener="#{ElaborarPresupuestoBean.onRowEditDetalle}" update="datatable"/>
+                        <p:ajax event="rowEdit" listener="#{ElaborarPresupuestoBean.onRowEditDetalle}" update="datatable" oncomplete="refreshFooter()"/>
                         <p:ajax event="rowEditCancel" listener="#{ElaborarPresupuestoBean.onRowCancelDetalle}" update="datatable" />
                         <p:column headerText="Cod Articulo" style="width: 80px;">
                             <p:cellEditor>
@@ -53,7 +56,12 @@
                         <p:column headerText="Descripcion">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{item.codProducto.descripcion}" /></f:facet>
-                                <f:facet name="input"><h:inputText value="#{item.codProducto.descripcion}" style="width:95%"/></f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu id="producList" label="Derivado a" value="#{item.codProducto}">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems value="#{ElaborarPresupuestoBean.listaProductos}" var="prod" itemLabel="#{prod.descripcion}" itemValue="#{prod}"/>
+                                    </h:selectOneMenu> 
+                                </f:facet>
                             </p:cellEditor>
                         </p:column>
                         <p:column headerText="Cantidad" style="width:80px">
@@ -119,12 +127,18 @@
                                              ajax="true">
                             </p:commandButton> 
                         </p:column>
-                        <!--<p:columnGroup type="footer">
-                            <p:row>
-                                <p:column colspan="6" style="text-align:right" footerText="Total:" />
-                                <p:column footerText="Gs. #{ElaborarPresupuestoBean.ordenCompraTotal}" id="totalFinal"/>
+                        <p:columnGroup type="footer" id="footerCG">
+                            <p:row id="footerRow">
+                                <p:column />
+                                <p:column style="width: 80px;"/>
+                                <p:column />
+                                <p:column colspan="1" style="text-align:right" footerText="Suma: #{ElaborarPresupuestoBean.sumaTotal}" id="footerTotal" />
+                                <p:column colspan="1" style="text-align:right" footerText="IVA: #{ElaborarPresupuestoBean.iva}" id="footerIVA"/>
+                                <p:column colspan="1" style="text-align:right" footerText="Total: #{ElaborarPresupuestoBean.presupuestoTotal}" id="footerTotalFinal"/>
+                                <p:column />
+                                <p:column />
                             </p:row>
-                        </p:columnGroup>-->
+                        </p:columnGroup>
                     </p:dataTable>
                     <br/><br/>
                     <p:commandButton action="#{ElaborarPresupuestoBean.guardarProducto}" id="buttonGuardar" value="Guardar" 
