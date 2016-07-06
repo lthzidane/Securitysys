@@ -57,7 +57,6 @@
                     console.log($("#form\\:chartImageSrc").val());
                 }
             </script>
-
             <script type="text/javascript">
                 function exportToPdfIns() {
                     //get your image 
@@ -84,6 +83,7 @@
                 }
             </style>
             <h:form id="form">
+                <p:remoteCommand name="filtrarFechasOT" update="form:tabView:datatableOT" actionListener="#{ReportesOTBean.filtrarFechasOT}" />
                 <p:remoteCommand name="exportToPdfRemoteCommand" 
                                  action="#{ReportesOTBean.exportOT2Pdf}"/>
                 <h:inputHidden id="chartImageSrc" 
@@ -122,39 +122,28 @@
                                      rowKey="#{item.nroOrden}"
                                      filteredValue="#{ReportesOTBean.filteredOrdenesTrabajo}"
                                      var="item"
+                                     widgetVar="datatableOT"
                                      scrollable="true"
                                      scrollHeight="300"
-                                     emptyMessage="No hay Ordenes de Trabajo que mostrar"
-                                     widgetVar="datatableOT">
+                                     emptyMessage="No hay Ordenes de Trabajo que mostrar">
                             <f:facet name="header">
-                                Ordenes de Trabajo por rango de fecha
+                                Ordenes de Trabajo
+                                <br />
+                                <h:outputText value="Fecha Inicio: " />
+                                <p:calendar id="from" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesOTBean.fromFecOT}"/>
+                                <h:outputText value="Fecha Fin: " />
+                                <p:calendar id="to" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesOTBean.toFecOT}" >
+                                    <p:ajax event="blur" 
+                                            oncomplete="filtrarFechasOT()" />
+                                </p:calendar>
                             </f:facet>
-
-                            <p:column headerText="Fecha" sortBy="#{item.fechaOrden}" 
-                                      filterBy="#{item.fechaOrden}" filterFunction="#{ReportesOTBean.filterByDate}">
-                                <f:facet name="filter">
-                                    <h:inputHidden id="filter" />
-                                </f:facet>
-                                <f:facet name="header">
-                                    <p:calendar id="from" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass">
-                                        <p:ajax event="dateSelect" 
-                                                onstart="$(PrimeFaces.escapeClientId('#{p:component('filter')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to')}_input'))[0].value" 
-                                                oncomplete="PF('datatableOT').filter()" />
-                                    </p:calendar>
-                                    <p:watermark for="from" value="Desde" id="watermarkFrom" />
-                                    <p:calendar id="to" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass">
-                                        <p:ajax event="dateSelect" 
-                                                onstart="$(PrimeFaces.escapeClientId('#{p:component('filter')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to')}_input'))[0].value" 
-                                                oncomplete="PF('datatableOT').filter()" />
-                                    </p:calendar>
-                                    <p:watermark for="to" value="Hasta" id="watermarkTo" />
-                                </f:facet>
+                            <p:column id="columnOTFecha" headerText="Fecha" sortBy="#{item.fechaOrden}"> 
                                 <h:outputText value="#{item.fechaOrden}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </p:column>
                             <p:column headerText="Nro. Orden" style="width: 80px;">
-                                <div align="center"><h:outputText value="#{item.nroOrden}"/></div>
+                                <h:outputText value="#{item.nroOrden}"/>
                             </p:column>
                             <p:column headerText="Tecnico">
                                 <h:outputText value="#{item.idTecnico.nombre}"/>
@@ -169,6 +158,15 @@
                                 <h:outputText value="#{item.idEstadoTrab.estado}"/>
                             </p:column>
                         </p:dataTable>
+
+                        <p:commandButton id="buttonMostrarOrdenesTrabajoPorFecha" 
+                                         value="Exportar a PDF" 
+                                         ajax="false" 
+                                         icon="ui-icon-extlink">
+                            <p:dataExporter type="pdf" target="datatableOT" 
+                                            fileName="ordenesDeTrabajo"
+                                            preProcessor="#{ReportesOTBean.preProcessPDF}" pageOnly="true" />   
+                        </p:commandButton>
                     </p:tab>
 
                     <p:tab title="Detalle_Ins" titleStyle="font-size: 12px;">

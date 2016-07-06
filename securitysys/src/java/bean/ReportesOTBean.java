@@ -7,9 +7,15 @@ package bean;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
 import entities.InstalacionCab;
 import entities.OrdenTrabajoCab;
 import entities.OrdenTrabajoDet;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,6 +26,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -58,6 +65,8 @@ public class ReportesOTBean implements Serializable {
     private LineChartModel animatedModelOT;
     private LineChartModel animatedModelIns;
 
+    private Date fromFecOT;
+    private Date toFecOT;
 
     private static final Logger LOG = Logger.getLogger(ReportesOTBean.class.getName());
     /**
@@ -86,15 +95,12 @@ public class ReportesOTBean implements Serializable {
 
         try {
 
-            listaRepoOrdenesTrabajo = new ArrayList<OrdenTrabajoCab>();
+            listaRepoOrdenesTrabajo = new ArrayList<>();
             for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findAll()) {
-                System.out.println("ot.NroOrden:" + ot.getNroOrden() + " cantDet:" + ot.getOrdenTrabajoDetList().size());
-
                 if (ot.getOrdenTrabajoDetList().isEmpty()) {
                     listaRepoOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(ot.getNroOrden().intValue());
                     if (listaRepoOrdenesTrabajoDet.size() > 0) {
                         ot.setOrdenTrabajoDetList(listaRepoOrdenesTrabajoDet);
-                        System.out.println("seteo la cantitad real: " + listaRepoOrdenesTrabajoDet.size());
                     }
                 }
 
@@ -325,9 +331,9 @@ public class ReportesOTBean implements Serializable {
     public boolean filterByDate(Object value, Object filter, Locale locale) {
 
         String filterText = (filter == null) ? null : filter.toString().trim();
-        
-        System.out.println("filterText: "+filterText);
-        
+
+        System.out.println("filterText: " + filterText);
+
         if (filterText == null || filterText.isEmpty()) {
             return true;
         }
@@ -336,11 +342,10 @@ public class ReportesOTBean implements Serializable {
         }
 
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-
         Date filterDate = (Date) value;
-        
-        System.out.println("filterDate: "+filterDate);
-        
+
+        System.out.println("filterDate: " + filterDate);
+
         Date dateFrom;
         Date dateTo;
         try {
@@ -353,7 +358,7 @@ public class ReportesOTBean implements Serializable {
             return false;
         }
 
-        return (dateFrom == null || filterDate.after(dateFrom) || filterDate.equals(dateFrom)) 
+        return (dateFrom == null || filterDate.after(dateFrom) || filterDate.equals(dateFrom))
                 && (dateTo == null || filterDate.before(dateTo) || filterDate.equals(dateTo));
     }
 
@@ -363,6 +368,55 @@ public class ReportesOTBean implements Serializable {
 
     public void setFilteredOrdenesTrabajo(List<OrdenTrabajoCab> filteredOrdenesTrabajo) {
         this.filteredOrdenesTrabajo = filteredOrdenesTrabajo;
+    }
+
+    public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException, ParseException {
+        com.lowagie.text.Document pdf = (com.lowagie.text.Document) document;
+        pdf.open();
+        pdf.setPageSize(PageSize.A4);
+
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        String logo = externalContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "Security.png";
+
+        pdf.add(com.lowagie.text.Image.getInstance(logo));
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");//new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
+        String startDateToStr = format.format(fromFecOT);
+        String stopDateToStr = format.format(toFecOT);
+
+        if (fromFecOT != null && toFecOT != null) {
+            pdf.add(new Paragraph("Ordenes de Trabajo del " + startDateToStr + " hasta " + stopDateToStr));
+        } else {
+            pdf.add(new Paragraph("Todas las Ordenes de Trabajo existentes"));
+        }
+
+        pdf.add(new Paragraph(" "));
+    }
+
+    public void filtrarFechasOT() {
+
+        Date startDate = fromFecOT;
+        Date endDate = toFecOT;
+
+        if (startDate == null && endDate == null) {
+            cargarVista();
+        } else {
+            listaRepoOrdenesTrabajo = new ArrayList<>();
+            for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findBetweenFechaOrden(startDate, endDate)) {
+                System.out.println("ot.NroOrden:" + ot.getNroOrden() + " cantDet:" + ot.getOrdenTrabajoDetList().size());
+
+                if (ot.getOrdenTrabajoDetList().isEmpty()) {
+                    listaRepoOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(ot.getNroOrden().intValue());
+                    if (listaRepoOrdenesTrabajoDet.size() > 0) {
+                        ot.setOrdenTrabajoDetList(listaRepoOrdenesTrabajoDet);
+                        System.out.println("seteo la cantitad real: " + listaRepoOrdenesTrabajoDet.size());
+                    }
+                }
+
+                listaRepoOrdenesTrabajo.add(ot);
+            }
+        }
+
     }
 
 }

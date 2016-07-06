@@ -38,8 +38,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "OrdenTrabajoCab.findAll", query = "SELECT o FROM OrdenTrabajoCab o ORDER BY o.fechaOrden"),
     @NamedQuery(name = "OrdenTrabajoCab.findByNroOrden", query = "SELECT o FROM OrdenTrabajoCab o WHERE o.nroOrden = :nroOrden"),
-    @NamedQuery(name = "OrdenTrabajoCab.findByFechaOrden", query = "SELECT o FROM OrdenTrabajoCab o WHERE o.fechaOrden = :fechaOrden")})
+    @NamedQuery(name = "OrdenTrabajoCab.findByFechaOrden", query = "SELECT o FROM OrdenTrabajoCab o WHERE o.fechaOrden = :fechaOrden"),
+    @NamedQuery(name = "OrdenTrabajoCab.findBetweenFechaOrden", query = "SELECT o FROM OrdenTrabajoCab o WHERE o.fechaOrden BETWEEN :startDate AND :endDate")})
 public class OrdenTrabajoCab implements Serializable {
+
     @OneToMany(mappedBy = "nroOrden")
     private List<InstalacionCab> instalacionCabList;
     private static final long serialVersionUID = 1L;
@@ -48,8 +50,8 @@ public class OrdenTrabajoCab implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "nro_orden")
-    @GeneratedValue(generator="OTCabSeq") 
-    @SequenceGenerator(name="OTCabSeq",sequenceName="nro_orden_orden_trabajo_cab_seq_1", allocationSize=1) 
+    @GeneratedValue(generator = "OTCabSeq")
+    @SequenceGenerator(name = "OTCabSeq", sequenceName = "nro_orden_orden_trabajo_cab_seq_1", allocationSize = 1)
     private BigDecimal nroOrden;
     @Basic(optional = false)
     @NotNull
@@ -195,5 +197,5 @@ public class OrdenTrabajoCab implements Serializable {
     public void setInstalacionCabList(List<InstalacionCab> instalacionCabList) {
         this.instalacionCabList = instalacionCabList;
     }
-    
+
 }
