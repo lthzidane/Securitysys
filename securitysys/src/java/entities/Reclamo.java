@@ -40,8 +40,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Reclamo.findByFechaIngreso", query = "SELECT r FROM Reclamo r WHERE r.fechaIngreso = :fechaIngreso"),
     @NamedQuery(name = "Reclamo.findByFechaSolucion", query = "SELECT r FROM Reclamo r WHERE r.fechaSolucion = :fechaSolucion"),
     @NamedQuery(name = "Reclamo.findByIdNivel", query = "SELECT r FROM Reclamo r WHERE r.idNivel = :idNivel"),
-    @NamedQuery(name = "Reclamo.findBySolucion", query = "SELECT r FROM Reclamo r WHERE r.solucion = :solucion")})
+    @NamedQuery(name = "Reclamo.findBySolucion", query = "SELECT r FROM Reclamo r WHERE r.solucion = :solucion"),
+    @NamedQuery(name = "Reclamo.findBetweenFechaIngreso", query = "SELECT r FROM Reclamo r WHERE r.fechaIngreso BETWEEN :startDate AND :endDate")})
 public class Reclamo implements Serializable {
+
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     @ManyToOne(optional = false)
     private Cliente idCliente;
@@ -66,8 +68,8 @@ public class Reclamo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_reclamo")
-    @GeneratedValue(generator="ReclamoSeq") 
-    @SequenceGenerator(name="ReclamoSeq",sequenceName="id_reclamo_reclamo_seq_1", allocationSize=1)
+    @GeneratedValue(generator = "ReclamoSeq")
+    @SequenceGenerator(name = "ReclamoSeq", sequenceName = "id_reclamo_reclamo_seq_1", allocationSize = 1)
     private BigDecimal idReclamo;
     @Basic(optional = false)
     @NotNull
@@ -224,5 +226,5 @@ public class Reclamo implements Serializable {
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
-    
+
 }

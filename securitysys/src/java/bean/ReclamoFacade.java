@@ -6,7 +6,10 @@
 package bean;
 
 import entities.Cliente;
+import entities.InstalacionCab;
 import entities.Reclamo;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -18,6 +21,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ReclamoFacade extends AbstractFacade<Reclamo> {
+
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -29,7 +33,7 @@ public class ReclamoFacade extends AbstractFacade<Reclamo> {
     public ReclamoFacade() {
         super(Reclamo.class);
     }
-    
+
     public Reclamo findByIdReclamo(Integer idReclamo) {
         try {
             return (Reclamo) em.createNamedQuery("Reclamo.findByIdReclamo").setParameter("idReclamo", idReclamo).getSingleResult();
@@ -38,5 +42,24 @@ public class ReclamoFacade extends AbstractFacade<Reclamo> {
         }
     }
 
-    
+    public List<Reclamo> findBetweenFechaIngreso(Date startDate, Date endDate) {
+        try {
+            return (List<Reclamo>) em.createNamedQuery("Reclamo.findBetweenFechaIngreso")
+                    .setParameter("startDate", startDate)
+                    .setParameter("endDate", endDate)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Reclamo> findAll() {
+        try {
+            return (List<Reclamo>) em.createNamedQuery("Reclamo.findAll").getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
 }

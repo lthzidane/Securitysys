@@ -134,11 +134,11 @@
                                 <p:calendar id="from" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesOTBean.fromFecOT}"/>
                                 <h:outputText value="Fecha Fin: " />
                                 <p:calendar id="to" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesOTBean.toFecOT}" >
-                                    <p:ajax event="blur" 
+                                    <p:ajax event="dateSelect" 
                                             oncomplete="filtrarFechasOT()" />
                                 </p:calendar>
                             </f:facet>
-                            <p:column id="columnOTFecha" headerText="Fecha" sortBy="#{item.fechaOrden}"> 
+                            <p:column id="columnReclFecha" headerText="Fecha" sortBy="#{item.fechaOrden}"> 
                                 <h:outputText value="#{item.fechaOrden}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
@@ -181,13 +181,13 @@
                                      scrollHeight="300"
                                      emptyMessage="No hay Instalaciones que mostrar">
                             <f:facet name="header">
-                                Ordenes de Instalacion
+                                Ordenes de Instalacion por Fecha de Instalacion
                                 <br />
                                 <h:outputText value="Fecha Inicio: " />
                                 <p:calendar id="fromInst" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesOTBean.fromFecInst}"/>
                                 <h:outputText value="Fecha Fin: " />
                                 <p:calendar id="toInst" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesOTBean.toFecInst}" >
-                                    <p:ajax event="blur" 
+                                    <p:ajax event="dateSelect" 
                                             oncomplete="filtrarFechasInst()" />
                                 </p:calendar>
                             </f:facet>
@@ -232,10 +232,6 @@
                                             fileName="instalaciones"
                                             preProcessor="#{ReportesOTBean.preProcessPDFInst}" pageOnly="true" />   
                         </p:commandButton>
-                    </p:tab>
-
-                    <p:tab title="Detalle_Rcl" titleStyle="font-size: 12px;">
-
                     </p:tab>
                 </p:tabView>
 
