@@ -20,6 +20,9 @@
                     height:auto;
                     display:inline-block;
                 }
+                .calendarClass input {
+                    width: 50px !important
+                }
             </style>
             <h:form id="form">
                 <p:tabView>
@@ -42,7 +45,9 @@
                             </p:column>
                             <p:column headerText="Fecha" style="width: 80px;" filterBy="#{item.fechaOrden}" filterMatchMode="contains" filterStyle="width:100%">
                                 <f:facet name="filter">
-                                    <p:calendar onchange="PF('datatableOT').filter();" pattern="dd/MM/yyyy" locale="es"/>
+                                    <p:calendar pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass">
+                                        <p:ajax event="dateSelect"  oncomplete="PF('datatableOT').filter();"/>
+                                    </p:calendar>
                                 </f:facet>
                                 <h:outputText value="#{item.fechaOrden}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -96,8 +101,8 @@
 
                         </p:confirmDialog>
 
-                        
-                        
+
+
                     </p:tab>
                     <p:tab title="Instalaciones" titleStyle="font-size: 12px;">
                         <p:dataTable id="datatableInst" 
@@ -171,7 +176,7 @@
                             </div>
 
                         </p:confirmDialog>
-                        
+
                     </p:tab>
                 </p:tabView>
 

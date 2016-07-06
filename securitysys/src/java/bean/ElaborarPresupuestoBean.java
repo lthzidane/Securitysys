@@ -1,6 +1,7 @@
 package bean;
 
-import entities.Departamento;
+import entities.PresupuestoCab;
+import entities.PresupuestoCabPK;
 import entities.PresupuestoDet;
 import entities.PresupuestoDetPK;
 import entities.Productos;
@@ -18,15 +19,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
+import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import lombok.Data;
 import org.primefaces.event.RowEditEvent;
+import session.util.JsfUtil;
 
 /**
  *
@@ -66,9 +69,17 @@ public class ElaborarPresupuestoBean implements Serializable {
     private String direccion;
     private String telefono;
 
+    private PresupuestoCab presupuestoCab;
+    private PresupuestoDet presupuestoDet;
+
     @EJB
     private bean.ProductosFacade productoFacade = new ProductosFacade();
-    private String selectedItem;
+
+    @EJB
+    private bean.PresupuestoCabFacade presupuestoCabFacade = new PresupuestoCabFacade();
+
+    @EJB
+    private bean.PresupuestoDetFacade presupuestoDetFacade = new PresupuestoDetFacade();
 
     @PostConstruct
     void initialiseSession() {
@@ -79,25 +90,25 @@ public class ElaborarPresupuestoBean implements Serializable {
 
         try {
 
-//            setDetalleOC(new ArrayList<Sale>());
-//            for (int i = 0; i < 10; i++) {
-//
-//                int cant = getRandomAmount();
-//                int pUni = getRandomPercentage();
-//                getDetalleOC().add(new Sale(getNombreProducto()[i],
-//                        i + 1,
-//                        cant,
-//                        pUni,
-//                        cant * pUni));
-//            }
             nroDeOrden = "0001";
 
             Date date = Calendar.getInstance().getTime();
-
-            this.listaProductos = productoFacade.findAll();
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String today = formatter.format(date);
             fechaPedido = today;
+
+            //Crea un presupuestoCab inicial
+            this.presupuestoCab = new PresupuestoCab();
+            
+            PresupuestoCabPK presupuestoCabPK = new PresupuestoCabPK();
+            presupuestoCabPK.setNroPresupuesto(BigInteger.ZERO);
+            
+            this.presupuestoCab.setPresupuestoCabPK(presupuestoCabPK);
+            
+            this.presupuestoCab.setFecha(date);
+            
+
+            this.listaProductos = productoFacade.findAll();
 
             proveedor = ""; //CNDDI = Codigo No Dependiente Del Idioma
             language = "ESN"; //{ESN,ENU,FRA} por defecto Español
@@ -113,19 +124,142 @@ public class ElaborarPresupuestoBean implements Serializable {
         }
     }
 
-    public String guardarProducto() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        String mensaje = "";
+    public String guardarPresupuesto() {
 
-        context.addMessage(null, new FacesMessage("¡!", mensaje));
+        presupuestoCab = new PresupuestoCab();
 
-        if (mensaje.contains("Error")) {
-            return null;
+        presupuestoCab.setBaseImponible(new BigInteger(this.sumaTotal));
+
+        persistPresupuestoCab(JsfUtil.PersistAction.CREATE, null);
+        System.out.println("se guardó la PresupuestoCab con exito > " + JsfUtil.isValidationFailed());
+
+        persistPresupuestoDet(JsfUtil.PersistAction.CREATE, listaDetalle, "Orden de Trabajo guardada correctamente");
+        System.out.println("se guardó la PresupuestoDet con exito");
+
+        //limpiar campos
+        cargarVista();
+
+        return null;
+    }
+
+    private void persistPresupuestoCab(JsfUtil.PersistAction persistAction, String successMessage) {
+        if (presupuestoCab != null) {
+
+            try {
+                if (null != persistAction) {
+                    switch (persistAction) {
+                        case CREATE:
+                            presupuestoCabFacade.create(presupuestoCab);
+                            break;
+                        case UPDATE:
+                            presupuestoCabFacade.edit(presupuestoCab);
+                            break;
+                        default:
+                            presupuestoCabFacade.remove(presupuestoCab);
+                            break;
+                    }
+                }
+
+                if (successMessage != null) {
+                    JsfUtil.addSuccessMessage(successMessage);
+                }
+
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+
+    private void persistPresupuestoDet(JsfUtil.PersistAction persistAction,
+            ArrayList<PresupuestoDet> listaDetalle,
+            String successMessage) {
+
+        if (!listaDetallesEliminados.isEmpty()) { //si eliminé alguno de los detalles
+            for (PresupuestoDet presDet : listaDetallesEliminados) {
+                try {
+                    presupuestoDetFacade.remove(presDet);
+                } catch (EJBException ex) {
+                    String msg = "";
+                    Throwable cause = ex.getCause();
+                    if (cause != null) {
+                        msg = cause.getLocalizedMessage();
+                    }
+                    if (msg.length() > 0) {
+                        JsfUtil.addErrorMessage(msg);
+                    } else {
+                        JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            }
         }
 
-        this.editando = false; //ya terminé de Editar o Guardar
+        if (listaDetalle != null && !listaDetalle.isEmpty()) {
+            for (PresupuestoDet preDet : listaDetalle) {
 
-        return "Volver";
+                if (preDet.getPresupuestoCab() != null) {
+                    presupuestoDet = preDet; //si mantiene el nro de orden, es que solo edite la descripción
+                } else {
+                    presupuestoDet = new PresupuestoDet();
+                    presupuestoDet.setPresupuestoCab(presupuestoCab);
+                    presupuestoDet.setCantidad(preDet.getCantidad());
+                    presupuestoDet.setPrecio(preDet.getPrecio());
+                    presupuestoDet.setTotalDescuento(preDet.getTotalDescuento());
+                    presupuestoDet.setTotalDetalle(preDet.getTotalDetalle());
+                    presupuestoDet.setCodProducto(preDet.getCodProducto());
+
+                }
+
+                try {
+                    if (null != persistAction) {
+                        switch (persistAction) {
+                            case CREATE:
+                                presupuestoDetFacade.create(presupuestoDet);
+                                break;
+                            case UPDATE:
+                                presupuestoDetFacade.edit(presupuestoDet);
+                                break;
+                            default:
+                                presupuestoDetFacade.remove(presupuestoDet);
+                                break;
+                        }
+                    }
+
+                } catch (EJBException ex) {
+                    String msg = "";
+                    Throwable cause = ex.getCause();
+                    if (cause != null) {
+                        msg = cause.getLocalizedMessage();
+                    }
+                    if (msg.length() > 0) {
+                        JsfUtil.addErrorMessage(msg);
+                    } else {
+                        JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            }
+
+            if (successMessage != null) {
+                JsfUtil.addSuccessMessage(successMessage);
+            }
+        }
     }
 
     public void refrescarFooter() {

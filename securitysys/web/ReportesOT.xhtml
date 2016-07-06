@@ -15,32 +15,32 @@
             <script name="jquery/jquery.js" library="primefaces"></script> 
             <h:outputScript library="js" name="jsfcrud.js"/>
             <script type="text/javascript">
-               function monitorExporting(start, complete) {
-                   if (PrimeFaces.cookiesEnabled()) {
-                       if (start) {
-                           start();
-                       }
-                       window.chartExportingMonitor = setInterval(function () {
-                           var exportingComplete = PrimeFaces.getCookie('cookie.pdf.exporting');
-                           console.log('exportingComplete:'+exportingComplete);
-                           if (exportingComplete === 'true') {
-                               if (complete) {
-                                   complete();
-                               }
-                               clearInterval(window.chartExportingMonitor);
-                               PrimeFaces.setCookie('cookie.pdf.exporting', null);
-                           }
-                       }, 3000);
-                   }
-               }
+                function monitorExporting(start, complete) {
+                    if (PrimeFaces.cookiesEnabled()) {
+                        if (start) {
+                            start();
+                        }
+                        window.chartExportingMonitor = setInterval(function () {
+                            var exportingComplete = PrimeFaces.getCookie('cookie.pdf.exporting');
+                            console.log('exportingComplete:' + exportingComplete);
+                            if (exportingComplete === 'true') {
+                                if (complete) {
+                                    complete();
+                                }
+                                clearInterval(window.chartExportingMonitor);
+                                PrimeFaces.setCookie('cookie.pdf.exporting', null);
+                            }
+                        }, 3000);
+                    }
+                }
 
-               function showStatus() {
-                   PF('bui').show();
-               }
+                function showStatus() {
+                    PF('bui').show();
+                }
 
-               function hideStatus() {
-                   PF('bui').hide();
-               }
+                function hideStatus() {
+                    PF('bui').hide();
+                }
             </script>            
             <script type="text/javascript">
                 function exportToPdfOT() {
@@ -57,7 +57,7 @@
                     console.log($("#form\\:chartImageSrc").val());
                 }
             </script>
-            
+
             <script type="text/javascript">
                 function exportToPdfIns() {
                     //get your image 
@@ -79,10 +79,13 @@
                     height:auto;
                     display:inline-block;
                 }
+                .calendarClass input {
+                    width: 65px !important
+                }
             </style>
             <h:form id="form">
                 <p:remoteCommand name="exportToPdfRemoteCommand" 
-                 action="#{ReportesOTBean.exportOT2Pdf}"/>
+                                 action="#{ReportesOTBean.exportOT2Pdf}"/>
                 <h:inputHidden id="chartImageSrc" 
                                value="#{ReportesOTBean.chartImageSrcBase64}" />
                 <p:tabView id="tabView">
@@ -94,11 +97,12 @@
                                          value="Exportar a PDF" 
                                          ajax="false" 
                                          icon="ui-icon-extlink" 
-                                         onclick="exportToPdfOT();monitorExporting(showStatus, hideStatus);"
+                                         onclick="exportToPdfOT();
+                                                 monitorExporting(showStatus, hideStatus);"
                                          action="#{ReportesOTBean.exportOT2Pdf}"
                                          update="@form"/>
                     </p:tab>
-                    
+
                     <p:tab title="Instalaciones" titleStyle="font-size: 12px;">
                         <h:panelGrid columns="2" columnClasses="left,right" style="width: 100%">
                             <p:chart type="line" model="#{ReportesOTBean.animatedModelIns}" style="height: 300px" widgetVar="chartIns"/>
@@ -111,13 +115,76 @@
                                          action="#{ReportesOTBean.exportIns2Pdf}"
                                          update="@form"/>
                     </p:tab>
+
+                    <p:tab title="Detalle_OT" titleStyle="font-size: 12px;">
+                        <p:dataTable id="datatableOT" 
+                                     value="#{ReportesOTBean.listaRepoOrdenesTrabajo}" 
+                                     rowKey="#{item.nroOrden}"
+                                     filteredValue="#{ReportesOTBean.filteredOrdenesTrabajo}"
+                                     var="item"
+                                     scrollable="true"
+                                     scrollHeight="300"
+                                     emptyMessage="No hay Ordenes de Trabajo que mostrar"
+                                     widgetVar="datatableOT">
+                            <f:facet name="header">
+                                Ordenes de Trabajo por rango de fecha
+                            </f:facet>
+
+                            <p:column headerText="Fecha" sortBy="#{item.fechaOrden}" 
+                                      filterBy="#{item.fechaOrden}" filterFunction="#{ReportesOTBean.filterByDate}">
+                                <f:facet name="filter">
+                                    <h:inputHidden id="filter" />
+                                </f:facet>
+                                <f:facet name="header">
+                                    <p:calendar id="from" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass">
+                                        <p:ajax event="dateSelect" 
+                                                onstart="$(PrimeFaces.escapeClientId('#{p:component('filter')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to')}_input'))[0].value" 
+                                                oncomplete="PF('datatableOT').filter()" />
+                                    </p:calendar>
+                                    <p:watermark for="from" value="Desde" id="watermarkFrom" />
+                                    <p:calendar id="to" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass">
+                                        <p:ajax event="dateSelect" 
+                                                onstart="$(PrimeFaces.escapeClientId('#{p:component('filter')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to')}_input'))[0].value" 
+                                                oncomplete="PF('datatableOT').filter()" />
+                                    </p:calendar>
+                                    <p:watermark for="to" value="Hasta" id="watermarkTo" />
+                                </f:facet>
+                                <h:outputText value="#{item.fechaOrden}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Nro. Orden" style="width: 80px;">
+                                <div align="center"><h:outputText value="#{item.nroOrden}"/></div>
+                            </p:column>
+                            <p:column headerText="Tecnico">
+                                <h:outputText value="#{item.idTecnico.nombre}"/>
+                            </p:column>                                
+                            <p:column headerText="Cliente">
+                                <h:outputText value="#{item.idCliente.nombre} #{item.idCliente.apellido}"/>
+                            </p:column>
+                            <p:column headerText="Servicio a Realizar">
+                                <h:outputText value="#{item.idServicio.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Estado">
+                                <h:outputText value="#{item.idEstadoTrab.estado}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+
+                    <p:tab title="Detalle_Ins" titleStyle="font-size: 12px;">
+
+                    </p:tab>
+
+                    <p:tab title="Detalle_Rcl" titleStyle="font-size: 12px;">
+
+                    </p:tab>
                 </p:tabView>
 
                 <p:blockUI block="tabView" widgetVar="bui">
-                     Cargando Reporte<br />
+                    Cargando Reporte<br />
                     <h:graphicImage library="images" name="ajaxloadingbar.gif"/>                   
                 </p:blockUI>
-                
+
             </h:form>  
         </ui:define>
     </ui:composition>
