@@ -7,6 +7,7 @@ package bean;
 
 import entities.InstalacionCab;
 import entities.OrdenTrabajoCab;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,6 +20,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class InstalacionCabFacade extends AbstractFacade<InstalacionCab> {
+
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -32,14 +34,14 @@ public class InstalacionCabFacade extends AbstractFacade<InstalacionCab> {
     }
 
     @Override
-     public List<InstalacionCab> findAll() {
+    public List<InstalacionCab> findAll() {
         try {
             return (List<InstalacionCab>) em.createNamedQuery("InstalacionCab.findAll").getResultList();
         } catch (NoResultException e) {
             return null;
         }
     }
-    
+
     public InstalacionCab findByIdInstalacion(Integer idInstalacion) {
         try {
             return (InstalacionCab) em.createNamedQuery("InstalacionCab.findByIdInstalacion").setParameter("idInstalacion", idInstalacion).getSingleResult();
@@ -47,5 +49,16 @@ public class InstalacionCabFacade extends AbstractFacade<InstalacionCab> {
             return null;
         }
     }
-    
+
+    public List<InstalacionCab> findBetweenFechaInstalacion(Date startDate, Date endDate) {
+        try {
+            return (List<InstalacionCab>) em.createNamedQuery("InstalacionCab.findBetweenFechaInstalacion")
+                    .setParameter("startDate", startDate)
+                    .setParameter("endDate", endDate)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
 }

@@ -25,9 +25,11 @@
         </group>
         <group name="securitysys">
             <file>file:/C:/test/Securitysys/securitysys/web/ReportesOT.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/BuscarModificarOT.xhtml</file>
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/ElaborarPresupuestoBean.java</file>
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/ReportesOTBean.java</file>
             <file>file:/C:/test/Securitysys/securitysys/web/ElaborarPresupuesto.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/BuscarModificarOTBean.java</file>
             <file>file:/C:/test/Securitysys/securitysys/src/java/util/SimpleDateFormatExample.java</file>
         </group>
     </open-files>

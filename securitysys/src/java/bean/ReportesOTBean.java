@@ -26,7 +26,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -60,13 +59,18 @@ public class ReportesOTBean implements Serializable {
     private ArrayList<OrdenTrabajoCab> listaRepoOrdenesTrabajo = new ArrayList<>();
     private List<OrdenTrabajoDet> listaRepoOrdenesTrabajoDet = new ArrayList<>();
 
+    private ArrayList<InstalacionCab> listaRepoInstalaciones = new ArrayList<>();
+
     private List<OrdenTrabajoCab> filteredOrdenesTrabajo;
+    private List<InstalacionCab> filteredInstalaciones;
 
     private LineChartModel animatedModelOT;
     private LineChartModel animatedModelIns;
 
     private Date fromFecOT;
     private Date toFecOT;
+    private Date fromFecInst;
+    private Date toFecInst;
 
     private static final Logger LOG = Logger.getLogger(ReportesOTBean.class.getName());
     /**
@@ -88,13 +92,12 @@ public class ReportesOTBean implements Serializable {
     @PostConstruct
     void initialiseSession() {
         createAnimatedModels();
-        cargarVista();
+        cargarTabRepoOT();
+        cargarTabRepoIns();
     }
 
-    public void cargarVista() {
-
+    public void cargarTabRepoOT() {
         try {
-
             listaRepoOrdenesTrabajo = new ArrayList<>();
             for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findAll()) {
                 if (ot.getOrdenTrabajoDetList().isEmpty()) {
@@ -106,11 +109,17 @@ public class ReportesOTBean implements Serializable {
 
                 listaRepoOrdenesTrabajo.add(ot);
             }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
-//            listaInstalaciones = new ArrayList<InstalacionCab>();
-//            for(InstalacionCab ic : instalacionCabFacade.findAll()){
-//                listaInstalaciones.add(ic);
-//            }
+    public void cargarTabRepoIns() {
+        try {
+            listaRepoInstalaciones = new ArrayList<>();
+            for (InstalacionCab ic : instalacionCabFacade.findAll()) {
+                listaRepoInstalaciones.add(ic);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -373,7 +382,7 @@ public class ReportesOTBean implements Serializable {
     public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException, ParseException {
         com.lowagie.text.Document pdf = (com.lowagie.text.Document) document;
         pdf.open();
-        pdf.setPageSize(PageSize.A4);
+        pdf.setPageSize(PageSize.A4.rotate());
 
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         String logo = externalContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "Security.png";
@@ -393,13 +402,35 @@ public class ReportesOTBean implements Serializable {
         pdf.add(new Paragraph(" "));
     }
 
-    public void filtrarFechasOT() {
+    public void preProcessPDFInst(Object document) throws IOException, BadElementException, DocumentException, ParseException {
+        com.lowagie.text.Document pdf = (com.lowagie.text.Document) document;
+        pdf.open();
+        pdf.setPageSize(PageSize.A4.rotate());
 
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        String logo = externalContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "Security.png";
+
+        pdf.add(com.lowagie.text.Image.getInstance(logo));
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");//new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
+        String startDateToStr = format.format(fromFecInst);
+        String stopDateToStr = format.format(toFecInst);
+
+        if (fromFecInst != null && toFecInst != null) {
+            pdf.add(new Paragraph("Instalaciones iniciadas entre el " + startDateToStr + " y el " + stopDateToStr));
+        } else {
+            pdf.add(new Paragraph("Todas las Instalaciones existentes"));
+        }
+
+        pdf.add(new Paragraph(" "));
+    }
+
+    public void filtrarFechasOT() {
         Date startDate = fromFecOT;
         Date endDate = toFecOT;
 
         if (startDate == null && endDate == null) {
-            cargarVista();
+            cargarTabRepoOT();
         } else {
             listaRepoOrdenesTrabajo = new ArrayList<>();
             for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findBetweenFechaOrden(startDate, endDate)) {
@@ -417,6 +448,20 @@ public class ReportesOTBean implements Serializable {
             }
         }
 
+    }
+
+    public void filtrarFechasInst() {
+        Date startDate = fromFecInst;
+        Date endDate = toFecInst;
+
+        if (startDate == null && endDate == null) {
+            cargarTabRepoIns();
+        } else {
+            listaRepoInstalaciones = new ArrayList<>();
+            for (InstalacionCab ic : instalacionCabFacade.findBetweenFechaInstalacion(startDate, endDate)) {
+                listaRepoInstalaciones.add(ic);
+            }
+        }
     }
 
 }

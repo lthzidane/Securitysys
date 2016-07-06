@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "InstalacionCab.findByTipoInstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.tipoInstalacion = :tipoInstalacion"),
     @NamedQuery(name = "InstalacionCab.findByFechainstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.fechainstalacion = :fechainstalacion"),
     @NamedQuery(name = "InstalacionCab.findByFechaFinInstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.fechaFinInstalacion = :fechaFinInstalacion"),
-    @NamedQuery(name = "InstalacionCab.findByIdInstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.idInstalacion = :idInstalacion")})
+    @NamedQuery(name = "InstalacionCab.findByIdInstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.idInstalacion = :idInstalacion"),
+    @NamedQuery(name = "InstalacionCab.findBetweenFechaInstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.fechainstalacion BETWEEN :startDate AND :endDate")})
 public class InstalacionCab implements Serializable {
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     @ManyToOne

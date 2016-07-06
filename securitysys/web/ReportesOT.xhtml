@@ -84,6 +84,7 @@
             </style>
             <h:form id="form">
                 <p:remoteCommand name="filtrarFechasOT" update="form:tabView:datatableOT" actionListener="#{ReportesOTBean.filtrarFechasOT}" />
+                <p:remoteCommand name="filtrarFechasInst" update="form:tabView:datatableInst" actionListener="#{ReportesOTBean.filtrarFechasInst}" />
                 <p:remoteCommand name="exportToPdfRemoteCommand" 
                                  action="#{ReportesOTBean.exportOT2Pdf}"/>
                 <h:inputHidden id="chartImageSrc" 
@@ -157,8 +158,9 @@
                             <p:column headerText="Estado">
                                 <h:outputText value="#{item.idEstadoTrab.estado}"/>
                             </p:column>
+                            <f:facet name="footer">Total de registros: #{ReportesOTBean.listaRepoOrdenesTrabajo.size()}.</f:facet>
                         </p:dataTable>
-
+                        <br/>
                         <p:commandButton id="buttonMostrarOrdenesTrabajoPorFecha" 
                                          value="Exportar a PDF" 
                                          ajax="false" 
@@ -170,7 +172,66 @@
                     </p:tab>
 
                     <p:tab title="Detalle_Ins" titleStyle="font-size: 12px;">
+                        <p:dataTable id="datatableInst" 
+                                     value="#{ReportesOTBean.listaRepoInstalaciones}" 
+                                     rowKey="#{item.idInstalacion}"
+                                     filteredValue="#{ReportesOTBean.filteredInstalaciones}"
+                                     var="item"
+                                     scrollable="true"
+                                     scrollHeight="300"
+                                     emptyMessage="No hay Instalaciones que mostrar">
+                            <f:facet name="header">
+                                Ordenes de Instalacion
+                                <br />
+                                <h:outputText value="Fecha Inicio: " />
+                                <p:calendar id="fromInst" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesOTBean.fromFecInst}"/>
+                                <h:outputText value="Fecha Fin: " />
+                                <p:calendar id="toInst" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesOTBean.toFecInst}" >
+                                    <p:ajax event="blur" 
+                                            oncomplete="filtrarFechasInst()" />
+                                </p:calendar>
+                            </f:facet>
 
+                            <p:column headerText="Fecha Instalacion" style="width: 80px;" >
+                                <h:outputText value="#{item.fechainstalacion}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Id Instalacion" style="width: 80px;" >
+                                <h:outputText value="#{item.idInstalacion}"/>
+                            </p:column>
+                            <p:column headerText="Tipo Instalacion" >
+                                <h:outputText value="#{item.tipoInstalacion}"/>
+                            </p:column>                                
+                            <p:column headerText="Descripcion" style="width: 80px;" >
+                                <h:outputText value="#{item.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Nro. Orden" >
+                                <h:outputText value="#{item.nroOrden.nroOrden}"/>
+                            </p:column>
+                            <p:column headerText="Cliente" >
+                                <h:outputText value="#{item.idCliente.nombre} #{item.nroOrden.idCliente.apellido}"/>
+                            </p:column>
+                            <p:column headerText="Tipo Servicio" >
+                                <h:outputText value="#{item.nroOrden.idServicio.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Responsable" >
+                                <h:outputText value="#{item.nroOrden.idTecnico.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Estado" >
+                                <h:outputText value="#{item.idEstadoTrab.estado}"/>
+                            </p:column>
+                            <f:facet name="footer">Total de registros: #{ReportesOTBean.listaRepoInstalaciones.size()}.</f:facet>
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton id="buttonMostrarInstalacionesPorFecha" 
+                                         value="Exportar a PDF" 
+                                         ajax="false" 
+                                         icon="ui-icon-extlink">
+                            <p:dataExporter type="pdf" target="datatableInst" 
+                                            fileName="instalaciones"
+                                            preProcessor="#{ReportesOTBean.preProcessPDFInst}" pageOnly="true" />   
+                        </p:commandButton>
                     </p:tab>
 
                     <p:tab title="Detalle_Rcl" titleStyle="font-size: 12px;">
