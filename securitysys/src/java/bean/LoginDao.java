@@ -10,8 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import bean.DataConnect;
-
 public class LoginDao {
 
 	public static boolean validate(String username, String password) {
@@ -38,15 +36,3 @@ public class LoginDao {
 		return false;
 	}
 }
-/**
- *
- * @author Acer
- */
-/*class LoginDao {
-
-    static boolean validate(String username, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-}
-*/

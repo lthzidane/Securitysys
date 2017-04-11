@@ -19,7 +19,7 @@
                                  actionListener="#{OrdenTrabajoBean.obtenerDatosCliente}" />
                 <p:panel id="encabezado" header="Orden de Trabajo Nro: #{OrdenTrabajoBean.nroDeOrden}">
                     <p:watermark for="clienteFilter" value="Nro. de Cedula o Ruc" id="watermark" />
-                    <h:panelGrid columns="3" cellpadding="5">
+<!--                    <h:panelGrid columns="1" cellpadding="5">-->
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:outputText value="Fecha Recepcion:"
                                           style="color: #78797A; font: 80% Tahoma; text-decoration: none; font-size: 11px;" />
@@ -57,7 +57,7 @@
                             <p:inputTextarea id="observacion" rows="3" cols="33" value="#{OrdenTrabajoBean.observacion}" style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 12px;" rendered="false"/>
                         </h:panelGrid>
 
-                        <h:panelGrid columns="2" cellpadding="5"  frame="lhs">
+                        <h:panelGrid columns="2" cellpadding="5"  frame="above">
                             <h:outputText value="Buscar Cliente:" 
                                           style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <p:inputText id="clienteFilter" value="#{OrdenTrabajoBean.cliente}" onblur="buscarCliente()" />
@@ -77,7 +77,7 @@
                                           style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:outputText id="telefonoCliente" value="#{OrdenTrabajoBean.telefono}" style="font-size: 11px;"/>
                         </h:panelGrid>
-                    </h:panelGrid>
+<!--                    </h:panelGrid>-->
                     
                     <h:panelGrid columns="2" cellpadding="5" >
                         <p:dataTable id="datatable" 
