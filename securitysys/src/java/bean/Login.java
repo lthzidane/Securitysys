@@ -27,6 +27,7 @@ public class Login implements Serializable {
 
     private String username;
     private String password;
+    private String userrol;
     private String msg;
     private boolean logueado = false;
 
@@ -68,9 +69,18 @@ public class Login implements Serializable {
     }
 
     public boolean showMenu(String menuTitle) {
-        //List<UiItems> items = uiItemsFacade.findByRole(current.getIdRole().getIdRole());
-
-        return true;
+        if(menuTitle.equalsIgnoreCase("Ver vista de Admin") && "ADMIN".equalsIgnoreCase(userrol)){
+            return true;
+        }else if(menuTitle.equalsIgnoreCase("Ver vista de Jefe") && "JEFE".equalsIgnoreCase(userrol)){
+            return true;
+        }else if(menuTitle.equalsIgnoreCase("Ver vista de Empleado") && "EMPLEADO".equalsIgnoreCase(userrol)){
+            return true;
+        }else{
+            return false;
+        }
+        
+//        //List<UiItems> items = uiItemsFacade.findByRole(current.getIdRole().getIdRole());
+//        return true;
     }
 
     /**
@@ -83,9 +93,12 @@ public class Login implements Serializable {
         if (valid) {
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", username);
+            session.setAttribute("userrol",LoginDao.UserRol);
+            this.setUserrol(LoginDao.UserRol);
             logueado = true;
             return "home";
         } else {
+            this.setUserrol("");
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN,
                             "Usuario y Contraseña invalida",
@@ -101,6 +114,4 @@ public class Login implements Serializable {
         return "login";
     }
 }
-    //public Login() {
-//}
 

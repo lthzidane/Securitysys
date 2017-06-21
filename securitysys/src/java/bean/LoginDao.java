@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LoginDao {
+    
+        public static String UserRol = "";
 
 	public static boolean validate(String username, String password) {
 		Connection con = null;
@@ -18,14 +20,15 @@ public class LoginDao {
 
 		try {
 			con = DataConnect.getConnection();
-			ps = con.prepareStatement("Select nombre, contrasenha from usuario where nombre = ? and contrasenha = ?");
+			ps = con.prepareStatement("Select nombre, contrasenha, rol from usuario where nombre = ? and contrasenha = ?");
 			ps.setString(1, username);
 			ps.setString(2, password);
 
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				return true;
+                            UserRol = rs.getString("rol");
+                            return true;
 			}
 		} catch (SQLException ex) {
 			System.out.println("Login error -->" + ex.getMessage());

@@ -30,7 +30,7 @@
                 </div>
 
                 <div id="usermenu">
-                    
+
                 </div>
             </div>
             <div id="menu">
@@ -38,51 +38,52 @@
                 <h:form id="formmenu" prependId="false">
                     <p:menubar id="navmenu-h">
                         <p:menuitem title="Inicio" value="Inicio" outcome="/home" />
-                        <p:submenu label="Referenciales" >
-                            <p:menuitem outcome="/cliente/List" value="Cliente" rendered="#{login.showMenu(access.Cliente_View)}" />
-                            <p:menuitem outcome="/tipoCliente/List" value="Tipo de Cliente" rendered="#{login.showMenu(access.TipoCliente_View)}" />
-                            <p:menuitem outcome="/ciudad/List" value="Ciudad" rendered="#{login.showMenu(access.Ciudad_View)}" />                                   
-                            <p:menuitem outcome="/paises/List" value="Pais" rendered="#{login.showMenu(access.Paises_View)}" />
-                            <p:menuitem outcome="/tipoDocumento/List" value="Tipo Documento" rendered="#{login.showMenu(access.TipoDocumento_View)}" />
-                            <p:menuitem outcome="/usuario/List" value="Usuario" rendered="#{login.showMenu(access.Usuario_View)}" />
-                            <p:menuitem outcome="/estado/List" value="Estado" rendered="#{login.showMenu(access.Estado_View)}" />
-                            <p:menuitem outcome="/proveedor/List" value="Proveedor" rendered="#{login.showMenu(access.Proveedor_View)}" />
-                            <p:menuitem outcome="/tecnicos/List" value="Tecnico" rendered="#{login.showMenu(access.Tecnico_View)}" />
-                            <p:menuitem outcome="/tipoServicios/List" value="Tipo de Servicio" rendered="#{login.showMenu(access.tipoServicio_View)}" />
-                            <p:menuitem outcome="/sucursales/List" value="Sucursal" rendered="#{login.showMenu(access.Sucursales_View)}" />
-                            <p:menuitem outcome="/departamento/List" value="Departamento" rendered="#{login.showMenu(access.Departamento_View)}" />
-                            <p:menuitem outcome="/medidas/List" value="Medidas" rendered="#{login.showMenu(access.Medidas_View)}" />
-                            <p:menuitem outcome="/moviles/List" value="Moviles" rendered="#{login.showMenu(access.Moviles_View)}" />
-                            <p:menuitem outcome="/productos/List" value="Productos" rendered="#{login.showMenu(access.Productos_View)}" />
-                            <p:menuitem outcome="/productosKit/List" value="Kit de Productos" rendered="#{login.showMenu(access.ProductosKit_View)}" />
+                        <p:submenu label="Referenciales" rendered="#{login.showMenu(access.Admin_View)}" >
+                            <p:menuitem outcome="/cliente/List" value="Cliente"/>
+                            <p:menuitem outcome="/tipoCliente/List" value="Tipo de Cliente" />
+                            <p:menuitem outcome="/ciudad/List" value="Ciudad"  />                                   
+                            <p:menuitem outcome="/paises/List" value="Pais" />
+                            <p:menuitem outcome="/tipoDocumento/List" value="Tipo Documento"  />
+                            <p:menuitem outcome="/usuario/List" value="Usuario" />
+                            <p:menuitem outcome="/estado/List" value="Estado" />
+                            <p:menuitem outcome="/proveedor/List" value="Proveedor" />
+                            <p:menuitem outcome="/tecnicos/List" value="Tecnico" />
+                            <p:menuitem outcome="/tipoServicios/List" value="Tipo de Servicio" />
+                            <p:menuitem outcome="/sucursales/List" value="Sucursal" />
+                            <p:menuitem outcome="/departamento/List" value="Departamento" />
+                            <p:menuitem outcome="/medidas/List" value="Medidas" />
+                            <p:menuitem outcome="/moviles/List" value="Moviles" />
+                            <p:menuitem outcome="/productos/List" value="Productos" />
+                            <p:menuitem outcome="/productosKit/List" value="Kit de Productos" />
                         </p:submenu>
 
                         <p:submenu label="Instalaciones">
-                            <p:menuitem outcome="/ElaborarPresupuesto" value="Elaborar Presupuesto" rendered="#{login.showMenu(access.ElaborarPresupuesto_View)}" />
-                            <p:menuitem outcome="/OrdenTrabajo" value="Ingresar Orden de Trabajo" rendered="#{login.showMenu(access.OrdenTrabajo_View)}" />
-                            <p:menuitem outcome="/OrdenInstalacion" value="Gestionar Instalacion" rendered="#{login.showMenu(access.OrdenInstalacion_View)}" />
-                            <p:menuitem outcome="/ImpresionOT" value="Impresion de Orden de Trabajo" rendered="#{login.showMenu(access.ImpresionOT_View)}" />
-                            <p:menuitem outcome="/BuscarModificarOT" value="Busqueda y Modificaciones" rendered="#{login.showMenu(access.BuscarModificarOT_View)}" />
-                            <p:menuitem outcome="/ReportesOT" value="Reportes" rendered="#{login.showMenu(access.ReportesOT_View)}" />
+                            <p:menuitem outcome="/ElaborarPresupuesto" value="Elaborar Presupuesto" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/OrdenTrabajo" value="Registrar Orden de Trabajo" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/OrdenInstalacion" value="Gestionar Instalacion" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/ImpresionOT" value="Impresion de Orden de Trabajo" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/BuscarModificarOT" value="Busqueda y Modificaciones" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/ReportesOT" value="Reportes" rendered="#{login.showMenu(access.Jefe_View)}" />
                         </p:submenu>
 
                         <p:submenu label="Reclamos">
-                            <p:menuitem outcome="/GestionarReclamo" value="Gestionar reclamos" rendered="#{login.showMenu(access.GestionarReclamo_View)}"/>
-                            <p:menuitem outcome="/AsignacionTecnico" value="Asignacion de tecnicos/zona" rendered="#{login.showMenu(access.Admin_View)}" />
-                            <p:menuitem outcome="/SeguimientoReclamo" value="Seguimiento de reclamos" rendered="#{login.showMenu(access.SeguimientoReclamo_View)}" />
-                            <p:menuitem outcome="/MonitoreoClientes" value="Monitoreo de Cliente" rendered="#{login.showMenu(access.Admin_View)}" />
-                            <p:menuitem outcome="/ReportesReclamos" value="Reportes" rendered="#{login.showMenu(access.ReportesReclamos_View)}" />
+                            <!-- Registrar Reclamo  <p:menuitem outcome="/GestionarReclamo" value="Gestionar reclamos" rendered="#{login.showMenu(access.GestionarReclamo_View)}"/>-->
+                            <p:menuitem outcome="/GestionarReclamo" value="Gestionar reclamos" rendered="#{login.showMenu(access.Empleado_View)}"/>
+                            <p:menuitem outcome="/AsignacionTecnico" value="Asignacion de tecnicos/zona" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/SeguimientoReclamo" value="Seguimiento de reclamos" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/MonitoreoClientes" value="Monitoreo de Cliente" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/ReportesReclamos" value="Reportes" rendered="#{login.showMenu(access.Jefe_View)}" />
                         </p:submenu>
 
                         <p:submenu label="Ventas y Cobros" >
-                            <p:menuitem outcome="/RegistrarPedidoVenta" value="Registrar pedido de ventas" rendered="#{login.showMenu(access.Admin_View)}" />
-                            <p:menuitem outcome="/RegistrarCobros" value="Registrar cobros" rendered="#{login.showMenu(access.Admin_View)}" />
-                            <p:menuitem outcome="/GenerarFacturas" value="Generar Facturas" rendered="#{login.showMenu(access.Admin_View)}" />
-                            <p:menuitem outcome="/AperturaCaja" value="Apertura de caja" rendered="#{login.showMenu(access.Admin_View)}" />
-                            <p:menuitem outcome="/ArqueoCierreCaja" value="Arqueo y cierre de cajas" rendered="#{login.showMenu(access.Admin_View)}" />
-                            <p:menuitem outcome="/cajas/List" value="Agregar caja" rendered="#{login.showMenu(access.Cajas_View)}" />
+                            <p:menuitem outcome="/RegistrarPedidoVenta" value="Registrar pedido de ventas" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/RegistrarCobros" value="Registrar cobros" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/GenerarFacturas" value="Generar Facturas" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/AperturaCaja" value="Apertura de caja" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/ArqueoCierreCaja" value="Arqueo y cierre de cajas" rendered="#{login.showMenu(access.Empleado_View)}" />
+                            <p:menuitem outcome="/cajas/List" value="Agregar caja" rendered="#{login.showMenu(access.Admin_View)}" />
 <!--                            <p:menuitem outcome="/admin" value="Agregar cajero" rendered="#{login.showMenu(access.Admin_View)}" />-->
-                            <p:menuitem outcome="/ReportesVentas" value="Reportes" rendered="#{login.showMenu(access.Admin_View)}" />
+                            <p:menuitem outcome="/ReportesVentas" value="Reportes" rendered="#{login.showMenu(access.Jefe_View)}" />
                         </p:submenu>
                     </p:menubar>
 
