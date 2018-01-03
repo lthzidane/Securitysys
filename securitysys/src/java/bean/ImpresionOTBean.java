@@ -139,7 +139,7 @@ public class ImpresionOTBean implements Serializable{
         try{
             
             Class.forName("org.postgresql.Driver");
-            Connection cnPostgres = DriverManager.getConnection("jdbc:postgresql://localhost:5432/securitysys", "postgres", "12345");
+            Connection cnPostgres = DriverManager.getConnection("jdbc:postgresql://localhost:5432/securitysys", "postgres", "1234");
           
             JasperReport facturaReport = null;
             Map<String, Object> map = new HashMap<String, Object>();
