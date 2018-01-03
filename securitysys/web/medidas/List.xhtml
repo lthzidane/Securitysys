@@ -40,7 +40,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMedidasTitle_descMedida}"/>
                             </f:facet>
-                            <h:outputText value="#{item.descMedida}"/>
+                            <h:outputText value="#{item.descMedida}" style="text-transform: uppercase"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{medidasController.prepareCreate}" update=":MedidasCreateForm" oncomplete="PF('MedidasCreateDialog').show()"/>

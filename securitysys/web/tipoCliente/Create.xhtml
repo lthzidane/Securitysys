@@ -15,10 +15,10 @@
                         <p:outputLabel value="#{bundle.CreateTipoClienteLabel_idTipoCliente}" for="idTipoCliente"  rendered="false"/>
                         <p:inputText id="idTipoCliente" value="#{tipoClienteController.selected.idTipoCliente}" title="#{bundle.CreateTipoClienteTitle_idTipoCliente}" required="true" requiredMessage="#{bundle.CreateTipoClienteRequiredMessage_idTipoCliente}" rendered="false"/>
                         <p:outputLabel value="#{bundle.CreateTipoClienteLabel_tipoCliente}" for="tipoCliente" />
-                        <p:inputText id="tipoCliente" value="#{tipoClienteController.selected.tipoCliente}" title="#{bundle.CreateTipoClienteTitle_tipoCliente}" />
+                        <p:inputText id="tipoCliente" value="#{tipoClienteController.selected.tipoCliente}" title="#{bundle.CreateTipoClienteTitle_tipoCliente}" style="text-transform: uppercase"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{tipoClienteController.create}" value="#{bundle.Save}" update="display,:TipoClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoClienteCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoClienteCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoClienteCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

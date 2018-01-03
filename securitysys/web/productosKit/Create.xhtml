@@ -25,7 +25,7 @@
                         <p:inputText id="cantidad" value="#{productosKitController.selected.cantidad}" title="#{bundle.CreateProductosKitTitle_cantidad}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{productosKitController.create}" value="#{bundle.Save}" update="display,:ProductosKitListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProductosKitCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductosKitCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductosKitCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

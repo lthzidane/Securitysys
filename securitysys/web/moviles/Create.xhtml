@@ -15,18 +15,18 @@
                         <p:outputLabel value="#{bundle.CreateMovilesLabel_idMovil}" for="idMovil" rendered="false" />
                         <p:inputText id="idMovil" value="#{movilesController.selected.idMovil}" title="#{bundle.CreateMovilesTitle_idMovil}" required="true" requiredMessage="#{bundle.CreateMovilesRequiredMessage_idMovil}" rendered="false"/>
                         <p:outputLabel value="#{bundle.CreateMovilesLabel_tipoMovil}" for="tipoMovil" />
-                        <p:inputText id="tipoMovil" value="#{movilesController.selected.tipoMovil}" title="#{bundle.CreateMovilesTitle_tipoMovil}" />
+                        <p:inputText id="tipoMovil" value="#{movilesController.selected.tipoMovil}" title="#{bundle.CreateMovilesTitle_tipoMovil}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreateMovilesLabel_marca}" for="marca" />
-                        <p:inputText id="marca" value="#{movilesController.selected.marca}" title="#{bundle.CreateMovilesTitle_marca}" />
+                        <p:inputText id="marca" value="#{movilesController.selected.marca}" title="#{bundle.CreateMovilesTitle_marca}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreateMovilesLabel_año}" for="año" />
-                        <p:inputText id="año" value="#{movilesController.selected.año}" title="#{bundle.CreateMovilesTitle_año}" />
+                        <p:inputText id="año" value="#{movilesController.selected.año}" title="#{bundle.CreateMovilesTitle_año}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
                         <p:outputLabel value="#{bundle.CreateMovilesLabel_nroMatricula}" for="nroMatricula" />
-                        <p:inputText id="nroMatricula" value="#{movilesController.selected.nroMatricula}" title="#{bundle.CreateMovilesTitle_nroMatricula}" />
+                        <p:inputText id="nroMatricula" value="#{movilesController.selected.nroMatricula}" title="#{bundle.CreateMovilesTitle_nroMatricula}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreateMovilesLabel_funcion}" for="funcion" />
-                        <p:inputText id="funcion" value="#{movilesController.selected.funcion}" title="#{bundle.CreateMovilesTitle_funcion}" />
+                        <p:inputText id="funcion" value="#{movilesController.selected.funcion}" title="#{bundle.CreateMovilesTitle_funcion}" style="text-transform: uppercase"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{movilesController.create}" value="#{bundle.Save}" update="display,:MovilesListForm:datalist,:growl" oncomplete="handleSubmit(args,'MovilesCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="MovilesCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MovilesCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

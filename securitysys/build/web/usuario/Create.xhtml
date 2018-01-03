@@ -15,11 +15,11 @@
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_idUsuario}" for="idUsuario" rendered="false"/>
                         <p:inputText id="idUsuario" value="#{usuarioController.selected.idUsuario}" title="#{bundle.CreateUsuarioTitle_idUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_idUsuario}" rendered="false"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{bundle.CreateUsuarioTitle_nombre}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombre}"/>
+                        <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{bundle.CreateUsuarioTitle_nombre}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombre}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_contrasenha}" for="contrasenha" />
                         <p:inputText id="contrasenha" value="#{usuarioController.selected.contrasenha}" title="#{bundle.CreateUsuarioTitle_contrasenha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasenha}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_rol}" for="rol" />
-                        <p:inputText id="rol" value="#{usuarioController.selected.rol}" title="#{bundle.CreateUsuarioTitle_rol}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_rol}"/>
+                        <p:inputText id="rol" value="#{usuarioController.selected.rol}" title="#{bundle.CreateUsuarioTitle_rol}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_rol}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_estado}" for="estado" />
                         <p:selectOneMenu id="estado" value="#{usuarioController.selected.estado}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_estado}">
                             <f:selectItem itemLabel="ACTIVO" itemValue="ACTIVO" />
@@ -34,7 +34,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -40,13 +40,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEstadoTitle_modulo}"/>
                             </f:facet>
-                            <h:outputText value="#{item.modulo}"/>
+                            <h:outputText value="#{item.modulo}"  style="text-transform: uppercase"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEstadoTitle_estado}"/>
                             </f:facet>
-                            <h:outputText value="#{item.estado}"/>
+                            <h:outputText value="#{item.estado}" style="text-transform: uppercase"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{estadoController.prepareCreate}" update=":EstadoCreateForm" oncomplete="PF('EstadoCreateDialog').show()"/>

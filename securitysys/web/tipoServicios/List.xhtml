@@ -40,7 +40,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTipoServiciosTitle_descripcion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.descripcion}"/>
+                            <h:outputText value="#{item.descripcion}" style="text-transform: uppercase"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoServiciosController.prepareCreate}" update=":TipoServiciosCreateForm" oncomplete="PF('TipoServiciosCreateDialog').show()"/>

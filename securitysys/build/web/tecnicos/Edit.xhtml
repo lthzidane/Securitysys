@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditTecnicosLabel_idTecnico}" for="idTecnico" rendered="false"/>
                         <p:inputText id="idTecnico" value="#{tecnicosController.selected.idTecnico}" title="#{bundle.EditTecnicosTitle_idTecnico}" required="true" requiredMessage="#{bundle.EditTecnicosRequiredMessage_idTecnico}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditTecnicosLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{tecnicosController.selected.nombre}" title="#{bundle.EditTecnicosTitle_nombre}" required="true" requiredMessage="#{bundle.EditTecnicosRequiredMessage_nombre}"/>
+                        <p:inputText id="nombre" value="#{tecnicosController.selected.nombre}" title="#{bundle.EditTecnicosTitle_nombre}" required="true" requiredMessage="#{bundle.EditTecnicosRequiredMessage_nombre}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.EditTecnicosLabel_tipoDocu}" for="tipoDocu" />                        
                         <p:selectOneMenu id="tipoDocu" value="#{tecnicosController.selected.tipoDocumento}" required="true" requiredMessage="#{bundle.EditTecnicosRequiredMessage_tipoDocu}">
                             <f:selectItems value="#{tipoDocumentoController.itemsAvailableSelectOne}"
@@ -24,10 +24,10 @@
                                            itemValue="#{idTipoDocuItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditTecnicosLabel_nroDocu}" for="nroDocu" />
-                        <p:inputText id="nroDocu" value="#{tecnicosController.selected.nroDocumento}" title="#{bundle.EditTecnicosTitle_nroDocu}" required="true" requiredMessage="#{bundle.EditTecnicosRequiredMessage_nroDocu}"/>
+                        <p:inputText id="nroDocu" value="#{tecnicosController.selected.nroDocumento}" title="#{bundle.EditTecnicosTitle_nroDocu}" required="true" requiredMessage="#{bundle.EditTecnicosRequiredMessage_nroDocu}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{tecnicosController.update}" value="#{bundle.Save}" update="display,:TecnicosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TecnicosEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="TecnicosEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TecnicosEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -40,25 +40,25 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDepartamentoTitle_nombreDpto}"/>
                             </f:facet>
-                            <h:outputText value="#{item.nombreDpto}"/>
+                            <h:outputText value="#{item.nombreDpto}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDepartamentoTitle_funcion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.funcion}"/>
+                            <h:outputText value="#{item.funcion}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDepartamentoTitle_responsable}"/>
                             </f:facet>
-                            <h:outputText value="#{item.responsable}"/>
+                            <h:outputText value="#{item.responsable}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDepartamentoTitle_estado}"/>
                             </f:facet>
-                            <h:outputText value="#{item.estado}"/>
+                            <h:outputText value="#{item.estado}" style="text-transform: uppercase"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{departamentoController.prepareCreate}" update=":DepartamentoCreateForm" oncomplete="PF('DepartamentoCreateDialog').show()"/>

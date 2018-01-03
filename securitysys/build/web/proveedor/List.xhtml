@@ -8,15 +8,15 @@
 
     <ui:composition template="/resources/templates/template.xhtml">
 
-    <ui:define name="title">Proveedor</ui:define>
+        <ui:define name="title">Proveedor</ui:define>
         <ui:define name="containerTitle">
             <h:outputText styleClass="containerTitle" value="#{bundle.ListProveedorTitle}"/>
         </ui:define>
 
-       <ui:define name="container">
-           <p:growl id="growl" life="3000" />
-           
-        <!--<ui:define name="body"> -->
+        <ui:define name="container">
+            <p:growl id="growl" life="3000" />
+
+            <!--<ui:define name="body"> -->
             <h:form id="ProveedorListForm">
                 <p:panel header="#{bundle.ListProveedorTitle}">
                     <p:dataTable id="datalist" value="#{proveedorController.items}" var="item"
@@ -46,7 +46,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProveedorTitle_descriProv}"/>
                             </f:facet>
-                            <h:outputText value="#{item.descriProv}"/>
+                            <h:outputText value="#{item.descriProv}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

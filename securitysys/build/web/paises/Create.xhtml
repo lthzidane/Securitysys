@@ -15,14 +15,14 @@
                         <p:outputLabel value="#{bundle.CreatePaisesLabel_idPais}" for="idPais" rendered="false"/>
                         <p:inputText id="idPais" value="#{paisesController.selected.idPais}" title="#{bundle.CreatePaisesTitle_idPais}" required="true" requiredMessage="#{bundle.CreatePaisesRequiredMessage_idPais}" rendered="false"/>
                         <p:outputLabel value="#{bundle.CreatePaisesLabel_prefijo}" for="prefijo" />
-                        <p:inputText id="prefijo" value="#{paisesController.selected.prefijo}" title="#{bundle.CreatePaisesTitle_prefijo}" required="true" requiredMessage="#{bundle.CreatePaisesRequiredMessage_prefijo}"/>
+                        <p:inputText id="prefijo" value="#{paisesController.selected.prefijo}" title="#{bundle.CreatePaisesTitle_prefijo}" required="true" requiredMessage="#{bundle.CreatePaisesRequiredMessage_prefijo}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreatePaisesLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{paisesController.selected.nombre}" title="#{bundle.CreatePaisesTitle_nombre}" required="true" requiredMessage="#{bundle.CreatePaisesRequiredMessage_nombre}"/>
+                        <p:inputText id="nombre" value="#{paisesController.selected.nombre}" title="#{bundle.CreatePaisesTitle_nombre}" required="true" requiredMessage="#{bundle.CreatePaisesRequiredMessage_nombre}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreatePaisesLabel_nacionalidad}" for="nacionalidad" />
-                        <p:inputText id="nacionalidad" value="#{paisesController.selected.nacionalidad}" title="#{bundle.CreatePaisesTitle_nacionalidad}" required="true" requiredMessage="#{bundle.CreatePaisesRequiredMessage_nacionalidad}"/>
+                        <p:inputText id="nacionalidad" value="#{paisesController.selected.nacionalidad}" title="#{bundle.CreatePaisesTitle_nacionalidad}" required="true" requiredMessage="#{bundle.CreatePaisesRequiredMessage_nacionalidad}" style="text-transform: uppercase"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{paisesController.create}" value="#{bundle.Save}" update="display,:PaisesListForm:datalist,:growl" oncomplete="handleSubmit(args,'PaisesCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PaisesCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PaisesCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

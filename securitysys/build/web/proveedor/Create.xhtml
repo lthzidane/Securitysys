@@ -17,12 +17,12 @@
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_rucProv}" for="rucProv" />
                         <p:inputText id="rucProv" value="#{proveedorController.selected.rucProv}" title="#{bundle.CreateProveedorTitle_rucProv}" />
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_descriProv}" for="descriProv" />
-                        <p:inputText id="descriProv" value="#{proveedorController.selected.descriProv}" title="#{bundle.CreateProveedorTitle_descriProv}" />
+                        <p:inputText id="descriProv" value="#{proveedorController.selected.descriProv}" title="#{bundle.CreateProveedorTitle_descriProv}"  style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_telProv}" for="telProv" />
-                        <p:inputText id="telProv" value="#{proveedorController.selected.telProv}" title="#{bundle.CreateProveedorTitle_telProv}" />
+                        <p:inputText id="telProv" value="#{proveedorController.selected.telProv}" title="#{bundle.CreateProveedorTitle_telProv}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{proveedorController.create}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProveedorCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProveedorCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProveedorCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

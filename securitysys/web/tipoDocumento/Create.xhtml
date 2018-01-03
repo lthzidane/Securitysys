@@ -15,10 +15,10 @@
                         <p:outputLabel value="#{bundle.CreateTipoDocumentoLabel_idTipoDocu}" for="idTipoDocu" rendered="false"/>
                         <p:inputText id="idTipoDocu" value="#{tipoDocumentoController.selected.idTipoDocu}" title="#{bundle.CreateTipoDocumentoTitle_idTipoDocu}" required="true" requiredMessage="#{bundle.CreateTipoDocumentoRequiredMessage_idTipoDocu}" rendered="false"/>
                         <p:outputLabel value="#{bundle.CreateTipoDocumentoLabel_tipoDocu}" for="tipoDocu" />
-                        <p:inputText id="tipoDocu" value="#{tipoDocumentoController.selected.tipoDocu}" title="#{bundle.CreateTipoDocumentoTitle_tipoDocu}" required="true" requiredMessage="#{bundle.CreateTipoDocumentoRequiredMessage_tipoDocu}"/>
+                        <p:inputText id="tipoDocu" value="#{tipoDocumentoController.selected.tipoDocu}" title="#{bundle.CreateTipoDocumentoTitle_tipoDocu}" required="true" requiredMessage="#{bundle.CreateTipoDocumentoRequiredMessage_tipoDocu}" style="text-transform: uppercase"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{tipoDocumentoController.create}" value="#{bundle.Save}" update="display,:TipoDocumentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoDocumentoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoDocumentoCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoDocumentoCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

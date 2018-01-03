@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditCiudadLabel_idCiudad}" for="idCiudad"  rendered="false"/>
                         <p:inputText id="idCiudad" value="#{ciudadController.selected.idCiudad}" title="#{bundle.EditCiudadTitle_idCiudad}" required="true" requiredMessage="#{bundle.EditCiudadRequiredMessage_idCiudad}"  rendered="false"/>
                         <p:outputLabel value="#{bundle.EditCiudadLabel_ciudad}" for="ciudad" />
-                        <p:inputText id="ciudad" value="#{ciudadController.selected.ciudad}" title="#{bundle.EditCiudadTitle_ciudad}" required="true" requiredMessage="#{bundle.EditCiudadRequiredMessage_ciudad}"/>
+                        <p:inputText id="ciudad" value="#{ciudadController.selected.ciudad}" title="#{bundle.EditCiudadTitle_ciudad}" required="true" requiredMessage="#{bundle.EditCiudadRequiredMessage_ciudad}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.EditCiudadLabel_idPais}" for="idPais" />
                         <p:selectOneMenu id="idPais" value="#{ciudadController.selected.idPais}" required="true" requiredMessage="#{bundle.EditCiudadRequiredMessage_idPais}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -26,7 +26,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{ciudadController.update}" value="#{bundle.Save}" update="display,:CiudadListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CiudadEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="CiudadEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CiudadEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

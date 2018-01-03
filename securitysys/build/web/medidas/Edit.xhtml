@@ -15,10 +15,10 @@
                         <p:outputLabel value="#{bundle.EditMedidasLabel_idMedida}" for="idMedida" rendered="false"/>
                         <p:inputText id="idMedida" value="#{medidasController.selected.idMedida}" title="#{bundle.EditMedidasTitle_idMedida}" required="true" requiredMessage="#{bundle.EditMedidasRequiredMessage_idMedida}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditMedidasLabel_descMedida}" for="descMedida" />
-                        <p:inputText id="descMedida" value="#{medidasController.selected.descMedida}" title="#{bundle.EditMedidasTitle_descMedida}" required="true" requiredMessage="#{bundle.EditMedidasRequiredMessage_descMedida}"/>
+                        <p:inputText id="descMedida" value="#{medidasController.selected.descMedida}" title="#{bundle.EditMedidasTitle_descMedida}" required="true" requiredMessage="#{bundle.EditMedidasRequiredMessage_descMedida}" style="text-transform: uppercase"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{medidasController.update}" value="#{bundle.Save}" update="display,:MedidasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MedidasEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="MedidasEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MedidasEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

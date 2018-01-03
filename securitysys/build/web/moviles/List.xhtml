@@ -42,13 +42,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMovilesTitle_tipoMovil}"/>
                             </f:facet>
-                            <h:outputText value="#{item.tipoMovil}"/>
+                            <h:outputText value="#{item.tipoMovil}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMovilesTitle_marca}"/>
                             </f:facet>
-                            <h:outputText value="#{item.marca}"/>
+                            <h:outputText value="#{item.marca}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -60,13 +60,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMovilesTitle_nroMatricula}"/>
                             </f:facet>
-                            <h:outputText value="#{item.nroMatricula}"/>
+                            <h:outputText value="#{item.nroMatricula}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMovilesTitle_funcion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.funcion}"/>
+                            <h:outputText value="#{item.funcion}" style="text-transform: uppercase"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{movilesController.prepareCreate}" update=":MovilesCreateForm" oncomplete="PF('MovilesCreateDialog').show()"/>

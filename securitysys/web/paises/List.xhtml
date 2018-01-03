@@ -40,19 +40,19 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPaisesTitle_prefijo}"/>
                             </f:facet>
-                            <h:outputText value="#{item.prefijo}"/>
+                            <h:outputText value="#{item.prefijo}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPaisesTitle_nombre}"/>
                             </f:facet>
-                            <h:outputText value="#{item.nombre}"/>
+                            <h:outputText value="#{item.nombre}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPaisesTitle_nacionalidad}"/>
                             </f:facet>
-                            <h:outputText value="#{item.nacionalidad}"/>
+                            <h:outputText value="#{item.nacionalidad}" style="text-transform: uppercase"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{paisesController.prepareCreate}" update=":PaisesCreateForm" oncomplete="PF('PaisesCreateDialog').show()"/>

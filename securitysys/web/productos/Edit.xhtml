@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditProductosLabel_codProducto}" for="codProducto" rendered="false"/>
                         <p:inputText id="codProducto" value="#{productosController.selected.codProducto}" title="#{bundle.EditProductosTitle_codProducto}" required="true" requiredMessage="#{bundle.EditProductosRequiredMessage_codProducto}" rendered="false"/>
                         <p:outputLabel value="#{bundle.EditProductosLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{productosController.selected.descripcion}" title="#{bundle.EditProductosTitle_descripcion}" required="true" requiredMessage="#{bundle.EditProductosRequiredMessage_descripcion}"/>
+                        <p:inputText id="descripcion" value="#{productosController.selected.descripcion}" title="#{bundle.EditProductosTitle_descripcion}" required="true" requiredMessage="#{bundle.EditProductosRequiredMessage_descripcion}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.EditProductosLabel_idMedida}" for="idMedida" />
                         <p:selectOneMenu id="idMedida" value="#{productosController.selected.idMedida}" required="true" requiredMessage="#{bundle.EditProductosRequiredMessage_idMedida}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -26,7 +26,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{productosController.update}" value="#{bundle.Save}" update="display,:ProductosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProductosEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductosEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductosEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -42,7 +42,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTipoClienteTitle_tipoCliente}"/>
                             </f:facet>
-                            <h:outputText value="#{item.tipoCliente}"/>
+                            <h:outputText value="#{item.tipoCliente}" style="text-transform: uppercase"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoClienteController.prepareCreate}" update=":TipoClienteCreateForm" oncomplete="PF('TipoClienteCreateDialog').show()"/>
