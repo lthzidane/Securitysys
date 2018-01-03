@@ -22,13 +22,13 @@
                                            itemValue="#{idTipoClienteItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{clienteController.selected.nombre}" title="#{bundle.CreateClienteTitle_nombre}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombre}"/>
+                        <p:inputText id="nombre" value="#{clienteController.selected.nombre}" title="#{bundle.CreateClienteTitle_nombre}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombre}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_apellido}" for="apellido" />
-                        <p:inputText id="apellido" value="#{clienteController.selected.apellido}" title="#{bundle.CreateClienteTitle_apellido}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_apellido}"/>
+                        <p:inputText id="apellido" value="#{clienteController.selected.apellido}" title="#{bundle.CreateClienteTitle_apellido}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_apellido}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_direccion}" for="direccion" />
-                        <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.CreateClienteTitle_direccion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_direccion}"/>
+                        <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.CreateClienteTitle_direccion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_direccion}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}"/>
+                        <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_idCiudad}" for="idCiudad" />
                         <p:selectOneMenu id="idCiudad" value="#{clienteController.selected.idCiudad}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idCiudad}">
                             <f:selectItems value="#{ciudadController.itemsAvailableSelectOne}"
@@ -51,10 +51,10 @@
                                            itemValue="#{idTipoDocuItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_nroDocu}" for="nroDocumento" />
-                        <p:inputText id="nroDocumento" value="#{clienteController.selected.nroDocumento}" title="#{bundle.CreateClienteTitle_nroDocu}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nroDocu}"/>                    
+                        <p:inputText id="nroDocumento" value="#{clienteController.selected.nroDocumento}" title="#{bundle.CreateClienteTitle_nroDocu}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nroDocu}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>                    
                     </p:panelGrid>
                     <p:commandButton actionListener="#{clienteController.create}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ClienteCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ClienteCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -22,13 +22,13 @@
                                            itemValue="#{idTipoClienteItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditClienteLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{clienteController.selected.nombre}" title="#{bundle.EditClienteTitle_nombre}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_nombre}"/>
+                        <p:inputText id="nombre" value="#{clienteController.selected.nombre}" title="#{bundle.EditClienteTitle_nombre}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_nombre}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.EditClienteLabel_apellido}" for="apellido" />
-                        <p:inputText id="apellido" value="#{clienteController.selected.apellido}" title="#{bundle.EditClienteTitle_apellido}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_apellido}"/>
+                        <p:inputText id="apellido" value="#{clienteController.selected.apellido}" title="#{bundle.EditClienteTitle_apellido}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_apellido}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.EditClienteLabel_direccion}" for="direccion" />
-                        <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.EditClienteTitle_direccion}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_direccion}"/>
+                        <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.EditClienteTitle_direccion}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_direccion}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.EditClienteLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.EditClienteTitle_telefono}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_telefono}"/>
+                        <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.EditClienteTitle_telefono}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_telefono}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
                         <p:outputLabel value="#{bundle.EditClienteLabel_idCiudad}" for="idCiudad" />
                         <p:selectOneMenu id="idCiudad" value="#{clienteController.selected.idCiudad}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idCiudad}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -54,10 +54,10 @@
                                            itemValue="#{idTipoDocuItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditClienteLabel_nroDocu}" for="nroDocumento" />
-                        <p:inputText id="nroDocumento" value="#{clienteController.selected.nroDocumento}" title="#{bundle.EditClienteTitle_nroDocu}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_nroDocu}"/>
+                        <p:inputText id="nroDocumento" value="#{clienteController.selected.nroDocumento}" title="#{bundle.EditClienteTitle_nroDocu}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_nroDocu}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{clienteController.update}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ClienteEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ClienteEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ClienteEditDialog.hide()"  immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

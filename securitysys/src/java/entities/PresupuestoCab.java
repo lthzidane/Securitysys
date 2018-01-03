@@ -69,7 +69,7 @@ public class PresupuestoCab implements Serializable {
     @Column(name = "validez")
     private String validez;
     @Size(max = 100)
-    @Column(name = "Observacion")
+    @Column(name = "observacion")
     private String observacion;
     @Column(name = "total")
     private BigInteger total;
