@@ -17,10 +17,10 @@
                                  actionListener="#{ElaborarPresupuestoBean.obtenerDatosCliente}" />
 
                 <p:remoteCommand name="refreshFooter" update="datatable" actionListener="#{ElaborarPresupuestoBean.refrescarFooter}" />
-                
+
                 <p:panel id="encabezado" header="Presupuesto Nro: #{ElaborarPresupuestoBean.nroDeOrden}">
                     <p:watermark for="clienteFilter" value="Nro. de Cedula o Ruc" id="watermark" />
-                    <h:panelGrid columns="4" cellpadding="10">
+                    <h:panelGrid columns="8" cellpadding="10">
                         <h:outputText value="Nro de Presupuesto:" 
                                       style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                         <h:outputText id="nroOrden" value="#{ElaborarPresupuestoBean.nroDeOrden}" style="font-size: 11px;"/>
@@ -32,6 +32,18 @@
                         <h:outputText value="Nombre:" 
                                       style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                         <h:outputText id="razonSocialCliente" value="#{ElaborarPresupuestoBean.razonsocial}" style="font-size: 11px;"/>
+                        <h:outputText value="Funcionario:"
+                                      style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                        <h:selectOneMenu id="funcionario" label="Funcionario" value="#{ElaborarPresupuestoBean.idFuncionario}">
+                            <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{ElaborarPresupuestoBean.listaFuncionarios}" var="est" itemLabel="#{est.nombre}" itemValue="#{est}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Estado:"
+                                      style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                        <h:selectOneMenu id="estado" label="Estado" value="#{ElaborarPresupuestoBean.idEstado}">
+                            <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{ElaborarPresupuestoBean.listaEstados}" var="est" itemLabel="#{est.estado}" itemValue="#{est}"/>
+                        </h:selectOneMenu>
                     </h:panelGrid>
 
                     <p:dataTable id="datatable"

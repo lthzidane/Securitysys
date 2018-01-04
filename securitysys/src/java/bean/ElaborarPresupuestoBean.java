@@ -1,5 +1,8 @@
 package bean;
 
+import entities.Cliente;
+import entities.Estado;
+import entities.Funcionario;
 import entities.PresupuestoCab;
 import entities.PresupuestoCabPK;
 import entities.PresupuestoDet;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,10 +58,12 @@ public class ElaborarPresupuestoBean implements Serializable {
     private String description;
     private boolean editando = false;
     private String fechaPedido;
-    private String fechaRecepcion;
-    private ArrayList<PresupuestoDet> listaDetalle = new ArrayList<PresupuestoDet>();
-    private ArrayList<PresupuestoDet> listaDetallesEliminados = new ArrayList<PresupuestoDet>();
-    private List<Productos> listaProductos = new ArrayList<Productos>();
+    private Date fechaPedidoDate;
+    private ArrayList<PresupuestoDet> listaDetalle = new ArrayList<>();
+    private ArrayList<PresupuestoDet> listaDetallesEliminados = new ArrayList<>();
+    private List<Productos> listaProductos = new ArrayList<>();
+    private List<Funcionario> listaFuncionarios = new ArrayList<>();
+    private List<Estado> listaEstados = new ArrayList<>();
     private String sumaTotal;
     private String iva;
     private String presupuestoTotal;
@@ -68,9 +74,13 @@ public class ElaborarPresupuestoBean implements Serializable {
     private String ciudad;
     private String direccion;
     private String telefono;
+    private Funcionario idFuncionario;
+    private Estado idEstado;
 
     private PresupuestoCab presupuestoCab;
     private PresupuestoDet presupuestoDet;
+
+    private static final DateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy"); //defino el formato de fecha
 
     @EJB
     private bean.ProductosFacade productoFacade = new ProductosFacade();
@@ -80,6 +90,12 @@ public class ElaborarPresupuestoBean implements Serializable {
 
     @EJB
     private bean.PresupuestoDetFacade presupuestoDetFacade = new PresupuestoDetFacade();
+
+    @EJB
+    private bean.FuncionarioFacade funcionarioFacade = new FuncionarioFacade();
+
+    @EJB
+    private bean.EstadoFacade estadoFacade = new EstadoFacade();
 
     @PostConstruct
     void initialiseSession() {
@@ -93,22 +109,29 @@ public class ElaborarPresupuestoBean implements Serializable {
             nroDeOrden = "0001";
 
             Date date = Calendar.getInstance().getTime();
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            String today = formatter.format(date);
+            String today = FORMATTER.format(date);
             fechaPedido = today;
+            fechaPedidoDate = date;
 
             //Crea un presupuestoCab inicial
             this.presupuestoCab = new PresupuestoCab();
-            
+
             PresupuestoCabPK presupuestoCabPK = new PresupuestoCabPK();
-            presupuestoCabPK.setNroPresupuesto(BigInteger.ZERO);
-            
+            long seed = Long.parseLong("25");
+            Random rand = new Random(seed);
+            presupuestoCabPK.setNroPresupuesto(BigInteger.valueOf(rand.nextInt()));
+            presupuestoCabPK.setSerPresupuesto("A");
+            presupuestoCabPK.setTipoPresupuesto("TIP");
+
             this.presupuestoCab.setPresupuestoCabPK(presupuestoCabPK);
-            
+
             this.presupuestoCab.setFecha(date);
-            
 
             this.listaProductos = productoFacade.findAll();
+
+            this.listaFuncionarios = funcionarioFacade.findAll();
+
+            this.listaEstados = estadoFacade.findAll();
 
             proveedor = ""; //CNDDI = Codigo No Dependiente Del Idioma
             language = "ESN"; //{ESN,ENU,FRA} por defecto Español
@@ -126,14 +149,32 @@ public class ElaborarPresupuestoBean implements Serializable {
 
     public String guardarPresupuesto() {
 
-        presupuestoCab = new PresupuestoCab();
-
-        presupuestoCab.setBaseImponible(new BigInteger(this.sumaTotal));
-
+        String sumaTotalSinPunto = this.sumaTotal.replace(".", "");
+        this.presupuestoCab.setBaseImponible(new BigInteger(sumaTotalSinPunto));
+        this.presupuestoCab.setIdCliente(new Cliente(BigDecimal.valueOf(this.idCliente)));
+        this.presupuestoCab.setIdFuncionario(this.idFuncionario);
+        this.presupuestoCab.setIdEstado(this.idEstado);
+        /*
+         --tipo_presupuesto character varying(4) NOT NULL,
+         --ser_presupuesto character varying(1) NOT NULL,
+         --nro_presupuesto numeric NOT NULL,
+         --id_cliente numeric NOT NULL,
+         --fecha date NOT NULL,
+         --id_funcionario numeric NOT NULL,
+         id_estado numeric NOT NULL,
+         id_sucursal numeric,
+         forma_pago character varying(10),
+         plazo_entrega character varying(3),
+         validez character varying(3),
+         observacion character varying(100),
+         total numeric,
+         descuento numeric,
+         base_imponible numeric,
+         */
         persistPresupuestoCab(JsfUtil.PersistAction.CREATE, null);
         System.out.println("se guardó la PresupuestoCab con exito > " + JsfUtil.isValidationFailed());
 
-        persistPresupuestoDet(JsfUtil.PersistAction.CREATE, listaDetalle, "Orden de Trabajo guardada correctamente");
+        persistPresupuestoDet(JsfUtil.PersistAction.CREATE, listaDetalle, "PresupuestoDet guardado correctamente");
         System.out.println("se guardó la PresupuestoDet con exito");
 
         //limpiar campos
@@ -209,12 +250,18 @@ public class ElaborarPresupuestoBean implements Serializable {
         }
 
         if (listaDetalle != null && !listaDetalle.isEmpty()) {
+            int nroSerie = listaDetalle.isEmpty() ? 0 : 1;
             for (PresupuestoDet preDet : listaDetalle) {
 
                 if (preDet.getPresupuestoCab() != null) {
                     presupuestoDet = preDet; //si mantiene el nro de orden, es que solo edite la descripción
                 } else {
-                    presupuestoDet = new PresupuestoDet();
+                    PresupuestoDetPK presupuestoDetPK
+                            = new PresupuestoDetPK(this.presupuestoCab.getPresupuestoCabPK().getTipoPresupuesto(),
+                                    this.presupuestoCab.getPresupuestoCabPK().getSerPresupuesto(),
+                                    this.presupuestoCab.getPresupuestoCabPK().getNroPresupuesto(),
+                                    BigInteger.valueOf(nroSerie));
+                    presupuestoDet = new PresupuestoDet(presupuestoDetPK);
                     presupuestoDet.setPresupuestoCab(presupuestoCab);
                     presupuestoDet.setCantidad(preDet.getCantidad());
                     presupuestoDet.setPrecio(preDet.getPrecio());
@@ -222,6 +269,7 @@ public class ElaborarPresupuestoBean implements Serializable {
                     presupuestoDet.setTotalDetalle(preDet.getTotalDetalle());
                     presupuestoDet.setCodProducto(preDet.getCodProducto());
 
+                    nroSerie++;
                 }
 
                 try {

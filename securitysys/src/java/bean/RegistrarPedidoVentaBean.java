@@ -4,7 +4,6 @@
  */
 package bean;
 
-
 import entities.Departamento;
 import entities.EstadoTrab;
 import entities.Funcionario;
@@ -15,6 +14,7 @@ import entities.OrdenTrabajoDet;
 import entities.ProductosKit;
 import entities.Reclamo;
 import entities.Subtipo;
+import entities.Sucursales;
 import entities.Tecnicos;
 import entities.Tiporeclamo;
 import java.io.Serializable;
@@ -48,14 +48,15 @@ import session.util.JsfUtil.PersistAction;
  * @author Acer
  *
  */
-@ManagedBean(name="RegistrarPedidoVentaBean")
+@ManagedBean(name = "RegistrarPedidoVentaBean")
 @ViewScoped
 @Data
-public class RegistrarPedidoVentaBean implements Serializable{
+public class RegistrarPedidoVentaBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     private String nroDeReclamo;
-    private String equipo; 
+    private String equipo;
     private String cliente;
     private BigDecimal pedido;
     private String estado;
@@ -72,6 +73,7 @@ public class RegistrarPedidoVentaBean implements Serializable{
     private Integer idSubTiporeclamo;
     private Integer idNivel;
     private Integer idFuncionario;
+    private Integer idSucursal;
     private String usuario;
     private Integer idDepartamento;
     private String tipoServicio;
@@ -84,6 +86,7 @@ public class RegistrarPedidoVentaBean implements Serializable{
     private String descripcion;
     private List<Departamento> listaDepartamentos = new ArrayList<Departamento>();
     private ArrayList<Tecnicos> listaTecnicos = new ArrayList<Tecnicos>();
+    private ArrayList<Sucursales> listaSucursales = new ArrayList<Sucursales>();
     private List<EstadoTrab> listaEstados = new ArrayList<EstadoTrab>();
     private List<Tiporeclamo> listaTipoReclamo = new ArrayList<Tiporeclamo>();
     private List<Subtipo> listaSubTipoReclamo = new ArrayList<Subtipo>();
@@ -95,9 +98,9 @@ public class RegistrarPedidoVentaBean implements Serializable{
     private ArrayList<InstalacionDet> instalacionesDetList = new ArrayList<InstalacionDet>();
     private ArrayList<Tecnicos> selectedTecnicos = new ArrayList<Tecnicos>();
     private List<Moviles> listaMoviles = new ArrayList<Moviles>();
-    
+
     @EJB
-    private bean.TecnicosFacade tecnicoFacade =  new TecnicosFacade();
+    private bean.TecnicosFacade tecnicoFacade = new TecnicosFacade();
     @EJB
     private bean.ClienteFacade clienteFacade = new ClienteFacade();
     @EJB
@@ -116,20 +119,18 @@ public class RegistrarPedidoVentaBean implements Serializable{
     private bean.UsuarioFacade usuarioFacade = new UsuarioFacade();
     @EJB
     private bean.ReclamoFacade reclamoFacade = new ReclamoFacade();
-    
+
     private Reclamo reclamo;
-    
+
     private Connection con = null;
-    private boolean editando = false;    
-    
-    
+    private boolean editando = false;
+
     @PostConstruct
     void initialiseSession() {
         con = DataConnect.getConnection();
         this.cargarVista();
-    }   
-    
-    
+    }
+
     public void cargarVista() {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //defino el formato de fecha
         try {
@@ -146,23 +147,23 @@ public class RegistrarPedidoVentaBean implements Serializable{
                 fechaOrden = date;
                 String today = formatter.format(date);
                 fechaRecepcion = today;
-                
+
                 this.listaEstados = estadoTrabFacade.findAll();
                 this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
-                
+
                 this.listaDepartamentos = departamentoFacade.findAll();
                 this.idDepartamento = 4; //poner a Reclamos = 4 por defecto
-                
+
                 this.listaTipoReclamo = tiporeclamoFacade.findAll();
                 this.idTiporeclamo = null;
-                
+
                 this.listaSubTipoReclamo = subtiporeclamoFacade.findAll();
                 this.idSubTiporeclamo = null;
-                
+
                 this.listaNivel = nivelFacade.findAll();
                 this.idNivel = null;
-                
-                this.usuario = (String)SessionBean.getSession().getAttribute("username");
+
+                this.usuario = (String) SessionBean.getSession().getAttribute("username");
                 description = "";
 
                 this.selectedKits = new ArrayList<ProductosKit>();
@@ -176,25 +177,26 @@ public class RegistrarPedidoVentaBean implements Serializable{
                 this.idCliente = null;
                 this.fechaInicio = null;
                 this.fechaFin = null;
-                this.nroOrden = "";
+                this.nroOrden = "0001";
                 this.nroDocumento = "";
                 this.ciudad = "";
                 this.telefono = "";
                 this.direccion = "";
                 this.razonsocial = "";
                 this.descripcion = "";
-                
-                this.listaTecnicos = obtenerTecnicos();
 
-            }else{
+                this.listaTecnicos = obtenerTecnicos();
+                this.listaSucursales = obtenerSucursales();
+
+            } else {
                 //estoy editando
             }
-            
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    
+
     public int obtenerNuevoIdReclamo() {
         int ultimoValor = 0;
         try {
@@ -203,9 +205,9 @@ public class RegistrarPedidoVentaBean implements Serializable{
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-               BigDecimal uv =  rs.getBigDecimal("last_value");
-               
-               ultimoValor = uv.toBigInteger().intValue();
+                BigDecimal uv = rs.getBigDecimal("last_value");
+
+                ultimoValor = uv.toBigInteger().intValue();
             }
         } catch (SQLException ex) {
             System.out.println("Error al obtener Secuencia de InstalacionCab -->" + ex.getMessage());
@@ -213,8 +215,8 @@ public class RegistrarPedidoVentaBean implements Serializable{
 
         return ultimoValor;
     }
-    
-    public String guardarReclamo(){
+
+    public String guardarReclamo() {
         reclamo = new Reclamo();
         reclamo.setDescripcion(this.descripcion);
         reclamo.setFechaIngreso(this.fechaOrden);
@@ -226,44 +228,41 @@ public class RegistrarPedidoVentaBean implements Serializable{
         reclamo.setIdSubtipo(subtiporeclamoFacade.findByIdSubtipo(idSubTiporeclamo));
         reclamo.setIdTiporecla(tiporeclamoFacade.findByIdTiporecla(idTiporeclamo));
 
-        if(!editando){
+        if (!editando) {
             persistReclamo(PersistAction.CREATE, "Reclamo guardado correctamente");
-            cargarVista();    
-        }else{
+            cargarVista();
+        } else {
             //estoy editando -> todavía no implementado
-         
+
             this.editando = false;
-            
+
             //return "BuscarModificarOT";
         }
-        
-        
+
         //return "/home";
         return null;
     }
-    
-    public String volver(){
+
+    public String volver() {
         return "/home";
     }
-    
- 
+
     private void persistReclamo(JsfUtil.PersistAction persistAction, String successMessage) {
         if (reclamo != null) {
 
             try {
                 if (persistAction == JsfUtil.PersistAction.CREATE) {
                     getReclamoFacade().create(reclamo);
-                }
-                else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+                } else if (persistAction == JsfUtil.PersistAction.UPDATE) {
                     getReclamoFacade().edit(reclamo);
                 } else {
                     getReclamoFacade().remove(reclamo);
                 }
-                
-                if(successMessage != null){
+
+                if (successMessage != null) {
                     JsfUtil.addSuccessMessage(successMessage);
                 }
-                
+
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
@@ -324,7 +323,7 @@ public class RegistrarPedidoVentaBean implements Serializable{
 
         }
     }
-    
+
     private ArrayList<Tecnicos> obtenerTecnicos() {
         Connection con = null;
         PreparedStatement ps = null;
@@ -337,23 +336,53 @@ public class RegistrarPedidoVentaBean implements Serializable{
 
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 tecnico = new Tecnicos();
                 String id_tecnico = rs.getString("id_tecnico");
                 String nombre = rs.getString("nombre");
-                
+
                 tecnico.setIdTecnico(Integer.parseInt(id_tecnico));
                 tecnico.setNombre(nombre);
                 list.add(tecnico);
             }
         } catch (SQLException ex) {
             System.out.println("Error al obtener Tecnicos -->" + ex.getMessage());
-            
+
         } finally {
             DataConnect.close(con);
             return list;
         }
-        
+
     }
-    
+
+    private ArrayList<Sucursales> obtenerSucursales() {
+        Connection con = null;
+        PreparedStatement ps = null;
+        Sucursales sucursal = null;
+        ArrayList<Sucursales> list = new ArrayList<>();
+
+        try {
+            con = DataConnect.getConnection();
+            ps = con.prepareStatement("select id_sucursal,descripcion from sucursales");
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                sucursal = new Sucursales();
+                String id_tecnico = rs.getString("id_sucursal");
+                String nombre = rs.getString("descripcion");
+
+                sucursal.setIdSucursal(BigDecimal.valueOf(Integer.parseInt(id_tecnico)));
+                sucursal.setDescripcion(nombre);
+                list.add(sucursal);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener Sucursales -->" + ex.getMessage());
+
+        } finally {
+            DataConnect.close(con);
+            return list;
+        }
+    }
+
 }
