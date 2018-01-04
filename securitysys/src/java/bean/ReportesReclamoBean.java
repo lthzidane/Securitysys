@@ -94,10 +94,10 @@ public class ReportesReclamoBean implements Serializable {
         pdf.add(com.lowagie.text.Image.getInstance(logo));
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");//new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
-        String startDateToStr = format.format(fromFecRecl);
-        String stopDateToStr = format.format(toFecRecl);
 
         if (fromFecRecl != null && toFecRecl != null) {
+            String startDateToStr = format.format(fromFecRecl);
+            String stopDateToStr = format.format(toFecRecl);
             pdf.add(new Paragraph("Reclamos del " + startDateToStr + " hasta " + stopDateToStr));
         } else {
             pdf.add(new Paragraph("Todas los Reclamos existentes"));

@@ -42,5 +42,6 @@
             <file>file:/C:/test/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/MonitoreoClientesBean.java</file>
         </group>
+        <group name="SecuritySys"/>
     </open-files>
 </project-private>
