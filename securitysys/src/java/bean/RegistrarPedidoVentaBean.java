@@ -4,13 +4,21 @@
  */
 package bean;
 
+import static bean.ElaborarPresupuestoBean.generaNumeroAleatorio;
+import entities.Cliente;
 import entities.Departamento;
+import entities.Estado;
 import entities.EstadoTrab;
 import entities.Funcionario;
 import entities.InstalacionDet;
 import entities.Moviles;
 import entities.Nivel;
-import entities.OrdenTrabajoDet;
+import entities.PresupuestoCab;
+import entities.PresupuestoCabPK;
+
+import entities.PresupuestoDet;
+import entities.PresupuestoDetPK;
+import entities.Productos;
 import entities.ProductosKit;
 import entities.Reclamo;
 import entities.Subtipo;
@@ -25,6 +33,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,6 +49,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import lombok.Data;
+import org.primefaces.event.RowEditEvent;
 import session.util.JsfUtil;
 import session.util.JsfUtil.PersistAction;
 
@@ -72,7 +82,6 @@ public class RegistrarPedidoVentaBean implements Serializable {
     private Integer idTiporeclamo;
     private Integer idSubTiporeclamo;
     private Integer idNivel;
-    private Integer idFuncionario;
     private Integer idSucursal;
     private String usuario;
     private Integer idDepartamento;
@@ -84,20 +93,32 @@ public class RegistrarPedidoVentaBean implements Serializable {
     private String telefono;
     private String ciudad;
     private String descripcion;
-    private List<Departamento> listaDepartamentos = new ArrayList<Departamento>();
-    private ArrayList<Tecnicos> listaTecnicos = new ArrayList<Tecnicos>();
-    private ArrayList<Sucursales> listaSucursales = new ArrayList<Sucursales>();
-    private List<EstadoTrab> listaEstados = new ArrayList<EstadoTrab>();
-    private List<Tiporeclamo> listaTipoReclamo = new ArrayList<Tiporeclamo>();
-    private List<Subtipo> listaSubTipoReclamo = new ArrayList<Subtipo>();
-    private List<Nivel> listaNivel = new ArrayList<Nivel>();
-    private List<Funcionario> listaFuncionario = new ArrayList<Funcionario>();
-    private List<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
-    private List<ProductosKit> listaKits = new ArrayList<ProductosKit>();
-    private ArrayList<ProductosKit> selectedKits = new ArrayList<ProductosKit>();
-    private ArrayList<InstalacionDet> instalacionesDetList = new ArrayList<InstalacionDet>();
-    private ArrayList<Tecnicos> selectedTecnicos = new ArrayList<Tecnicos>();
+    private List<Departamento> listaDepartamentos = new ArrayList<>();
+    private ArrayList<Tecnicos> listaTecnicos = new ArrayList<>();
+    private ArrayList<Sucursales> listaSucursales = new ArrayList<>();
+    private List<EstadoTrab> listaEstados = new ArrayList<>();
+    private List<Productos> listaProductos = new ArrayList<>();
+    private List<Funcionario> listaFuncionarios = new ArrayList<>();
+
+    private List<Tiporeclamo> listaTipoReclamo = new ArrayList<>();
+    private List<Subtipo> listaSubTipoReclamo = new ArrayList<>();
+    private List<Nivel> listaNivel = new ArrayList<>();
+    private List<Funcionario> listaFuncionario = new ArrayList<>();
+    private ArrayList<PresupuestoDet> listaDetalle = new ArrayList<>();
+    private ArrayList<PresupuestoDet> listaDetallesEliminados = new ArrayList<>();
+    private List<ProductosKit> listaKits = new ArrayList<>();
+    private ArrayList<ProductosKit> selectedKits = new ArrayList<>();
+    private ArrayList<InstalacionDet> instalacionesDetList = new ArrayList<>();
+    private ArrayList<Tecnicos> selectedTecnicos = new ArrayList<>();
     private List<Moviles> listaMoviles = new ArrayList<Moviles>();
+
+    private PresupuestoCab presupuestoCab;
+    private PresupuestoDet presupuestoDet;
+    private String sumaTotal;
+    private String iva;
+    private String presupuestoTotal;
+    private Funcionario idFuncionario;
+    private Estado idEstado;
 
     @EJB
     private bean.TecnicosFacade tecnicoFacade = new TecnicosFacade();
@@ -119,6 +140,21 @@ public class RegistrarPedidoVentaBean implements Serializable {
     private bean.UsuarioFacade usuarioFacade = new UsuarioFacade();
     @EJB
     private bean.ReclamoFacade reclamoFacade = new ReclamoFacade();
+
+    @EJB
+    private bean.ProductosFacade productoFacade = new ProductosFacade();
+
+    @EJB
+    private bean.PresupuestoCabFacade presupuestoCabFacade = new PresupuestoCabFacade();
+
+    @EJB
+    private bean.PresupuestoDetFacade presupuestoDetFacade = new PresupuestoDetFacade();
+
+    @EJB
+    private bean.FuncionarioFacade funcionarioFacade = new FuncionarioFacade();
+
+    @EJB
+    private bean.EstadoFacade estadoFacade = new EstadoFacade();
 
     private Reclamo reclamo;
 
@@ -148,6 +184,23 @@ public class RegistrarPedidoVentaBean implements Serializable {
                 String today = formatter.format(date);
                 fechaRecepcion = today;
 
+                //Crea un presupuestoCab inicial
+                this.presupuestoCab = new PresupuestoCab();
+
+                PresupuestoCabPK presupuestoCabPK = new PresupuestoCabPK();
+                int rand = generaNumeroAleatorio(0, 1000);
+                presupuestoCabPK.setNroPresupuesto(BigInteger.valueOf(rand));
+                presupuestoCabPK.setSerPresupuesto("A");
+                presupuestoCabPK.setTipoPresupuesto("TIP");
+
+                this.presupuestoCab.setPresupuestoCabPK(presupuestoCabPK);
+
+                this.presupuestoCab.setFecha(date);
+
+                this.listaProductos = productoFacade.findAll();
+
+                this.listaFuncionarios = funcionarioFacade.findAll();
+
                 this.listaEstados = estadoTrabFacade.findAll();
                 this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
 
@@ -172,7 +225,7 @@ public class RegistrarPedidoVentaBean implements Serializable {
                 this.tipoServicio = "";
                 this.tecnicoResponsable = "";
 
-                listaDetalle = new ArrayList<OrdenTrabajoDet>();
+                listaDetalle = new ArrayList<>();
 
                 this.idCliente = null;
                 this.fechaInicio = null;
@@ -214,33 +267,6 @@ public class RegistrarPedidoVentaBean implements Serializable {
         }
 
         return ultimoValor;
-    }
-
-    public String guardarReclamo() {
-        reclamo = new Reclamo();
-        reclamo.setDescripcion(this.descripcion);
-        reclamo.setFechaIngreso(this.fechaOrden);
-        reclamo.setIdCliente(clienteFacade.findByIdCliente(idCliente));
-        reclamo.setIdDpto(departamentoFacade.findByIdDpto(idDepartamento));
-        reclamo.setIdEstadoTrab(estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab));
-        reclamo.setIdUsuario(usuarioFacade.findByNombre(this.usuario));
-        reclamo.setIdNivel(BigInteger.valueOf(this.idNivel.longValue()));
-        reclamo.setIdSubtipo(subtiporeclamoFacade.findByIdSubtipo(idSubTiporeclamo));
-        reclamo.setIdTiporecla(tiporeclamoFacade.findByIdTiporecla(idTiporeclamo));
-
-        if (!editando) {
-            persistReclamo(PersistAction.CREATE, "Reclamo guardado correctamente");
-            cargarVista();
-        } else {
-            //estoy editando -> todavía no implementado
-
-            this.editando = false;
-
-            //return "BuscarModificarOT";
-        }
-
-        //return "/home";
-        return null;
     }
 
     public String volver() {
@@ -385,4 +411,237 @@ public class RegistrarPedidoVentaBean implements Serializable {
         }
     }
 
+    public String guardarPresupuesto() {
+
+        String sumaTotalSinPunto = this.sumaTotal.replace(".", "");
+        this.presupuestoCab.setBaseImponible(new BigInteger(sumaTotalSinPunto));
+        this.presupuestoCab.setIdCliente(new Cliente(BigDecimal.valueOf(this.idCliente)));
+        this.presupuestoCab.setIdFuncionario(this.idFuncionario);
+        this.presupuestoCab.setIdEstado(this.idEstado);
+        //persistPresupuestoCab(JsfUtil.PersistAction.CREATE, null);
+        System.out.println("se guardó la PresupuestoCab con exito > " + JsfUtil.isValidationFailed());
+
+        //persistPresupuestoDet(JsfUtil.PersistAction.CREATE, listaDetalle, "PresupuestoDet guardado correctamente");
+        System.out.println("se guardó la PresupuestoDet con exito");
+
+        //limpiar campos
+        cargarVista();
+
+        return null;
+    }
+
+    private void persistPresupuestoCab(JsfUtil.PersistAction persistAction, String successMessage) {
+        if (presupuestoCab != null) {
+
+            try {
+                if (null != persistAction) {
+                    switch (persistAction) {
+                        case CREATE:
+                            presupuestoCabFacade.create(presupuestoCab);
+                            break;
+                        case UPDATE:
+                            presupuestoCabFacade.edit(presupuestoCab);
+                            break;
+                        default:
+                            presupuestoCabFacade.remove(presupuestoCab);
+                            break;
+                    }
+                }
+
+                if (successMessage != null) {
+                    JsfUtil.addSuccessMessage(successMessage);
+                }
+
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+
+    private void persistPresupuestoDet(JsfUtil.PersistAction persistAction,
+            ArrayList<PresupuestoDet> listaDetalle,
+            String successMessage) {
+
+        if (!listaDetallesEliminados.isEmpty()) { //si eliminé alguno de los detalles
+            for (PresupuestoDet presDet : listaDetallesEliminados) {
+                try {
+                    presupuestoDetFacade.remove(presDet);
+                } catch (EJBException ex) {
+                    String msg = "";
+                    Throwable cause = ex.getCause();
+                    if (cause != null) {
+                        msg = cause.getLocalizedMessage();
+                    }
+                    if (msg.length() > 0) {
+                        JsfUtil.addErrorMessage(msg);
+                    } else {
+                        JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            }
+        }
+
+        if (listaDetalle != null && !listaDetalle.isEmpty()) {
+            int nroSerie = listaDetalle.isEmpty() ? 0 : 1;
+            for (PresupuestoDet preDet : listaDetalle) {
+
+                if (preDet.getPresupuestoCab() != null) {
+                    presupuestoDet = preDet; //si mantiene el nro de orden, es que solo edite la descripción
+                } else {
+                    PresupuestoDetPK presupuestoDetPK
+                            = new PresupuestoDetPK(this.presupuestoCab.getPresupuestoCabPK().getTipoPresupuesto(),
+                                    this.presupuestoCab.getPresupuestoCabPK().getSerPresupuesto(),
+                                    this.presupuestoCab.getPresupuestoCabPK().getNroPresupuesto(),
+                                    BigInteger.valueOf(nroSerie));
+                    presupuestoDet = new PresupuestoDet(presupuestoDetPK);
+                    presupuestoDet.setPresupuestoCab(presupuestoCab);
+                    presupuestoDet.setCantidad(preDet.getCantidad());
+                    presupuestoDet.setPrecio(preDet.getPrecio());
+                    presupuestoDet.setTotalDescuento(preDet.getTotalDescuento());
+                    presupuestoDet.setTotalDetalle(preDet.getTotalDetalle());
+                    presupuestoDet.setCodProducto(preDet.getCodProducto());
+
+                    nroSerie++;
+                }
+
+                try {
+                    if (null != persistAction) {
+                        switch (persistAction) {
+                            case CREATE:
+                                presupuestoDetFacade.create(presupuestoDet);
+                                break;
+                            case UPDATE:
+                                presupuestoDetFacade.edit(presupuestoDet);
+                                break;
+                            default:
+                                presupuestoDetFacade.remove(presupuestoDet);
+                                break;
+                        }
+                    }
+
+                } catch (EJBException ex) {
+                    String msg = "";
+                    Throwable cause = ex.getCause();
+                    if (cause != null) {
+                        msg = cause.getLocalizedMessage();
+                    }
+                    if (msg.length() > 0) {
+                        JsfUtil.addErrorMessage(msg);
+                    } else {
+                        JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            }
+
+            if (successMessage != null) {
+                JsfUtil.addSuccessMessage(successMessage);
+            }
+        }
+    }
+
+    public void refrescarFooter() {
+        System.out.println("Suma: " + getSumaTotal());
+        System.out.println("IVA: " + getIva());
+        System.out.println("Total: " + getPresupuestoTotal());
+    }
+
+    public String getSumaTotal() {
+        int total = 0;
+        for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
+            total += det.getTotalDetalle().intValue();
+        }
+        this.sumaTotal = new DecimalFormat("###,###").format(total);
+        return this.sumaTotal;
+    }
+
+    public String getIva() {
+        int ivaCalculado = 0;
+        int total = 0;
+        for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
+            total += det.getTotalDetalle().intValue();
+        }
+
+        ivaCalculado = total * 10 / 100;
+
+        this.iva = new DecimalFormat("###,###").format(ivaCalculado);
+        return this.iva;
+    }
+
+    public String getPresupuestoTotal() {
+        int ivaCalculado = 0;
+        int total = 0;
+        for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
+            total += det.getTotalDetalle().intValue();
+        }
+
+        ivaCalculado = total * 10 / 100;
+
+        int presupuestoCalculado = total + ivaCalculado;
+
+        this.presupuestoTotal = new DecimalFormat("###,###").format(presupuestoCalculado);
+        return this.presupuestoTotal;
+    }
+
+    public void onRowEditDetalle(RowEditEvent event) {
+        PresupuestoDet det = (PresupuestoDet) event.getObject();
+        BigInteger precio = det.getPrecio();
+        BigInteger cantidad = det.getCantidad();
+        BigInteger descuento = det.getTotalDescuento();
+        int total = (precio.intValue() * cantidad.intValue()) - descuento.intValue();
+        det.setTotalDetalle(new BigInteger(total + ""));
+        //this.sumaTotal = refreshOrdenCompraTotal();
+        System.out.println("Editando Producto: " + det.getCodProducto().getDescripcion() + ", total a pagar: " + det.getTotalDetalle());
+    }
+
+    public void onRowCancelDetalle(RowEditEvent event) {
+        PresupuestoDet det = (PresupuestoDet) event.getObject();
+
+        String descripcion = det.getCodProducto().getDescripcion(); //obtengo la descripción de la tarea
+
+        //si es vacio, es porque es nuevo
+        if ("".equalsIgnoreCase(descripcion)) {
+            //al cancelar borro la ultima fila insertada
+            listaDetalle.remove(det);
+        }
+    }
+
+    public void addTarea() {
+        int i = this.listaDetalle.size() + 1;
+        PresupuestoDetPK detPK = new PresupuestoDetPK();
+        detPK.setNroSecuencia(BigInteger.valueOf(i));
+        PresupuestoDet predet = new PresupuestoDet(detPK);
+        predet.setCodProducto(new Productos());
+        predet.setTotalDescuento(BigInteger.ZERO);
+        predet.setTotalDetalle(BigInteger.ZERO);
+        this.listaDetalle.add(predet);
+    }
+
+    public void removeTarea(PresupuestoDet item) {
+        listaDetallesEliminados.add(item);
+        this.listaDetalle.remove(item);
+    }
+
+    public static int generaNumeroAleatorio(int minimo, int maximo) {
+
+        int num = (int) Math.floor(Math.random() * (maximo - minimo + 1) + (minimo));
+        return num;
+    }
 }

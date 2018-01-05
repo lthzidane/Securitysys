@@ -17,14 +17,13 @@
             <h:form id="form">
                 <p:remoteCommand name="buscarCliente" update="nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente" 
                                  actionListener="#{RegistrarPedidoVentaBean.obtenerDatosCliente}" />
-                <p:panel id="nroDeReclamo" >
-
-                    <h:panelGrid columns="1" cellpadding="5" >
+                <p:panel id="encabezado"  header="Pedido de Venta Nro: #{RegistrarPedidoVentaBean.nroOrden}">
+                    <h:panelGrid columns="8" cellpadding="5" >
                         <p:watermark for="clienteFilter" value="Nro. de Cedula o Ruc" id="watermark" />
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:outputText value="Sucursal:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <h:selectOneMenu id="estado" label="Sucursal" value="#{RegistrarPedidoVentaBean.idSucursal}">
+                            <h:selectOneMenu id="sucursal" label="Sucursal" value="#{RegistrarPedidoVentaBean.idSucursal}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{RegistrarPedidoVentaBean.listaSucursales}" var="est" itemLabel="#{est.descripcion}" itemValue="#{est.idSucursal}"/>
                             </h:selectOneMenu>
@@ -34,8 +33,20 @@
                             <h:outputText value="Fecha Pedido"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:outputText id="buttonFR" value="#{RegistrarPedidoVentaBean.fechaRecepcion}" style="font-size: 11px;"/>
+                            <h:outputText value="Funcionario:"
+                                          style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <h:selectOneMenu id="funcionario" label="Funcionario" value="#{RegistrarPedidoVentaBean.idFuncionario}">
+                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{RegistrarPedidoVentaBean.listaFuncionarios}" var="est" itemLabel="#{est.nombre}" itemValue="#{est}"/>
+                            </h:selectOneMenu>
+                            <h:outputText value="Estado:"
+                                          style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
+                            <h:selectOneMenu id="estado" label="Estado" value="#{RegistrarPedidoVentaBean.idEstado}">
+                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{RegistrarPedidoVentaBean.listaEstados}" var="est" itemLabel="#{est.estado}" itemValue="#{est}"/>
+                            </h:selectOneMenu>
                         </h:panelGrid>
-                        
+
                         <h:panelGrid columns="2" cellpadding="5"  frame="above">
                             <h:outputText value="Buscar Cliente:" 
                                           style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
@@ -56,8 +67,119 @@
                                           style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:outputText id="telefonoCliente" value="#{RegistrarPedidoVentaBean.telefono}" style="font-size: 11px;"/>
                         </h:panelGrid>
-
                     </h:panelGrid>
+
+                    <p:dataTable id="datatable"
+                                 value="#{RegistrarPedidoVentaBean.listaDetalle}"
+                                 rowKey="#{item.codProducto}"
+                                 var="item" 
+                                 editable="true"
+                                 scrollable="true"
+                                 scrollHeight="100"
+                                 emptyMessage="Aun no se han agregado articulos al Detalle">
+                        <f:facet name="header">
+                            Detalle de Venta
+                        </f:facet>
+                        <p:ajax event="rowEdit" listener="#{RegistrarPedidoVentaBean.onRowEditDetalle}" update="datatable" oncomplete="refreshFooter()"/>
+                        <p:ajax event="rowEditCancel" listener="#{RegistrarPedidoVentaBean.onRowCancelDetalle}" update="datatable" />
+                        <p:column headerText="Cod Articulo" style="width: 80px;">
+                            <p:cellEditor>
+                                <f:facet name="output"><div align="center"><h:outputText value="#{item.presupuestoDetPK.nroSecuencia}" /></div></f:facet>
+                                <f:facet name="input"><div align="center"><h:outputText value="#{item.presupuestoDetPK.nroSecuencia}" /></div></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.codProducto.descripcion}" /></f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu id="producList" label="Derivado a" value="#{item.codProducto}">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems value="#{RegistrarPedidoVentaBean.listaProductos}" var="prod" itemLabel="#{prod.descripcion}" itemValue="#{prod}"/>
+                                    </h:selectOneMenu> 
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Cantidad" style="width:80px">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.cantidad}"/></f:facet>
+                                <f:facet name="input"><h:inputText value="#{item.cantidad}" style="width:80px"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Precio" style="width:80px">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{item.precio}">
+                                        <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                    </h:outputText>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{item.precio}" style="width:80px"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Descuento" style="width: 80px;">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{item.totalDescuento}">
+                                        <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                    </h:outputText>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{item.totalDescuento}" style="width: 80px;"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Importe" style="width: 80px;">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{item.totalDetalle}">
+                                        <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                    </h:outputText>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:outputText value="#{item.totalDetalle}">
+                                        <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                    </h:outputText>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column style="width:40px">
+                            <p:rowEditor/>
+                        </p:column>
+                        <p:column style="width:40px">
+                            <f:facet name="header">
+                                <p:commandLink id="addTarea" action="#{RegistrarPedidoVentaBean.addTarea}" update="datatable" immediate="true"
+                                               oncomplete="jQuery('#form\\:datatable .ui-datatable-scrollable-body').scrollTop(100000);
+                                               jQuery('#form\\:datatable .ui-datatable-data > tr').last().find('span.ui-icon-pencil').click()">
+                                    <h:graphicImage name="images/plus.png"/>
+                                </p:commandLink>
+                            </f:facet>
+                            <p:commandButton id="buttonEliminar"
+                                             action="#{RegistrarPedidoVentaBean.removeTarea(item)}"
+                                             icon="ui-icon-trash"
+                                             title="Eliminar"
+                                             update="datatable"
+                                             ajax="true">
+                            </p:commandButton> 
+                        </p:column>
+                        <p:columnGroup type="footer" id="footerCG">
+                            <p:row id="footerRow">
+                                <p:column />
+                                <p:column style="width: 80px;"/>
+                                <p:column />
+                                <p:column colspan="1" style="text-align:right" footerText="Suma: #{RegistrarPedidoVentaBean.sumaTotal}" id="footerTotal" />
+                                <p:column colspan="1" style="text-align:right" footerText="IVA: #{RegistrarPedidoVentaBean.iva}" id="footerIVA"/>
+                                <p:column colspan="1" style="text-align:right" footerText="Total: #{RegistrarPedidoVentaBean.presupuestoTotal}" id="footerTotalFinal"/>
+                                <p:column />
+                                <p:column />
+                            </p:row>
+                        </p:columnGroup>
+                    </p:dataTable>
+                    <br/><br/>
+                    <p:commandButton action="#{RegistrarPedidoVentaBean.guardarPresupuesto}" id="buttonGuardar" value="Guardar" 
+                                     update=":growl estado datatable clienteFilter razonSocialCliente encabezado" 
+                                     icon="ui-icon-refresh" style="font-size: 12px;"/>
+                    <p:commandButton action="Volver" id="buttonCancelar" value="Cancelar" immediate="true" style="font-size: 12px;"/>
 
                 </p:panel>  
             </h:form>  

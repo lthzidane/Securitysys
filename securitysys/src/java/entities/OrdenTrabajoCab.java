@@ -41,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OrdenTrabajoCab.findByFechaOrden", query = "SELECT o FROM OrdenTrabajoCab o WHERE o.fechaOrden = :fechaOrden"),
     @NamedQuery(name = "OrdenTrabajoCab.findBetweenFechaOrden", query = "SELECT o FROM OrdenTrabajoCab o WHERE o.fechaOrden BETWEEN :startDate AND :endDate")})
 public class OrdenTrabajoCab implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nroOrden")
+    private List<PedidosCab> pedidosCabList;
 
     @OneToMany(mappedBy = "nroOrden")
     private List<InstalacionCab> instalacionCabList;
@@ -196,6 +198,15 @@ public class OrdenTrabajoCab implements Serializable {
 
     public void setInstalacionCabList(List<InstalacionCab> instalacionCabList) {
         this.instalacionCabList = instalacionCabList;
+    }
+
+    @XmlTransient
+    public List<PedidosCab> getPedidosCabList() {
+        return pedidosCabList;
+    }
+
+    public void setPedidosCabList(List<PedidosCab> pedidosCabList) {
+        this.pedidosCabList = pedidosCabList;
     }
 
 }

@@ -43,6 +43,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono"),
     @NamedQuery(name = "Cliente.findByNroDocumento", query = "SELECT c FROM Cliente c WHERE c.nroDocumento = :nroDocumento")})
 public class Cliente implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
+    private List<VentasCab> ventasCabList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
+    private List<PedidosCab> pedidosCabList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
     private List<PresupuestoCab> presupuestoCabList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
@@ -63,8 +68,8 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_cliente")
-      @GeneratedValue(generator="CliSeq") 
-    @SequenceGenerator(name="CliSeq",sequenceName="id_cliente_cliente_seq", allocationSize=1) 
+    @GeneratedValue(generator = "CliSeq")
+    @SequenceGenerator(name = "CliSeq", sequenceName = "id_cliente_cliente_seq", allocationSize = 1)
     private BigDecimal idCliente;
     @Basic(optional = false)
     @NotNull
@@ -200,10 +205,10 @@ public class Cliente implements Serializable {
         return "entities.Cliente[ idCliente=" + idCliente + " ]";
     }
 
-    public String getNroDocumento(){
+    public String getNroDocumento() {
         return this.nroDocumento;
     }
-    
+
     public void setNroDocumento(String nroDocumento) {
         this.nroDocumento = nroDocumento;
     }
@@ -215,7 +220,6 @@ public class Cliente implements Serializable {
     public void setIdTipoCliente(TipoCliente idTipoCliente) {
         this.idTipoCliente = idTipoCliente;
     }
-
 
     @XmlTransient
     public List<Reclamo> getReclamoList() {
@@ -251,5 +255,23 @@ public class Cliente implements Serializable {
 
     public void setPresupuestoCabList(List<PresupuestoCab> presupuestoCabList) {
         this.presupuestoCabList = presupuestoCabList;
+    }
+
+    @XmlTransient
+    public List<VentasCab> getVentasCabList() {
+        return ventasCabList;
+    }
+
+    public void setVentasCabList(List<VentasCab> ventasCabList) {
+        this.ventasCabList = ventasCabList;
+    }
+
+    @XmlTransient
+    public List<PedidosCab> getPedidosCabList() {
+        return pedidosCabList;
+    }
+
+    public void setPedidosCabList(List<PedidosCab> pedidosCabList) {
+        this.pedidosCabList = pedidosCabList;
     }
 }

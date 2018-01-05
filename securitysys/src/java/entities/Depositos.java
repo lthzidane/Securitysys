@@ -7,7 +7,9 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,11 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Depositos.findByIdDeposito", query = "SELECT d FROM Depositos d WHERE d.idDeposito = :idDeposito"),
     @NamedQuery(name = "Depositos.findByDescripcion", query = "SELECT d FROM Depositos d WHERE d.descripcion = :descripcion")})
 public class Depositos implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDeposito")
+    private List<Stock> stockList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -111,6 +117,15 @@ public class Depositos implements Serializable {
     @Override
     public String toString() {
         return "entities.Depositos[ idDeposito=" + idDeposito + " ]";
+    }
+
+    @XmlTransient
+    public List<Stock> getStockList() {
+        return stockList;
+    }
+
+    public void setStockList(List<Stock> stockList) {
+        this.stockList = stockList;
     }
     
 }

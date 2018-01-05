@@ -49,6 +49,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "PresupuestoCab.findByDescuento", query = "SELECT p FROM PresupuestoCab p WHERE p.descuento = :descuento"),
     @NamedQuery(name = "PresupuestoCab.findByBaseImponible", query = "SELECT p FROM PresupuestoCab p WHERE p.baseImponible = :baseImponible")})
 public class PresupuestoCab implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "presupuestoCab")
+    private List<VentasCab> ventasCabList;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected PresupuestoCabPK presupuestoCabPK;
@@ -241,6 +243,15 @@ public class PresupuestoCab implements Serializable {
     @Override
     public String toString() {
         return "entities.PresupuestoCab[ presupuestoCabPK=" + presupuestoCabPK + " ]";
+    }
+
+    @XmlTransient
+    public List<VentasCab> getVentasCabList() {
+        return ventasCabList;
+    }
+
+    public void setVentasCabList(List<VentasCab> ventasCabList) {
+        this.ventasCabList = ventasCabList;
     }
     
 }

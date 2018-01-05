@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -38,6 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Productos.findByCodProducto", query = "SELECT p FROM Productos p WHERE p.codProducto = :codProducto"),
     @NamedQuery(name = "Productos.findByDescripcion", query = "SELECT p FROM Productos p WHERE p.descripcion = :descripcion")})
 public class Productos implements Serializable {
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "productos")
+    private Stock stock;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codProducto")
     private List<PresupuestoDet> presupuestoDetList;
     private static final long serialVersionUID = 1L;
@@ -138,6 +141,14 @@ public class Productos implements Serializable {
 
     public void setPresupuestoDetList(List<PresupuestoDet> presupuestoDetList) {
         this.presupuestoDetList = presupuestoDetList;
+    }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
     }
     
 }

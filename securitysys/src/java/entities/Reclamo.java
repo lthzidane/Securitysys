@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,6 +27,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -43,6 +46,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Reclamo.findBySolucion", query = "SELECT r FROM Reclamo r WHERE r.solucion = :solucion"),
     @NamedQuery(name = "Reclamo.findBetweenFechaIngreso", query = "SELECT r FROM Reclamo r WHERE r.fechaIngreso BETWEEN :startDate AND :endDate")})
 public class Reclamo implements Serializable {
+    @OneToMany(mappedBy = "idReclamo")
+    private List<OrdenTrabajoCab> ordenTrabajoCabList;
 
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     @ManyToOne(optional = false)
@@ -225,6 +230,15 @@ public class Reclamo implements Serializable {
 
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    @XmlTransient
+    public List<OrdenTrabajoCab> getOrdenTrabajoCabList() {
+        return ordenTrabajoCabList;
+    }
+
+    public void setOrdenTrabajoCabList(List<OrdenTrabajoCab> ordenTrabajoCabList) {
+        this.ordenTrabajoCabList = ordenTrabajoCabList;
     }
 
 }
