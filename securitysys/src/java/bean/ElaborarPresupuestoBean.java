@@ -117,9 +117,8 @@ public class ElaborarPresupuestoBean implements Serializable {
             this.presupuestoCab = new PresupuestoCab();
 
             PresupuestoCabPK presupuestoCabPK = new PresupuestoCabPK();
-            long seed = Long.parseLong("25");
-            Random rand = new Random(seed);
-            presupuestoCabPK.setNroPresupuesto(BigInteger.valueOf(rand.nextInt()));
+            int rand = generaNumeroAleatorio(0, 1000);
+            presupuestoCabPK.setNroPresupuesto(BigInteger.valueOf(rand));
             presupuestoCabPK.setSerPresupuesto("A");
             presupuestoCabPK.setTipoPresupuesto("TIP");
 
@@ -144,6 +143,7 @@ public class ElaborarPresupuestoBean implements Serializable {
             description = "";
 
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -154,23 +154,6 @@ public class ElaborarPresupuestoBean implements Serializable {
         this.presupuestoCab.setIdCliente(new Cliente(BigDecimal.valueOf(this.idCliente)));
         this.presupuestoCab.setIdFuncionario(this.idFuncionario);
         this.presupuestoCab.setIdEstado(this.idEstado);
-        /*
-         --tipo_presupuesto character varying(4) NOT NULL,
-         --ser_presupuesto character varying(1) NOT NULL,
-         --nro_presupuesto numeric NOT NULL,
-         --id_cliente numeric NOT NULL,
-         --fecha date NOT NULL,
-         --id_funcionario numeric NOT NULL,
-         id_estado numeric NOT NULL,
-         id_sucursal numeric,
-         forma_pago character varying(10),
-         plazo_entrega character varying(3),
-         validez character varying(3),
-         observacion character varying(100),
-         total numeric,
-         descuento numeric,
-         base_imponible numeric,
-         */
         persistPresupuestoCab(JsfUtil.PersistAction.CREATE, null);
         System.out.println("se guardó la PresupuestoCab con exito > " + JsfUtil.isValidationFailed());
 
@@ -433,6 +416,12 @@ public class ElaborarPresupuestoBean implements Serializable {
     public void removeTarea(PresupuestoDet item) {
         listaDetallesEliminados.add(item);
         this.listaDetalle.remove(item);
+    }
+
+    public static int generaNumeroAleatorio(int minimo, int maximo) {
+
+        int num = (int) Math.floor(Math.random() * (maximo - minimo + 1) + (minimo));
+        return num;
     }
 
 }

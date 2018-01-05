@@ -132,7 +132,9 @@
                         </p:dataTable>
                         <br/><br/>
                         <h:panelGroup layout="block">
-                            <p:commandButton action="#{OrdenTrabajoBean.guardarOrdenTrabajo}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatable clienteFilter nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente encabezado" id="buttonGuardar" value="Guardar" style="font-size: 12px;"/>
+                            <p:commandButton action="#{OrdenTrabajoBean.guardarOrdenTrabajo}" 
+                                             update=":growl buttonIT buttonFT estado tecnico tipoServicio datatable clienteFilter nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente encabezado" 
+                                             id="buttonGuardar" value="Guardar" style="font-size: 12px;"/>
                             <p:commandButton action="#{OrdenTrabajoBean.volver}" id="buttonCancelar" value="Cancelar" immediate="true" style="font-size: 12px;"/>
                         </h:panelGroup>
 

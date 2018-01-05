@@ -11,6 +11,7 @@
             <h:outputText styleClass="containerTitle" value="Elaborar Presupuesto"/>
         </ui:define>
         <ui:define name="container">
+            <p:growl id="growl" life="3000" />
             <script name="jquery/jquery.js" library="primefaces"></script> 
             <h:form id="form">  
                 <p:remoteCommand name="buscarCliente" update="razonSocialCliente" 
@@ -154,7 +155,8 @@
                     </p:dataTable>
                     <br/><br/>
                     <p:commandButton action="#{ElaborarPresupuestoBean.guardarPresupuesto}" id="buttonGuardar" value="Guardar" 
-                                     ajax="true" icon="ui-icon-refresh" style="font-size: 12px;"/>
+                                     update=":growl estado datatable clienteFilter razonSocialCliente encabezado" 
+                                     icon="ui-icon-refresh" style="font-size: 12px;"/>
                     <p:commandButton action="Volver" id="buttonCancelar" value="Cancelar" immediate="true" style="font-size: 12px;"/>
                 </p:panel>
             </h:form>
