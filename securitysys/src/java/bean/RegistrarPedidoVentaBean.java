@@ -96,7 +96,7 @@ public class RegistrarPedidoVentaBean implements Serializable {
     private List<Departamento> listaDepartamentos = new ArrayList<>();
     private ArrayList<Tecnicos> listaTecnicos = new ArrayList<>();
     private ArrayList<Sucursales> listaSucursales = new ArrayList<>();
-    private List<EstadoTrab> listaEstados = new ArrayList<>();
+    private List<Estado> listaEstados = new ArrayList<>();
     private List<Productos> listaProductos = new ArrayList<>();
     private List<Funcionario> listaFuncionarios = new ArrayList<>();
 
@@ -201,7 +201,7 @@ public class RegistrarPedidoVentaBean implements Serializable {
 
                 this.listaFuncionarios = funcionarioFacade.findAll();
 
-                this.listaEstados = estadoTrabFacade.findAll();
+                this.listaEstados = estadoFacade.findAll();
                 this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
 
                 this.listaDepartamentos = departamentoFacade.findAll();

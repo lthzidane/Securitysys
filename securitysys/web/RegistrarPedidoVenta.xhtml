@@ -17,6 +17,8 @@
             <h:form id="form">
                 <p:remoteCommand name="buscarCliente" update="nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente" 
                                  actionListener="#{RegistrarPedidoVentaBean.obtenerDatosCliente}" />
+                <p:remoteCommand name="refreshFooter" update="datatable" actionListener="#{RegistrarPedidoVentaBean.refrescarFooter}" />
+                
                 <p:panel id="encabezado"  header="Pedido de Venta Nro: #{RegistrarPedidoVentaBean.nroOrden}">
                     <h:panelGrid columns="8" cellpadding="5" >
                         <p:watermark for="clienteFilter" value="Nro. de Cedula o Ruc" id="watermark" />
