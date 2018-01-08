@@ -86,6 +86,7 @@
                                 <p:menuitem value="Rol" disabled="true" />
                                 <p:menuitem outcome="/departamento/List" value="Departamento" />
                             </p:submenu>
+                            <p:menuitem outcome="/tecnicos/List" value="Tecnico" />
                         </p:submenu>
 
                         <p:submenu label="Instalaciones">
@@ -121,7 +122,7 @@
                             <p:menuitem outcome="/ReportesReclamos" value="Reclamos" rendered="#{login.showMenu(access.Jefe_View) || login.showMenu(access.Admin_View)}" />
                             <p:menuitem outcome="/ReportesVentas" value="Ventas" rendered="#{login.showMenu(access.Jefe_View) || login.showMenu(access.Admin_View) || login.showMenu(access.Admin_View)}" />                            
                         </p:submenu>
-                        <p:menuitem outcome="/tecnicos/List" value="Tecnico" />
+                        
                     </p:menubar>
 
                 </h:form>
