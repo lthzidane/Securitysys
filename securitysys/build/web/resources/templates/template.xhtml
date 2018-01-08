@@ -44,24 +44,28 @@
                                 <p:menuitem value="Nacionalidad" disabled="true" />                                   
                                 <p:menuitem outcome="/paises/List" value="Pais" />
                                 <p:menuitem value="Zona" disabled="true" />
+                                <p:menuitem value="Sucursal" disabled="true" />
                             </p:submenu>
                             <p:submenu label="Moviles">
                                 <p:menuitem outcome="/moviles/List" value="Movil" />
                                 <p:menuitem value="Tipo Movil" disabled="true" />
                                 <p:menuitem value="Marca" disabled="true" />
                                 <p:menuitem value="Modelo" disabled="true" />
+                                <p:menuitem value="Ruta" disabled="true" />
                             </p:submenu>
                             <p:submenu label="Productos">
                                 <p:menuitem value="Categoria" disabled="true" />
-                                <p:menuitem outcome="/medidas/List" value="Medida" />
-                                <p:menuitem value="Tipo Producto" disabled="true"/>
-                                <p:menuitem outcome="/productos/List" value="Producto" />
+                                <p:menuitem value="Equipo" disabled="true"/>
                             </p:submenu>
                             <p:submenu label="Contables">
                                 <p:menuitem value="Entidad Emisora" disabled="true" />
                                 <p:menuitem value="Banco" disabled="true" />
                                 <p:menuitem value="Tipo Tarjeta" disabled="true" />
+                                <p:menuitem value="Marca Tarjeta" disabled="true" />
                                 <p:menuitem value="Procesadora" disabled="true" />
+                                <p:menuitem value="Tipo Comprobante" disabled="true" />
+                                <p:menuitem value="Serie Comprobante" disabled="true" />
+                                <p:menuitem value="Caja" disabled="true" />
                             </p:submenu>
                             <p:submenu label="Ref.Compra-Venta">
                                 <p:menuitem value="Timbrado" disabled="true" />
@@ -75,6 +79,7 @@
                                 <p:menuitem outcome="/estado/List" value="Estado" />
                                 <p:menuitem value="Promo" disabled="true" />
                                 <p:menuitem value="Segmento" disabled="true" />
+                                <p:menuitem value="Empresa" disabled="true" />
                             </p:submenu>
                             <p:submenu label="Seguridad">
                                 <p:menuitem outcome="/usuario/List" value="Usuario" />
@@ -94,7 +99,6 @@
 
                         <p:submenu label="Reclamos">                            
                             <p:menuitem outcome="/GestionarReclamo" value="Registrar Reclamos" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
-                            <p:menuitem outcome="/GenerarReclamoPorZona" value="Generar Reclamo por Zonas" disabled="true" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
                             <p:menuitem value="Generar Itinerario" disabled="true" />                            
                             <p:menuitem value="Registrar Diagnostico" disabled="true" />                                                        
                             <p:menuitem value="Presupuesto Reclamo" disabled="true" />                                                        
@@ -117,6 +121,7 @@
                             <p:menuitem outcome="/ReportesReclamos" value="Reclamos" rendered="#{login.showMenu(access.Jefe_View) || login.showMenu(access.Admin_View)}" />
                             <p:menuitem outcome="/ReportesVentas" value="Ventas" rendered="#{login.showMenu(access.Jefe_View) || login.showMenu(access.Admin_View) || login.showMenu(access.Admin_View)}" />                            
                         </p:submenu>
+                        <p:menuitem outcome="/tecnicos/List" value="Tecnico" />
                     </p:menubar>
 
                 </h:form>
