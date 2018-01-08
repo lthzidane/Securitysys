@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
     <ui:composition template="/resources/templates/template.xhtml">
-        <ui:define name="title">Reportes de Instalaciones</ui:define>
+        <ui:define name="title">Reportes de Reclamos</ui:define>
         <ui:define name="containerTitle">
             <h:outputText styleClass="containerTitle" value="Reportes de Instalaciones"/>
         </ui:define>
@@ -27,7 +27,7 @@
             <h:form id="form">
                 <p:remoteCommand name="filtrarFechasRecl" update="form:tabView:datatableRecl" actionListener="#{ReportesReclamoBean.filtrarFechasRecl}" />
                 <p:tabView id="tabView">
-                    <p:tab title="Detalle_Rcl" titleStyle="font-size: 12px;">
+                    <p:tab title="Detalle Reclamo" titleStyle="font-size: 12px;">
                         <p:dataTable id="datatableRecl" 
                                      value="#{ReportesReclamoBean.listaReclamo}" 
                                      rowKey="#{item.idReclamo}"

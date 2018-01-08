@@ -51,7 +51,7 @@ import session.util.JsfUtil.PersistAction;
 @ManagedBean(name="AsignacionTecnicoBean")
 @ViewScoped
 @Data
-public class AsignacionTecnicoBean implements Serializable{
+public class GenerarReclamoPorZonaBean implements Serializable{
     private static final long serialVersionUID = 1L;
     
     private String nroDeReclamo;
