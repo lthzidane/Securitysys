@@ -37,19 +37,16 @@
             <file>file:/C:/test/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/MonitoreoClientesBean.java</file>
         </group>
-        <group name="SecuritySys">
-            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/RegistrarPedidoVenta.xhtml</file>
-            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/ElaborarPresupuesto.xhtml</file>
-            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/bean/ElaborarPresupuestoBean.java</file>
-            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/bean/RegistrarPedidoVentaBean.java</file>
-            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/entities/VentasCab.java</file>
-            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/bean/EstadoTrabFacade.java</file>
-            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/session/EstadoController.java</file>
-            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/bean/OrdenTrabajoBean.java</file>
-        </group>
         <group>
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/DataConnect.java</file>
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/LoginDao.java</file>
+        </group>
+        <group name="SecuritySys">
+            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/ReportesVentas.xhtml</file>
+            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/ReportesReclamos.xhtml</file>
+            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
+            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/GenerarReclamoPorZona.xhtml</file>
+            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/bean/GenerarReclamoPorZonaBean.java</file>
         </group>
     </open-files>
 </project-private>
