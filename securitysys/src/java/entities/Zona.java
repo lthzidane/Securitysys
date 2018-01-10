@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,11 +34,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Zona.findByIdZona", query = "SELECT z FROM Zona z WHERE z.idZona = :idZona"),
     @NamedQuery(name = "Zona.findByDescripcion", query = "SELECT z FROM Zona z WHERE z.descripcion = :descripcion")})
 public class Zona implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_zona")
+    @GeneratedValue(generator = "ZonaSeq")
+    @SequenceGenerator(name = "ZonaSeq", sequenceName = "zona_id_zona_seq", allocationSize = 1)
     private Integer idZona;
     @Basic(optional = false)
     @NotNull
@@ -57,7 +60,7 @@ public class Zona implements Serializable {
 
     public Zona(Integer idZona, String descripcion) {
         this.idZona = idZona;
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.toUpperCase();
     }
 
     public Integer getIdZona() {
@@ -73,7 +76,7 @@ public class Zona implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.toUpperCase();
     }
 
     public Ciudad getIdCiudad() {
@@ -108,5 +111,5 @@ public class Zona implements Serializable {
     public String toString() {
         return "entities.Zona[ idZona=" + idZona + " ]";
     }
-    
+
 }

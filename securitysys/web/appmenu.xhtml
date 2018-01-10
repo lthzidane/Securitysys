@@ -11,8 +11,10 @@
             <p:menubar>
                 <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
                 <p:submenu label="#{bundle.Maintenance}">
-                    <p:menuitem value="#{bundle.NacionalidadHeading}..." outcome="/nacionalidad/index" />
+                    <p:menuitem value="#{bundle.CiudadHeading}..." outcome="/ciudad/index" />
+                    <p:menuitem value="#{bundle.ZonaHeading}..." outcome="/zona/index" />
                 </p:submenu>
+                <p:menuitem value="#{bundle.Mobile}" outcome="/mobile/index" icon="ui-icon-signal"/>
             </p:menubar>
         </h:form>
     </ui:composition>

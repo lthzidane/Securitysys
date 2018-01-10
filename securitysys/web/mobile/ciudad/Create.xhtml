@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CiudadCreatePage" lazy="true">
+        <pm:header title="#{bundle.CreateCiudadTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{bundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CiudadListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CiudadCreateForm">
+
+                <h:panelGroup id="display" rendered="#{ciudadController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.CreateCiudadLabel_ciudad}" for="ciudad" />
+                            <p:inputTextarea rows="4" cols="30" id="ciudad" value="#{ciudadController.selected.ciudad}" title="#{bundle.CreateCiudadTitle_ciudad}" required="true" requiredMessage="#{bundle.CreateCiudadRequiredMessage_ciudad}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{ciudadController.saveNew}" value="#{bundle.Save}" update="display,:CiudadListPage:CiudadListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:CiudadListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

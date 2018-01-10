@@ -1,7 +1,7 @@
-package bean;
+package session;
 
+import bean.NacionalidadFacade;
 import entities.Nacionalidad;
-import session.NacionalidadFacade;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
