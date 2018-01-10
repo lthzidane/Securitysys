@@ -58,7 +58,7 @@ public class Stock implements Serializable {
     private Productos productos;
     @JoinColumn(name = "id_sucursal", referencedColumnName = "id_sucursal")
     @ManyToOne(optional = false)
-    private Sucursales idSucursal;
+    private Sucursal idSucursal;
 
     public Stock() {
     }
@@ -113,11 +113,11 @@ public class Stock implements Serializable {
         this.productos = productos;
     }
 
-    public Sucursales getIdSucursal() {
+    public Sucursal getIdSucursal() {
         return idSucursal;
     }
 
-    public void setIdSucursal(Sucursales idSucursal) {
+    public void setIdSucursal(Sucursal idSucursal) {
         this.idSucursal = idSucursal;
     }
 

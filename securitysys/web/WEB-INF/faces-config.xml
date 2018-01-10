@@ -42,19 +42,12 @@
         </navigation-case>
     </navigation-rule>        
     <navigation-rule>
-        <from-view-id>/ciudad/List.xhtml</from-view-id>
+        <from-view-id>/nacionalidad/List.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>    
-    <navigation-rule>
-        <from-view-id>/paises/List.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>login</from-outcome>
-            <to-view-id>/login.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>    
+    </navigation-rule>     
     <navigation-rule>
         <from-view-id>/tipoDocumento/List.xhtml</from-view-id>
         <navigation-case>
@@ -138,5 +131,5 @@
             <from-outcome>login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>   
+    </navigation-rule>
 </faces-config>

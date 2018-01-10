@@ -42,11 +42,14 @@
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/LoginDao.java</file>
         </group>
         <group name="SecuritySys">
-            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/ReportesVentas.xhtml</file>
-            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/ReportesReclamos.xhtml</file>
+            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/bean/SucursalesFacade.java</file>
+            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/session/SucursalesController.java</file>
+            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/bean/RegistrarPedidoVentaBean.java</file>
+            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/entities/VentasCab.java</file>
+            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/entities/Depositos.java</file>
             <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
-            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/GenerarReclamoPorZona.xhtml</file>
-            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/bean/GenerarReclamoPorZonaBean.java</file>
+            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/entities/Ciudad.java</file>
+            <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/src/java/entities/Stock.java</file>
         </group>
     </open-files>
 </project-private>

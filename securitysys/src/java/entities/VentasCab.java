@@ -90,7 +90,7 @@ public class VentasCab implements Serializable {
     private SerieComprobante serieComprobante;
     @JoinColumn(name = "id_sucursal", referencedColumnName = "id_sucursal")
     @ManyToOne(optional = false)
-    private Sucursales idSucursal;
+    private Sucursal idSucursal;
     @JoinColumn(name = "tipo_comprobante", referencedColumnName = "id_comprobante", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private TipoComprobante tipoComprobante1;
@@ -203,11 +203,11 @@ public class VentasCab implements Serializable {
         this.serieComprobante = serieComprobante;
     }
 
-    public Sucursales getIdSucursal() {
+    public Sucursal getIdSucursal() {
         return idSucursal;
     }
 
-    public void setIdSucursal(Sucursales idSucursal) {
+    public void setIdSucursal(Sucursal idSucursal) {
         this.idSucursal = idSucursal;
     }
 

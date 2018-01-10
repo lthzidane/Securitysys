@@ -5,7 +5,7 @@
  */
 package bean;
 
-import entities.Sucursales;
+import entities.Sucursal;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Acer
  */
 @Stateless
-public class SucursalesFacade extends AbstractFacade<Sucursales> {
+public class SucursalesFacade extends AbstractFacade<Sucursal> {
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -25,7 +25,7 @@ public class SucursalesFacade extends AbstractFacade<Sucursales> {
     }
 
     public SucursalesFacade() {
-        super(Sucursales.class);
+        super(Sucursal.class);
     }
     
 }

@@ -14,8 +14,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -39,7 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Ciudad.findByCiudad", query = "SELECT c FROM Ciudad c WHERE c.ciudad = :ciudad")})
 public class Ciudad implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCiudad")
-    private List<Zonas> zonasList;
+    private List<Zona> zonaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCiudad")
+    private List<Sucursal> sucursalList;
+   
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -47,7 +48,7 @@ public class Ciudad implements Serializable {
     @NotNull
     @Column(name = "id_ciudad")
     @GeneratedValue(generator="CiuSeq") 
-    @SequenceGenerator(name="CiuSeq",sequenceName="id_ciudad_ciudad_seq_1", allocationSize=1) 
+    @SequenceGenerator(name="CiuSeq",sequenceName="ciudad_id_ciudad_seq", allocationSize=1) 
     private BigDecimal idCiudad;
     @Basic(optional = false)
     @NotNull
@@ -56,10 +57,7 @@ public class Ciudad implements Serializable {
     private String ciudad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCiudad")
     private List<Cliente> clienteList;
-    @JoinColumn(name = "id_pais", referencedColumnName = "id_pais")
-    @ManyToOne(optional = false)
-    private Paises idPais;
-
+    
     public Ciudad() {
     }
 
@@ -85,7 +83,7 @@ public class Ciudad implements Serializable {
     }
 
     public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+        this.ciudad = ciudad.toUpperCase();
     }
 
     @XmlTransient
@@ -95,14 +93,6 @@ public class Ciudad implements Serializable {
 
     public void setClienteList(List<Cliente> clienteList) {
         this.clienteList = clienteList;
-    }
-
-    public Paises getIdPais() {
-        return idPais;
-    }
-
-    public void setIdPais(Paises idPais) {
-        this.idPais = idPais;
     }
 
     @Override
@@ -131,12 +121,21 @@ public class Ciudad implements Serializable {
     }
 
     @XmlTransient
-    public List<Zonas> getZonasList() {
-        return zonasList;
+    public List<Zona> getZonaList() {
+        return zonaList;
     }
 
-    public void setZonasList(List<Zonas> zonasList) {
-        this.zonasList = zonasList;
+    public void setZonaList(List<Zona> zonaList) {
+        this.zonaList = zonaList;
+    }
+
+    @XmlTransient
+    public List<Sucursal> getSucursalList() {
+        return sucursalList;
+    }
+
+    public void setSucursalList(List<Sucursal> sucursalList) {
+        this.sucursalList = sucursalList;
     }
     
 }

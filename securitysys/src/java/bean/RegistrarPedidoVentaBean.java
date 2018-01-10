@@ -22,7 +22,7 @@ import entities.Productos;
 import entities.ProductosKit;
 import entities.Reclamo;
 import entities.Subtipo;
-import entities.Sucursales;
+import entities.Sucursal;
 import entities.Tecnicos;
 import entities.Tiporeclamo;
 import java.io.Serializable;
@@ -95,7 +95,7 @@ public class RegistrarPedidoVentaBean implements Serializable {
     private String descripcion;
     private List<Departamento> listaDepartamentos = new ArrayList<>();
     private ArrayList<Tecnicos> listaTecnicos = new ArrayList<>();
-    private ArrayList<Sucursales> listaSucursales = new ArrayList<>();
+    private ArrayList<Sucursal> listaSucursales = new ArrayList<>();
     private List<Estado> listaEstados = new ArrayList<>();
     private List<Productos> listaProductos = new ArrayList<>();
     private List<Funcionario> listaFuncionarios = new ArrayList<>();
@@ -381,11 +381,11 @@ public class RegistrarPedidoVentaBean implements Serializable {
 
     }
 
-    private ArrayList<Sucursales> obtenerSucursales() {
+    private ArrayList<Sucursal> obtenerSucursales() {
         Connection con = null;
         PreparedStatement ps = null;
-        Sucursales sucursal = null;
-        ArrayList<Sucursales> list = new ArrayList<>();
+        Sucursal sucursal = null;
+        ArrayList<Sucursal> list = new ArrayList<>();
 
         try {
             con = DataConnect.getConnection();
@@ -394,16 +394,16 @@ public class RegistrarPedidoVentaBean implements Serializable {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                sucursal = new Sucursales();
+                sucursal = new Sucursal();
                 String id_tecnico = rs.getString("id_sucursal");
                 String nombre = rs.getString("descripcion");
 
-                sucursal.setIdSucursal(BigDecimal.valueOf(Integer.parseInt(id_tecnico)));
+                sucursal.setIdSucursal(Integer.parseInt(id_tecnico));
                 sucursal.setDescripcion(nombre);
                 list.add(sucursal);
             }
         } catch (SQLException ex) {
-            System.out.println("Error al obtener Sucursales -->" + ex.getMessage());
+            System.out.println("Error al obtener Sucursal -->" + ex.getMessage());
 
         } finally {
             DataConnect.close(con);

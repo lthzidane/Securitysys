@@ -56,7 +56,7 @@ public class Depositos implements Serializable {
     private String descripcion;
     @JoinColumn(name = "id_sucursal", referencedColumnName = "id_sucursal")
     @ManyToOne(optional = false)
-    private Sucursales idSucursal;
+    private Sucursal idSucursal;
 
     public Depositos() {
     }
@@ -86,11 +86,11 @@ public class Depositos implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Sucursales getIdSucursal() {
+    public Sucursal getIdSucursal() {
         return idSucursal;
     }
 
-    public void setIdSucursal(Sucursales idSucursal) {
+    public void setIdSucursal(Sucursal idSucursal) {
         this.idSucursal = idSucursal;
     }
 

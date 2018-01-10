@@ -42,12 +42,6 @@
                             </f:facet>
                             <h:outputText value="#{item.ciudad}" style="text-transform: uppercase"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCiudadTitle_idPais}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idPais.nombre}"/>
-                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ciudadController.prepareCreate}" update=":CiudadCreateForm" oncomplete="PF('CiudadCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CiudadViewForm" oncomplete="PF('CiudadViewDialog').show()" disabled="#{empty ciudadController.selected}"/>

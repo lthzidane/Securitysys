@@ -1,6 +1,6 @@
 package session;
 
-import entities.Sucursales;
+import entities.Sucursal;
 import session.util.JsfUtil;
 import session.util.JsfUtil.PersistAction;
 import bean.SucursalesFacade;
@@ -25,17 +25,17 @@ public class SucursalesController implements Serializable {
 
     @EJB
     private bean.SucursalesFacade ejbFacade;
-    private List<Sucursales> items = null;
-    private Sucursales selected;
+    private List<Sucursal> items = null;
+    private Sucursal selected;
 
     public SucursalesController() {
     }
 
-    public Sucursales getSelected() {
+    public Sucursal getSelected() {
         return selected;
     }
 
-    public void setSelected(Sucursales selected) {
+    public void setSelected(Sucursal selected) {
         this.selected = selected;
     }
 
@@ -49,8 +49,8 @@ public class SucursalesController implements Serializable {
         return ejbFacade;
     }
 
-    public Sucursales prepareCreate() {
-        selected = new Sucursales();
+    public Sucursal prepareCreate() {
+        selected = new Sucursal();
         initializeEmbeddableKey();
         return selected;
     }
@@ -74,7 +74,7 @@ public class SucursalesController implements Serializable {
         }
     }
 
-    public List<Sucursales> getItems() {
+    public List<Sucursal> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,15 +109,15 @@ public class SucursalesController implements Serializable {
         }
     }
 
-    public List<Sucursales> getItemsAvailableSelectMany() {
+    public List<Sucursal> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Sucursales> getItemsAvailableSelectOne() {
+    public List<Sucursal> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Sucursales.class)
+    @FacesConverter(forClass = Sucursal.class)
     public static class SucursalesControllerConverter implements Converter {
 
         @Override
@@ -136,7 +136,7 @@ public class SucursalesController implements Serializable {
             return key;
         }
 
-        String getStringKey(java.math.BigDecimal value) {
+        String getStringKey(Integer value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -147,11 +147,11 @@ public class SucursalesController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Sucursales) {
-                Sucursales o = (Sucursales) object;
+            if (object instanceof Sucursal) {
+                Sucursal o = (Sucursal) object;
                 return getStringKey(o.getIdSucursal());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Sucursales.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Sucursal.class.getName()});
                 return null;
             }
         }
