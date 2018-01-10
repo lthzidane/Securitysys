@@ -1,7 +1,8 @@
 package session;
 
 import bean.AbstractFacade;
-import bean.util.JsfUtil;
+import bean.LazyEntityDataModel;
+import session.util.JsfUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;

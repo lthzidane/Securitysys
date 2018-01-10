@@ -10,12 +10,12 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,11 +35,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Sucursal.findByDirSucursal", query = "SELECT s FROM Sucursal s WHERE s.dirSucursal = :dirSucursal"),
     @NamedQuery(name = "Sucursal.findByTelSucursal", query = "SELECT s FROM Sucursal s WHERE s.telSucursal = :telSucursal")})
 public class Sucursal implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_sucursal")
+    @GeneratedValue(generator = "SucurSeq")
+    @SequenceGenerator(name = "SucurSeq", sequenceName = "sucursal_id_sucursal_seq", allocationSize = 1)
     private Integer idSucursal;
     @Basic(optional = false)
     @NotNull
@@ -69,8 +71,8 @@ public class Sucursal implements Serializable {
 
     public Sucursal(Integer idSucursal, String descripcion, String dirSucursal, String telSucursal) {
         this.idSucursal = idSucursal;
-        this.descripcion = descripcion;
-        this.dirSucursal = dirSucursal;
+        this.descripcion = descripcion.toUpperCase();
+        this.dirSucursal = dirSucursal.toUpperCase();
         this.telSucursal = telSucursal;
     }
 
@@ -87,7 +89,7 @@ public class Sucursal implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.toUpperCase();
     }
 
     public String getDirSucursal() {
@@ -95,7 +97,7 @@ public class Sucursal implements Serializable {
     }
 
     public void setDirSucursal(String dirSucursal) {
-        this.dirSucursal = dirSucursal;
+        this.dirSucursal = dirSucursal.toUpperCase();
     }
 
     public String getTelSucursal() {
@@ -138,5 +140,5 @@ public class Sucursal implements Serializable {
     public String toString() {
         return "entities.Sucursal[ idSucursal=" + idSucursal + " ]";
     }
-    
+
 }

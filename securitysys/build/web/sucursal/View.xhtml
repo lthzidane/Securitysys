@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SucursalViewDlg" widgetVar="SucursalViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewSucursalTitle}" closeOnEscape="true">
+
+            <h:form id="SucursalViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{sucursalController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewSucursalLabel_idSucursal}"/>
+                        <h:outputText value="#{sucursalController.selected.idSucursal}" title="#{bundle.ViewSucursalTitle_idSucursal}"/>
+
+                        <h:outputText value="#{bundle.ViewSucursalLabel_descripcion}"/>
+                        <h:outputText value="#{sucursalController.selected.descripcion}" title="#{bundle.ViewSucursalTitle_descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewSucursalLabel_dirSucursal}"/>
+                        <h:outputText value="#{sucursalController.selected.dirSucursal}" title="#{bundle.ViewSucursalTitle_dirSucursal}"/>
+
+                        <h:outputText value="#{bundle.ViewSucursalLabel_telSucursal}"/>
+                        <h:outputText value="#{sucursalController.selected.telSucursal}" title="#{bundle.ViewSucursalTitle_telSucursal}"/>
+
+                        <h:outputText value="#{bundle.ViewSucursalLabel_idCiudad}"/>
+                        <h:outputText value="#{sucursalController.selected.idCiudad.idCiudad}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('SucursalViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
