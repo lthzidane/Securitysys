@@ -3,6 +3,7 @@ package session.util;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UISelectItem;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
@@ -59,6 +60,19 @@ public class JsfUtil {
     public static Object getObjectFromRequestParameter(String requestParameterName, Converter converter, UIComponent component) {
         String theId = JsfUtil.getRequestParameter(requestParameterName);
         return converter.getAsObject(FacesContext.getCurrentInstance(), component, theId);
+    }
+
+    public static boolean isDummySelectItem(UIComponent component, String value) {
+        for (UIComponent children : component.getChildren()) {
+            if (children instanceof UISelectItem) {
+                UISelectItem item = (UISelectItem) children;
+                if (item.getItemValue() == null && item.getItemLabel().equals(value)) {
+                    return true;
+                }
+                break;
+            }
+        }
+        return false;
     }
 
     public static enum PersistAction {

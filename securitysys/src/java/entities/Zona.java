@@ -6,7 +6,9 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,11 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Zona.findByIdZona", query = "SELECT z FROM Zona z WHERE z.idZona = :idZona"),
     @NamedQuery(name = "Zona.findByDescripcion", query = "SELECT z FROM Zona z WHERE z.descripcion = :descripcion")})
 public class Zona implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idZona")
+    private List<Ruta> rutaList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -110,6 +116,15 @@ public class Zona implements Serializable {
     @Override
     public String toString() {
         return "entities.Zona[ idZona=" + idZona + " ]";
+    }
+
+    @XmlTransient
+    public List<Ruta> getRutaList() {
+        return rutaList;
+    }
+
+    public void setRutaList(List<Ruta> rutaList) {
+        this.rutaList = rutaList;
     }
 
 }

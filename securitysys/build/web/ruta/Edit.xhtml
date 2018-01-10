@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RutaEditDlg" widgetVar="RutaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditRutaTitle}" closeOnEscape="true">
+
+            <h:form id="RutaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{rutaController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditRutaLabel_idRuta}" for="idRuta" />
+                        <h:outputText id="idRuta" value="#{rutaController.selected.idRuta}" />
+
+                        <p:outputLabel value="#{bundle.EditRutaLabel_diasRecorridos}" for="diasRecorridos" />
+                        <p:inputText id="diasRecorridos" value="#{rutaController.selected.diasRecorridos}" title="#{bundle.EditRutaTitle_diasRecorridos}" required="true" requiredMessage="#{bundle.EditRutaRequiredMessage_diasRecorridos}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{bundle.EditRutaLabel_idZona}" for="idZona" />
+                        <p:selectOneMenu id="idZona" value="#{rutaController.selected.idZona}" required="true" requiredMessage="#{bundle.EditRutaRequiredMessage_idZona}" converter="zonaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{zonaController.items}"
+                                           var="idZonaItem"
+                                           itemValue="#{idZonaItem}"
+                                           itemLabel="#{idZonaItem.descripcion}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rutaController.save}" value="#{bundle.Save}" update="display,:RutaListForm:datalist,:growl" oncomplete="handleSubmit(args,'RutaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="RutaEditDialog.hide()" immediate="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

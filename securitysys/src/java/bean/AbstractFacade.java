@@ -194,6 +194,5 @@ public abstract class AbstractFacade<T> {
                 break;
         }
         return expression;
-    }
-    
+    } 
 }

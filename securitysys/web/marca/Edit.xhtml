@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MarcaEditDlg" widgetVar="MarcaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditMarcaTitle}" closeOnEscape="true">
+
+            <h:form id="MarcaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{marcaController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditMarcaLabel_idMarca}" for="idMarca" />
+                        <h:outputText id="idMarca" value="#{marcaController.selected.idMarca}" />
+
+                        <p:outputLabel value="#{bundle.EditMarcaLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{marcaController.selected.descripcion}" title="#{bundle.EditMarcaTitle_descripcion}" required="true" requiredMessage="#{bundle.EditMarcaRequiredMessage_descripcion}" size="60" maxlength="60" style="text-transform: uppercase"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{marcaController.save}" value="#{bundle.Save}" update="display,:MarcaListForm:datalist,:growl" oncomplete="handleSubmit(args,'MarcaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MarcaEditDialog.hide()" immediate="true" />
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

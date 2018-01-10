@@ -281,6 +281,7 @@ public abstract class AbstractController<T> implements Serializable {
         return JsfUtil.isValidationFailed();
     }
 
+
     /**
      * Retrieve a collection of Entity items for a specific Controller from
      * another JSF page via Request parameters.

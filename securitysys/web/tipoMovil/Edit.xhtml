@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoMovilEditDlg" widgetVar="TipoMovilEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditTipoMovilTitle}" closeOnEscape="true">
+
+            <h:form id="TipoMovilEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoMovilController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditTipoMovilLabel_idTipoMovil}" for="idTipoMovil" />
+                        <h:outputText id="idTipoMovil" value="#{tipoMovilController.selected.idTipoMovil}" />
+
+                        <p:outputLabel value="#{bundle.EditTipoMovilLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{tipoMovilController.selected.descripcion}" title="#{bundle.EditTipoMovilTitle_descripcion}" required="true" requiredMessage="#{bundle.EditTipoMovilRequiredMessage_descripcion}" size="50" maxlength="50" style="text-transform: uppercase"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoMovilController.save}" value="#{bundle.Save}" update="display,:TipoMovilListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoMovilEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoMovilEditDialog.hide()" immediate="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

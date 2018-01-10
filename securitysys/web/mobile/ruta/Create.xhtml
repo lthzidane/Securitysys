@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="RutaCreatePage" lazy="true">
+        <pm:header title="#{bundle.CreateRutaTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{bundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:RutaListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="RutaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{rutaController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.CreateRutaLabel_diasRecorridos}" for="diasRecorridos" />
+                            <p:inputText id="diasRecorridos" value="#{rutaController.selected.diasRecorridos}" title="#{bundle.CreateRutaTitle_diasRecorridos}" required="true" requiredMessage="#{bundle.CreateRutaRequiredMessage_diasRecorridos}" size="50" maxlength="50"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.CreateRutaLabel_idZona}" for="idZona" />
+                            <p:selectOneMenu id="idZona" value="#{rutaController.selected.idZona}" required="true" requiredMessage="#{bundle.CreateRutaRequiredMessage_idZona}" >
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{zonaController.items}"
+                                               var="idZonaItem"
+                                               itemValue="#{idZonaItem}"
+                                               itemLabel="#{idZonaItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{rutaController.saveNew}" value="#{bundle.Save}" update="display,:RutaListPage:RutaListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:RutaListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>
