@@ -6,7 +6,9 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,11 +17,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,6 +39,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Sucursal.findByDirSucursal", query = "SELECT s FROM Sucursal s WHERE s.dirSucursal = :dirSucursal"),
     @NamedQuery(name = "Sucursal.findByTelSucursal", query = "SELECT s FROM Sucursal s WHERE s.telSucursal = :telSucursal")})
 public class Sucursal implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSucursal")
+    private List<SerieComprobante> serieComprobanteList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -139,6 +145,15 @@ public class Sucursal implements Serializable {
     @Override
     public String toString() {
         return "entities.Sucursal[ idSucursal=" + idSucursal + " ]";
+    }
+
+    @XmlTransient
+    public List<SerieComprobante> getSerieComprobanteList() {
+        return serieComprobanteList;
+    }
+
+    public void setSerieComprobanteList(List<SerieComprobante> serieComprobanteList) {
+        this.serieComprobanteList = serieComprobanteList;
     }
 
 }

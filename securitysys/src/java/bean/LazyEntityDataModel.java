@@ -12,7 +12,6 @@ import org.primefaces.model.SortOrder;
 
 /**
  * Specific implementation of LazyDataModel supporting the facade pattern
- *
  * @param <T> Entity to be used for the lazy model
  */
 public class LazyEntityDataModel<T> extends LazyDataModel<T> {

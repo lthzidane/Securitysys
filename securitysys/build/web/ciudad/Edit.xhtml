@@ -21,9 +21,7 @@
                         <p:outputLabel value="#{bundle.EditCiudadLabel_ciudad}" for="ciudad" />
                         <p:inputTextarea rows="4" cols="30" id="ciudad" value="#{ciudadController.selected.ciudad}" title="#{bundle.EditCiudadTitle_ciudad}" required="true" requiredMessage="#{bundle.EditCiudadRequiredMessage_ciudad}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ciudadController.save}" value="#{bundle.Save}" update="display,:CiudadListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CiudadEditDialog'));">
-                        <p:confirm header="#{bundle.ConfirmationHeader}" message="#{bundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
-                    </p:commandButton>
+                    <p:commandButton actionListener="#{ciudadController.save}" value="#{bundle.Save}" update="display,:CiudadListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CiudadEditDialog'));"/>
                     <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CiudadEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                 </h:panelGroup>
 

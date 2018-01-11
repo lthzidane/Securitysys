@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -52,10 +50,6 @@ public abstract class AbstractController<T> implements Serializable {
      * Initialize the concrete controller bean. This AbstractController requires
      * the EJB Facade object for most operations, and that task is performed by
      * the concrete controller bean.
-     * <p>
-     * In addition, each controller for an entity that has Many-To-One
-     * relationships, needs to establish references to those entities'
-     * controllers in order to display their information from a context menu.
      */
     public abstract void init();
 
@@ -278,19 +272,6 @@ public abstract class AbstractController<T> implements Serializable {
      */
     public boolean isValidationFailed() {
         return JsfUtil.isValidationFailed();
-    }
-
-    /**
-     * Retrieve a collection of Entity items for a specific Controller from
-     * another JSF page via Request parameters.
-     */
-    @PostConstruct
-    public void initParams() {
-        Object paramItems = FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(itemClass.getSimpleName() + "_items");
-        if (paramItems != null) {
-            setItems((Collection<T>) paramItems);
-            setLazyItems((Collection<T>) paramItems);
-        }
     }
 
 }

@@ -6,20 +6,18 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,69 +28,68 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoComprobante.findAll", query = "SELECT t FROM TipoComprobante t"),
-    @NamedQuery(name = "TipoComprobante.findByIdComprobante", query = "SELECT t FROM TipoComprobante t WHERE t.idComprobante = :idComprobante"),
-    @NamedQuery(name = "TipoComprobante.findByComprobante", query = "SELECT t FROM TipoComprobante t WHERE t.comprobante = :comprobante")})
+    @NamedQuery(name = "TipoComprobante.findByIdTipoComprobante", query = "SELECT t FROM TipoComprobante t WHERE t.idTipoComprobante = :idTipoComprobante"),
+    @NamedQuery(name = "TipoComprobante.findByDescripcion", query = "SELECT t FROM TipoComprobante t WHERE t.descripcion = :descripcion"),
+    @NamedQuery(name = "TipoComprobante.findByPrefijo", query = "SELECT t FROM TipoComprobante t WHERE t.prefijo = :prefijo")})
 public class TipoComprobante implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_tipo_comprobante")
+    private Integer idTipoComprobante;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 4)
-    @Column(name = "id_comprobante")
-    private String idComprobante;
-    @Size(max = 50)
-    @Column(name = "comprobante")
-    private String comprobante;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoComprobante1")
-    private List<VentasCab> ventasCabList;
-    @OneToMany(mappedBy = "idComprobante")
-    private List<SerieComprobante> serieComprobanteList;
+    @Size(min = 1, max = 20)
+    @Column(name = "descripcion")
+    private String descripcion;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 5)
+    @Column(name = "prefijo")
+    private String prefijo;
 
     public TipoComprobante() {
     }
 
-    public TipoComprobante(String idComprobante) {
-        this.idComprobante = idComprobante;
+    public TipoComprobante(Integer idTipoComprobante) {
+        this.idTipoComprobante = idTipoComprobante;
     }
 
-    public String getIdComprobante() {
-        return idComprobante;
+    public TipoComprobante(Integer idTipoComprobante, String descripcion, String prefijo) {
+        this.idTipoComprobante = idTipoComprobante;
+        this.descripcion = descripcion.toUpperCase();
+        this.prefijo = prefijo.toUpperCase();
     }
 
-    public void setIdComprobante(String idComprobante) {
-        this.idComprobante = idComprobante;
+    public Integer getIdTipoComprobante() {
+        return idTipoComprobante;
     }
 
-    public String getComprobante() {
-        return comprobante;
+    public void setIdTipoComprobante(Integer idTipoComprobante) {
+        this.idTipoComprobante = idTipoComprobante;
     }
 
-    public void setComprobante(String comprobante) {
-        this.comprobante = comprobante;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    @XmlTransient
-    public List<VentasCab> getVentasCabList() {
-        return ventasCabList;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion.toUpperCase();
     }
 
-    public void setVentasCabList(List<VentasCab> ventasCabList) {
-        this.ventasCabList = ventasCabList;
+    public String getPrefijo() {
+        return prefijo;
     }
 
-    @XmlTransient
-    public List<SerieComprobante> getSerieComprobanteList() {
-        return serieComprobanteList;
-    }
-
-    public void setSerieComprobanteList(List<SerieComprobante> serieComprobanteList) {
-        this.serieComprobanteList = serieComprobanteList;
+    public void setPrefijo(String prefijo) {
+        this.prefijo = prefijo.toUpperCase();
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idComprobante != null ? idComprobante.hashCode() : 0);
+        hash += (idTipoComprobante != null ? idTipoComprobante.hashCode() : 0);
         return hash;
     }
 
@@ -103,7 +100,7 @@ public class TipoComprobante implements Serializable {
             return false;
         }
         TipoComprobante other = (TipoComprobante) object;
-        if ((this.idComprobante == null && other.idComprobante != null) || (this.idComprobante != null && !this.idComprobante.equals(other.idComprobante))) {
+        if ((this.idTipoComprobante == null && other.idTipoComprobante != null) || (this.idTipoComprobante != null && !this.idTipoComprobante.equals(other.idTipoComprobante))) {
             return false;
         }
         return true;
@@ -111,7 +108,7 @@ public class TipoComprobante implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.TipoComprobante[ idComprobante=" + idComprobante + " ]";
+        return "entities.TipoComprobante[ idTipoComprobante=" + idTipoComprobante + " ]";
     }
     
 }

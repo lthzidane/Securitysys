@@ -6,22 +6,20 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,57 +30,80 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SerieComprobante.findAll", query = "SELECT s FROM SerieComprobante s"),
-    @NamedQuery(name = "SerieComprobante.findByIdSerie", query = "SELECT s FROM SerieComprobante s WHERE s.idSerie = :idSerie")})
+    @NamedQuery(name = "SerieComprobante.findByIdSerieComprobante", query = "SELECT s FROM SerieComprobante s WHERE s.idSerieComprobante = :idSerieComprobante"),
+    @NamedQuery(name = "SerieComprobante.findByDescripcion", query = "SELECT s FROM SerieComprobante s WHERE s.descripcion = :descripcion"),
+    @NamedQuery(name = "SerieComprobante.findByPrefijo", query = "SELECT s FROM SerieComprobante s WHERE s.prefijo = :prefijo")})
 public class SerieComprobante implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(generator = "SerieCompSeq")
+    @SequenceGenerator(name = "SerieCompSeq", sequenceName = "serie_comprobante_id_serie_comprobante_seq_1", allocationSize = 1)
+    @Basic(optional = false)
+    @Column(name = "id_serie_comprobante")
+    private Integer idSerieComprobante;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2)
-    @Column(name = "id_serie")
-    private String idSerie;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serieComprobante")
-    private List<VentasCab> ventasCabList;
-    @JoinColumn(name = "id_comprobante", referencedColumnName = "id_comprobante")
-    @ManyToOne
-    private TipoComprobante idComprobante;
+    @Size(min = 1, max = 20)
+    @Column(name = "descripcion")
+    private String descripcion;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 5)
+    @Column(name = "prefijo")
+    private String prefijo;
+    @JoinColumn(name = "id_sucursal", referencedColumnName = "id_sucursal")
+    @ManyToOne(optional = false)
+    private Sucursal idSucursal;
 
     public SerieComprobante() {
     }
 
-    public SerieComprobante(String idSerie) {
-        this.idSerie = idSerie;
+    public SerieComprobante(Integer idSerieComprobante) {
+        this.idSerieComprobante = idSerieComprobante;
     }
 
-    public String getIdSerie() {
-        return idSerie;
+    public SerieComprobante(Integer idSerieComprobante, String descripcion, String prefijo) {
+        this.idSerieComprobante = idSerieComprobante;
+        this.descripcion = descripcion.toUpperCase();
+        this.prefijo = prefijo.toUpperCase();
     }
 
-    public void setIdSerie(String idSerie) {
-        this.idSerie = idSerie;
+    public Integer getIdSerieComprobante() {
+        return idSerieComprobante;
     }
 
-    @XmlTransient
-    public List<VentasCab> getVentasCabList() {
-        return ventasCabList;
+    public void setIdSerieComprobante(Integer idSerieComprobante) {
+        this.idSerieComprobante = idSerieComprobante;
     }
 
-    public void setVentasCabList(List<VentasCab> ventasCabList) {
-        this.ventasCabList = ventasCabList;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public TipoComprobante getIdComprobante() {
-        return idComprobante;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion.toUpperCase();
     }
 
-    public void setIdComprobante(TipoComprobante idComprobante) {
-        this.idComprobante = idComprobante;
+    public String getPrefijo() {
+        return prefijo;
+    }
+
+    public void setPrefijo(String prefijo) {
+        this.prefijo = prefijo.toUpperCase();
+    }
+
+    public Sucursal getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(Sucursal idSucursal) {
+        this.idSucursal = idSucursal;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idSerie != null ? idSerie.hashCode() : 0);
+        hash += (idSerieComprobante != null ? idSerieComprobante.hashCode() : 0);
         return hash;
     }
 
@@ -93,7 +114,7 @@ public class SerieComprobante implements Serializable {
             return false;
         }
         SerieComprobante other = (SerieComprobante) object;
-        if ((this.idSerie == null && other.idSerie != null) || (this.idSerie != null && !this.idSerie.equals(other.idSerie))) {
+        if ((this.idSerieComprobante == null && other.idSerieComprobante != null) || (this.idSerieComprobante != null && !this.idSerieComprobante.equals(other.idSerieComprobante))) {
             return false;
         }
         return true;
@@ -101,7 +122,7 @@ public class SerieComprobante implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.SerieComprobante[ idSerie=" + idSerie + " ]";
+        return "entities.SerieComprobante[ idSerieComprobante=" + idSerieComprobante + " ]";
     }
     
 }
