@@ -7,33 +7,23 @@ package bean;
 
 import entities.Cliente;
 import entities.Departamento;
-import entities.EstadoTrab;
+import entities.Estado;
 import entities.Funcionario;
-import entities.InstalacionCab;
 import entities.InstalacionDet;
-import entities.InstalacionDetPK;
-import entities.Medidas;
 import entities.Moviles;
 import entities.Nivel;
-import entities.OrdenTrabajoCab;
 import entities.OrdenTrabajoDet;
-import entities.Productos;
 import entities.ProductosKit;
 import entities.Reclamo;
-import entities.Subtipo;
 import entities.Tecnicos;
-import entities.TipoServicios;
-import entities.Tiporeclamo;
+import entities.TipoReclamo;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,18 +35,11 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import lombok.Data;
-import org.primefaces.event.RowEditEvent;
-import org.primefaces.event.SelectEvent;
-import session.ClienteController;
-import session.TecnicosController;
 import session.util.JsfUtil;
 import session.util.JsfUtil.PersistAction;
-import util.Sale;
 
 /**
  *
@@ -83,9 +66,9 @@ public class SeguimientoReclamoBean implements Serializable{
     private String tipoInstalacion;
     private String tecnicoResponsable;
     private Integer idCliente;
-    private String idEstadoTrab;
-    private String idTiporeclamo;
-    private String idSubTiporeclamo;
+    private String idEstado;
+    private String idTipoReclamo;
+    private String idSubTipoReclamo;
     private String idNivel;
     private Integer idFuncionario;
     private String usuario;
@@ -95,15 +78,14 @@ public class SeguimientoReclamoBean implements Serializable{
     private String nroDocumento;
     private String razonsocial;
     private String direccion;
-    private String telefono;
+    private int telefono;
     private String ciudad;
     private String descripcion;
     private String solucion = "";
-    private List<Departamento> listaDepartamentos = new ArrayList<Departamento>();
-    private ArrayList<Tecnicos> listaTecnicos = new ArrayList<Tecnicos>();
-    private List<EstadoTrab> listaEstados = new ArrayList<EstadoTrab>();
-    private List<Tiporeclamo> listaTipoReclamo = new ArrayList<Tiporeclamo>();
-    private List<Subtipo> listaSubTipoReclamo = new ArrayList<Subtipo>();
+    private List<Departamento> listaDepartamentos = new ArrayList<>();
+    private ArrayList<Tecnicos> listaTecnicos = new ArrayList<>();
+    private List<Estado> listaEstados = new ArrayList<>();
+    private List<TipoReclamo> listaTipoReclamo = new ArrayList<TipoReclamo>();
     private List<Nivel> listaNivel = new ArrayList<Nivel>();
     private List<Funcionario> listaFuncionario = new ArrayList<Funcionario>();
     private List<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
@@ -120,15 +102,12 @@ public class SeguimientoReclamoBean implements Serializable{
     @EJB
     private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
     @EJB
-    private bean.EstadoTrabFacade estadoTrabFacade = new EstadoTrabFacade();
+    private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
     private bean.DepartamentoFacade departamentoFacade = new DepartamentoFacade();
     @EJB
-    private bean.TiporeclamoFacade tiporeclamoFacade = new TiporeclamoFacade();
-    @EJB
-    private bean.SubtipoFacade subtiporeclamoFacade = new SubtipoFacade();
-    @EJB
-    private bean.NivelFacade nivelFacade = new NivelFacade();
+    private bean.TipoReclamoFacade tiporeclamoFacade = new TipoReclamoFacade();
+
     @EJB
     private bean.UsuarioFacade usuarioFacade = new UsuarioFacade();
     @EJB
@@ -170,9 +149,9 @@ public class SeguimientoReclamoBean implements Serializable{
     }
     
     public String guardarReclamo(){
-        reclamo.setIdEstadoTrab(estadoTrabFacade.findByEstado("Cerrado"));
+        //reclamo.setIdEstado(estadoTrabFacade.findByEstado("Cerrado"));
         reclamo.setSolucion(this.solucion);
-        reclamo.setFechaSolucion(this.fechaFin);
+        reclamo.setFechaAlta(this.fechaFin);
         persistReclamo(PersistAction.UPDATE, "Reclamo Editado correctamente");
         this.editando = false;
         limpiarCampos();
@@ -183,12 +162,12 @@ public class SeguimientoReclamoBean implements Serializable{
         this.nroDeReclamo = "";
         this.idReclamo = null;
         this.reclamo = null;
-        this.idEstadoTrab = "";
+        this.idEstado = "";
         this.fechaRecepcion = "";
         this.fechaInicio = null;
         this.idDepartamento = "";
-        this.idTiporeclamo = "";
-        this.idSubTiporeclamo = "";
+        this.idTipoReclamo = "";
+        this.idSubTipoReclamo = "";
         this.idNivel = "";
         this.usuario = "";
         this.descripcion = "";
@@ -196,7 +175,7 @@ public class SeguimientoReclamoBean implements Serializable{
         this.razonsocial = "";
         this.ciudad = "";
         this.direccion = "";
-        this.telefono = "";
+        this.telefono = 0;
         this.solucion = "";
     }
     
@@ -245,13 +224,12 @@ public class SeguimientoReclamoBean implements Serializable{
             System.out.println("Cargando datos del Reclamo: "+nroDeReclamo);
             this.idReclamo = Integer.parseInt(this.nroDeReclamo);
             this.reclamo = reclamoFacade.findByIdReclamo(idReclamo);
-            this.idEstadoTrab = this.reclamo.getIdEstadoTrab().getEstado();
-            this.fechaRecepcion = formatter.format(this.reclamo.getFechaIngreso());
-            this.fechaInicio = this.reclamo.getFechaIngreso();
-            this.idDepartamento = this.reclamo.getIdDpto().getNombreDpto();
-            this.idTiporeclamo = this.reclamo.getIdTiporecla().getDescripcion();
-            this.idSubTiporeclamo = this.reclamo.getIdSubtipo().getSubtipo();
-            this.idNivel = nivelFacade.findByIdNivel(this.reclamo.getIdNivel().intValue()).getNivel();  
+            //this.idEstado = this.reclamo.getIdEstado().getEstado();
+            this.fechaRecepcion = formatter.format(this.reclamo.getFechaAlta());
+            this.fechaInicio = this.reclamo.getFechaAlta();
+            this.idDepartamento = this.reclamo.getIdDepartamento().getDescripcion();
+            this.idTipoReclamo = this.reclamo.getIdTipoReclamo().getDescripcion();
+            
             this.usuario = this.reclamo.getIdUsuario().getNombre();
             this.descripcion = this.reclamo.getDescripcion();
             Cliente clienteAsociado = this.reclamo.getIdCliente();

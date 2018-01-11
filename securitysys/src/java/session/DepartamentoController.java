@@ -1,10 +1,7 @@
 package session;
 
-import entities.Departamento;
-import session.util.JsfUtil;
-import session.util.JsfUtil.PersistAction;
 import bean.DepartamentoFacade;
-
+import entities.Departamento;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -18,6 +15,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import session.util.JsfUtil;
+import session.util.JsfUtil.PersistAction;
 
 @ManagedBean(name = "departamentoController")
 @SessionScoped
@@ -136,7 +135,7 @@ public class DepartamentoController implements Serializable {
             return key;
         }
 
-        String getStringKey(java.math.BigDecimal value) {
+        String getStringKey(Integer value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -149,7 +148,7 @@ public class DepartamentoController implements Serializable {
             }
             if (object instanceof Departamento) {
                 Departamento o = (Departamento) object;
-                return getStringKey(o.getIdDpto());
+                return getStringKey(o.getIdDepartamento());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Departamento.class.getName()});
                 return null;

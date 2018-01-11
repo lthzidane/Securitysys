@@ -40,6 +40,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Sucursal.findByTelSucursal", query = "SELECT s FROM Sucursal s WHERE s.telSucursal = :telSucursal")})
 public class Sucursal implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSucursal")
+    private List<Promocion> promocionList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSucursal")
+    private List<Reclamo> reclamoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSucursal")
+    private List<Presupuesto> presupuestoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSucursal")
+    private List<Diagnostico> diagnosticoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSucursal")
     private List<SerieComprobante> serieComprobanteList;
 
     private static final long serialVersionUID = 1L;
@@ -154,6 +162,42 @@ public class Sucursal implements Serializable {
 
     public void setSerieComprobanteList(List<SerieComprobante> serieComprobanteList) {
         this.serieComprobanteList = serieComprobanteList;
+    }
+
+    @XmlTransient
+    public List<Promocion> getPromocionList() {
+        return promocionList;
+    }
+
+    public void setPromocionList(List<Promocion> promocionList) {
+        this.promocionList = promocionList;
+    }
+
+    @XmlTransient
+    public List<Reclamo> getReclamoList() {
+        return reclamoList;
+    }
+
+    public void setReclamoList(List<Reclamo> reclamoList) {
+        this.reclamoList = reclamoList;
+    }
+
+    @XmlTransient
+    public List<Presupuesto> getPresupuestoList() {
+        return presupuestoList;
+    }
+
+    public void setPresupuestoList(List<Presupuesto> presupuestoList) {
+        this.presupuestoList = presupuestoList;
+    }
+
+    @XmlTransient
+    public List<Diagnostico> getDiagnosticoList() {
+        return diagnosticoList;
+    }
+
+    public void setDiagnosticoList(List<Diagnostico> diagnosticoList) {
+        this.diagnosticoList = diagnosticoList;
     }
 
 }

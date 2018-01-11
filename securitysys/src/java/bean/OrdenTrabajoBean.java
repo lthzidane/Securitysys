@@ -4,7 +4,7 @@
  */
 package bean;
 
-import entities.EstadoTrab;
+import entities.Estado;
 import entities.OrdenTrabajoCab;
 import entities.OrdenTrabajoDet;
 import entities.Tecnicos;
@@ -58,17 +58,17 @@ public class OrdenTrabajoBean implements Serializable {
     private String observacion;
     private Integer idTecnico;
     private Integer idCliente;
-    private Integer idEstadoTrab;
+    private Integer idEstado;
     private Integer idServicio;
     private String cliente;
     private String nroDocumento;
     private String razonsocial;
     private String direccion;
-    private String telefono;
+    private int telefono;
     private String ciudad;
     private ArrayList<TipoServicios> listaServicios = new ArrayList<TipoServicios>();
     private ArrayList<Tecnicos> listaTecnicos = new ArrayList<Tecnicos>();
-    private List<EstadoTrab> listaEstados = new ArrayList<EstadoTrab>();
+    private List<Estado> listaEstados = new ArrayList<Estado>();
     private ArrayList<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
     private ArrayList<OrdenTrabajoDet> listaDetallesEliminados = new ArrayList<OrdenTrabajoDet>();
 
@@ -79,7 +79,7 @@ public class OrdenTrabajoBean implements Serializable {
     @EJB
     private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
     @EJB
-    private bean.EstadoTrabFacade estadoTrabFacade = new EstadoTrabFacade();
+    private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
     private bean.OrdenTrabajoCabFacade ordenTrabajoCabFacade;
     @EJB
@@ -119,7 +119,7 @@ public class OrdenTrabajoBean implements Serializable {
                 this.listaServicios = obtenerTiposDeServicio();
                 this.listaTecnicos = obtenerTecnicos();
                 this.listaEstados = estadoTrabFacade.findAll();
-                this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
+                this.idEstado = 1; //poner a Pendiente = 1 por defecto
 
                 listaDetalle = new ArrayList<OrdenTrabajoDet>();
 
@@ -131,7 +131,7 @@ public class OrdenTrabajoBean implements Serializable {
                 this.cliente = "";
                 this.nroDocumento = "";
                 this.ciudad = "";
-                this.telefono = "";
+                this.telefono = 0;
                 this.direccion = "";
                 this.razonsocial = "";
 
@@ -162,7 +162,7 @@ public class OrdenTrabajoBean implements Serializable {
                     this.idTecnico = otCab.getIdTecnico().getIdTecnico();
 
                     this.listaEstados = estadoTrabFacade.findAll();
-                    this.idEstadoTrab = otCab.getIdEstadoTrab().getIdEstadoTrab().intValue();
+                    this.idEstado = otCab.getIdEstado().getIdEstado().intValue();
 
                     listaDetalle = new ArrayList<OrdenTrabajoDet>();
                     System.out.println("trae OtDet: " + otCab.getOrdenTrabajoDetList().size());
@@ -218,7 +218,7 @@ public class OrdenTrabajoBean implements Serializable {
         ordenTrabajoCab.setFechaOrden(fechaOrden);
         ordenTrabajoCab.setIdEstado(null);
         ordenTrabajoCab.setIdServicio(tipoServiciosFacade.findByIdServicio(idServicio));
-        ordenTrabajoCab.setIdEstadoTrab(estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab));
+        //ordenTrabajoCab.setIdEstado(estadoTrabFacade.findByIdEstado(idEstado));
 
         //estoy creando
         if (!editando) {
@@ -350,7 +350,7 @@ public class OrdenTrabajoBean implements Serializable {
                     this.razonsocial = rs.getString("nombre") + " " + rs.getString("apellido");
                     this.ciudad = rs.getString("ciudad");
                     this.direccion = rs.getString("direccion");
-                    this.telefono = rs.getString("telefono");
+                    this.telefono = rs.getInt("telefono");
                 }
             } catch (SQLException ex) {
                 System.out.println("Error al obtener Cliente -->" + ex.getMessage());

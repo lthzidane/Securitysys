@@ -63,7 +63,7 @@
                                 <p:menuitem outcome="/serieComprobante/List" value="Serie Comprobante" />
                             </p:submenu>
                             <p:submenu label="Ref.Compra-Venta">
-                                <p:menuitem value="Timbrado" disabled="true" />
+                                <p:menuitem outcome="/timbrado/List" value="Timbrado"/>
                                 <p:menuitem outcome="/tipoDocumento/List" value="Tipo de Documento"  />
                                 <p:menuitem outcome="/moneda/List" value="Moneda" />
                                 <p:menuitem outcome="/caja/List" value="Caja" rendered="#{login.showMenu(access.Admin_View) || login.showMenu(access.Admin_View) || login.showMenu(access.Admin_View)}" />

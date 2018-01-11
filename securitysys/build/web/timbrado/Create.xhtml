@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TimbradoCreateDlg" widgetVar="TimbradoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTimbradoTitle}" closeOnEscape="true">
+
+            <h:form id="TimbradoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{timbradoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateTimbradoLabel_idTimbrado}" for="idTimbrado" />
+                        <p:inputText id="idTimbrado" value="#{timbradoController.selected.idTimbrado}" title="#{bundle.CreateTimbradoTitle_idTimbrado}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_idTimbrado}"/>
+
+                        <p:outputLabel value="#{bundle.CreateTimbradoLabel_fechaDesde}" for="fechaDesde" />
+                        <p:calendar id="fechaDesde" pattern="MM/dd/yyyy" value="#{timbradoController.selected.fechaDesde}" title="#{bundle.CreateTimbradoTitle_fechaDesde}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_fechaDesde}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateTimbradoLabel_fechaHasta}" for="fechaHasta" />
+                        <p:calendar id="fechaHasta" pattern="MM/dd/yyyy" value="#{timbradoController.selected.fechaHasta}" title="#{bundle.CreateTimbradoTitle_fechaHasta}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_fechaHasta}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateTimbradoLabel_nroDesde}" for="nroDesde" />
+                        <p:inputText id="nroDesde" value="#{timbradoController.selected.nroDesde}" title="#{bundle.CreateTimbradoTitle_nroDesde}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_nroDesde}"/>
+
+                        <p:outputLabel value="#{bundle.CreateTimbradoLabel_nroHasta}" for="nroHasta" />
+                        <p:inputText id="nroHasta" value="#{timbradoController.selected.nroHasta}" title="#{bundle.CreateTimbradoTitle_nroHasta}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_nroHasta}"/>
+
+                        <p:outputLabel value="#{bundle.CreateTimbradoLabel_ultimoNro}" for="ultimoNro" />
+                        <p:inputText id="ultimoNro" value="#{timbradoController.selected.ultimoNro}" title="#{bundle.CreateTimbradoTitle_ultimoNro}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_ultimoNro}"/>
+
+                        <p:outputLabel value="#{bundle.CreateTimbradoLabel_nroTimbrado}" for="nroTimbrado" />
+                        <p:inputText id="nroTimbrado" value="#{timbradoController.selected.nroTimbrado}" title="#{bundle.CreateTimbradoTitle_nroTimbrado}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_nroTimbrado}"/>
+
+                        <p:outputLabel value="#{bundle.CreateTimbradoLabel_idTipoComprobante}" for="idTipoComprobante" />
+                        <p:selectOneMenu id="idTipoComprobante" value="#{timbradoController.selected.idTipoComprobante}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_idTipoComprobante}" converter="tipoComprobanteConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoComprobanteController.items}"
+                                           var="idTipoComprobanteItem"
+                                           itemValue="#{idTipoComprobanteItem}"
+                                           itemLabel="#{idTipoComprobanteItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{timbradoController.saveNew}" value="#{bundle.Save}" update="display,:TimbradoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TimbradoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TimbradoCreateDialog.hide()" immediate="true" />
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

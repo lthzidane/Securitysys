@@ -4,27 +4,23 @@
  */
 package bean;
 
-import static bean.ElaborarPresupuestoBean.generaNumeroAleatorio;
 import entities.Cliente;
 import entities.Departamento;
 import entities.Estado;
-import entities.EstadoTrab;
 import entities.Funcionario;
 import entities.InstalacionDet;
 import entities.Moviles;
 import entities.Nivel;
 import entities.PresupuestoCab;
 import entities.PresupuestoCabPK;
-
 import entities.PresupuestoDet;
 import entities.PresupuestoDetPK;
 import entities.Productos;
 import entities.ProductosKit;
 import entities.Reclamo;
-import entities.Subtipo;
 import entities.Sucursal;
 import entities.Tecnicos;
-import entities.Tiporeclamo;
+import entities.TipoReclamo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -51,7 +47,6 @@ import javax.faces.context.FacesContext;
 import lombok.Data;
 import org.primefaces.event.RowEditEvent;
 import session.util.JsfUtil;
-import session.util.JsfUtil.PersistAction;
 
 /**
  *
@@ -78,9 +73,9 @@ public class RegistrarPedidoVentaBean implements Serializable {
     private String tipoInstalacion;
     private String tecnicoResponsable;
     private Integer idCliente;
-    private Integer idEstadoTrab;
-    private Integer idTiporeclamo;
-    private Integer idSubTiporeclamo;
+    private Integer idEstado;
+    private Integer idTipoReclamo;
+    private Integer idSubTipoReclamo;
     private Integer idNivel;
     private Integer idSucursal;
     private String usuario;
@@ -100,8 +95,8 @@ public class RegistrarPedidoVentaBean implements Serializable {
     private List<Productos> listaProductos = new ArrayList<>();
     private List<Funcionario> listaFuncionarios = new ArrayList<>();
 
-    private List<Tiporeclamo> listaTipoReclamo = new ArrayList<>();
-    private List<Subtipo> listaSubTipoReclamo = new ArrayList<>();
+    private List<TipoReclamo> listaTipoReclamo = new ArrayList<>();
+    
     private List<Nivel> listaNivel = new ArrayList<>();
     private List<Funcionario> listaFuncionario = new ArrayList<>();
     private ArrayList<PresupuestoDet> listaDetalle = new ArrayList<>();
@@ -118,7 +113,6 @@ public class RegistrarPedidoVentaBean implements Serializable {
     private String iva;
     private String presupuestoTotal;
     private Funcionario idFuncionario;
-    private Estado idEstado;
 
     @EJB
     private bean.TecnicosFacade tecnicoFacade = new TecnicosFacade();
@@ -127,16 +121,13 @@ public class RegistrarPedidoVentaBean implements Serializable {
     @EJB
     private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
     @EJB
-    private bean.EstadoTrabFacade estadoTrabFacade = new EstadoTrabFacade();
+    private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
     private bean.DepartamentoFacade departamentoFacade = new DepartamentoFacade();
     @EJB
-    private bean.TiporeclamoFacade tiporeclamoFacade = new TiporeclamoFacade();
-    @EJB
-    private bean.SubtipoFacade subtiporeclamoFacade = new SubtipoFacade();
-    @EJB
-    private bean.NivelFacade nivelFacade = new NivelFacade();
-    @EJB
+    private bean.TipoReclamoFacade tiporeclamoFacade = new TipoReclamoFacade();
+
+     @EJB
     private bean.UsuarioFacade usuarioFacade = new UsuarioFacade();
     @EJB
     private bean.ReclamoFacade reclamoFacade = new ReclamoFacade();
@@ -202,18 +193,16 @@ public class RegistrarPedidoVentaBean implements Serializable {
                 this.listaFuncionarios = funcionarioFacade.findAll();
 
                 this.listaEstados = estadoFacade.findAll();
-                this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
+                this.idEstado = 1; //poner a Pendiente = 1 por defecto
 
                 this.listaDepartamentos = departamentoFacade.findAll();
                 this.idDepartamento = 4; //poner a Reclamos = 4 por defecto
 
                 this.listaTipoReclamo = tiporeclamoFacade.findAll();
-                this.idTiporeclamo = null;
+                this.idTipoReclamo = null;
 
-                this.listaSubTipoReclamo = subtiporeclamoFacade.findAll();
-                this.idSubTiporeclamo = null;
+                this.idSubTipoReclamo = null;
 
-                this.listaNivel = nivelFacade.findAll();
                 this.idNivel = null;
 
                 this.usuario = (String) SessionBean.getSession().getAttribute("username");
@@ -417,7 +406,7 @@ public class RegistrarPedidoVentaBean implements Serializable {
         this.presupuestoCab.setBaseImponible(new BigInteger(sumaTotalSinPunto));
         this.presupuestoCab.setIdCliente(new Cliente(BigDecimal.valueOf(this.idCliente)));
         this.presupuestoCab.setIdFuncionario(this.idFuncionario);
-        this.presupuestoCab.setIdEstado(this.idEstado);
+        //this.presupuestoCab.setIdEstado(this.idEstado);
         //persistPresupuestoCab(JsfUtil.PersistAction.CREATE, null);
         System.out.println("se guardó la PresupuestoCab con exito > " + JsfUtil.isValidationFailed());
 

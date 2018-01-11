@@ -6,8 +6,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -27,123 +25,64 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Acer
+ * @author sebas
  */
 @Entity
 @Table(name = "departamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Departamento.findAll", query = "SELECT d FROM Departamento d"),
-    @NamedQuery(name = "Departamento.findByIdDpto", query = "SELECT d FROM Departamento d WHERE d.idDpto = :idDpto"),
-    @NamedQuery(name = "Departamento.findByNombreDpto", query = "SELECT d FROM Departamento d WHERE d.nombreDpto = :nombreDpto"),
-    @NamedQuery(name = "Departamento.findByFuncion", query = "SELECT d FROM Departamento d WHERE d.funcion = :funcion"),
-    @NamedQuery(name = "Departamento.findByResponsable", query = "SELECT d FROM Departamento d WHERE d.responsable = :responsable"),
-    @NamedQuery(name = "Departamento.findByEstado", query = "SELECT d FROM Departamento d WHERE d.estado = :estado")})
+    @NamedQuery(name = "Departamento.findByIdDepartamento", query = "SELECT d FROM Departamento d WHERE d.idDepartamento = :idDepartamento"),
+    @NamedQuery(name = "Departamento.findByDescripcion", query = "SELECT d FROM Departamento d WHERE d.descripcion = :descripcion")})
 public class Departamento implements Serializable {
-    @Size(max = 40)
-    @Column(name = "estado")
-    private String estado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDpto")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDepartamento")
     private List<Reclamo> reclamoList;
+
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @GeneratedValue(generator = "DepartamentoSeq")
+    @SequenceGenerator(name = "DepartamentoSeq", sequenceName = "departamento_id_departamento_seq", allocationSize = 1)
+    @Basic(optional = false)
+    @Column(name = "id_departamento")
+    private Integer idDepartamento;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_dpto")
-    @GeneratedValue(generator="DepartamentoSeq") 
-    @SequenceGenerator(name="DepartamentoSeq",sequenceName="id_dpto_departamento_seq_1", allocationSize=1) 
-    private BigDecimal idDpto;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "nombre_dpto")
-    private String nombreDpto;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "funcion")
-    private String funcion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "responsable")
-    private String responsable;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDpto")
-    private List<Usuario> usuarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDpto")
-    private List<Funcionario> funcionarioList;
+    @Size(min = 1, max = 50)
+    @Column(name = "descripcion")
+    private String descripcion;
 
     public Departamento() {
     }
 
-    public Departamento(BigDecimal idDpto) {
-        this.idDpto = idDpto;
+    public Departamento(Integer idDepartamento) {
+        this.idDepartamento = idDepartamento;
     }
 
-    public Departamento(BigDecimal idDpto, String nombreDpto, String funcion, String responsable, String estado) {
-        this.idDpto = idDpto;
-        this.nombreDpto = nombreDpto;
-        this.funcion = funcion;
-        this.responsable = responsable;
-        this.estado = estado;
+    public Departamento(Integer idDepartamento, String descripcion) {
+        this.idDepartamento = idDepartamento;
+        this.descripcion = descripcion;
     }
 
-    public BigDecimal getIdDpto() {
-        return idDpto;
+    public Integer getIdDepartamento() {
+        return idDepartamento;
     }
 
-    public void setIdDpto(BigDecimal idDpto) {
-        this.idDpto = idDpto;
+    public void setIdDepartamento(Integer idDepartamento) {
+        this.idDepartamento = idDepartamento;
     }
 
-    public String getNombreDpto() {
-        return nombreDpto;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNombreDpto(String nombreDpto) {
-        this.nombreDpto = nombreDpto;
-    }
-
-    public String getFuncion() {
-        return funcion;
-    }
-
-    public void setFuncion(String funcion) {
-        this.funcion = funcion;
-    }
-
-    public String getResponsable() {
-        return responsable;
-    }
-
-    public void setResponsable(String responsable) {
-        this.responsable = responsable;
-    }
-
-
-    @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
-    }
-
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
-    }
-
-    @XmlTransient
-    public List<Funcionario> getFuncionarioList() {
-        return funcionarioList;
-    }
-
-    public void setFuncionarioList(List<Funcionario> funcionarioList) {
-        this.funcionarioList = funcionarioList;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idDpto != null ? idDpto.hashCode() : 0);
+        hash += (idDepartamento != null ? idDepartamento.hashCode() : 0);
         return hash;
     }
 
@@ -154,7 +93,7 @@ public class Departamento implements Serializable {
             return false;
         }
         Departamento other = (Departamento) object;
-        if ((this.idDpto == null && other.idDpto != null) || (this.idDpto != null && !this.idDpto.equals(other.idDpto))) {
+        if ((this.idDepartamento == null && other.idDepartamento != null) || (this.idDepartamento != null && !this.idDepartamento.equals(other.idDepartamento))) {
             return false;
         }
         return true;
@@ -162,7 +101,7 @@ public class Departamento implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Departamento[ idDpto=" + idDpto + " ]";
+        return "entities.Departamento[ idDepartamento=" + idDepartamento + " ]";
     }
 
     @XmlTransient
@@ -174,12 +113,4 @@ public class Departamento implements Serializable {
         this.reclamoList = reclamoList;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-    
 }

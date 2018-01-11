@@ -68,9 +68,7 @@ public class OrdenTrabajoCab implements Serializable {
     @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
     @ManyToOne
     private Estado idEstado;
-    @JoinColumn(name = "id_estado_trab", referencedColumnName = "id_estado_trab")
-    @ManyToOne
-    private EstadoTrab idEstadoTrab;
+
     @JoinColumn(name = "id_reclamo", referencedColumnName = "id_reclamo")
     @ManyToOne
     private Reclamo idReclamo;
@@ -134,13 +132,7 @@ public class OrdenTrabajoCab implements Serializable {
         this.idEstado = idEstado;
     }
 
-    public EstadoTrab getIdEstadoTrab() {
-        return idEstadoTrab;
-    }
 
-    public void setIdEstadoTrab(EstadoTrab idEstadoTrab) {
-        this.idEstadoTrab = idEstadoTrab;
-    }
 
     public Reclamo getIdReclamo() {
         return idReclamo;

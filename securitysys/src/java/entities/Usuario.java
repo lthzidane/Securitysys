@@ -41,6 +41,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByContrasenha", query = "SELECT u FROM Usuario u WHERE u.contrasenha = :contrasenha"),
     @NamedQuery(name = "Usuario.findByEstado", query = "SELECT u FROM Usuario u WHERE u.estado = :estado")})
 public class Usuario implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_departamento")
+    private int idDepartamento;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private List<Promocion> promocionList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private List<Presupuesto> presupuestoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private List<Diagnostico> diagnosticoList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Collection<Reclamo> reclamoCollection;
@@ -181,6 +191,41 @@ public class Usuario implements Serializable {
 
     public void setReclamoCollection(Collection<Reclamo> reclamoCollection) {
         this.reclamoCollection = reclamoCollection;
+    }
+
+    public int getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(int idDepartamento) {
+        this.idDepartamento = idDepartamento;
+    }
+
+    @XmlTransient
+    public List<Promocion> getPromocionList() {
+        return promocionList;
+    }
+
+    public void setPromocionList(List<Promocion> promocionList) {
+        this.promocionList = promocionList;
+    }
+
+    @XmlTransient
+    public List<Presupuesto> getPresupuestoList() {
+        return presupuestoList;
+    }
+
+    public void setPresupuestoList(List<Presupuesto> presupuestoList) {
+        this.presupuestoList = presupuestoList;
+    }
+
+    @XmlTransient
+    public List<Diagnostico> getDiagnosticoList() {
+        return diagnosticoList;
+    }
+
+    public void setDiagnosticoList(List<Diagnostico> diagnosticoList) {
+        this.diagnosticoList = diagnosticoList;
     }
 
 }

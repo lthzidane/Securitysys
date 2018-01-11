@@ -46,7 +46,7 @@ public class InstalacionCab implements Serializable {
     private Cliente idCliente;
     @JoinColumn(name = "id_estado_trab", referencedColumnName = "id_estado_trab")
     @ManyToOne
-    private EstadoTrab idEstadoTrab;
+    private Estado idEstado;
     @JoinColumn(name = "id_movil", referencedColumnName = "id_movil")
     @ManyToOne
     private Moviles idMovil;
@@ -161,12 +161,12 @@ public class InstalacionCab implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public EstadoTrab getIdEstadoTrab() {
-        return idEstadoTrab;
+    public Estado getIdEstado() {
+        return idEstado;
     }
 
-    public void setIdEstadoTrab(EstadoTrab idEstadoTrab) {
-        this.idEstadoTrab = idEstadoTrab;
+    public void setIdEstado(Estado idEstado) {
+        this.idEstado = idEstado;
     }
 
     public Moviles getIdMovil() {

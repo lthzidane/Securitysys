@@ -5,7 +5,7 @@
 package bean;
 
 
-import entities.EstadoTrab;
+import entities.Estado;
 import entities.InstalacionCab;
 import entities.InstalacionDet;
 import entities.InstalacionDetPK;
@@ -65,19 +65,19 @@ public class OrdenInstalacionBean implements Serializable{
     private String tipoInstalacion;
     private String tecnicoResponsable;
     private Integer idCliente;
-    private Integer idEstadoTrab;
+    private Integer idEstado;
     private Integer idServicio;
     private String tipoServicio;
     private String nroOrden;
     private String nroDocumento;
     private String razonsocial;
     private String direccion;
-    private String telefono;
+    private int telefono;
     private String ciudad;
     private String observacion;
     private ArrayList<TipoServicios> listaServicios = new ArrayList<TipoServicios>();
     private ArrayList<Tecnicos> listaTecnicos = new ArrayList<Tecnicos>();
-    private List<EstadoTrab> listaEstados = new ArrayList<EstadoTrab>();
+    private List<Estado> listaEstados = new ArrayList<Estado>();
     private List<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
     private List<ProductosKit> listaKits = new ArrayList<ProductosKit>();
     private ArrayList<ProductosKit> selectedKits = new ArrayList<ProductosKit>();
@@ -92,7 +92,7 @@ public class OrdenInstalacionBean implements Serializable{
     @EJB
     private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
     @EJB
-    private bean.EstadoTrabFacade estadoTrabFacade = new EstadoTrabFacade();
+    private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
     private bean.OrdenTrabajoCabFacade ejbOTCabFacade;
     @EJB
@@ -136,7 +136,7 @@ public class OrdenInstalacionBean implements Serializable{
                 this.listaServicios = obtenerTiposDeServicio();
                 this.listaTecnicos = obtenerTecnicos();
                 this.listaEstados = estadoTrabFacade.findAll();
-                this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
+                this.idEstado = 1; //poner a Pendiente = 1 por defecto
 
                 this.listaMoviles = movilesFacade.findAll();
                 this.listaKits = productoKitFacade.findAll();
@@ -160,7 +160,7 @@ public class OrdenInstalacionBean implements Serializable{
                 this.nroOrden = "";
                 this.nroDocumento = "";
                 this.ciudad = "";
-                this.telefono = "";
+                this.telefono = 0;
                 this.direccion = "";
                 this.razonsocial = "";
                 this.observacion = "";
@@ -190,7 +190,7 @@ public class OrdenInstalacionBean implements Serializable{
                     this.listaTecnicos = obtenerTecnicos();
                     
                     this.listaEstados = estadoTrabFacade.findAll();
-                    this.idEstadoTrab = instalCab.getIdEstadoTrab().getIdEstadoTrab().intValue();
+                    this.idEstado = instalCab.getIdEstado().getIdEstado().intValue();
 
                     this.listaMoviles = movilesFacade.findAll();
                     this.movil = instalCab.getIdMovil();
@@ -277,7 +277,7 @@ public class OrdenInstalacionBean implements Serializable{
         instalacionCab.setIdServicio(this.ordenTrabajoCab.getIdServicio());
         instalacionCab.setIdMovil(this.movil);
         instalacionCab.setIdCliente(this.ordenTrabajoCab.getIdCliente());
-        instalacionCab.setIdEstadoTrab(estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab));
+        //instalacionCab.setIdEstado(estadoTrabFacade.findByIdEstado(idEstado));
 
         if(!editando){
             persistInstalCab(PersistAction.CREATE, null);
@@ -388,7 +388,7 @@ public class OrdenInstalacionBean implements Serializable{
                 this.razonsocial = "";
                 this.ciudad = "";
                 this.direccion = "";
-                this.telefono = "";
+                this.telefono = 0;
                 this.ordenTrabajoCab = null;
             }else{
                 this.ordenTrabajoCab = otCab;
@@ -422,7 +422,7 @@ public class OrdenInstalacionBean implements Serializable{
             this.razonsocial = "";
             this.ciudad = "";
             this.direccion = "";
-            this.telefono = "";
+            this.telefono = 0;
             this.ordenTrabajoCab = null;
         }
 

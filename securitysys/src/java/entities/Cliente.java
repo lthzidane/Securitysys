@@ -7,7 +7,6 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -43,6 +42,36 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByTelefono", query = "SELECT c FROM Cliente c WHERE c.telefono = :telefono"),
     @NamedQuery(name = "Cliente.findByNroDocumento", query = "SELECT c FROM Cliente c WHERE c.nroDocumento = :nroDocumento")})
 public class Cliente implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "numero_documento")
+    private String numeroDocumento;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "telefono")
+    private int telefono;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "e_mail")
+    private String eMail;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "estado_cliente")
+    private String estadoCliente;
+    @JoinColumn(name = "id_nacionalidad", referencedColumnName = "id_nacionalidad")
+    @ManyToOne(optional = false)
+    private Nacionalidad idNacionalidad;
+    @JoinColumn(name = "id_tipo_documento", referencedColumnName = "id_tipo_documento")
+    @ManyToOne(optional = false)
+    private TipoDocumento idTipoDocumento;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
+    private List<Presupuesto> presupuestoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
+    private List<SegmentoContrato> segmentoContratoList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
     private List<VentasCab> ventasCabList;
@@ -86,11 +115,6 @@ public class Cliente implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "direccion")
     private String direccion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "telefono")
-    private String telefono;
     @JoinColumn(name = "id_ciudad", referencedColumnName = "id_ciudad")
     @ManyToOne(optional = false)
     private Ciudad idCiudad;
@@ -108,7 +132,7 @@ public class Cliente implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public Cliente(BigDecimal idCliente, String nombre, String apellido, String direccion, String telefono) {
+    public Cliente(BigDecimal idCliente, String nombre, String apellido, String direccion, int telefono) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -148,13 +172,6 @@ public class Cliente implements Serializable {
         this.direccion = direccion;
     }
 
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
 
     public Ciudad getIdCiudad() {
         return idCiudad;
@@ -273,5 +290,71 @@ public class Cliente implements Serializable {
 
     public void setPedidosCabList(List<PedidosCab> pedidosCabList) {
         this.pedidosCabList = pedidosCabList;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getEMail() {
+        return eMail;
+    }
+
+    public void setEMail(String eMail) {
+        this.eMail = eMail;
+    }
+
+    public String getEstadoCliente() {
+        return estadoCliente;
+    }
+
+    public void setEstadoCliente(String estadoCliente) {
+        this.estadoCliente = estadoCliente;
+    }
+
+    public Nacionalidad getIdNacionalidad() {
+        return idNacionalidad;
+    }
+
+    public void setIdNacionalidad(Nacionalidad idNacionalidad) {
+        this.idNacionalidad = idNacionalidad;
+    }
+
+    public TipoDocumento getIdTipoDocumento() {
+        return idTipoDocumento;
+    }
+
+    public void setIdTipoDocumento(TipoDocumento idTipoDocumento) {
+        this.idTipoDocumento = idTipoDocumento;
+    }
+
+    @XmlTransient
+    public List<Presupuesto> getPresupuestoList() {
+        return presupuestoList;
+    }
+
+    public void setPresupuestoList(List<Presupuesto> presupuestoList) {
+        this.presupuestoList = presupuestoList;
+    }
+
+    @XmlTransient
+    public List<SegmentoContrato> getSegmentoContratoList() {
+        return segmentoContratoList;
+    }
+
+    public void setSegmentoContratoList(List<SegmentoContrato> segmentoContratoList) {
+        this.segmentoContratoList = segmentoContratoList;
     }
 }

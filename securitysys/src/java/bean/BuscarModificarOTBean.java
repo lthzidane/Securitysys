@@ -5,32 +5,13 @@
 package bean;
 
 
-import entities.Cliente;
-import entities.EstadoTrab;
 import entities.InstalacionCab;
 import entities.InstalacionDet;
 import entities.OrdenTrabajoCab;
 import entities.OrdenTrabajoDet;
-import entities.Tecnicos;
-import entities.TipoServicios;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -39,28 +20,13 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import lombok.Data;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 import org.primefaces.component.datatable.DataTable;
-import org.primefaces.event.RowEditEvent;
-import org.primefaces.event.SelectEvent;
 import org.primefaces.event.data.FilterEvent;
-import session.ClienteController;
-import session.TecnicosController;
 import session.util.JsfUtil;
 import session.util.JsfUtil.PersistAction;
-import util.Sale;
 
 /**
  *
@@ -86,7 +52,7 @@ public class BuscarModificarOTBean implements Serializable{
     @EJB
     private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
     @EJB
-    private bean.EstadoTrabFacade estadoTrabFacade = new EstadoTrabFacade();
+    private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
     private bean.OrdenTrabajoCabFacade ordenTrabajoCabFacade;
     @EJB

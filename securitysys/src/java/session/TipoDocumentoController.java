@@ -1,10 +1,7 @@
 package session;
 
-import entities.TipoDocumento;
-import session.util.JsfUtil;
-import session.util.JsfUtil.PersistAction;
 import bean.TipoDocumentoFacade;
-
+import entities.TipoDocumento;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -18,6 +15,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import session.util.JsfUtil;
+import session.util.JsfUtil.PersistAction;
 
 @ManagedBean(name = "tipoDocumentoController")
 @SessionScoped
@@ -136,7 +135,7 @@ public class TipoDocumentoController implements Serializable {
             return key;
         }
 
-        String getStringKey(java.math.BigDecimal value) {
+        String getStringKey(Integer value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -149,7 +148,7 @@ public class TipoDocumentoController implements Serializable {
             }
             if (object instanceof TipoDocumento) {
                 TipoDocumento o = (TipoDocumento) object;
-                return getStringKey(o.getIdTipoDocu());
+                return getStringKey(o.getIdTipoDocumento());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), TipoDocumento.class.getName()});
                 return null;

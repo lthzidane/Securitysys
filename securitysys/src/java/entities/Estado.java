@@ -37,6 +37,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Estado.findByModulo", query = "SELECT e FROM Estado e WHERE e.modulo = :modulo"),
     @NamedQuery(name = "Estado.findByEstado", query = "SELECT e FROM Estado e WHERE e.estado = :estado")})
 public class Estado implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "descripcion")
+    private String descripcion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
+    private List<Reclamo> reclamoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
+    private List<Servicio> servicioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
+    private List<Presupuesto> presupuestoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
     private List<PedidosCab> pedidosCabList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
@@ -174,6 +185,41 @@ public class Estado implements Serializable {
 
     public void setPedidosCabList(List<PedidosCab> pedidosCabList) {
         this.pedidosCabList = pedidosCabList;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Reclamo> getReclamoList() {
+        return reclamoList;
+    }
+
+    public void setReclamoList(List<Reclamo> reclamoList) {
+        this.reclamoList = reclamoList;
+    }
+
+    @XmlTransient
+    public List<Servicio> getServicioList() {
+        return servicioList;
+    }
+
+    public void setServicioList(List<Servicio> servicioList) {
+        this.servicioList = servicioList;
+    }
+
+    @XmlTransient
+    public List<Presupuesto> getPresupuestoList() {
+        return presupuestoList;
+    }
+
+    public void setPresupuestoList(List<Presupuesto> presupuestoList) {
+        this.presupuestoList = presupuestoList;
     }
     
 }

@@ -6,18 +6,22 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,6 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Equipo.findByIdEquipo", query = "SELECT e FROM Equipo e WHERE e.idEquipo = :idEquipo"),
     @NamedQuery(name = "Equipo.findByDescripcion", query = "SELECT e FROM Equipo e WHERE e.descripcion = :descripcion")})
 public class Equipo implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEquipo")
+    private List<PromocionDet> promocionDetList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -95,6 +101,15 @@ public class Equipo implements Serializable {
     @Override
     public String toString() {
         return "entities.Equipo[ idEquipo=" + idEquipo + " ]";
+    }
+
+    @XmlTransient
+    public List<PromocionDet> getPromocionDetList() {
+        return promocionDetList;
+    }
+
+    public void setPromocionDetList(List<PromocionDet> promocionDetList) {
+        this.promocionDetList = promocionDetList;
     }
     
 }

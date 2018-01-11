@@ -6,7 +6,7 @@ package bean;
 
 
 import entities.Departamento;
-import entities.EstadoTrab;
+import entities.Estado;
 import entities.Funcionario;
 import entities.InstalacionDet;
 import entities.Moviles;
@@ -14,12 +14,10 @@ import entities.Nivel;
 import entities.OrdenTrabajoDet;
 import entities.ProductosKit;
 import entities.Reclamo;
-import entities.Subtipo;
 import entities.Tecnicos;
-import entities.Tiporeclamo;
+import entities.TipoReclamo;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -67,9 +65,9 @@ public class GenerarFacturasBean implements Serializable{
     private String tipoInstalacion;
     private String tecnicoResponsable;
     private Integer idCliente;
-    private Integer idEstadoTrab;
-    private Integer idTiporeclamo;
-    private Integer idSubTiporeclamo;
+    private Integer idEstado;
+    private Integer idTipoReclamo;
+    private Integer idSubTipoReclamo;
     private Integer idNivel;
     private Integer idFuncionario;
     private String usuario;
@@ -84,9 +82,8 @@ public class GenerarFacturasBean implements Serializable{
     private String descripcion;
     private List<Departamento> listaDepartamentos = new ArrayList<Departamento>();
     private ArrayList<Tecnicos> listaTecnicos = new ArrayList<Tecnicos>();
-    private List<EstadoTrab> listaEstados = new ArrayList<EstadoTrab>();
-    private List<Tiporeclamo> listaTipoReclamo = new ArrayList<Tiporeclamo>();
-    private List<Subtipo> listaSubTipoReclamo = new ArrayList<Subtipo>();
+    private List<Estado> listaEstados = new ArrayList<Estado>();
+    private List<TipoReclamo> listaTipoReclamo = new ArrayList<TipoReclamo>();
     private List<Nivel> listaNivel = new ArrayList<Nivel>();
     private List<Funcionario> listaFuncionario = new ArrayList<Funcionario>();
     private List<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
@@ -103,15 +100,11 @@ public class GenerarFacturasBean implements Serializable{
     @EJB
     private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
     @EJB
-    private bean.EstadoTrabFacade estadoTrabFacade = new EstadoTrabFacade();
+    private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
     private bean.DepartamentoFacade departamentoFacade = new DepartamentoFacade();
     @EJB
-    private bean.TiporeclamoFacade tiporeclamoFacade = new TiporeclamoFacade();
-    @EJB
-    private bean.SubtipoFacade subtiporeclamoFacade = new SubtipoFacade();
-    @EJB
-    private bean.NivelFacade nivelFacade = new NivelFacade();
+    private bean.TipoReclamoFacade tiporeclamoFacade = new TipoReclamoFacade();
     @EJB
     private bean.UsuarioFacade usuarioFacade = new UsuarioFacade();
     @EJB
@@ -148,18 +141,16 @@ public class GenerarFacturasBean implements Serializable{
                 fechaRecepcion = today;
                 
                 this.listaEstados = estadoTrabFacade.findAll();
-                this.idEstadoTrab = 1; //poner a Pendiente = 1 por defecto
+                this.idEstado = 1; //poner a Pendiente = 1 por defecto
                 
                 this.listaDepartamentos = departamentoFacade.findAll();
                 this.idDepartamento = 4; //poner a Reclamos = 4 por defecto
                 
                 this.listaTipoReclamo = tiporeclamoFacade.findAll();
-                this.idTiporeclamo = null;
+                this.idTipoReclamo = null;
                 
-                this.listaSubTipoReclamo = subtiporeclamoFacade.findAll();
-                this.idSubTiporeclamo = null;
+                this.idSubTipoReclamo = null;
                 
-                this.listaNivel = nivelFacade.findAll();
                 this.idNivel = null;
                 
                 this.usuario = (String)SessionBean.getSession().getAttribute("username");
@@ -217,14 +208,12 @@ public class GenerarFacturasBean implements Serializable{
     public String guardarReclamo(){
         reclamo = new Reclamo();
         reclamo.setDescripcion(this.descripcion);
-        reclamo.setFechaIngreso(this.fechaOrden);
+        reclamo.setFechaAlta(this.fechaOrden);
         reclamo.setIdCliente(clienteFacade.findByIdCliente(idCliente));
-        reclamo.setIdDpto(departamentoFacade.findByIdDpto(idDepartamento));
-        reclamo.setIdEstadoTrab(estadoTrabFacade.findByIdEstadoTrab(idEstadoTrab));
+        reclamo.setIdDepartamento(departamentoFacade.findByIdDpto(idDepartamento));
+        //reclamo.setIdEstado(estadoTrabFacade.findByIdEstado(idEstado));
         reclamo.setIdUsuario(usuarioFacade.findByNombre(this.usuario));
-        reclamo.setIdNivel(BigInteger.valueOf(this.idNivel.longValue()));
-        reclamo.setIdSubtipo(subtiporeclamoFacade.findByIdSubtipo(idSubTiporeclamo));
-        reclamo.setIdTiporecla(tiporeclamoFacade.findByIdTiporecla(idTiporeclamo));
+        reclamo.setIdTipoReclamo(tiporeclamoFacade.findByIdTiporecla(idTipoReclamo));
 
         if(!editando){
             persistReclamo(PersistAction.CREATE, "Reclamo guardado correctamente");

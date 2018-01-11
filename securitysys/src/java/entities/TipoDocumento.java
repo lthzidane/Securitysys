@@ -6,8 +6,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -27,61 +25,83 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Acer
+ * @author sebas
  */
 @Entity
 @Table(name = "tipo_documento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoDocumento.findAll", query = "SELECT t FROM TipoDocumento t"),
-    @NamedQuery(name = "TipoDocumento.findByIdTipoDocu", query = "SELECT t FROM TipoDocumento t WHERE t.idTipoDocu = :idTipoDocu"),
-    @NamedQuery(name = "TipoDocumento.findByTipoDocu", query = "SELECT t FROM TipoDocumento t WHERE t.tipoDocu = :tipoDocu")})
+    @NamedQuery(name = "TipoDocumento.findByIdTipoDocumento", query = "SELECT t FROM TipoDocumento t WHERE t.idTipoDocumento = :idTipoDocumento"),
+    @NamedQuery(name = "TipoDocumento.findByDescripcion", query = "SELECT t FROM TipoDocumento t WHERE t.descripcion = :descripcion")})
 public class TipoDocumento implements Serializable {
-    @OneToMany(mappedBy = "tipoDocumento")
-    private Collection<Tecnicos> tecnicosCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoDocumento")
+    private List<Cliente> clienteList;
+
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @GeneratedValue(generator = "TipoDocuSeq")
+    @SequenceGenerator(name = "TipoDocuSeq", sequenceName = "tipo_documento_id_tipo_documento_seq", allocationSize = 1)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_tipo_docu")
-    @GeneratedValue(generator="TipoDocuSeq") 
-    @SequenceGenerator(name="TipoDocuSeq",sequenceName="id_tipo_docu_seq", allocationSize=1) 
-    private BigDecimal idTipoDocu;
+    @Column(name = "id_tipo_documento")
+    private Integer idTipoDocumento;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "tipo_docu")
-    private String tipoDocu;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoDocu")
-    private List<Cliente> clienteList;
+    @Column(name = "descripcion")
+    private String descripcion;
 
     public TipoDocumento() {
     }
 
-    public TipoDocumento(BigDecimal idTipoDocu) {
-        this.idTipoDocu = idTipoDocu;
+    public TipoDocumento(Integer idTipoDocumento) {
+        this.idTipoDocumento = idTipoDocumento;
     }
 
-    public TipoDocumento(BigDecimal idTipoDocu, String tipoDocu) {
-        this.idTipoDocu = idTipoDocu;
-        this.tipoDocu = tipoDocu;
+    public TipoDocumento(Integer idTipoDocumento, String descripcion) {
+        this.idTipoDocumento = idTipoDocumento;
+        this.descripcion = descripcion;
     }
 
-    public BigDecimal getIdTipoDocu() {
-        return idTipoDocu;
+    public Integer getIdTipoDocumento() {
+        return idTipoDocumento;
     }
 
-    public void setIdTipoDocu(BigDecimal idTipoDocu) {
-        this.idTipoDocu = idTipoDocu;
+    public void setIdTipoDocumento(Integer idTipoDocumento) {
+        this.idTipoDocumento = idTipoDocumento;
     }
 
-    public String getTipoDocu() {
-        return tipoDocu;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setTipoDocu(String tipoDocu) {
-        this.tipoDocu = tipoDocu;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idTipoDocumento != null ? idTipoDocumento.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TipoDocumento)) {
+            return false;
+        }
+        TipoDocumento other = (TipoDocumento) object;
+        if ((this.idTipoDocumento == null && other.idTipoDocumento != null) || (this.idTipoDocumento != null && !this.idTipoDocumento.equals(other.idTipoDocumento))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entities.TipoDocumento[ idTipoDocumento=" + idTipoDocumento + " ]";
     }
 
     @XmlTransient
@@ -93,38 +113,4 @@ public class TipoDocumento implements Serializable {
         this.clienteList = clienteList;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idTipoDocu != null ? idTipoDocu.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TipoDocumento)) {
-            return false;
-        }
-        TipoDocumento other = (TipoDocumento) object;
-        if ((this.idTipoDocu == null && other.idTipoDocu != null) || (this.idTipoDocu != null && !this.idTipoDocu.equals(other.idTipoDocu))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entities.TipoDocumento[ idTipoDocu=" + idTipoDocu + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Tecnicos> getTecnicosCollection() {
-        return tecnicosCollection;
-    }
-
-    public void setTecnicosCollection(Collection<Tecnicos> tecnicosCollection) {
-        this.tecnicosCollection = tecnicosCollection;
-    }
-    
 }

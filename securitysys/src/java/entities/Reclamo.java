@@ -6,21 +6,20 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author LOTHAR
+ * @author sebas
  */
 @Entity
 @Table(name = "reclamo")
@@ -40,82 +39,78 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Reclamo.findAll", query = "SELECT r FROM Reclamo r"),
     @NamedQuery(name = "Reclamo.findByIdReclamo", query = "SELECT r FROM Reclamo r WHERE r.idReclamo = :idReclamo"),
     @NamedQuery(name = "Reclamo.findByDescripcion", query = "SELECT r FROM Reclamo r WHERE r.descripcion = :descripcion"),
-    @NamedQuery(name = "Reclamo.findByFechaIngreso", query = "SELECT r FROM Reclamo r WHERE r.fechaIngreso = :fechaIngreso"),
-    @NamedQuery(name = "Reclamo.findByFechaSolucion", query = "SELECT r FROM Reclamo r WHERE r.fechaSolucion = :fechaSolucion"),
-    @NamedQuery(name = "Reclamo.findByIdNivel", query = "SELECT r FROM Reclamo r WHERE r.idNivel = :idNivel"),
+    @NamedQuery(name = "Reclamo.findByFechaAlta", query = "SELECT r FROM Reclamo r WHERE r.fechaAlta = :fechaAlta"),
+    @NamedQuery(name = "Reclamo.findByIdTipoReclamo1", query = "SELECT r FROM Reclamo r WHERE r.idTipoReclamo1 = :idTipoReclamo1"),
     @NamedQuery(name = "Reclamo.findBySolucion", query = "SELECT r FROM Reclamo r WHERE r.solucion = :solucion"),
-    @NamedQuery(name = "Reclamo.findBetweenFechaIngreso", query = "SELECT r FROM Reclamo r WHERE r.fechaIngreso BETWEEN :startDate AND :endDate")})
+    @NamedQuery(name = "Reclamo.findByContacto", query = "SELECT r FROM Reclamo r WHERE r.contacto = :contacto")})
 public class Reclamo implements Serializable {
-    @OneToMany(mappedBy = "idReclamo")
-    private List<OrdenTrabajoCab> ordenTrabajoCabList;
-
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
-    @ManyToOne(optional = false)
-    private Cliente idCliente;
-    @JoinColumn(name = "id_dpto", referencedColumnName = "id_dpto")
-    @ManyToOne(optional = false)
-    private Departamento idDpto;
-    @JoinColumn(name = "id_estado_trab", referencedColumnName = "id_estado_trab")
-    @ManyToOne(optional = false)
-    private EstadoTrab idEstadoTrab;
-    @JoinColumn(name = "id_subtipo", referencedColumnName = "id_subtipo")
-    @ManyToOne(optional = false)
-    private Subtipo idSubtipo;
-    @JoinColumn(name = "id_tiporecla", referencedColumnName = "id_tiporecla")
-    @ManyToOne(optional = false)
-    private Tiporeclamo idTiporecla;
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
-    @ManyToOne(optional = false)
-    private Usuario idUsuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReclamo")
+    private List<Diagnostico> diagnosticoList;
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id_reclamo")
-    @GeneratedValue(generator = "ReclamoSeq")
-    @SequenceGenerator(name = "ReclamoSeq", sequenceName = "id_reclamo_reclamo_seq_1", allocationSize = 1)
-    private BigDecimal idReclamo;
+    private Integer idReclamo;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
+    @Size(min = 1, max = 5000)
     @Column(name = "descripcion")
     private String descripcion;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "fecha_ingreso")
+    @Column(name = "fecha_alta")
     @Temporal(TemporalType.DATE)
-    private Date fechaIngreso;
-    @Column(name = "fecha_solucion")
+    private Date fechaAlta;
+    @Column(name = "id_tipo_reclamo_1")
     @Temporal(TemporalType.DATE)
-    private Date fechaSolucion;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_nivel")
-    private BigInteger idNivel;
+    private Date idTipoReclamo1;
     @Size(max = 150)
     @Column(name = "solucion")
     private String solucion;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "contacto")
+    private String contacto;
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
+    @ManyToOne(optional = false)
+    private Cliente idCliente;
+    @JoinColumn(name = "id_departamento", referencedColumnName = "id_departamento")
+    @ManyToOne(optional = false)
+    private Departamento idDepartamento;
+    @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
+    @ManyToOne(optional = false)
+    private Estado idEstado;
+    @JoinColumn(name = "id_sucursal", referencedColumnName = "id_sucursal")
+    @ManyToOne(optional = false)
+    private Sucursal idSucursal;
+    @JoinColumn(name = "id_tipo_reclamo", referencedColumnName = "id_tipo_reclamo")
+    @ManyToOne(optional = false)
+    private TipoReclamo idTipoReclamo;
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    @ManyToOne(optional = false)
+    private Usuario idUsuario;
 
     public Reclamo() {
     }
 
-    public Reclamo(BigDecimal idReclamo) {
+    public Reclamo(Integer idReclamo) {
         this.idReclamo = idReclamo;
     }
 
-    public Reclamo(BigDecimal idReclamo, String descripcion, Date fechaIngreso, BigInteger idNivel) {
+    public Reclamo(Integer idReclamo, String descripcion, Date fechaAlta, String contacto) {
         this.idReclamo = idReclamo;
         this.descripcion = descripcion;
-        this.fechaIngreso = fechaIngreso;
-        this.idNivel = idNivel;
+        this.fechaAlta = fechaAlta;
+        this.contacto = contacto;
     }
 
-    public BigDecimal getIdReclamo() {
+    public Integer getIdReclamo() {
         return idReclamo;
     }
 
-    public void setIdReclamo(BigDecimal idReclamo) {
+    public void setIdReclamo(Integer idReclamo) {
         this.idReclamo = idReclamo;
     }
 
@@ -127,28 +122,20 @@ public class Reclamo implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Date getFechaIngreso() {
-        return fechaIngreso;
+    public Date getFechaAlta() {
+        return fechaAlta;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
     }
 
-    public Date getFechaSolucion() {
-        return fechaSolucion;
+    public Date getIdTipoReclamo1() {
+        return idTipoReclamo1;
     }
 
-    public void setFechaSolucion(Date fechaSolucion) {
-        this.fechaSolucion = fechaSolucion;
-    }
-
-    public BigInteger getIdNivel() {
-        return idNivel;
-    }
-
-    public void setIdNivel(BigInteger idNivel) {
-        this.idNivel = idNivel;
+    public void setIdTipoReclamo1(Date idTipoReclamo1) {
+        this.idTipoReclamo1 = idTipoReclamo1;
     }
 
     public String getSolucion() {
@@ -157,6 +144,62 @@ public class Reclamo implements Serializable {
 
     public void setSolucion(String solucion) {
         this.solucion = solucion;
+    }
+
+    public String getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+
+    public Cliente getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Cliente idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public Departamento getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(Departamento idDepartamento) {
+        this.idDepartamento = idDepartamento;
+    }
+
+    public Estado getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Estado idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public Sucursal getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(Sucursal idSucursal) {
+        this.idSucursal = idSucursal;
+    }
+
+    public TipoReclamo getIdTipoReclamo() {
+        return idTipoReclamo;
+    }
+
+    public void setIdTipoReclamo(TipoReclamo idTipoReclamo) {
+        this.idTipoReclamo = idTipoReclamo;
+    }
+
+    public Usuario getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     @Override
@@ -184,61 +227,13 @@ public class Reclamo implements Serializable {
         return "entities.Reclamo[ idReclamo=" + idReclamo + " ]";
     }
 
-    public Cliente getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public Departamento getIdDpto() {
-        return idDpto;
-    }
-
-    public void setIdDpto(Departamento idDpto) {
-        this.idDpto = idDpto;
-    }
-
-    public EstadoTrab getIdEstadoTrab() {
-        return idEstadoTrab;
-    }
-
-    public void setIdEstadoTrab(EstadoTrab idEstadoTrab) {
-        this.idEstadoTrab = idEstadoTrab;
-    }
-
-    public Subtipo getIdSubtipo() {
-        return idSubtipo;
-    }
-
-    public void setIdSubtipo(Subtipo idSubtipo) {
-        this.idSubtipo = idSubtipo;
-    }
-
-    public Tiporeclamo getIdTiporecla() {
-        return idTiporecla;
-    }
-
-    public void setIdTiporecla(Tiporeclamo idTiporecla) {
-        this.idTiporecla = idTiporecla;
-    }
-
-    public Usuario getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
     @XmlTransient
-    public List<OrdenTrabajoCab> getOrdenTrabajoCabList() {
-        return ordenTrabajoCabList;
+    public List<Diagnostico> getDiagnosticoList() {
+        return diagnosticoList;
     }
 
-    public void setOrdenTrabajoCabList(List<OrdenTrabajoCab> ordenTrabajoCabList) {
-        this.ordenTrabajoCabList = ordenTrabajoCabList;
+    public void setDiagnosticoList(List<Diagnostico> diagnosticoList) {
+        this.diagnosticoList = diagnosticoList;
     }
-
+    
 }

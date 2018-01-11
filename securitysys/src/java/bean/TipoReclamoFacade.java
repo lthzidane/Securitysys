@@ -5,9 +5,7 @@
  */
 package bean;
 
-import entities.Cliente;
-import entities.Nivel;
-import entities.Subtipo;
+import entities.TipoReclamo;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,7 +17,7 @@ import javax.persistence.PersistenceContext;
  * @author LOTHAR
  */
 @Stateless
-public class NivelFacade extends AbstractFacade<Nivel> {
+public class TipoReclamoFacade extends AbstractFacade<TipoReclamo> {
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -28,24 +26,25 @@ public class NivelFacade extends AbstractFacade<Nivel> {
         return em;
     }
 
-    public NivelFacade() {
-        super(Nivel.class);
+    public TipoReclamoFacade() {
+        super(TipoReclamo.class);
     }
-
-    @Override
-     public List<Nivel> findAll() {
-        try {
-            return (List<Nivel>) em.createNamedQuery("Nivel.findAll").getResultList();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }    
     
-    public Nivel findByIdNivel(Integer idNivel) {
+    @Override
+     public List<TipoReclamo> findAll() {
         try {
-            return (Nivel) em.createNamedQuery("Nivel.findByIdNivel").setParameter("idNivel", idNivel).getSingleResult();
+            return (List<TipoReclamo>) em.createNamedQuery("TipoReclamo.findAll").getResultList();
         } catch (NoResultException e) {
             return null;
         }
     }
+     
+    public TipoReclamo findByIdTiporecla(Integer idTiporecla) {
+        try {
+            return (TipoReclamo) em.createNamedQuery("TipoReclamo.findByIdTiporecla").setParameter("idTiporecla", idTiporecla).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
 }
