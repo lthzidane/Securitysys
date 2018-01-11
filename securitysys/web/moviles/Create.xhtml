@@ -1,35 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
 
         <p:dialog id="MovilesCreateDlg" widgetVar="MovilesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMovilesTitle}">
             <h:form id="MovilesCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{movilesController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateMovilesLabel_idMovil}" for="idMovil" rendered="false" />
-                        <p:inputText id="idMovil" value="#{movilesController.selected.idMovil}" title="#{bundle.CreateMovilesTitle_idMovil}" required="true" requiredMessage="#{bundle.CreateMovilesRequiredMessage_idMovil}" rendered="false"/>
-                        <p:outputLabel value="#{bundle.CreateMovilesLabel_tipoMovil}" for="tipoMovil" />
-                        <p:inputText id="tipoMovil" value="#{movilesController.selected.tipoMovil}" title="#{bundle.CreateMovilesTitle_tipoMovil}" style="text-transform: uppercase"/>
-                        <p:outputLabel value="#{bundle.CreateMovilesLabel_marca}" for="marca" />
-                        <p:inputText id="marca" value="#{movilesController.selected.marca}" title="#{bundle.CreateMovilesTitle_marca}" style="text-transform: uppercase"/>
-                        <p:outputLabel value="#{bundle.CreateMovilesLabel_año}" for="año" />
-                        <p:inputText id="año" value="#{movilesController.selected.año}" title="#{bundle.CreateMovilesTitle_año}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
-                        <p:outputLabel value="#{bundle.CreateMovilesLabel_nroMatricula}" for="nroMatricula" />
-                        <p:inputText id="nroMatricula" value="#{movilesController.selected.nroMatricula}" title="#{bundle.CreateMovilesTitle_nroMatricula}" style="text-transform: uppercase"/>
-                        <p:outputLabel value="#{bundle.CreateMovilesLabel_funcion}" for="funcion" />
-                        <p:inputText id="funcion" value="#{movilesController.selected.funcion}" title="#{bundle.CreateMovilesTitle_funcion}" style="text-transform: uppercase"/>
+
+                <h:panelGroup id="display" rendered="#{movilesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateMovilesLabel_matricula}" for="matricula" />
+                        <p:inputText id="matricula" value="#{movilesController.selected.matricula}" title="#{bundle.CreateMovilesTitle_matricula}" required="true" requiredMessage="#{bundle.CreateMovilesRequiredMessage_matricula}" size="6" maxlength="6"  style="text-transform: uppercase"/>
+
+                        <p:outputLabel value="#{bundle.CreateMovilesLabel_anio}" for="anio" />
+                        <p:inputText id="anio" maxlength="4" value="#{movilesController.selected.anio}" title="#{bundle.CreateMovilesTitle_anio}" required="true" requiredMessage="#{bundle.CreateMovilesRequiredMessage_anio}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
+
+                        <p:outputLabel value="#{bundle.CreateMovilesLabel_idMarca}" for="idMarca" />
+                        <p:selectOneMenu id="idMarca" value="#{movilesController.selected.idMarca}" required="true" requiredMessage="#{bundle.CreateMovilesRequiredMessage_idMarca}" converter="marcaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{marcaController.items}"
+                                           var="idMarcaItem"
+                                           itemValue="#{idMarcaItem}"
+                                           itemLabel="#{idMarcaItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateMovilesLabel_idTipoMovil}" for="idTipoMovil" />
+                        <p:selectOneMenu id="idTipoMovil" value="#{movilesController.selected.idTipoMovil}" required="true" requiredMessage="#{bundle.CreateMovilesRequiredMessage_idTipoMovil}" converter="tipoMovilConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoMovilController.items}"
+                                           var="idTipoMovilItem"
+                                           itemValue="#{idTipoMovilItem}"
+                                           itemLabel="#{idTipoMovilItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{movilesController.create}" value="#{bundle.Save}" update="display,:MovilesListForm:datalist,:growl" oncomplete="handleSubmit(args,'MovilesCreateDialog');"/>
+                    <p:commandButton actionListener="#{movilesController.saveNew}" value="#{bundle.Save}" update="display,:MovilesListForm:datalist,:growl" oncomplete="handleSubmit(args,'MovilesCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MovilesCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
+
             </h:form>
+
         </p:dialog>
 
     </ui:composition>
+
 </html>

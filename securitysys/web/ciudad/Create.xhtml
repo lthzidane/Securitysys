@@ -16,10 +16,10 @@
                     <p:panelGrid columns="2" columnClasses="column">
 
                         <p:outputLabel value="#{bundle.CreateCiudadLabel_ciudad}" for="ciudad" />
-                        <p:inputTextarea rows="4" cols="30" id="ciudad" value="#{ciudadController.selected.ciudad}" title="#{bundle.CreateCiudadTitle_ciudad}" required="true" requiredMessage="#{bundle.CreateCiudadRequiredMessage_ciudad}"/>
+                        <p:inputText id="ciudad" value="#{ciudadController.selected.ciudad}" title="#{bundle.CreateCiudadTitle_ciudad}" size="30" required="true" requiredMessage="#{bundle.CreateCiudadRequiredMessage_ciudad}" style="text-transform: uppercase"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ciudadController.saveNew}" value="#{bundle.Save}" update="display,:CiudadListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CiudadCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CiudadCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{ciudadController.saveNew}" value="#{bundle.Save}" update="display,:CiudadListForm:datalist,:growl" oncomplete="handleSubmit(args,'CiudadCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CiudadCreateDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>

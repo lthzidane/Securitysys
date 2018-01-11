@@ -1,11 +1,11 @@
 package session;
 
-import entities.Marca;
 import bean.MarcaFacade;
+import entities.Marca;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.annotation.PostConstruct;
 
 @ManagedBean(name = "marcaController")
 @ViewScoped

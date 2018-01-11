@@ -7,7 +7,6 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/resources/templates/template.xhtml">
-
         <ui:define name="title">Marca</ui:define>
         <ui:define name="containerTitle">
             <h:outputText styleClass="containerTitle" value="#{bundle.ListMarcaTitle}"/>
@@ -17,10 +16,11 @@
             <script name="jquery/jquery.js" library="primefaces"></script>
             <h:outputStylesheet library="css" name="menu.css" />
             <h:outputStylesheet library="css" name="facade.css" />
-            <p:growl id="growl" life="3000" />
-            <h:form id="MarcaListForm">
-                <p:panel header="#{bundle.ListMarcaTitle}">
+            <p:growl id="growl" life="3000" />    
 
+            <h:form id="MarcaListForm">
+
+                <p:panel header="#{bundle.ListMarcaTitle}">
                     <p:dataTable id="datalist"
                                  value="#{marcaController.items}"
                                  lazy="false"
@@ -32,8 +32,8 @@
                                  selectionMode="single"
                                  selection="#{marcaController.selected}">
 
-                        <p:ajax event="rowSelect"   update="createButton,viewButton editButton deleteButton "/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton "/>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
                         <p:column sortBy="#{item.idMarca}">
                             <f:facet name="header">
@@ -42,12 +42,14 @@
                             <h:outputText value="#{item.idMarca}"/>
                         </p:column>
 
+
                         <p:column sortBy="#{item.descripcion}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMarcaTitle_descripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.descripcion}"/>
                         </p:column>
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{marcaController.prepareCreate}" update=":MarcaCreateForm" oncomplete="PF('MarcaCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MarcaViewForm" oncomplete="PF('MarcaViewDialog').show()" disabled="#{empty marcaController.selected}"/>
@@ -56,6 +58,7 @@
                         </f:facet>
 
                     </p:dataTable>
+
                 </p:panel>
             </h:form>
 

@@ -16,7 +16,9 @@
             <script name="jquery/jquery.js" library="primefaces"></script>
             <h:outputStylesheet library="css" name="menu.css" />
             <h:outputStylesheet library="css" name="facade.css" />
-            <p:growl id="growl" life="3000" />    <h:form id="SucursalListForm">
+            <p:growl id="growl" life="3000" />    
+            
+            <h:form id="SucursalListForm">
 
                 <p:panel header="#{bundle.ListSucursalTitle}">
                     <p:dataTable id="datalist"
@@ -70,7 +72,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSucursalTitle_idCiudad}"/>
                             </f:facet>
-                            <h:outputText value="#{item.ciudad}"/>
+                            <h:outputText value="#{item.idCiudad.ciudad}"/>
                         </p:column>
 
                         <f:facet name="footer">

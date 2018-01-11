@@ -6,27 +6,24 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author LOTHAR
+ * @author sebas
  */
 @Entity
 @Table(name = "moviles")
@@ -34,91 +31,83 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Moviles.findAll", query = "SELECT m FROM Moviles m"),
     @NamedQuery(name = "Moviles.findByIdMovil", query = "SELECT m FROM Moviles m WHERE m.idMovil = :idMovil"),
-    @NamedQuery(name = "Moviles.findByTipoMovil", query = "SELECT m FROM Moviles m WHERE m.tipoMovil = :tipoMovil"),
-    @NamedQuery(name = "Moviles.findByMarca", query = "SELECT m FROM Moviles m WHERE m.marca = :marca"),
-    @NamedQuery(name = "Moviles.findByA\u00f1o", query = "SELECT m FROM Moviles m WHERE m.a\u00f1o = :a\u00f1o"),
-    @NamedQuery(name = "Moviles.findByNroMatricula", query = "SELECT m FROM Moviles m WHERE m.nroMatricula = :nroMatricula"),
-    @NamedQuery(name = "Moviles.findByFuncion", query = "SELECT m FROM Moviles m WHERE m.funcion = :funcion")})
+    @NamedQuery(name = "Moviles.findByMatricula", query = "SELECT m FROM Moviles m WHERE m.matricula = :matricula"),
+    @NamedQuery(name = "Moviles.findByAnio", query = "SELECT m FROM Moviles m WHERE m.anio = :anio")})
 public class Moviles implements Serializable {
-    @OneToMany(mappedBy = "idMovil")
-    private List<InstalacionCab> instalacionCabList;
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @GeneratedValue(generator="MovilSeq") 
+    @SequenceGenerator(name="MovilSeq",sequenceName="moviles_id_movil_seq", allocationSize=1) 
+    @Basic(optional = false)
+    @Column(name = "id_movil")
+    private Integer idMovil;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_movil")
-      @GeneratedValue(generator="MovSeq") 
-    @SequenceGenerator(name="MovSeq",sequenceName="id_moviles_seq", allocationSize=1) 
-    private BigDecimal idMovil;
-    @Size(max = 50)
-    @Column(name = "tipo_movil")
-    private String tipoMovil;
-    @Size(max = 35)
-    @Column(name = "marca")
-    private String marca;
-    @Column(name = "a\u00f1o")
-    private BigInteger año;
-    @Size(max = 8)
-    @Column(name = "nro_matricula")
-    private String nroMatricula;
-    @Size(max = 2147483647)
-    @Column(name = "funcion")
-    private String funcion;
+    @Size(min = 1, max = 6)
+    @Column(name = "matricula")
+    private String matricula;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "anio")
+    private int anio;
+    @JoinColumn(name = "id_marca", referencedColumnName = "id_marca")
+    @ManyToOne(optional = false)
+    private Marca idMarca;
+    @JoinColumn(name = "id_tipo_movil", referencedColumnName = "id_tipo_movil")
+    @ManyToOne(optional = false)
+    private TipoMovil idTipoMovil;
 
     public Moviles() {
     }
 
-    public Moviles(BigDecimal idMovil) {
+    public Moviles(Integer idMovil) {
         this.idMovil = idMovil;
     }
 
-    public BigDecimal getIdMovil() {
+    public Moviles(Integer idMovil, String matricula, int anio) {
+        this.idMovil = idMovil;
+        this.matricula = matricula;
+        this.anio = anio;
+    }
+
+    public Integer getIdMovil() {
         return idMovil;
     }
 
-    public void setIdMovil(BigDecimal idMovil) {
+    public void setIdMovil(Integer idMovil) {
         this.idMovil = idMovil;
     }
 
-    public String getTipoMovil() {
-        return tipoMovil;
+    public String getMatricula() {
+        return matricula;
     }
 
-    public void setTipoMovil(String tipoMovil) {
-        this.tipoMovil = tipoMovil;
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
 
-    public String getMarca() {
-        return marca;
+    public int getAnio() {
+        return anio;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setAnio(int anio) {
+        this.anio = anio;
     }
 
-    public BigInteger getAño() {
-        return año;
+    public Marca getIdMarca() {
+        return idMarca;
     }
 
-    public void setAño(BigInteger año) {
-        this.año = año;
+    public void setIdMarca(Marca idMarca) {
+        this.idMarca = idMarca;
     }
 
-    public String getNroMatricula() {
-        return nroMatricula;
+    public TipoMovil getIdTipoMovil() {
+        return idTipoMovil;
     }
 
-    public void setNroMatricula(String nroMatricula) {
-        this.nroMatricula = nroMatricula;
-    }
-
-    public String getFuncion() {
-        return funcion;
-    }
-
-    public void setFuncion(String funcion) {
-        this.funcion = funcion;
+    public void setIdTipoMovil(TipoMovil idTipoMovil) {
+        this.idTipoMovil = idTipoMovil;
     }
 
     @Override
@@ -144,15 +133,6 @@ public class Moviles implements Serializable {
     @Override
     public String toString() {
         return "entities.Moviles[ idMovil=" + idMovil + " ]";
-    }
-
-    @XmlTransient
-    public List<InstalacionCab> getInstalacionCabList() {
-        return instalacionCabList;
-    }
-
-    public void setInstalacionCabList(List<InstalacionCab> instalacionCabList) {
-        this.instalacionCabList = instalacionCabList;
     }
     
 }

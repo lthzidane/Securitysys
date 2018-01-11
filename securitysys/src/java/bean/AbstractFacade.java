@@ -18,6 +18,7 @@ import javax.persistence.criteria.Root;
  * @author Acer
  */
 public abstract class AbstractFacade<T> {
+
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
@@ -194,5 +195,6 @@ public abstract class AbstractFacade<T> {
                 break;
         }
         return expression;
-    } 
+    }
+
 }

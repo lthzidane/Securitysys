@@ -5,7 +5,6 @@
 package bean;
 
 
-import entities.Cliente;
 import entities.EstadoTrab;
 import entities.InstalacionCab;
 import entities.InstalacionDet;
@@ -25,12 +24,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -39,18 +33,14 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import lombok.Data;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
-import session.ClienteController;
-import session.TecnicosController;
 import session.util.JsfUtil;
 import session.util.JsfUtil.PersistAction;
-import util.Sale;
 
 /**
  *
@@ -114,7 +104,7 @@ public class OrdenInstalacionBean implements Serializable{
     @EJB
     private bean.ProductosKitFacade productoKitFacade = new ProductosKitFacade();
     @EJB
-    private bean.MovilesFacade movilesFacade = new MovilesFacade();
+    private MovilesFacade movilesFacade = new MovilesFacade();
     
     private OrdenTrabajoCab ordenTrabajoCab;
     private OrdenTrabajoDet ordenTrabajoDet;

@@ -36,8 +36,8 @@ public class LazyEntityDataModel<T> extends LazyDataModel<T> {
         if (this.facade != null) { // Handle data that needs to be retrieved from the data back-end of the application
 
             String sortOrderName = sortOrder.toString();
-            this.itemList = this.facade.findAll();
-            this.setRowCount(this.facade.count()); // Count ALL records for the applied filter
+            this.itemList = this.facade.findRange(first, pageSize, sortField, sortOrderName, filters);
+            this.setRowCount(this.facade.count(filters)); // Count ALL records for the applied filter
             return this.itemList;
 
         } else if (this.itemList != null) { // Handle data that was passed in by application
@@ -88,8 +88,8 @@ public class LazyEntityDataModel<T> extends LazyDataModel<T> {
                 sortFields.put(s.getSortField(), s.getSortOrder().toString());
             }
         }
-        itemList = this.facade.findAll();
-        this.setRowCount(this.facade.count()); // Count ALL records for the applied filter
+        itemList = this.facade.findRange(first, pageSize, sortFields, filters);
+        this.setRowCount(this.facade.count(filters)); // Count ALL records for the applied filter
         return itemList;
     }
 
