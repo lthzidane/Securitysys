@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MonedaEditDlg" widgetVar="MonedaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditMonedaTitle}" closeOnEscape="true">
+
+            <h:form id="MonedaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{monedaController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditMonedaLabel_idMoneda}" for="idMoneda" />
+                        <h:outputText id="idMoneda" value="#{monedaController.selected.idMoneda}" />
+
+                        <p:outputLabel value="#{bundle.EditMonedaLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{monedaController.selected.descripcion}" title="#{bundle.EditMonedaTitle_descripcion}" required="true" requiredMessage="#{bundle.EditMonedaRequiredMessage_descripcion}" size="30" maxlength="30" style="text-transform: uppercase"/>
+
+                        <p:outputLabel value="#{bundle.EditMonedaLabel_abreviatura}" for="abreviatura" />
+                        <p:inputText id="abreviatura" value="#{monedaController.selected.abreviatura}" title="#{bundle.EditMonedaTitle_abreviatura}" required="true" requiredMessage="#{bundle.EditMonedaRequiredMessage_abreviatura}" size="3" maxlength="3" style="text-transform: uppercase"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{monedaController.save}" value="#{bundle.Save}" update="display,:MonedaListForm:datalist,:growl" oncomplete="handleSubmit(args,'MonedaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MonedaEditDialog.hide()" immediate="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

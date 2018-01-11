@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmpresaCreateDlg" widgetVar="EmpresaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEmpresaTitle}" closeOnEscape="true">
+
+            <h:form id="EmpresaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{empresaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_propietario}" for="propietario" />
+                        <p:inputText id="propietario" value="#{empresaController.selected.propietario}" title="#{bundle.CreateEmpresaTitle_propietario}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_propietario}" size="30" maxlength="30" style="text-transform: uppercase"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{empresaController.selected.nombre}" title="#{bundle.CreateEmpresaTitle_nombre}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_nombre}" size="50" maxlength="50" style="text-transform: uppercase"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{empresaController.selected.direccion}" title="#{bundle.CreateEmpresaTitle_direccion}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_direccion}" size="50" maxlength="50" style="text-transform: uppercase"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{empresaController.selected.telefono}" title="#{bundle.CreateEmpresaTitle_telefono}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_telefono}" size="15" maxlength="15" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_ruc}" for="ruc" />
+                        <p:inputText id="ruc" value="#{empresaController.selected.ruc}" title="#{bundle.CreateEmpresaTitle_ruc}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_ruc}" size="15" maxlength="15" style="text-transform: uppercase"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_rubro}" for="rubro" />
+                        <p:inputText id="rubro" value="#{empresaController.selected.rubro}" title="#{bundle.CreateEmpresaTitle_rubro}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_rubro}" size="50" maxlength="50" style="text-transform: uppercase"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_idCiudad}" for="idCiudad" />
+                        <p:selectOneMenu id="idCiudad" value="#{empresaController.selected.idCiudad}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_idCiudad}" converter="ciudadConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ciudadController.items}"
+                                           var="idCiudadItem"
+                                           itemValue="#{idCiudadItem}"
+                                           itemLabel="#{idCiudadItem.ciudad}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{empresaController.saveNew}" value="#{bundle.Save}" update="display,:EmpresaListForm:datalist,:growl" oncomplete="handleSubmit(args,'EmpresaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EmpresaCreateDialog.hide()" immediate="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

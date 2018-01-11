@@ -10,7 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -72,9 +71,9 @@ public class EntidadEmisora implements Serializable {
 
     public EntidadEmisora(Integer idEntidadEmisora, String descEntidadEmisora, String rucEntidadEmisora, String dirEntidadEmisora, String telEntidadEmisora) {
         this.idEntidadEmisora = idEntidadEmisora;
-        this.descEntidadEmisora = descEntidadEmisora;
-        this.rucEntidadEmisora = rucEntidadEmisora;
-        this.dirEntidadEmisora = dirEntidadEmisora;
+        this.descEntidadEmisora = descEntidadEmisora.toUpperCase();
+        this.rucEntidadEmisora = rucEntidadEmisora.toUpperCase();
+        this.dirEntidadEmisora = dirEntidadEmisora.toUpperCase();
         this.telEntidadEmisora = telEntidadEmisora;
     }
 
@@ -91,7 +90,7 @@ public class EntidadEmisora implements Serializable {
     }
 
     public void setDescEntidadEmisora(String descEntidadEmisora) {
-        this.descEntidadEmisora = descEntidadEmisora;
+        this.descEntidadEmisora = descEntidadEmisora.toUpperCase();
     }
 
     public String getRucEntidadEmisora() {
@@ -99,7 +98,7 @@ public class EntidadEmisora implements Serializable {
     }
 
     public void setRucEntidadEmisora(String rucEntidadEmisora) {
-        this.rucEntidadEmisora = rucEntidadEmisora;
+        this.rucEntidadEmisora = rucEntidadEmisora.toUpperCase();
     }
 
     public String getDirEntidadEmisora() {
@@ -107,7 +106,7 @@ public class EntidadEmisora implements Serializable {
     }
 
     public void setDirEntidadEmisora(String dirEntidadEmisora) {
-        this.dirEntidadEmisora = dirEntidadEmisora;
+        this.dirEntidadEmisora = dirEntidadEmisora.toUpperCase();
     }
 
     public String getTelEntidadEmisora() {

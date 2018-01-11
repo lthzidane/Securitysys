@@ -37,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Ciudad.findByCiudad", query = "SELECT c FROM Ciudad c WHERE c.ciudad = :ciudad")})
 public class Ciudad implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCiudad")
+    private List<Empresa> empresaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCiudad")
     private List<Zona> zonaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCiudad")
     private List<Sucursal> sucursalList;
@@ -136,6 +138,15 @@ public class Ciudad implements Serializable {
 
     public void setSucursalList(List<Sucursal> sucursalList) {
         this.sucursalList = sucursalList;
+    }
+
+    @XmlTransient
+    public List<Empresa> getEmpresaList() {
+        return empresaList;
+    }
+
+    public void setEmpresaList(List<Empresa> empresaList) {
+        this.empresaList = empresaList;
     }
     
 }

@@ -19,16 +19,16 @@
                         <h:outputText id="idBanco" value="#{bancoController.selected.idBanco}" />
 
                         <p:outputLabel value="#{bundle.EditBancoLabel_descBanco}" for="descBanco" />
-                        <p:inputText id="descBanco" value="#{bancoController.selected.descBanco}" title="#{bundle.EditBancoTitle_descBanco}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_descBanco}" size="60" maxlength="60"/>
+                        <p:inputText id="descBanco" value="#{bancoController.selected.descBanco}" title="#{bundle.EditBancoTitle_descBanco}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_descBanco}" size="60" maxlength="60" style="text-transform: uppercase"/>
 
                         <p:outputLabel value="#{bundle.EditBancoLabel_rucBanco}" for="rucBanco" />
-                        <p:inputText id="rucBanco" value="#{bancoController.selected.rucBanco}" title="#{bundle.EditBancoTitle_rucBanco}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_rucBanco}" size="50" maxlength="50"/>
+                        <p:inputText id="rucBanco" value="#{bancoController.selected.rucBanco}" title="#{bundle.EditBancoTitle_rucBanco}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_rucBanco}" size="50" maxlength="50" style="text-transform: uppercase"/>
 
                         <p:outputLabel value="#{bundle.EditBancoLabel_dirBanco}" for="dirBanco" />
-                        <p:inputText id="dirBanco" value="#{bancoController.selected.dirBanco}" title="#{bundle.EditBancoTitle_dirBanco}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_dirBanco}" size="100" maxlength="100"/>
+                        <p:inputText id="dirBanco" value="#{bancoController.selected.dirBanco}" title="#{bundle.EditBancoTitle_dirBanco}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_dirBanco}" size="100" maxlength="100" style="text-transform: uppercase"/>
 
                         <p:outputLabel value="#{bundle.EditBancoLabel_telBanco}" for="telBanco" />
-                        <p:inputText id="telBanco" value="#{bancoController.selected.telBanco}" title="#{bundle.EditBancoTitle_telBanco}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_telBanco}" size="50" maxlength="50"/>
+                        <p:inputText id="telBanco" value="#{bancoController.selected.telBanco}" title="#{bundle.EditBancoTitle_telBanco}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_telBanco}" size="50" maxlength="50" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{bancoController.save}" value="#{bundle.Save}" update="display,:BancoListForm:datalist,:growl" oncomplete="handleSubmit(args,'BancoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="BancoEditDialog.hide()" immediate="true"/>

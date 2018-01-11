@@ -16,16 +16,16 @@
                     <p:panelGrid columns="2" columnClasses="column">
 
                         <p:outputLabel value="#{bundle.CreateEntidadEmisoraLabel_descEntidadEmisora}" for="descEntidadEmisora" />
-                        <p:inputText id="descEntidadEmisora" value="#{entidadEmisoraController.selected.descEntidadEmisora}" title="#{bundle.CreateEntidadEmisoraTitle_descEntidadEmisora}" required="true" requiredMessage="#{bundle.CreateEntidadEmisoraRequiredMessage_descEntidadEmisora}" size="60" maxlength="60"/>
+                        <p:inputText id="descEntidadEmisora" value="#{entidadEmisoraController.selected.descEntidadEmisora}" title="#{bundle.CreateEntidadEmisoraTitle_descEntidadEmisora}" required="true" requiredMessage="#{bundle.CreateEntidadEmisoraRequiredMessage_descEntidadEmisora}" size="60" maxlength="60" style="text-transform: uppercase"/>
 
                         <p:outputLabel value="#{bundle.CreateEntidadEmisoraLabel_rucEntidadEmisora}" for="rucEntidadEmisora" />
-                        <p:inputText id="rucEntidadEmisora" value="#{entidadEmisoraController.selected.rucEntidadEmisora}" title="#{bundle.CreateEntidadEmisoraTitle_rucEntidadEmisora}" required="true" requiredMessage="#{bundle.CreateEntidadEmisoraRequiredMessage_rucEntidadEmisora}" size="50" maxlength="50"/>
+                        <p:inputText id="rucEntidadEmisora" value="#{entidadEmisoraController.selected.rucEntidadEmisora}" title="#{bundle.CreateEntidadEmisoraTitle_rucEntidadEmisora}" required="true" requiredMessage="#{bundle.CreateEntidadEmisoraRequiredMessage_rucEntidadEmisora}" size="50" maxlength="50" style="text-transform: uppercase"/>
 
                         <p:outputLabel value="#{bundle.CreateEntidadEmisoraLabel_dirEntidadEmisora}" for="dirEntidadEmisora" />
-                        <p:inputText id="dirEntidadEmisora" value="#{entidadEmisoraController.selected.dirEntidadEmisora}" title="#{bundle.CreateEntidadEmisoraTitle_dirEntidadEmisora}" required="true" requiredMessage="#{bundle.CreateEntidadEmisoraRequiredMessage_dirEntidadEmisora}" size="100" maxlength="100"/>
+                        <p:inputText id="dirEntidadEmisora" value="#{entidadEmisoraController.selected.dirEntidadEmisora}" title="#{bundle.CreateEntidadEmisoraTitle_dirEntidadEmisora}" required="true" requiredMessage="#{bundle.CreateEntidadEmisoraRequiredMessage_dirEntidadEmisora}" size="100" maxlength="100" style="text-transform: uppercase"/>
 
                         <p:outputLabel value="#{bundle.CreateEntidadEmisoraLabel_telEntidadEmisora}" for="telEntidadEmisora" />
-                        <p:inputText id="telEntidadEmisora" value="#{entidadEmisoraController.selected.telEntidadEmisora}" title="#{bundle.CreateEntidadEmisoraTitle_telEntidadEmisora}" required="true" requiredMessage="#{bundle.CreateEntidadEmisoraRequiredMessage_telEntidadEmisora}" size="60" maxlength="60"/>
+                        <p:inputText id="telEntidadEmisora" value="#{entidadEmisoraController.selected.telEntidadEmisora}" title="#{bundle.CreateEntidadEmisoraTitle_telEntidadEmisora}" required="true" requiredMessage="#{bundle.CreateEntidadEmisoraRequiredMessage_telEntidadEmisora}" size="60" maxlength="60" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{entidadEmisoraController.saveNew}" value="#{bundle.Save}" update="display,:EntidadEmisoraListForm:datalist,:growl" oncomplete="handleSubmit(args,'EntidadEmisoraCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="EntidadEmisoraCreateDialog.hide()" immediate="true"/>

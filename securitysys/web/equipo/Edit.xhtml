@@ -19,7 +19,7 @@
                         <h:outputText id="idEquipo" value="#{equipoController.selected.idEquipo}" />
 
                         <p:outputLabel value="#{bundle.EditEquipoLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{equipoController.selected.descripcion}" title="#{bundle.EditEquipoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditEquipoRequiredMessage_descripcion}" size="100" maxlength="100"/>
+                        <p:inputText id="descripcion" value="#{equipoController.selected.descripcion}" title="#{bundle.EditEquipoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditEquipoRequiredMessage_descripcion}" size="100" maxlength="100" style="text-transform: uppercase"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{equipoController.save}" value="#{bundle.Save}" update="display,:EquipoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EquipoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="EquipoEditDialog.hide()" immediate="true"/>

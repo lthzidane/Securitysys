@@ -61,13 +61,12 @@
                                 <p:menuitem outcome="/marcaTarjeta/List" value="Marca Tarjeta" />
                                 <p:menuitem value="Tipo Comprobante" disabled="true" />
                                 <p:menuitem value="Serie Comprobante" disabled="true" />
-                                <p:menuitem value="Caja" disabled="true" />
                             </p:submenu>
                             <p:submenu label="Ref.Compra-Venta">
                                 <p:menuitem value="Timbrado" disabled="true" />
                                 <p:menuitem outcome="/tipoDocumento/List" value="Tipo de Documento"  />
-                                <p:menuitem value="Moneda" disabled="true" />
-                                <p:menuitem outcome="/cajas/List" value="Caja" rendered="#{login.showMenu(access.Admin_View) || login.showMenu(access.Admin_View) || login.showMenu(access.Admin_View)}" />
+                                <p:menuitem outcome="/moneda/List" value="Moneda" />
+                                <p:menuitem outcome="/caja/List" value="Caja" rendered="#{login.showMenu(access.Admin_View) || login.showMenu(access.Admin_View) || login.showMenu(access.Admin_View)}" />
                             </p:submenu>
                             <p:submenu label="Config Clientes">
                                 <p:menuitem outcome="/cliente/List" value="Cliente"/>
@@ -75,7 +74,7 @@
                                 <p:menuitem outcome="/estado/List" value="Estado" />
                                 <p:menuitem value="Promo" disabled="true" />
                                 <p:menuitem value="Segmento" disabled="true" />
-                                <p:menuitem value="Empresa" disabled="true" />
+                                <p:menuitem outcome="/empresa/List" value="Empresa" />
                             </p:submenu>
                             <p:submenu label="Seguridad">
                                 <p:menuitem outcome="/usuario/List" value="Usuario" />

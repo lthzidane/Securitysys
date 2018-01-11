@@ -16,7 +16,7 @@
                     <p:panelGrid columns="2" columnClasses="column">
 
                         <p:outputLabel value="#{bundle.CreateTipoTarjetaLabel_descTipoTarjeta}" for="descTipoTarjeta" />
-                        <p:inputText id="descTipoTarjeta" value="#{tipoTarjetaController.selected.descTipoTarjeta}" title="#{bundle.CreateTipoTarjetaTitle_descTipoTarjeta}" required="true" requiredMessage="#{bundle.CreateTipoTarjetaRequiredMessage_descTipoTarjeta}" size="60" maxlength="60"/>
+                        <p:inputText id="descTipoTarjeta" value="#{tipoTarjetaController.selected.descTipoTarjeta}" title="#{bundle.CreateTipoTarjetaTitle_descTipoTarjeta}" required="true" requiredMessage="#{bundle.CreateTipoTarjetaRequiredMessage_descTipoTarjeta}" size="60" maxlength="60" style="text-transform: uppercase"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{tipoTarjetaController.saveNew}" value="#{bundle.Save}" update="display,:TipoTarjetaListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoTarjetaCreateDialog');"/>
 

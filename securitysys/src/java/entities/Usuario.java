@@ -7,7 +7,6 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
@@ -17,7 +16,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -43,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByContrasenha", query = "SELECT u FROM Usuario u WHERE u.contrasenha = :contrasenha"),
     @NamedQuery(name = "Usuario.findByEstado", query = "SELECT u FROM Usuario u WHERE u.estado = :estado")})
 public class Usuario implements Serializable {
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Collection<Reclamo> reclamoCollection;
     @Basic(optional = false)
@@ -53,16 +52,14 @@ public class Usuario implements Serializable {
     @Size(max = 5)
     @Column(name = "rol")
     private String rol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private List<Cajas> cajasList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_usuario")
-    @GeneratedValue(generator="UsuSeq") 
-    @SequenceGenerator(name="UsuSeq",sequenceName="id_usuario_usuario_seq", allocationSize=1) 
+    @GeneratedValue(generator = "UsuSeq")
+    @SequenceGenerator(name = "UsuSeq", sequenceName = "id_usuario_usuario_seq", allocationSize = 1)
     private BigDecimal idUsuario;
     @Basic(optional = false)
     @NotNull
@@ -119,7 +116,6 @@ public class Usuario implements Serializable {
         this.contrasenha = contrasenha;
     }
 
-
     public Departamento getIdDpto() {
         return idDpto;
     }
@@ -162,15 +158,6 @@ public class Usuario implements Serializable {
         return "entities.Usuario[ idUsuario=" + idUsuario + " ]";
     }
 
-    @XmlTransient
-    public List<Cajas> getCajasList() {
-        return cajasList;
-    }
-
-    public void setCajasList(List<Cajas> cajasList) {
-        this.cajasList = cajasList;
-    }
-
     public String getRol() {
         return rol;
     }
@@ -195,5 +182,5 @@ public class Usuario implements Serializable {
     public void setReclamoCollection(Collection<Reclamo> reclamoCollection) {
         this.reclamoCollection = reclamoCollection;
     }
-    
+
 }

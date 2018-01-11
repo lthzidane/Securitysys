@@ -44,6 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "VentasCab.findByTotal", query = "SELECT v FROM VentasCab v WHERE v.total = :total"),
     @NamedQuery(name = "VentasCab.findByFechaVto", query = "SELECT v FROM VentasCab v WHERE v.fechaVto = :fechaVto")})
 public class VentasCab implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected VentasCabPK ventasCabPK;
@@ -70,9 +71,6 @@ public class VentasCab implements Serializable {
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     @ManyToOne(optional = false)
     private Cliente idCliente;
-    @JoinColumn(name = "id_habilitacion", referencedColumnName = "id_habilitacion")
-    @ManyToOne(optional = false)
-    private HabilitacionesCajas idHabilitacion;
     @JoinColumns({
         @JoinColumn(name = "tipo_pedido", referencedColumnName = "tipo_pedido"),
         @JoinColumn(name = "ser_pedido", referencedColumnName = "ser_pedido"),
@@ -171,14 +169,6 @@ public class VentasCab implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public HabilitacionesCajas getIdHabilitacion() {
-        return idHabilitacion;
-    }
-
-    public void setIdHabilitacion(HabilitacionesCajas idHabilitacion) {
-        this.idHabilitacion = idHabilitacion;
-    }
-
     public PedidosCab getPedidosCab() {
         return pedidosCab;
     }
@@ -243,5 +233,5 @@ public class VentasCab implements Serializable {
     public String toString() {
         return "entities.VentasCab[ ventasCabPK=" + ventasCabPK + " ]";
     }
-    
+
 }

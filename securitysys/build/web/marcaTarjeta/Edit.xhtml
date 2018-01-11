@@ -19,7 +19,7 @@
                         <h:outputText id="idMarcaTarjeta" value="#{marcaTarjetaController.selected.idMarcaTarjeta}" />
 
                         <p:outputLabel value="#{bundle.EditMarcaTarjetaLabel_descMarcaTarjeta}" for="descMarcaTarjeta" />
-                        <p:inputText id="descMarcaTarjeta" value="#{marcaTarjetaController.selected.descMarcaTarjeta}" title="#{bundle.EditMarcaTarjetaTitle_descMarcaTarjeta}" required="true" requiredMessage="#{bundle.EditMarcaTarjetaRequiredMessage_descMarcaTarjeta}" size="60" maxlength="60"/>
+                        <p:inputText id="descMarcaTarjeta" value="#{marcaTarjetaController.selected.descMarcaTarjeta}" title="#{bundle.EditMarcaTarjetaTitle_descMarcaTarjeta}" required="true" requiredMessage="#{bundle.EditMarcaTarjetaRequiredMessage_descMarcaTarjeta}" size="60" maxlength="60" style="text-transform: uppercase"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{marcaTarjetaController.save}" value="#{bundle.Save}" update="display,:MarcaTarjetaListForm:datalist,:growl" oncomplete="handleSubmit(args,'MarcaTarjetaEditDialog');"/>
 
