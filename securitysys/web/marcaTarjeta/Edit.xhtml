@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MarcaTarjetaEditDlg" widgetVar="MarcaTarjetaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditMarcaTarjetaTitle}" closeOnEscape="true">
+
+            <h:form id="MarcaTarjetaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{marcaTarjetaController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditMarcaTarjetaLabel_idMarcaTarjeta}" for="idMarcaTarjeta" />
+                        <h:outputText id="idMarcaTarjeta" value="#{marcaTarjetaController.selected.idMarcaTarjeta}" />
+
+                        <p:outputLabel value="#{bundle.EditMarcaTarjetaLabel_descMarcaTarjeta}" for="descMarcaTarjeta" />
+                        <p:inputText id="descMarcaTarjeta" value="#{marcaTarjetaController.selected.descMarcaTarjeta}" title="#{bundle.EditMarcaTarjetaTitle_descMarcaTarjeta}" required="true" requiredMessage="#{bundle.EditMarcaTarjetaRequiredMessage_descMarcaTarjeta}" size="60" maxlength="60"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{marcaTarjetaController.save}" value="#{bundle.Save}" update="display,:MarcaTarjetaListForm:datalist,:growl" oncomplete="handleSubmit(args,'MarcaTarjetaEditDialog');"/>
+
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MarcaTarjetaEditDialog.hide()" immediate="true" />
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

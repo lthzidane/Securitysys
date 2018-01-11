@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoTarjetaEditDlg" widgetVar="TipoTarjetaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditTipoTarjetaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoTarjetaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoTarjetaController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditTipoTarjetaLabel_idTipoTarjeta}" for="idTipoTarjeta" />
+                        <h:outputText id="idTipoTarjeta" value="#{tipoTarjetaController.selected.idTipoTarjeta}" />
+
+                        <p:outputLabel value="#{bundle.EditTipoTarjetaLabel_descTipoTarjeta}" for="descTipoTarjeta" />
+                        <p:inputText id="descTipoTarjeta" value="#{tipoTarjetaController.selected.descTipoTarjeta}" title="#{bundle.EditTipoTarjetaTitle_descTipoTarjeta}" required="true" requiredMessage="#{bundle.EditTipoTarjetaRequiredMessage_descTipoTarjeta}" size="60" maxlength="60"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoTarjetaController.save}" value="#{bundle.Save}" update="display,:TipoTarjetaListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoTarjetaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoTarjetaEditDialog.hide()" immediate="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

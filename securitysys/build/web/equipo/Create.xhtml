@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EquipoCreateDlg" widgetVar="EquipoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEquipoTitle}" closeOnEscape="true">
+
+            <h:form id="EquipoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{equipoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateEquipoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{equipoController.selected.descripcion}" title="#{bundle.CreateEquipoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateEquipoRequiredMessage_descripcion}" size="100" maxlength="100"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{equipoController.saveNew}" value="#{bundle.Save}" update="display,:EquipoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EquipoCreateDialog');"/>
+
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EquipoCreateDialog.hide()"  immediate="true" />
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

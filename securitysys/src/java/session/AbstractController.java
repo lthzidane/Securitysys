@@ -2,21 +2,20 @@ package session;
 
 import bean.AbstractFacade;
 import bean.LazyEntityDataModel;
-import session.util.JsfUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.event.ActionEvent;
-
-import java.util.ResourceBundle;
-import javax.ejb.EJBException;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJBException;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import session.util.JsfUtil;
 
 /**
  * Represents an abstract shell of to be used as JSF Controller to be used in
@@ -280,7 +279,6 @@ public abstract class AbstractController<T> implements Serializable {
     public boolean isValidationFailed() {
         return JsfUtil.isValidationFailed();
     }
-
 
     /**
      * Retrieve a collection of Entity items for a specific Controller from

@@ -52,15 +52,13 @@
                                 <p:menuitem outcome="/ruta/List" value="Ruta" />
                             </p:submenu>
                             <p:submenu label="Productos">
-                                <p:menuitem value="Categoria" disabled="true" />
-                                <p:menuitem value="Equipo" disabled="true"/>
+                                <p:menuitem outcome="/equipo/List" value="Equipo"/>
                             </p:submenu>
                             <p:submenu label="Contables">
-                                <p:menuitem value="Entidad Emisora" disabled="true" />
-                                <p:menuitem value="Banco" disabled="true" />
-                                <p:menuitem value="Tipo Tarjeta" disabled="true" />
-                                <p:menuitem value="Marca Tarjeta" disabled="true" />
-                                <p:menuitem value="Procesadora" disabled="true" />
+                                <p:menuitem outcome="/entidadEmisora/List" value="Entidad Emisora"/>
+                                <p:menuitem outcome="/banco/List" value="Banco" />
+                                <p:menuitem outcome="/tipoTarjeta/List" value="Tipo Tarjeta"/>
+                                <p:menuitem outcome="/marcaTarjeta/List" value="Marca Tarjeta" />
                                 <p:menuitem value="Tipo Comprobante" disabled="true" />
                                 <p:menuitem value="Serie Comprobante" disabled="true" />
                                 <p:menuitem value="Caja" disabled="true" />
@@ -81,7 +79,6 @@
                             </p:submenu>
                             <p:submenu label="Seguridad">
                                 <p:menuitem outcome="/usuario/List" value="Usuario" />
-                                <p:menuitem value="Rol" disabled="true" />
                                 <p:menuitem outcome="/departamento/List" value="Departamento" />
                             </p:submenu>
                             <p:menuitem outcome="/tecnicos/List" value="Tecnico" />

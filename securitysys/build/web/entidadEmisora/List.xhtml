@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/resources/templates/template.xhtml">
+
+        <ui:define name="title">Entidad Emisora</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="#{bundle.ListEntidadEmisoraTitle}"/>
+        </ui:define>
+
+        <ui:define name="container">
+            <script name="jquery/jquery.js" library="primefaces"></script>
+            <h:outputStylesheet library="css" name="menu.css" />
+            <h:outputStylesheet library="css" name="facade.css" />
+            <p:growl id="growl" life="3000" />
+
+            <h:form id="EntidadEmisoraListForm">
+
+                <p:panel header="#{bundle.ListEntidadEmisoraTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{entidadEmisoraController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.idEntidadEmisora}"
+                                 var="item"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 selectionMode="single"
+                                 selection="#{entidadEmisoraController.selected}">
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton "/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton "/>
+
+                        <p:column sortBy="#{item.idEntidadEmisora}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEntidadEmisoraTitle_idEntidadEmisora}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idEntidadEmisora}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.descEntidadEmisora}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEntidadEmisoraTitle_descEntidadEmisora}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descEntidadEmisora}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.rucEntidadEmisora}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEntidadEmisoraTitle_rucEntidadEmisora}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rucEntidadEmisora}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.dirEntidadEmisora}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEntidadEmisoraTitle_dirEntidadEmisora}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dirEntidadEmisora}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.telEntidadEmisora}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEntidadEmisoraTitle_telEntidadEmisora}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telEntidadEmisora}"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton"  icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{entidadEmisoraController.prepareCreate}" update=":EntidadEmisoraCreateForm" oncomplete="PF('EntidadEmisoraCreateDialog').show()"/>
+                            <p:commandButton id="viewButton" icon="ui-icon-search" value="#{bundle.View}" update=":EntidadEmisoraViewForm" oncomplete="PF('EntidadEmisoraViewDialog').show()" disabled="#{empty entidadEmisoraController.selected}"/>
+                            <p:commandButton id="editButton"  icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EntidadEmisoraEditForm" oncomplete="PF('EntidadEmisoraEditDialog').show()" disabled="#{empty entidadEmisoraController.selected}"/>
+                            <p:commandButton id="deleteButton"  icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{entidadEmisoraController.delete}" update=":growl datalist" disabled="#{empty entidadEmisoraController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>
