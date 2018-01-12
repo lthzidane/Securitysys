@@ -1,20 +1,20 @@
 package session;
 
-import bean.MonedaFacade;
 import entities.Moneda;
+import bean.MonedaFacade;
+import session.util.JsfUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
+import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
-import session.util.JsfUtil;
 
 @FacesConverter(value = "monedaConverter")
 public class MonedaConverter implements Converter {
 
-    @EJB
+    @Inject
     private MonedaFacade ejbFacade;
 
     @Override

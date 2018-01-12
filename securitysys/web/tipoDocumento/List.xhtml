@@ -22,7 +22,7 @@
                     <p:dataTable id="datalist" value="#{tipoDocumentoController.items}" var="item"
                                  selectionMode="single" selection="#{tipoDocumentoController.selected}"
                                  paginator="true"
-                                 rowKey="#{item.idTipoDocu}"
+                                 rowKey="#{item.idTipoDocumento}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
@@ -32,15 +32,15 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTipoDocumentoTitle_idTipoDocu}"/>
+                                <h:outputText value="#{bundle.ListTipoDocumentoTitle_idTipoDocumento}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idTipoDocu}"/>
+                            <h:outputText value="#{item.idTipoDocumento}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTipoDocumentoTitle_tipoDocu}"/>
+                                <h:outputText value="#{bundle.ListTipoDocumentoTitle_descripcion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.tipoDocu}" style="text-transform: uppercase"/>
+                            <h:outputText value="#{item.descripcion}" style="text-transform: uppercase"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoDocumentoController.prepareCreate}" update=":TipoDocumentoCreateForm" oncomplete="PF('TipoDocumentoCreateDialog').show()"/>

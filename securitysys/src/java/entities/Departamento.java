@@ -12,11 +12,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,13 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Departamento.findByIdDepartamento", query = "SELECT d FROM Departamento d WHERE d.idDepartamento = :idDepartamento"),
     @NamedQuery(name = "Departamento.findByDescripcion", query = "SELECT d FROM Departamento d WHERE d.descripcion = :descripcion")})
 public class Departamento implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDepartamento")
-    private List<Reclamo> reclamoList;
-
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(generator = "DepartamentoSeq")
-    @SequenceGenerator(name = "DepartamentoSeq", sequenceName = "departamento_id_departamento_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_departamento")
     private Integer idDepartamento;
@@ -50,6 +46,8 @@ public class Departamento implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "descripcion")
     private String descripcion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDepartamento")
+    private List<Reclamo> reclamoList;
 
     public Departamento() {
     }
@@ -79,6 +77,15 @@ public class Departamento implements Serializable {
         this.descripcion = descripcion;
     }
 
+    @XmlTransient
+    public List<Reclamo> getReclamoList() {
+        return reclamoList;
+    }
+
+    public void setReclamoList(List<Reclamo> reclamoList) {
+        this.reclamoList = reclamoList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -103,14 +110,5 @@ public class Departamento implements Serializable {
     public String toString() {
         return "entities.Departamento[ idDepartamento=" + idDepartamento + " ]";
     }
-
-    @XmlTransient
-    public List<Reclamo> getReclamoList() {
-        return reclamoList;
-    }
-
-    public void setReclamoList(List<Reclamo> reclamoList) {
-        this.reclamoList = reclamoList;
-    }
-
+    
 }

@@ -12,10 +12,10 @@
             <h:form id="TipoDocumentoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tipoDocumentoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewTipoDocumentoLabel_idTipoDocu}"/>
-                        <h:outputText value="#{tipoDocumentoController.selected.idTipoDocu}" title="#{bundle.ViewTipoDocumentoTitle_idTipoDocu}"/>
-                        <h:outputText value="#{bundle.ViewTipoDocumentoLabel_tipoDocu}"/>
-                        <h:outputText value="#{tipoDocumentoController.selected.tipoDocu}" title="#{bundle.ViewTipoDocumentoTitle_tipoDocu}"/>
+                        <h:outputText value="#{bundle.ViewTipoDocumentoLabel_idTipoDocumento}"/>
+                        <h:outputText value="#{tipoDocumentoController.selected.idTipoDocumento}" title="#{bundle.ViewTipoDocumentoTitle_idTipoDocumento}"/>
+                        <h:outputText value="#{bundle.ViewTipoDocumentoLabel_descripcion}"/>
+                        <h:outputText value="#{tipoDocumentoController.selected.descripcion}" title="#{bundle.ViewTipoDocumentoTitle_descripcion}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="TipoDocumentoViewDialog.hide()"/>
                 </h:panelGroup>

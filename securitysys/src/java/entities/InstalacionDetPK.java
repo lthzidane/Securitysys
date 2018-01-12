@@ -6,58 +6,55 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author LOTHAR
+ * @author sebas
  */
 @Embeddable
 public class InstalacionDetPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_instalacion")
-    private BigInteger idInstalacion;
+    private int idInstalacion;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "nro_linea")
-    private BigInteger nroLinea;
+    @Column(name = "id_secuencia")
+    private int idSecuencia;
 
     public InstalacionDetPK() {
     }
 
-    public InstalacionDetPK(BigInteger idInstalacion, BigInteger nroLinea) {
+    public InstalacionDetPK(int idInstalacion, int idSecuencia) {
         this.idInstalacion = idInstalacion;
-        this.nroLinea = nroLinea;
+        this.idSecuencia = idSecuencia;
     }
 
-    public BigInteger getIdInstalacion() {
+    public int getIdInstalacion() {
         return idInstalacion;
     }
 
-    public void setIdInstalacion(BigInteger idInstalacion) {
+    public void setIdInstalacion(int idInstalacion) {
         this.idInstalacion = idInstalacion;
     }
 
-    public BigInteger getNroLinea() {
-        return nroLinea;
+    public int getIdSecuencia() {
+        return idSecuencia;
     }
 
-    public void setNroLinea(BigInteger nroLinea) {
-        this.nroLinea = nroLinea;
+    public void setIdSecuencia(int idSecuencia) {
+        this.idSecuencia = idSecuencia;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idInstalacion != null ? idInstalacion.hashCode() : 0);
-        hash += (nroLinea != null ? nroLinea.hashCode() : 0);
+        hash += (int) idInstalacion;
+        hash += (int) idSecuencia;
         return hash;
     }
 
@@ -68,10 +65,10 @@ public class InstalacionDetPK implements Serializable {
             return false;
         }
         InstalacionDetPK other = (InstalacionDetPK) object;
-        if ((this.idInstalacion == null && other.idInstalacion != null) || (this.idInstalacion != null && !this.idInstalacion.equals(other.idInstalacion))) {
+        if (this.idInstalacion != other.idInstalacion) {
             return false;
         }
-        if ((this.nroLinea == null && other.nroLinea != null) || (this.nroLinea != null && !this.nroLinea.equals(other.nroLinea))) {
+        if (this.idSecuencia != other.idSecuencia) {
             return false;
         }
         return true;
@@ -79,7 +76,7 @@ public class InstalacionDetPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.InstalacionDetPK[ idInstalacion=" + idInstalacion + ", nroLinea=" + nroLinea + " ]";
+        return "entities.InstalacionDetPK[ idInstalacion=" + idInstalacion + ", idSecuencia=" + idSecuencia + " ]";
     }
     
 }

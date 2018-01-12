@@ -6,7 +6,6 @@
 package bean;
 
 import entities.InstalacionCab;
-import entities.OrdenTrabajoCab;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -16,7 +15,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author LOTHAR
+ * @author sebas
  */
 @Stateless
 public class InstalacionCabFacade extends AbstractFacade<InstalacionCab> {
@@ -31,15 +30,6 @@ public class InstalacionCabFacade extends AbstractFacade<InstalacionCab> {
 
     public InstalacionCabFacade() {
         super(InstalacionCab.class);
-    }
-
-    @Override
-    public List<InstalacionCab> findAll() {
-        try {
-            return (List<InstalacionCab>) em.createNamedQuery("InstalacionCab.findAll").getResultList();
-        } catch (NoResultException e) {
-            return null;
-        }
     }
 
     public InstalacionCab findByIdInstalacion(Integer idInstalacion) {

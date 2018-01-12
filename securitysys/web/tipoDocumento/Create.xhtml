@@ -12,10 +12,10 @@
             <h:form id="TipoDocumentoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tipoDocumentoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateTipoDocumentoLabel_idTipoDocu}" for="idTipoDocu" rendered="false"/>
-                        <p:inputText id="idTipoDocu" value="#{tipoDocumentoController.selected.idTipoDocu}" title="#{bundle.CreateTipoDocumentoTitle_idTipoDocu}" required="true" requiredMessage="#{bundle.CreateTipoDocumentoRequiredMessage_idTipoDocu}" rendered="false"/>
-                        <p:outputLabel value="#{bundle.CreateTipoDocumentoLabel_tipoDocu}" for="tipoDocu" />
-                        <p:inputText id="tipoDocu" value="#{tipoDocumentoController.selected.tipoDocu}" title="#{bundle.CreateTipoDocumentoTitle_tipoDocu}" required="true" requiredMessage="#{bundle.CreateTipoDocumentoRequiredMessage_tipoDocu}" style="text-transform: uppercase"/>
+                        <p:outputLabel value="#{bundle.CreateTipoDocumentoLabel_idTipoDocumento}" for="idTipoDocu" rendered="false"/>
+                        <p:inputText id="idTipoDocu" value="#{tipoDocumentoController.selected.idTipoDocumento}" title="#{bundle.CreateTipoDocumentoTitle_idTipoDocumento}" required="true" requiredMessage="#{bundle.CreateTipoDocumentoRequiredMessage_idTipoDocumento}" rendered="false"/>
+                        <p:outputLabel value="#{bundle.CreateTipoDocumentoLabel_descripcion}" for="tipoDocu" />
+                        <p:inputText id="tipoDocu" value="#{tipoDocumentoController.selected.descripcion}" title="#{bundle.CreateTipoDocumentoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateTipoDocumentoRequiredMessage_descripcion}" style="text-transform: uppercase"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{tipoDocumentoController.create}" value="#{bundle.Save}" update="display,:TipoDocumentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoDocumentoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TipoDocumentoCreateDialog.hide()" immediate="true"/>

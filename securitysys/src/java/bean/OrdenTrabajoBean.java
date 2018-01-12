@@ -4,11 +4,11 @@
  */
 package bean;
 
+import bean.util.JsfUtil.PersistAction;
 import entities.Estado;
-import entities.OrdenTrabajoCab;
+import entities.OrdenTrabajo;
 import entities.OrdenTrabajoDet;
-import entities.Tecnicos;
-import entities.TipoServicios;
+import entities.Tecnico;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -34,11 +34,10 @@ import lombok.Data;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 import session.util.JsfUtil;
-import session.util.JsfUtil.PersistAction;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @ManagedBean(name = "OrdenTrabajoBean")
 @ViewScoped
@@ -66,26 +65,23 @@ public class OrdenTrabajoBean implements Serializable {
     private String direccion;
     private int telefono;
     private String ciudad;
-    private ArrayList<TipoServicios> listaServicios = new ArrayList<TipoServicios>();
-    private ArrayList<Tecnicos> listaTecnicos = new ArrayList<Tecnicos>();
+    private ArrayList<Tecnico> listaTecnicos = new ArrayList<Tecnico>();
     private List<Estado> listaEstados = new ArrayList<Estado>();
     private ArrayList<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
     private ArrayList<OrdenTrabajoDet> listaDetallesEliminados = new ArrayList<OrdenTrabajoDet>();
 
     @EJB
-    private bean.TecnicosFacade tecnicoFacade = new TecnicosFacade();
+    private bean.TecnicoFacade tecnicoFacade = new TecnicoFacade();
     @EJB
     private bean.ClienteFacade clienteFacade = new ClienteFacade();
     @EJB
-    private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
-    @EJB
     private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
-    private bean.OrdenTrabajoCabFacade ordenTrabajoCabFacade;
+    private bean.OrdenTrabajoFacade OrdenTrabajoFacade;
     @EJB
     private bean.OrdenTrabajoDetFacade ordenTrabajoDetFacade;
 
-    private OrdenTrabajoCab ordenTrabajoCab;
+    private OrdenTrabajo OrdenTrabajo;
     private OrdenTrabajoDet ordenTrabajoDet;
 
     private Connection con = null;
@@ -115,8 +111,6 @@ public class OrdenTrabajoBean implements Serializable {
 
                 String today = formatter.format(date);
                 fechaRecepcion = today;
-
-                this.listaServicios = obtenerTiposDeServicio();
                 this.listaTecnicos = obtenerTecnicos();
                 this.listaEstados = estadoTrabFacade.findAll();
                 this.idEstado = 1; //poner a Pendiente = 1 por defecto
@@ -139,11 +133,11 @@ public class OrdenTrabajoBean implements Serializable {
 
                 String otNro = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("OTNro");
 
-                OrdenTrabajoCab otCab = ordenTrabajoCabFacade.findByNroOrden(Integer.parseInt(otNro));
+                OrdenTrabajo otCab = OrdenTrabajoFacade.findByNroOrden(Integer.parseInt(otNro));
 
                 if (otCab != null) {
                     if (otCab.getOrdenTrabajoDetList().isEmpty()) {
-                        List<OrdenTrabajoDet> listaOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(otCab.getNroOrden().intValue());
+                        List<OrdenTrabajoDet> listaOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(otCab.getIdOt());
                         if (listaOrdenesTrabajoDet.size() > 0) {
                             otCab.setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
                             System.out.println("seteo la cantitad real: " + listaOrdenesTrabajoDet.size());
@@ -155,14 +149,11 @@ public class OrdenTrabajoBean implements Serializable {
                     fechaOrden = otCab.getFechaOrden();
                     fechaRecepcion = formatter.format(otCab.getFechaOrden());
 
-                    this.listaServicios = obtenerTiposDeServicio();
-                    this.idServicio = otCab.getIdServicio().getIdServicio().intValue();
-
                     this.listaTecnicos = obtenerTecnicos();
-                    this.idTecnico = otCab.getIdTecnico().getIdTecnico();
+                    
 
                     this.listaEstados = estadoTrabFacade.findAll();
-                    this.idEstado = otCab.getIdEstado().getIdEstado().intValue();
+                    this.idEstado = otCab.getIdEstado();
 
                     listaDetalle = new ArrayList<OrdenTrabajoDet>();
                     System.out.println("trae OtDet: " + otCab.getOrdenTrabajoDetList().size());
@@ -175,7 +166,7 @@ public class OrdenTrabajoBean implements Serializable {
                     this.fechaInicio = null;
                     this.fechaFin = null;
 
-                    this.nroDocumento = otCab.getIdCliente().getNroDocumento();
+                    this.nroDocumento = otCab.getIdCliente().getNumeroDocumento();
                     this.ciudad = otCab.getIdCliente().getIdCiudad().getCiudad();
                     this.telefono = otCab.getIdCliente().getTelefono();
                     this.direccion = otCab.getIdCliente().getDireccion();
@@ -211,14 +202,14 @@ public class OrdenTrabajoBean implements Serializable {
 
     public String guardarOrdenTrabajo() {
 
-        ordenTrabajoCab = new OrdenTrabajoCab();
-        ordenTrabajoCab.setIdTecnico(tecnicoFacade.findByIdTecnico(idTecnico));
-        ordenTrabajoCab.setIdCliente(clienteFacade.findByIdCliente(idCliente));
-        ordenTrabajoCab.setIdReclamo(null);
-        ordenTrabajoCab.setFechaOrden(fechaOrden);
-        ordenTrabajoCab.setIdEstado(null);
-        ordenTrabajoCab.setIdServicio(tipoServiciosFacade.findByIdServicio(idServicio));
-        //ordenTrabajoCab.setIdEstado(estadoTrabFacade.findByIdEstado(idEstado));
+        OrdenTrabajo = new OrdenTrabajo();
+        
+        OrdenTrabajo.setIdCliente(clienteFacade.findByIdCliente(idCliente));
+        OrdenTrabajo.setIdReclamo(null);
+        OrdenTrabajo.setFechaOrden(fechaOrden);
+        OrdenTrabajo.setIdEstado(0);
+        //OrdenTrabajo.setIdServicio(tipoServiciosFacade.findByIdServicio(idServicio));
+        //OrdenTrabajo.setIdEstado(estadoTrabFacade.findByIdEstado(idEstado));
 
         //estoy creando
         if (!editando) {
@@ -233,7 +224,7 @@ public class OrdenTrabajoBean implements Serializable {
 
         } else {
             //estoy editando!
-            ordenTrabajoCab.setNroOrden(BigDecimal.valueOf(Integer.parseInt(this.nroDeOrden)));
+            OrdenTrabajo.setIdOt(Integer.parseInt(this.nroDeOrden));
             persistOTCab(PersistAction.UPDATE, null);
             System.out.println("se editó la OTCab con exito > " + JsfUtil.isValidationFailed());
 
@@ -252,7 +243,7 @@ public class OrdenTrabajoBean implements Serializable {
 
     public void addTarea() {
         int i = this.listaDetalle.size() + 1;
-        OrdenTrabajoDet otd = new OrdenTrabajoDet(BigDecimal.valueOf(i), "");
+        OrdenTrabajoDet otd = new OrdenTrabajoDet();
         this.listaDetalle.add(otd);
     }
 
@@ -261,39 +252,11 @@ public class OrdenTrabajoBean implements Serializable {
         this.listaDetalle.remove(item);
     }
 
-    private ArrayList<TipoServicios> obtenerTiposDeServicio() {
-        TipoServicios tipoServ = null;
-        ArrayList<TipoServicios> list = new ArrayList<TipoServicios>();
-
-        try {
-
-            PreparedStatement ps = con.prepareStatement("select id_servicio, descripcion from tipo_servicios");
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                tipoServ = new TipoServicios();
-                String id_servicio = rs.getString("id_servicio");
-                String descripcion = rs.getString("descripcion");
-
-                tipoServ.setIdServicio(new BigDecimal(id_servicio));
-                tipoServ.setDescripcion(descripcion);
-                list.add(tipoServ);
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener Tipos de Servicio -->" + ex.getMessage());
-
-        } finally {
-            return list;
-        }
-
-    }
-
-    private ArrayList<Tecnicos> obtenerTecnicos() {
+    private ArrayList<Tecnico> obtenerTecnicos() {
         Connection con = null;
         PreparedStatement ps = null;
-        Tecnicos tecnico = null;
-        ArrayList<Tecnicos> list = new ArrayList<Tecnicos>();
+        Tecnico tecnico = null;
+        ArrayList<Tecnico> list = new ArrayList<Tecnico>();
 
         try {
             con = DataConnect.getConnection();
@@ -302,7 +265,7 @@ public class OrdenTrabajoBean implements Serializable {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                tecnico = new Tecnicos();
+                tecnico = new Tecnico();
                 String id_tecnico = rs.getString("id_tecnico");
                 String nombre = rs.getString("nombre");
 
@@ -311,7 +274,7 @@ public class OrdenTrabajoBean implements Serializable {
                 list.add(tecnico);
             }
         } catch (SQLException ex) {
-            System.out.println("Error al obtener Tecnicos -->" + ex.getMessage());
+            System.out.println("Error al obtener Tecnico -->" + ex.getMessage());
 
         } finally {
             DataConnect.close(con);
@@ -364,16 +327,16 @@ public class OrdenTrabajoBean implements Serializable {
 
     }
 
-    private void persistOTCab(JsfUtil.PersistAction persistAction, String successMessage) {
-        if (ordenTrabajoCab != null) {
+    private void persistOTCab(PersistAction persistAction, String successMessage) {
+        if (OrdenTrabajo != null) {
 
             try {
-                if (persistAction == JsfUtil.PersistAction.CREATE) {
-                    ordenTrabajoCabFacade.create(ordenTrabajoCab);
-                } else if (persistAction == JsfUtil.PersistAction.UPDATE) {
-                    ordenTrabajoCabFacade.edit(ordenTrabajoCab);
+                if (persistAction == PersistAction.CREATE) {
+                    OrdenTrabajoFacade.create(OrdenTrabajo);
+                } else if (persistAction == PersistAction.UPDATE) {
+                    OrdenTrabajoFacade.edit(OrdenTrabajo);
                 } else {
-                    ordenTrabajoCabFacade.remove(ordenTrabajoCab);
+                    OrdenTrabajoFacade.remove(OrdenTrabajo);
                 }
 
                 if (successMessage != null) {
@@ -398,7 +361,7 @@ public class OrdenTrabajoBean implements Serializable {
         }
     }
 
-    private void persistOTDet(JsfUtil.PersistAction persistAction,
+    private void persistOTDet(PersistAction persistAction,
             ArrayList<OrdenTrabajoDet> listaDetalle,
             String successMessage) {
 
@@ -427,18 +390,18 @@ public class OrdenTrabajoBean implements Serializable {
         if (listaDetalle != null && !listaDetalle.isEmpty()) {
             for (OrdenTrabajoDet otdet : listaDetalle) {
 
-                if (otdet.getNroOrden() != null) {
+                if (otdet.getOrdenTrabajo() != null) {
                     ordenTrabajoDet = otdet; //si mantiene el nro de orden, es que solo edite la descripción
                 } else {
                     ordenTrabajoDet = new OrdenTrabajoDet();
-                    ordenTrabajoDet.setNroOrden(ordenTrabajoCab);
+                    ordenTrabajoDet.setOrdenTrabajo(OrdenTrabajo);
                     ordenTrabajoDet.setDetalle(otdet.getDetalle());
                 }
 
                 try {
-                    if (persistAction == JsfUtil.PersistAction.CREATE) {
+                    if (persistAction == PersistAction.CREATE) {
                         ordenTrabajoDetFacade.create(ordenTrabajoDet);
-                    } else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+                    } else if (persistAction == PersistAction.UPDATE) {
                         ordenTrabajoDetFacade.edit(ordenTrabajoDet);
                     } else {
                         ordenTrabajoDetFacade.remove(ordenTrabajoDet);

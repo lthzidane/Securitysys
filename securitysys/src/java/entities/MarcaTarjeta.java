@@ -6,18 +6,22 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,8 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class MarcaTarjeta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(generator="MarcaSeq") 
-    @SequenceGenerator(name="MarcaSeq",sequenceName="marca_id_marca_seq", allocationSize=1) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_marca_tarjeta")
     private Integer idMarcaTarjeta;
@@ -43,6 +46,8 @@ public class MarcaTarjeta implements Serializable {
     @Size(min = 1, max = 60)
     @Column(name = "desc_marca_tarjeta")
     private String descMarcaTarjeta;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMarcaTarjeta")
+    private List<Tarjeta> tarjetaList;
 
     public MarcaTarjeta() {
     }
@@ -70,6 +75,15 @@ public class MarcaTarjeta implements Serializable {
 
     public void setDescMarcaTarjeta(String descMarcaTarjeta) {
         this.descMarcaTarjeta = descMarcaTarjeta.toUpperCase();
+    }
+
+    @XmlTransient
+    public List<Tarjeta> getTarjetaList() {
+        return tarjetaList;
+    }
+
+    public void setTarjetaList(List<Tarjeta> tarjetaList) {
+        this.tarjetaList = tarjetaList;
     }
 
     @Override

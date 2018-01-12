@@ -7,7 +7,9 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,11 +17,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -73,6 +77,10 @@ public class Timbrado implements Serializable {
     @JoinColumn(name = "id_tipo_comprobante", referencedColumnName = "id_tipo_comprobante")
     @ManyToOne(optional = false)
     private TipoComprobante idTipoComprobante;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTimbrado")
+    private List<Venta> ventaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTimbrado")
+    private List<NotaCrediDebiVenta> notaCrediDebiVentaList;
 
     public Timbrado() {
     }
@@ -153,6 +161,24 @@ public class Timbrado implements Serializable {
 
     public void setIdTipoComprobante(TipoComprobante idTipoComprobante) {
         this.idTipoComprobante = idTipoComprobante;
+    }
+
+    @XmlTransient
+    public List<Venta> getVentaList() {
+        return ventaList;
+    }
+
+    public void setVentaList(List<Venta> ventaList) {
+        this.ventaList = ventaList;
+    }
+
+    @XmlTransient
+    public List<NotaCrediDebiVenta> getNotaCrediDebiVentaList() {
+        return notaCrediDebiVentaList;
+    }
+
+    public void setNotaCrediDebiVentaList(List<NotaCrediDebiVenta> notaCrediDebiVentaList) {
+        this.notaCrediDebiVentaList = notaCrediDebiVentaList;
     }
 
     @Override

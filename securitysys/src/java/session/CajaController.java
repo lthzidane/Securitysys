@@ -1,32 +1,32 @@
 package session;
 
-import bean.CajaFacade;
 import entities.Caja;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
-@ManagedBean(name = "cajaController")
+@Named(value = "cajaController")
 @ViewScoped
 public class CajaController extends AbstractController<Caja> {
-
-    @EJB
-    private CajaFacade ejbFacade;
-
-    /**
-     * Initialize the concrete Caja controller bean. The AbstractController
-     * requires the EJB Facade object for most operations.
-     */
-    @PostConstruct
-    @Override
-    public void init() {
-        super.setFacade(ejbFacade);
-    }
 
     public CajaController() {
         // Inform the Abstract parent controller of the concrete Caja Entity
         super(Caja.class);
+    }
+
+    /**
+     * Sets the "items" attribute with a collection of AperturaCierreCaja
+     * entities that are retrieved from Caja?cap_first and returns the
+     * navigation outcome.
+     *
+     * @return navigation outcome for AperturaCierreCaja page
+     */
+    public String navigateAperturaCierreCajaList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("AperturaCierreCaja_items", this.getSelected().getAperturaCierreCajaList());
+        }
+        return "/aperturaCierreCaja/index";
     }
 
 }

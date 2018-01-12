@@ -1,32 +1,31 @@
 package session;
 
 import entities.TipoTarjeta;
-import bean.TipoTarjetaFacade;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.annotation.PostConstruct;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
-@ManagedBean(name = "tipoTarjetaController")
+@Named(value = "tipoTarjetaController")
 @ViewScoped
 public class TipoTarjetaController extends AbstractController<TipoTarjeta> {
-
-    @EJB
-    private TipoTarjetaFacade ejbFacade;
-
-    /**
-     * Initialize the concrete TipoTarjeta controller bean. The
-     * AbstractController requires the EJB Facade object for most operations.
-     */
-    @PostConstruct
-    @Override
-    public void init() {
-        super.setFacade(ejbFacade);
-    }
 
     public TipoTarjetaController() {
         // Inform the Abstract parent controller of the concrete TipoTarjeta Entity
         super(TipoTarjeta.class);
+    }
+
+    /**
+     * Sets the "items" attribute with a collection of Tarjeta entities that are
+     * retrieved from TipoTarjeta?cap_first and returns the navigation outcome.
+     *
+     * @return navigation outcome for Tarjeta page
+     */
+    public String navigateTarjetaList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("Tarjeta_items", this.getSelected().getTarjetaList());
+        }
+        return "/tarjeta/index";
     }
 
 }

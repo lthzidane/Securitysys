@@ -23,9 +23,9 @@
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:outputText value="Estado del Reclamo:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <h:selectOneMenu id="estado" label="Estado de Instalacion" value="#{GestionarReclamoBean.idEstadoTrab}">
+                            <h:selectOneMenu id="estado" label="Estado de Instalacion" value="#{GestionarReclamoBean.idEstado}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{GestionarReclamoBean.listaEstados}" var="est" itemLabel="#{est.estado}" itemValue="#{est.idEstadoTrab}"/>
+                                <f:selectItems value="#{GestionarReclamoBean.listaEstados}" var="est" itemLabel="#{est.descripcion}" itemValue="#{est.idEstado}"/>
                             </h:selectOneMenu>
                             <h:outputText value="Fecha Reclamo:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
@@ -34,26 +34,15 @@
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:selectOneMenu id="departamento" label="Derivado a" value="#{GestionarReclamoBean.idDepartamento}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{GestionarReclamoBean.listaDepartamentos}" var="depto" itemLabel="#{depto.nombreDpto}" itemValue="#{depto.idDpto}"/>
+                                <f:selectItems value="#{GestionarReclamoBean.listaDepartamentos}" var="depto" itemLabel="#{depto.descripcion}" itemValue="#{depto.idDepartamento}"/>
                             </h:selectOneMenu>                                              
                             <h:outputText value="Tipo de Reclamo:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />                            
-                            <h:selectOneMenu id="tipoReclamo" label="Tipo de Reclamo" value="#{GestionarReclamoBean.idTiporeclamo}">
+                            <h:selectOneMenu id="tipoReclamo" label="Tipo de Reclamo" value="#{GestionarReclamoBean.idTipoReclamo}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{GestionarReclamoBean.listaTipoReclamo}" var="tipoRec" itemLabel="#{tipoRec.descripcion}" itemValue="#{tipoRec.idTiporecla}"/>
                             </h:selectOneMenu>                                              
-                            <h:outputText value="SubTipo de Reclamo:"
-                                          style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />                            
-                            <h:selectOneMenu id="subtipoReclamo" label="SubTipo de Reclamo" value="#{GestionarReclamoBean.idSubTiporeclamo}">
-                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{GestionarReclamoBean.listaSubTipoReclamo}" var="subtipoRec" itemLabel="#{subtipoRec.subtipo}" itemValue="#{subtipoRec.idSubtipo}"/>
-                            </h:selectOneMenu>
-                            <h:outputText value="Nivel de Reclamo:"
-                                          style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />                            
-                            <h:selectOneMenu id="nivelReclamo" label="Nivel de Reclamo" value="#{GestionarReclamoBean.idNivel}">
-                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{GestionarReclamoBean.listaNivel}" var="nivel" itemLabel="#{nivel.nivel}" itemValue="#{nivel.idNivel}"/>
-                            </h:selectOneMenu>                            
+                         
                             <h:outputText value="Cargado por:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:outputText id="usuario" value="#{GestionarReclamoBean.usuario}" style="font-size: 11px;"/>
@@ -90,7 +79,7 @@
                     </h:panelGrid>
 
                     <h:panelGroup layout="block">
-                        <p:commandButton action="#{GestionarReclamoBean.guardarReclamo}" update=":growl estado departamento tipoReclamo subtipoReclamo nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente nroDeReclamo" id="buttonGuardar" value="Guardar"/>
+                        <p:commandButton action="#{GestionarReclamoBean.guardarReclamo}" update=":growl estado departamento tipoReclamo nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente nroDeReclamo" id="buttonGuardar" value="Guardar"/>
                         <p:commandButton action="#{GestionarReclamoBean.volver}" id="buttonCancelar" value="Cancelar" immediate="true"/>
                     </h:panelGroup>
 

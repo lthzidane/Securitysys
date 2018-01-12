@@ -12,10 +12,10 @@
             <h:form id="TipoDocumentoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tipoDocumentoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditTipoDocumentoLabel_idTipoDocu}" for="idTipoDocu" rendered="false"/>
-                        <p:inputText id="idTipoDocu" value="#{tipoDocumentoController.selected.idTipoDocu}" title="#{bundle.EditTipoDocumentoTitle_idTipoDocu}" required="true" requiredMessage="#{bundle.EditTipoDocumentoRequiredMessage_idTipoDocu}" rendered="false"/>
-                        <p:outputLabel value="#{bundle.EditTipoDocumentoLabel_tipoDocu}" for="tipoDocu" />
-                        <p:inputText id="tipoDocu" value="#{tipoDocumentoController.selected.tipoDocu}" title="#{bundle.EditTipoDocumentoTitle_tipoDocu}" required="true" requiredMessage="#{bundle.EditTipoDocumentoRequiredMessage_tipoDocu}" style="text-transform: uppercase"/>
+                        <p:outputLabel value="#{bundle.EditTipoDocumentoLabel_idTipoDocumento}" for="idTipoDocu" rendered="false"/>
+                        <p:inputText id="idTipoDocu" value="#{tipoDocumentoController.selected.idTipoDocumento}" title="#{bundle.EditTipoDocumentoTitle_idTipoDocumento}" required="true" requiredMessage="#{bundle.EditTipoDocumentoRequiredMessage_idTipoDocumento}" rendered="false"/>
+                        <p:outputLabel value="#{bundle.EditTipoDocumentoLabel_descripcion}" for="tipoDocu" />
+                        <p:inputText id="tipoDocu" value="#{tipoDocumentoController.selected.descripcion}" title="#{bundle.EditTipoDocumentoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditTipoDocumentoRequiredMessage_descripcion}" style="text-transform: uppercase"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{tipoDocumentoController.update}" value="#{bundle.Save}" update="display,:TipoDocumentoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipoDocumentoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TipoDocumentoEditDialog.hide()" immediate="true"/>

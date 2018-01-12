@@ -5,8 +5,6 @@
  */
 package bean;
 
-import entities.Cliente;
-import entities.InstalacionCab;
 import entities.Reclamo;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +15,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author LOTHAR
+ * @author sebas
  */
 @Stateless
 public class ReclamoFacade extends AbstractFacade<Reclamo> {
@@ -42,9 +40,9 @@ public class ReclamoFacade extends AbstractFacade<Reclamo> {
         }
     }
 
-    public List<Reclamo> findBetweenFechaIngreso(Date startDate, Date endDate) {
+    public List<Reclamo> findBetweenfechaAlta(Date startDate, Date endDate) {
         try {
-            return (List<Reclamo>) em.createNamedQuery("Reclamo.findBetweenFechaIngreso")
+            return (List<Reclamo>) em.createNamedQuery("Reclamo.findBetweenfechaAlta")
                     .setParameter("startDate", startDate)
                     .setParameter("endDate", endDate)
                     .getResultList();

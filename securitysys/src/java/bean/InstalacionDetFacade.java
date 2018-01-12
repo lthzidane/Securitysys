@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author LOTHAR
+ * @author sebas
  */
 @Stateless
 public class InstalacionDetFacade extends AbstractFacade<InstalacionDet> {

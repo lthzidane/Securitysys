@@ -12,7 +12,7 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import entities.InstalacionCab;
-import entities.OrdenTrabajoCab;
+import entities.OrdenTrabajo;
 import entities.OrdenTrabajoDet;
 import java.io.File;
 import java.io.IOException;
@@ -36,15 +36,15 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import lombok.Data;
+import org.apache.commons.codec.binary.Base64;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
-import org.apache.commons.codec.binary.Base64;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @ManagedBean(name = "ReportesOTBean")
 @ViewScoped
@@ -53,15 +53,15 @@ public class ReportesOTBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<OrdenTrabajoCab> listaOrdenesTrabajo = new ArrayList<>();
+    private ArrayList<OrdenTrabajo> listaOrdenesTrabajo = new ArrayList<>();
     private ArrayList<InstalacionCab> listaInstalaciones = new ArrayList<>();
 
-    private ArrayList<OrdenTrabajoCab> listaRepoOrdenesTrabajo = new ArrayList<>();
+    private ArrayList<OrdenTrabajo> listaRepoOrdenesTrabajo = new ArrayList<>();
     private List<OrdenTrabajoDet> listaRepoOrdenesTrabajoDet = new ArrayList<>();
 
     private ArrayList<InstalacionCab> listaRepoInstalaciones = new ArrayList<>();
 
-    private List<OrdenTrabajoCab> filteredOrdenesTrabajo;
+    private List<OrdenTrabajo> filteredOrdenesTrabajo;
     private List<InstalacionCab> filteredInstalaciones;
 
     private LineChartModel animatedModelOT;
@@ -79,14 +79,14 @@ public class ReportesOTBean implements Serializable {
     private String chartImageSrcBase64;
 
     @EJB
-    private bean.OrdenTrabajoCabFacade ordenTrabajoCabFacade;
+    private bean.OrdenTrabajoFacade OrdenTrabajoFacade;
     @EJB
     private bean.InstalacionCabFacade instalacionCabFacade;
 
     @EJB
     private bean.OrdenTrabajoDetFacade ordenTrabajoDetFacade;
 
-    private OrdenTrabajoCab ordenTrabajoCab;
+    private OrdenTrabajo OrdenTrabajo;
     private InstalacionCab instalacionCab;
 
     @PostConstruct
@@ -99,9 +99,9 @@ public class ReportesOTBean implements Serializable {
     public void cargarTabRepoOT() {
         try {
             listaRepoOrdenesTrabajo = new ArrayList<>();
-            for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findAll()) {
+            for (OrdenTrabajo ot : OrdenTrabajoFacade.findAll()) {
                 if (ot.getOrdenTrabajoDetList().isEmpty()) {
-                    listaRepoOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(ot.getNroOrden().intValue());
+                    listaRepoOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(ot.getIdOt());
                     if (listaRepoOrdenesTrabajoDet.size() > 0) {
                         ot.setOrdenTrabajoDetList(listaRepoOrdenesTrabajoDet);
                     }
@@ -127,8 +127,8 @@ public class ReportesOTBean implements Serializable {
 
     public void createAnimatedModels() {
 
-        listaOrdenesTrabajo = new ArrayList<OrdenTrabajoCab>();
-        for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findAll()) {
+        listaOrdenesTrabajo = new ArrayList<OrdenTrabajo>();
+        for (OrdenTrabajo ot : OrdenTrabajoFacade.findAll()) {
             listaOrdenesTrabajo.add(ot);
         }
         animatedModelOT = initLinearModelOT();
@@ -174,7 +174,7 @@ public class ReportesOTBean implements Serializable {
         int cant = 0;
         dia = -1; //primer día
         boolean cambioMes = false;
-        for (OrdenTrabajoCab ot : listaOrdenesTrabajo) {
+        for (OrdenTrabajo ot : listaOrdenesTrabajo) {
             Calendar fecha = Calendar.getInstance();
             fecha.setTime(ot.getFechaOrden());
 
@@ -227,7 +227,7 @@ public class ReportesOTBean implements Serializable {
         boolean cambioMes = false;
         for (InstalacionCab ins : listaInstalaciones) {
             Calendar fecha = Calendar.getInstance();
-            fecha.setTime(ins.getFechainstalacion());
+            fecha.setTime(ins.getFechaInicio());
 
             mes = fecha.get(Calendar.MONTH); //obtengo el mes para saber en que lista va
             if (mes == Calendar.NOVEMBER) {
@@ -371,11 +371,11 @@ public class ReportesOTBean implements Serializable {
                 && (dateTo == null || filterDate.before(dateTo) || filterDate.equals(dateTo));
     }
 
-    public List<OrdenTrabajoCab> getFilteredOrdenesTrabajo() {
+    public List<OrdenTrabajo> getFilteredOrdenesTrabajo() {
         return filteredOrdenesTrabajo;
     }
 
-    public void setFilteredOrdenesTrabajo(List<OrdenTrabajoCab> filteredOrdenesTrabajo) {
+    public void setFilteredOrdenesTrabajo(List<OrdenTrabajo> filteredOrdenesTrabajo) {
         this.filteredOrdenesTrabajo = filteredOrdenesTrabajo;
     }
 
@@ -433,11 +433,11 @@ public class ReportesOTBean implements Serializable {
             cargarTabRepoOT();
         } else {
             listaRepoOrdenesTrabajo = new ArrayList<>();
-            for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findBetweenFechaOrden(startDate, endDate)) {
-                System.out.println("ot.NroOrden:" + ot.getNroOrden() + " cantDet:" + ot.getOrdenTrabajoDetList().size());
+            for (OrdenTrabajo ot : OrdenTrabajoFacade.findBetweenFechaOrden(startDate, endDate)) {
+                System.out.println("ot.NroOrden:" + ot.getIdOt()+ " cantDet:" + ot.getOrdenTrabajoDetList().size());
 
                 if (ot.getOrdenTrabajoDetList().isEmpty()) {
-                    listaRepoOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(ot.getNroOrden().intValue());
+                    listaRepoOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(ot.getIdOt().intValue());
                     if (listaRepoOrdenesTrabajoDet.size() > 0) {
                         ot.setOrdenTrabajoDetList(listaRepoOrdenesTrabajoDet);
                         System.out.println("seteo la cantitad real: " + listaRepoOrdenesTrabajoDet.size());

@@ -57,6 +57,8 @@ public class Diagnostico implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "estado_diag")
     private String estadoDiag;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "diagnostico")
+    private List<DiagnosticoDet> diagnosticoDetList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
     private List<Presupuesto> presupuestoList;
     @JoinColumn(name = "id_reclamo", referencedColumnName = "id_reclamo")
@@ -104,6 +106,15 @@ public class Diagnostico implements Serializable {
 
     public void setEstadoDiag(String estadoDiag) {
         this.estadoDiag = estadoDiag;
+    }
+
+    @XmlTransient
+    public List<DiagnosticoDet> getDiagnosticoDetList() {
+        return diagnosticoDetList;
+    }
+
+    public void setDiagnosticoDetList(List<DiagnosticoDet> diagnosticoDetList) {
+        this.diagnosticoDetList = diagnosticoDetList;
     }
 
     @XmlTransient

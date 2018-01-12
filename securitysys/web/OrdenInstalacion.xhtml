@@ -35,7 +35,7 @@
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:selectOneMenu id="movil" label="Movil a utilizar" value="#{OrdenInstalacionBean.movil}">
                                 <f:selectItem itemLabel="Seleccione Matricula" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{OrdenInstalacionBean.listaMoviles}" var="mov" itemLabel="#{mov.funcion} (#{mov.nroMatricula})" itemValue="#{mov}"/>
+                                <f:selectItems value="#{OrdenInstalacionBean.listaMoviles}" var="mov" itemLabel="#{mov.matricula}" itemValue="#{mov}"/>
                             </h:selectOneMenu>                            
 
                             <h:outputText value="Inicio de Instalacion:"
@@ -48,9 +48,9 @@
                             <p:calendar id="buttonFT" value="#{OrdenInstalacionBean.fechaFin}" pattern="dd/MM/yyyy" locale="es" mindate="#{OrdenInstalacionBean.fechaInicio}" disabled="#{!OrdenInstalacionBean.editando}"/>                    
                             <h:outputText value="Estado de Instalacion:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <h:selectOneMenu id="estado" label="Estado de Instalacion" value="#{OrdenInstalacionBean.idEstadoTrab}">
+                            <h:selectOneMenu id="estado" label="Estado de Instalacion" value="#{OrdenInstalacionBean.idEstado}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{OrdenInstalacionBean.listaEstados}" var="est" itemLabel="#{est.estado}" itemValue="#{est.idEstadoTrab}"/>
+                                <f:selectItems value="#{OrdenInstalacionBean.listaEstados}" var="est" itemLabel="#{est.descripcion}" itemValue="#{est.idEstado}"/>
                             </h:selectOneMenu>
 
                             <h:outputText value="Observacion:" 
@@ -107,28 +107,6 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <p:dataTable id="datatableKits" 
-                                         var="kit" 
-                                         value="#{OrdenInstalacionBean.listaKits}" 
-                                         selection="#{OrdenInstalacionBean.selectedKits}" 
-                                         rowKey="#{kit.idProductosKit}" 
-                                         style="width: 500px; margin-bottom:0;" 
-                                         scrollable="true"
-                                         scrollHeight="100">
-                                <f:facet name="header">
-                                    Kit de Productos a utilizar
-                                </f:facet>
-                                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-                                <p:column headerText="Producto">
-                                    <h:outputText value="#{kit.codProducto.descripcion}" />
-                                </p:column>
-                                <p:column headerText="Cantidad" style="width:50px;">
-                                    <div align="center"><h:outputText value="#{kit.cantidad}" /></div>
-                                </p:column>
-                                <p:column headerText="Medida">
-                                    <h:outputText value="#{kit.codProducto.idMedida.descMedida}" />
-                                </p:column>
-                            </p:dataTable>
                             <br/><br/>        
                             <p:dataTable id="datatableEquipoTecnico" disabledSelection="#{OrdenInstalacionBean.editando}"
                                          var="tec" 
@@ -154,7 +132,7 @@
 
                     <br/><br/>
                     <h:panelGroup layout="block">
-                        <p:commandButton action="#{OrdenInstalacionBean.guardarOrdenInstalacion}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatableTareas datatableKits nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente tipoInstalacion movil ordenFilter datatableEquipoTecnico observacion nroDeInstalacion" id="buttonGuardar" value="Guardar" style="font-size: 12px;"/>
+                        <p:commandButton action="#{OrdenInstalacionBean.guardarOrdenInstalacion}" update=":growl buttonIT buttonFT estado tecnico tipoServicio datatableTareas nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente tipoInstalacion movil ordenFilter datatableEquipoTecnico observacion nroDeInstalacion" id="buttonGuardar" value="Guardar" style="font-size: 12px;"/>
                         <p:commandButton action="#{OrdenInstalacionBean.volver}" id="buttonCancelar" value="Cancelar" immediate="true" style="font-size: 12px;"/>
                     </h:panelGroup>
 

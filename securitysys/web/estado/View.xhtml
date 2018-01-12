@@ -14,10 +14,8 @@
                     <p:panelGrid columns="2" rendered="#{estadoController.selected != null}">
                         <h:outputText value="#{bundle.ViewEstadoLabel_idEstado}"/>
                         <h:outputText value="#{estadoController.selected.idEstado}" title="#{bundle.ViewEstadoTitle_idEstado}"/>
-                        <h:outputText value="#{bundle.ViewEstadoLabel_modulo}"/>
-                        <h:outputText value="#{estadoController.selected.modulo}" title="#{bundle.ViewEstadoTitle_modulo}"/>
-                        <h:outputText value="#{bundle.ViewEstadoLabel_estado}"/>
-                        <h:outputText value="#{estadoController.selected.estado}" title="#{bundle.ViewEstadoTitle_estado}"/>
+                        <h:outputText value="#{bundle.ViewEstadoLabel_descripcion}"/>
+                        <h:outputText value="#{estadoController.selected.descripcion}" title="#{bundle.ViewEstadoTitle_descripcion}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="EstadoViewDialog.hide()"/>
                 </h:panelGroup>

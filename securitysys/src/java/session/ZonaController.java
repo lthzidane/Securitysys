@@ -1,38 +1,18 @@
 package session;
 
-import session.CiudadController;
-import bean.ZonaFacade;
 import entities.Zona;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
-@ManagedBean(name = "zonaController")
+@Named(value = "zonaController")
 @ViewScoped
 public class ZonaController extends AbstractController<Zona> {
 
-    @EJB
-    private ZonaFacade ejbFacade;
-    @ManagedProperty(value = "#{ciudadController}")
+    @Inject
     private CiudadController idCiudadController;
-
-    /* Setter method for managed property idCiudadController */
-    public void setIdCiudadController(CiudadController idCiudadController) {
-        this.idCiudadController = idCiudadController;
-    }
-
-    /**
-     * Initialize the concrete Zona controller bean. The AbstractController
-     * requires the EJB Facade object for most operations.
-     */
-    @PostConstruct
-    @Override
-    public void init() {
-        super.setFacade(ejbFacade);
-    }
 
     public ZonaController() {
         // Inform the Abstract parent controller of the concrete Zona Entity
@@ -57,4 +37,31 @@ public class ZonaController extends AbstractController<Zona> {
             idCiudadController.setSelected(this.getSelected().getIdCiudad());
         }
     }
+
+    /**
+     * Sets the "items" attribute with a collection of Ruta entities that are
+     * retrieved from Zona?cap_first and returns the navigation outcome.
+     *
+     * @return navigation outcome for Ruta page
+     */
+    public String navigateRutaList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("Ruta_items", this.getSelected().getRutaList());
+        }
+        return "/ruta/index";
+    }
+
+    /**
+     * Sets the "items" attribute with a collection of Cuadrilla entities that
+     * are retrieved from Zona?cap_first and returns the navigation outcome.
+     *
+     * @return navigation outcome for Cuadrilla page
+     */
+    public String navigateCuadrillaList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("Cuadrilla_items", this.getSelected().getCuadrillaList());
+        }
+        return "/cuadrilla/index";
+    }
+
 }

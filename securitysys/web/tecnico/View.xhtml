@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TecnicoViewDlg" widgetVar="TecnicoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewTecnicoTitle}" closeOnEscape="true">
+
+            <h:form id="TecnicoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tecnicoController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewTecnicoLabel_idTecnico}"/>
+                        <h:outputText value="#{tecnicoController.selected.idTecnico}" title="#{bundle.ViewTecnicoTitle_idTecnico}"/>
+
+                        <h:outputText value="#{bundle.ViewTecnicoLabel_nombre}"/>
+                        <h:outputText value="#{tecnicoController.selected.nombre}" title="#{bundle.ViewTecnicoTitle_nombre}"/>
+
+                        <h:outputText value="#{bundle.ViewTecnicoLabel_nroDocumento}"/>
+                        <h:outputText value="#{tecnicoController.selected.nroDocumento}" title="#{bundle.ViewTecnicoTitle_nroDocumento}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('TecnicoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

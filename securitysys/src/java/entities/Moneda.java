@@ -12,11 +12,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -36,12 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Moneda.findByDescripcion", query = "SELECT m FROM Moneda m WHERE m.descripcion = :descripcion"),
     @NamedQuery(name = "Moneda.findByAbreviatura", query = "SELECT m FROM Moneda m WHERE m.abreviatura = :abreviatura")})
 public class Moneda implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMoneda")
-    private List<Servicio> servicioList;
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(generator="MonedaSeq") 
-    @SequenceGenerator(name="MonedaSeq",sequenceName="moneda_id_moneda_seq", allocationSize=1) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_moneda")
     private Integer idMoneda;
@@ -55,6 +52,8 @@ public class Moneda implements Serializable {
     @Size(min = 1, max = 3)
     @Column(name = "abreviatura")
     private String abreviatura;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMoneda")
+    private List<Servicio> servicioList;
 
     public Moneda() {
     }
@@ -93,6 +92,15 @@ public class Moneda implements Serializable {
         this.abreviatura = abreviatura.toUpperCase();
     }
 
+    @XmlTransient
+    public List<Servicio> getServicioList() {
+        return servicioList;
+    }
+
+    public void setServicioList(List<Servicio> servicioList) {
+        this.servicioList = servicioList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -116,15 +124,6 @@ public class Moneda implements Serializable {
     @Override
     public String toString() {
         return "entities.Moneda[ idMoneda=" + idMoneda + " ]";
-    }
-
-    @XmlTransient
-    public List<Servicio> getServicioList() {
-        return servicioList;
-    }
-
-    public void setServicioList(List<Servicio> servicioList) {
-        this.servicioList = servicioList;
     }
     
 }

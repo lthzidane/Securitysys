@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Acer
+ * @author sebas
  */
 @Stateless
 public class ClienteFacade extends AbstractFacade<Cliente> {
@@ -28,13 +28,13 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
     public ClienteFacade() {
         super(Cliente.class);
     }
-    
+
     public Cliente findByIdCliente(Integer idCliente) {
         try {
             return (Cliente) em.createNamedQuery("Cliente.findByIdCliente").setParameter("idCliente", idCliente).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
-    }    
+} 
     
 }

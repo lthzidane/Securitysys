@@ -6,7 +6,6 @@
 package bean;
 
 import entities.Departamento;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -14,10 +13,11 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Acer
+ * @author sebas
  */
 @Stateless
 public class DepartamentoFacade extends AbstractFacade<Departamento> {
+
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -29,22 +29,13 @@ public class DepartamentoFacade extends AbstractFacade<Departamento> {
     public DepartamentoFacade() {
         super(Departamento.class);
     }
-    
-    @Override
-     public List<Departamento> findAll() {
+
+    Departamento findByIdDepartamento(Integer idDepartamento) {
         try {
-            return (List<Departamento>) em.createNamedQuery("Departamento.findAll").getResultList();
+            return (Departamento) em.createNamedQuery("Departamento.findByIdDepartamento").setParameter("idDepartamento", idDepartamento).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
     }
-     
-    public Departamento findByIdDpto(Integer idDpto) {
-        try {
-            return (Departamento) em.createNamedQuery("Departamento.findByIdDpto").setParameter("idDpto", idDpto).getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }     
-     
+
 }

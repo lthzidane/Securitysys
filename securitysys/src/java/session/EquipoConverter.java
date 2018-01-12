@@ -6,7 +6,7 @@ import session.util.JsfUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.convert.FacesConverter;
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -14,7 +14,7 @@ import javax.faces.convert.Converter;
 @FacesConverter(value = "equipoConverter")
 public class EquipoConverter implements Converter {
 
-    @EJB
+    @Inject
     private EquipoFacade ejbFacade;
 
     @Override

@@ -1,16 +1,12 @@
 package bean;
 
+import bean.util.JsfUtil.PersistAction;
 import entities.Cliente;
 import entities.Estado;
-import entities.Funcionario;
-import entities.PresupuestoCab;
-import entities.PresupuestoCabPK;
+import entities.Presupuesto;
 import entities.PresupuestoDet;
-import entities.PresupuestoDetPK;
-import entities.Productos;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +32,7 @@ import session.util.JsfUtil;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @ManagedBean(name = "ElaborarPresupuestoBean")
 @ViewScoped
@@ -61,8 +56,6 @@ public class ElaborarPresupuestoBean implements Serializable {
     private Date fechaPedidoDate;
     private ArrayList<PresupuestoDet> listaDetalle = new ArrayList<>();
     private ArrayList<PresupuestoDet> listaDetallesEliminados = new ArrayList<>();
-    private List<Productos> listaProductos = new ArrayList<>();
-    private List<Funcionario> listaFuncionarios = new ArrayList<>();
     private List<Estado> listaEstados = new ArrayList<>();
     private String sumaTotal;
     private String iva;
@@ -74,25 +67,18 @@ public class ElaborarPresupuestoBean implements Serializable {
     private String ciudad;
     private String direccion;
     private String telefono;
-    private Funcionario idFuncionario;
     private Estado idEstado;
 
-    private PresupuestoCab presupuestoCab;
+    private Presupuesto Presupuesto;
     private PresupuestoDet presupuestoDet;
 
     private static final DateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy"); //defino el formato de fecha
 
     @EJB
-    private bean.ProductosFacade productoFacade = new ProductosFacade();
-
-    @EJB
-    private bean.PresupuestoCabFacade presupuestoCabFacade = new PresupuestoCabFacade();
+    private bean.PresupuestoFacade PresupuestoFacade = new PresupuestoFacade();
 
     @EJB
     private bean.PresupuestoDetFacade presupuestoDetFacade = new PresupuestoDetFacade();
-
-    @EJB
-    private bean.FuncionarioFacade funcionarioFacade = new FuncionarioFacade();
 
     @EJB
     private bean.EstadoFacade estadoFacade = new EstadoFacade();
@@ -113,22 +99,18 @@ public class ElaborarPresupuestoBean implements Serializable {
             fechaPedido = today;
             fechaPedidoDate = date;
 
-            //Crea un presupuestoCab inicial
-            this.presupuestoCab = new PresupuestoCab();
+            //Crea un Presupuesto inicial
+            this.Presupuesto = new Presupuesto();
 
-            PresupuestoCabPK presupuestoCabPK = new PresupuestoCabPK();
-            int rand = generaNumeroAleatorio(0, 1000);
-            presupuestoCabPK.setNroPresupuesto(BigInteger.valueOf(rand));
-            presupuestoCabPK.setSerPresupuesto("A");
-            presupuestoCabPK.setTipoPresupuesto("TIP");
+//            PresupuestoPK PresupuestoPK = new PresupuestoPK();
+//            int rand = generaNumeroAleatorio(0, 1000);
+//            PresupuestoPK.setNroPresupuesto(BigInteger.valueOf(rand));
+//            PresupuestoPK.setSerPresupuesto("A");
+//            PresupuestoPK.setTipoPresupuesto("TIP");
 
-            this.presupuestoCab.setPresupuestoCabPK(presupuestoCabPK);
+            //this.Presupuesto.setPresupuestoPK(PresupuestoPK);
 
-            this.presupuestoCab.setFecha(date);
-
-            this.listaProductos = productoFacade.findAll();
-
-            this.listaFuncionarios = funcionarioFacade.findAll();
+            this.Presupuesto.setFecha(date);
 
             this.listaEstados = estadoFacade.findAll();
 
@@ -150,14 +132,14 @@ public class ElaborarPresupuestoBean implements Serializable {
     public String guardarPresupuesto() {
 
         String sumaTotalSinPunto = this.sumaTotal.replace(".", "");
-        this.presupuestoCab.setBaseImponible(new BigInteger(sumaTotalSinPunto));
-        this.presupuestoCab.setIdCliente(new Cliente(BigDecimal.valueOf(this.idCliente)));
-        this.presupuestoCab.setIdFuncionario(this.idFuncionario);
-        this.presupuestoCab.setIdEstado(this.idEstado);
-        persistPresupuestoCab(JsfUtil.PersistAction.CREATE, null);
-        System.out.println("se guardó la PresupuestoCab con exito > " + JsfUtil.isValidationFailed());
+//        this.Presupuesto.setBaseImponible(new BigInteger(sumaTotalSinPunto));
+        this.Presupuesto.setIdCliente(new Cliente(this.idCliente));
+  
+        this.Presupuesto.setIdEstado(this.idEstado);
+        persistPresupuesto(PersistAction.CREATE, null);
+        System.out.println("se guardó la Presupuesto con exito > " + JsfUtil.isValidationFailed());
 
-        persistPresupuestoDet(JsfUtil.PersistAction.CREATE, listaDetalle, "PresupuestoDet guardado correctamente");
+        persistPresupuestoDet(PersistAction.CREATE, listaDetalle, "PresupuestoDet guardado correctamente");
         System.out.println("se guardó la PresupuestoDet con exito");
 
         //limpiar campos
@@ -166,20 +148,20 @@ public class ElaborarPresupuestoBean implements Serializable {
         return null;
     }
 
-    private void persistPresupuestoCab(JsfUtil.PersistAction persistAction, String successMessage) {
-        if (presupuestoCab != null) {
+    private void persistPresupuesto(PersistAction persistAction, String successMessage) {
+        if (Presupuesto != null) {
 
             try {
                 if (null != persistAction) {
                     switch (persistAction) {
                         case CREATE:
-                            presupuestoCabFacade.create(presupuestoCab);
+                            PresupuestoFacade.create(Presupuesto);
                             break;
                         case UPDATE:
-                            presupuestoCabFacade.edit(presupuestoCab);
+                            PresupuestoFacade.edit(Presupuesto);
                             break;
                         default:
-                            presupuestoCabFacade.remove(presupuestoCab);
+                            PresupuestoFacade.remove(Presupuesto);
                             break;
                     }
                 }
@@ -206,7 +188,7 @@ public class ElaborarPresupuestoBean implements Serializable {
         }
     }
 
-    private void persistPresupuestoDet(JsfUtil.PersistAction persistAction,
+    private void persistPresupuestoDet(PersistAction persistAction,
             ArrayList<PresupuestoDet> listaDetalle,
             String successMessage) {
 
@@ -236,21 +218,21 @@ public class ElaborarPresupuestoBean implements Serializable {
             int nroSerie = listaDetalle.isEmpty() ? 0 : 1;
             for (PresupuestoDet preDet : listaDetalle) {
 
-                if (preDet.getPresupuestoCab() != null) {
+                if (preDet.getPresupuesto() != null) {
                     presupuestoDet = preDet; //si mantiene el nro de orden, es que solo edite la descripción
                 } else {
-                    PresupuestoDetPK presupuestoDetPK
-                            = new PresupuestoDetPK(this.presupuestoCab.getPresupuestoCabPK().getTipoPresupuesto(),
-                                    this.presupuestoCab.getPresupuestoCabPK().getSerPresupuesto(),
-                                    this.presupuestoCab.getPresupuestoCabPK().getNroPresupuesto(),
-                                    BigInteger.valueOf(nroSerie));
-                    presupuestoDet = new PresupuestoDet(presupuestoDetPK);
-                    presupuestoDet.setPresupuestoCab(presupuestoCab);
-                    presupuestoDet.setCantidad(preDet.getCantidad());
-                    presupuestoDet.setPrecio(preDet.getPrecio());
-                    presupuestoDet.setTotalDescuento(preDet.getTotalDescuento());
-                    presupuestoDet.setTotalDetalle(preDet.getTotalDetalle());
-                    presupuestoDet.setCodProducto(preDet.getCodProducto());
+//                    PresupuestoDetPK presupuestoDetPK
+//                            = new PresupuestoDetPK(this.Presupuesto.getPresupuestoPK().getTipoPresupuesto(),
+//                                    this.Presupuesto.getPresupuestoPK().getSerPresupuesto(),
+//                                    this.Presupuesto.getPresupuestoPK().getNroPresupuesto(),
+//                                    BigInteger.valueOf(nroSerie));
+//                    presupuestoDet = new PresupuestoDet(presupuestoDetPK);
+//                    presupuestoDet.setPresupuesto(Presupuesto);
+//                    presupuestoDet.setCantidad(preDet.getCantidad());
+//                    presupuestoDet.setPrecio(preDet.getPrecio());
+//                    presupuestoDet.setTotalDescuento(preDet.getTotalDescuento());
+//                    presupuestoDet.setTotalDetalle(preDet.getTotalDetalle());
+//                    presupuestoDet.setCodProducto(preDet.getCodProducto());
 
                     nroSerie++;
                 }
@@ -302,7 +284,7 @@ public class ElaborarPresupuestoBean implements Serializable {
     public String getSumaTotal() {
         int total = 0;
         for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
-            total += det.getTotalDetalle().intValue();
+            //total += det.getTotalDetalle().intValue();
         }
         this.sumaTotal = new DecimalFormat("###,###").format(total);
         return this.sumaTotal;
@@ -312,7 +294,7 @@ public class ElaborarPresupuestoBean implements Serializable {
         int ivaCalculado = 0;
         int total = 0;
         for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
-            total += det.getTotalDetalle().intValue();
+            //total += det.getTotalDetalle().intValue();
         }
 
         ivaCalculado = total * 10 / 100;
@@ -325,7 +307,7 @@ public class ElaborarPresupuestoBean implements Serializable {
         int ivaCalculado = 0;
         int total = 0;
         for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
-            total += det.getTotalDetalle().intValue();
+            //total += det.getTotalDetalle().intValue();
         }
 
         ivaCalculado = total * 10 / 100;
@@ -381,36 +363,35 @@ public class ElaborarPresupuestoBean implements Serializable {
 
     public void onRowEditDetalle(RowEditEvent event) {
         PresupuestoDet det = (PresupuestoDet) event.getObject();
-        BigInteger precio = det.getPrecio();
-        BigInteger cantidad = det.getCantidad();
-        BigInteger descuento = det.getTotalDescuento();
-        int total = (precio.intValue() * cantidad.intValue()) - descuento.intValue();
-        det.setTotalDetalle(new BigInteger(total + ""));
+        int precio = det.getPrecio();
+        int cantidad = det.getCantidad();
+        int total = (precio * cantidad);
+        
         //this.sumaTotal = refreshOrdenCompraTotal();
-        System.out.println("Editando Producto: " + det.getCodProducto().getDescripcion() + ", total a pagar: " + det.getTotalDetalle());
+        //System.out.println("Editando Producto: " + det.getCodProducto().getDescripcion() + ", total a pagar: " + det.getTotalDetalle());
     }
 
     public void onRowCancelDetalle(RowEditEvent event) {
         PresupuestoDet det = (PresupuestoDet) event.getObject();
 
-        String descripcion = det.getCodProducto().getDescripcion(); //obtengo la descripción de la tarea
+        //String descripcion = det.getCodProducto().getDescripcion(); //obtengo la descripción de la tarea
 
         //si es vacio, es porque es nuevo
-        if ("".equalsIgnoreCase(descripcion)) {
-            //al cancelar borro la ultima fila insertada
-            listaDetalle.remove(det);
-        }
+//        if ("".equalsIgnoreCase(descripcion)) {
+//            //al cancelar borro la ultima fila insertada
+//            listaDetalle.remove(det);
+//        }
     }
 
     public void addTarea() {
-        int i = this.listaDetalle.size() + 1;
-        PresupuestoDetPK detPK = new PresupuestoDetPK();
-        detPK.setNroSecuencia(BigInteger.valueOf(i));
-        PresupuestoDet predet = new PresupuestoDet(detPK);
-        predet.setCodProducto(new Productos());
-        predet.setTotalDescuento(BigInteger.ZERO);
-        predet.setTotalDetalle(BigInteger.ZERO);
-        this.listaDetalle.add(predet);
+//        int i = this.listaDetalle.size() + 1;
+//        PresupuestoDetPK detPK = new PresupuestoDetPK();
+//        detPK.setNroSecuencia(BigInteger.valueOf(i));
+//        PresupuestoDet predet = new PresupuestoDet(detPK);
+//        predet.setCodProducto(new Productos());
+//        predet.setTotalDescuento(BigInteger.ZERO);
+//        predet.setTotalDetalle(BigInteger.ZERO);
+//        this.listaDetalle.add(predet);
     }
 
     public void removeTarea(PresupuestoDet item) {

@@ -35,17 +35,12 @@
                             <h:outputText value="Fecha Pedido"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:outputText id="buttonFR" value="#{RegistrarPedidoVentaBean.fechaRecepcion}" style="font-size: 11px;"/>
-                            <h:outputText value="Funcionario:"
-                                          style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <h:selectOneMenu id="funcionario" label="Funcionario" value="#{RegistrarPedidoVentaBean.idFuncionario}">
-                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{RegistrarPedidoVentaBean.listaFuncionarios}" var="est" itemLabel="#{est.nombre}" itemValue="#{est}"/>
-                            </h:selectOneMenu>
+                            
                             <h:outputText value="Estado:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:selectOneMenu id="estado" label="Estado" value="#{RegistrarPedidoVentaBean.idEstado}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{RegistrarPedidoVentaBean.listaEstados}" var="est" itemLabel="#{est.estado}" itemValue="#{est}"/>
+                                <f:selectItems value="#{RegistrarPedidoVentaBean.listaEstados}" var="est" itemLabel="#{est.descripcion}" itemValue="#{est}"/>
                             </h:selectOneMenu>
                         </h:panelGrid>
 

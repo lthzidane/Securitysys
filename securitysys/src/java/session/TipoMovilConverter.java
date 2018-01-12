@@ -1,20 +1,20 @@
 package session;
 
-import bean.TipoMovilFacade;
 import entities.TipoMovil;
+import bean.TipoMovilFacade;
+import session.util.JsfUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
+import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
-import session.util.JsfUtil;
 
 @FacesConverter(value = "tipoMovilConverter")
 public class TipoMovilConverter implements Converter {
 
-    @EJB
+    @Inject
     private TipoMovilFacade ejbFacade;
 
     @Override

@@ -6,17 +6,14 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,53 +21,51 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Acer
+ * @author sebas
  */
 @Entity
 @Table(name = "orden_trabajo_det")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "OrdenTrabajoDet.findAll", query = "SELECT o FROM OrdenTrabajoDet o"),
-    @NamedQuery(name = "OrdenTrabajoDet.findByNroSecuencia", query = "SELECT o FROM OrdenTrabajoDet o WHERE o.nroSecuencia = :nroSecuencia"),
-    @NamedQuery(name = "OrdenTrabajoDet.findByNroOrden", query = "SELECT o FROM OrdenTrabajoDet o WHERE o.nroOrden.nroOrden = :nroOrden"),
+    @NamedQuery(name = "OrdenTrabajoDet.findByIdOrdenTrabajo", query = "SELECT o FROM OrdenTrabajoDet o WHERE o.ordenTrabajoDetPK.idOrdenTrabajo = :idOrdenTrabajo"),
+    @NamedQuery(name = "OrdenTrabajoDet.findByIdSecuencia", query = "SELECT o FROM OrdenTrabajoDet o WHERE o.ordenTrabajoDetPK.idSecuencia = :idSecuencia"),
     @NamedQuery(name = "OrdenTrabajoDet.findByDetalle", query = "SELECT o FROM OrdenTrabajoDet o WHERE o.detalle = :detalle")})
 public class OrdenTrabajoDet implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
+    @EmbeddedId
+    protected OrdenTrabajoDetPK ordenTrabajoDetPK;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "nro_secuencia")
-    @GeneratedValue(generator="OTDetSeq") 
-    @SequenceGenerator(name="OTDetSeq",sequenceName="nro_secuencia_orden_trabajo_det_seq_1", allocationSize=1) 
-    private BigDecimal nroSecuencia;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 300)
+    @Size(min = 1, max = 400)
     @Column(name = "detalle")
     private String detalle;
-    @JoinColumn(name = "nro_orden", referencedColumnName = "nro_orden")
+    @JoinColumn(name = "id_orden_trabajo", referencedColumnName = "id_ot", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private OrdenTrabajoCab nroOrden;
+    private OrdenTrabajo ordenTrabajo;
 
     public OrdenTrabajoDet() {
     }
 
-    public OrdenTrabajoDet(BigDecimal nroSecuencia) {
-        this.nroSecuencia = nroSecuencia;
+    public OrdenTrabajoDet(OrdenTrabajoDetPK ordenTrabajoDetPK) {
+        this.ordenTrabajoDetPK = ordenTrabajoDetPK;
     }
 
-    public OrdenTrabajoDet(BigDecimal nroSecuencia, String detalle) {
-        this.nroSecuencia = nroSecuencia;
+    public OrdenTrabajoDet(OrdenTrabajoDetPK ordenTrabajoDetPK, String detalle) {
+        this.ordenTrabajoDetPK = ordenTrabajoDetPK;
         this.detalle = detalle;
     }
 
-    public BigDecimal getNroSecuencia() {
-        return nroSecuencia;
+    public OrdenTrabajoDet(int idOrdenTrabajo, int idSecuencia) {
+        this.ordenTrabajoDetPK = new OrdenTrabajoDetPK(idOrdenTrabajo, idSecuencia);
     }
 
-    public void setNroSecuencia(BigDecimal nroSecuencia) {
-        this.nroSecuencia = nroSecuencia;
+    public OrdenTrabajoDetPK getOrdenTrabajoDetPK() {
+        return ordenTrabajoDetPK;
+    }
+
+    public void setOrdenTrabajoDetPK(OrdenTrabajoDetPK ordenTrabajoDetPK) {
+        this.ordenTrabajoDetPK = ordenTrabajoDetPK;
     }
 
     public String getDetalle() {
@@ -81,18 +76,18 @@ public class OrdenTrabajoDet implements Serializable {
         this.detalle = detalle;
     }
 
-    public OrdenTrabajoCab getNroOrden() {
-        return nroOrden;
+    public OrdenTrabajo getOrdenTrabajo() {
+        return ordenTrabajo;
     }
 
-    public void setNroOrden(OrdenTrabajoCab nroOrden) {
-        this.nroOrden = nroOrden;
+    public void setOrdenTrabajo(OrdenTrabajo ordenTrabajo) {
+        this.ordenTrabajo = ordenTrabajo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (nroSecuencia != null ? nroSecuencia.hashCode() : 0);
+        hash += (ordenTrabajoDetPK != null ? ordenTrabajoDetPK.hashCode() : 0);
         return hash;
     }
 
@@ -103,7 +98,7 @@ public class OrdenTrabajoDet implements Serializable {
             return false;
         }
         OrdenTrabajoDet other = (OrdenTrabajoDet) object;
-        if ((this.nroSecuencia == null && other.nroSecuencia != null) || (this.nroSecuencia != null && !this.nroSecuencia.equals(other.nroSecuencia))) {
+        if ((this.ordenTrabajoDetPK == null && other.ordenTrabajoDetPK != null) || (this.ordenTrabajoDetPK != null && !this.ordenTrabajoDetPK.equals(other.ordenTrabajoDetPK))) {
             return false;
         }
         return true;
@@ -111,7 +106,7 @@ public class OrdenTrabajoDet implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.OrdenTrabajoDet[ nroSecuencia=" + nroSecuencia + " ]";
+        return "entities.OrdenTrabajoDet[ ordenTrabajoDetPK=" + ordenTrabajoDetPK + " ]";
     }
     
 }

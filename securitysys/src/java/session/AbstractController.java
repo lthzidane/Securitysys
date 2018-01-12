@@ -9,8 +9,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import session.util.JsfUtil;
@@ -26,6 +29,7 @@ public abstract class AbstractController<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Inject
     private AbstractFacade<T> ejbFacade;
     private Class<T> itemClass;
     private T selected;
@@ -44,36 +48,6 @@ public abstract class AbstractController<T> implements Serializable {
 
     public AbstractController(Class<T> itemClass) {
         this.itemClass = itemClass;
-    }
-
-    /**
-     * Initialize the concrete controller bean. This AbstractController requires
-     * the EJB Facade object for most operations, and that task is performed by
-     * the concrete controller bean.
-     */
-    public abstract void init();
-
-    /**
-     * Retrieve the current EJB Facade object so that other beans in this
-     * package can perform additional data layer tasks (e.g. additional queries)
-     *
-     * @return the concrete EJB Facade associated with the concrete controller
-     * bean.
-     */
-    protected AbstractFacade<T> getFacade() {
-        return ejbFacade;
-    }
-
-    /**
-     * Sets the concrete EJB Facade object so that data layer actions can be
-     * performed. This applies to all basic CRUD actions this controller
-     * performs.
-     *
-     * @param ejbFacade the concrete EJB Facade to perform data layer actions
-     * with
-     */
-    protected void setFacade(AbstractFacade<T> ejbFacade) {
-        this.ejbFacade = ejbFacade;
     }
 
     /**
@@ -272,6 +246,19 @@ public abstract class AbstractController<T> implements Serializable {
      */
     public boolean isValidationFailed() {
         return JsfUtil.isValidationFailed();
+    }
+
+    /**
+     * Retrieve a collection of Entity items for a specific Controller from
+     * another JSF page via Request parameters.
+     */
+    @PostConstruct
+    public void initParams() {
+        Object paramItems = FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(itemClass.getSimpleName() + "_items");
+        if (paramItems != null) {
+            setItems((Collection<T>) paramItems);
+            setLazyItems((Collection<T>) paramItems);
+        }
     }
 
 }

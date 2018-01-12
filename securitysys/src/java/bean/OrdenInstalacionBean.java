@@ -4,19 +4,14 @@
  */
 package bean;
 
-
+import bean.util.JsfUtil.PersistAction;
 import entities.Estado;
 import entities.InstalacionCab;
 import entities.InstalacionDet;
-import entities.InstalacionDetPK;
-import entities.Medidas;
 import entities.Moviles;
-import entities.OrdenTrabajoCab;
+import entities.OrdenTrabajo;
 import entities.OrdenTrabajoDet;
-import entities.Productos;
-import entities.ProductosKit;
-import entities.Tecnicos;
-import entities.TipoServicios;
+import entities.Tecnico;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -40,21 +35,21 @@ import lombok.Data;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 import session.util.JsfUtil;
-import session.util.JsfUtil.PersistAction;
 
 /**
  *
  * @author Acer
  *
  */
-@ManagedBean(name="OrdenInstalacionBean")
+@ManagedBean(name = "OrdenInstalacionBean")
 @ViewScoped
 @Data
-public class OrdenInstalacionBean implements Serializable{
+public class OrdenInstalacionBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     private String nroDeInstalacion;
-    private String equipo; 
+    private String equipo;
     private BigDecimal pedido;
     private String estado;
     private String description;
@@ -75,26 +70,21 @@ public class OrdenInstalacionBean implements Serializable{
     private int telefono;
     private String ciudad;
     private String observacion;
-    private ArrayList<TipoServicios> listaServicios = new ArrayList<TipoServicios>();
-    private ArrayList<Tecnicos> listaTecnicos = new ArrayList<Tecnicos>();
+    private ArrayList<Tecnico> listaTecnicos = new ArrayList<Tecnico>();
     private List<Estado> listaEstados = new ArrayList<Estado>();
     private List<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
-    private List<ProductosKit> listaKits = new ArrayList<ProductosKit>();
-    private ArrayList<ProductosKit> selectedKits = new ArrayList<ProductosKit>();
     private ArrayList<InstalacionDet> instalacionesDetList = new ArrayList<InstalacionDet>();
-    private ArrayList<Tecnicos> selectedTecnicos = new ArrayList<Tecnicos>();
+    private ArrayList<Tecnico> selectedTecnicos = new ArrayList<Tecnico>();
     private List<Moviles> listaMoviles = new ArrayList<Moviles>();
-    
+
     @EJB
-    private bean.TecnicosFacade tecnicoFacade =  new TecnicosFacade();
+    private bean.TecnicoFacade tecnicoFacade = new TecnicoFacade();
     @EJB
     private bean.ClienteFacade clienteFacade = new ClienteFacade();
     @EJB
-    private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
-    @EJB
     private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
-    private bean.OrdenTrabajoCabFacade ejbOTCabFacade;
+    private bean.OrdenTrabajoFacade ejbOTCabFacade;
     @EJB
     private bean.OrdenTrabajoDetFacade ejbOTDetFacade;
     @EJB
@@ -102,26 +92,23 @@ public class OrdenInstalacionBean implements Serializable{
     @EJB
     private bean.InstalacionDetFacade ejbInstalDetFacade;
     @EJB
-    private bean.ProductosKitFacade productoKitFacade = new ProductosKitFacade();
-    @EJB
     private MovilesFacade movilesFacade = new MovilesFacade();
-    
-    private OrdenTrabajoCab ordenTrabajoCab;
+
+    private OrdenTrabajo OrdenTrabajo;
     private OrdenTrabajoDet ordenTrabajoDet;
     private Moviles movil;
-    
+
     private InstalacionCab instalacionCab;
-    
+
     private Connection con = null;
-    private boolean editando = false;    
-    
+    private boolean editando = false;
+
     @PostConstruct
     void initialiseSession() {
         con = DataConnect.getConnection();
         this.cargarVista();
-    }   
-    
-    
+    }
+
     public void cargarVista() {
         try {
             String editar = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("Editar");
@@ -133,20 +120,17 @@ public class OrdenInstalacionBean implements Serializable{
                 int ultValSeq = obtenerNuevoIdInstalacion();
                 nroDeInstalacion = "000" + String.valueOf(ultValSeq);
 
-                this.listaServicios = obtenerTiposDeServicio();
                 this.listaTecnicos = obtenerTecnicos();
                 this.listaEstados = estadoTrabFacade.findAll();
                 this.idEstado = 1; //poner a Pendiente = 1 por defecto
 
                 this.listaMoviles = movilesFacade.findAll();
-                this.listaKits = productoKitFacade.findAll();
 
                 this.tipoInstalacion = null;
                 this.movil = null;
                 description = "";
 
-                this.selectedKits = new ArrayList<ProductosKit>();
-                this.selectedTecnicos = new ArrayList<Tecnicos>();
+                this.selectedTecnicos = new ArrayList<Tecnico>();
 
                 this.tipoServicio = "";
                 this.tecnicoResponsable = "";
@@ -165,68 +149,55 @@ public class OrdenInstalacionBean implements Serializable{
                 this.razonsocial = "";
                 this.observacion = "";
 
-            }else{
+            } else {
                 //estoy editando
                 String idInstal = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idInstal");
                 InstalacionCab instalCab = ejbInstalCabFacade.findByIdInstalacion(Integer.parseInt(idInstal));
-                
+
                 if (instalCab != null) {
-                    
-                    if (instalCab.getNroOrden().getOrdenTrabajoDetList().isEmpty()) {
-                        List<OrdenTrabajoDet> listaOrdenesTrabajoDet = ejbOTDetFacade.findByNroOrden(instalCab.getNroOrden().getNroOrden().intValue());
+
+                    if (instalCab.getIdOt().getOrdenTrabajoDetList().isEmpty()) {
+                        List<OrdenTrabajoDet> listaOrdenesTrabajoDet = ejbOTDetFacade.findByNroOrden(instalCab.getIdOt().getIdOt().intValue());
                         if (listaOrdenesTrabajoDet.size() > 0) {
-                            instalCab.getNroOrden().setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
+                            instalCab.getIdOt().setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
                             System.out.println("seteo la cantitad real: " + listaOrdenesTrabajoDet.size());
                         }
-                    }                    
-                    
+                    }
+
                     nroDeInstalacion = "000" + idInstal;
 
-                    this.fechaInicio = instalCab.getFechainstalacion();
-                    
-                    this.listaServicios = obtenerTiposDeServicio();
-                    this.idServicio = instalCab.getIdServicio().getIdServicio().intValue();
-                    
+                    this.fechaInicio = instalCab.getFechaInicio();
+
                     this.listaTecnicos = obtenerTecnicos();
-                    
+
                     this.listaEstados = estadoTrabFacade.findAll();
-                    this.idEstado = instalCab.getIdEstado().getIdEstado().intValue();
+                    this.idEstado = instalCab.getIdEstado();
 
                     this.listaMoviles = movilesFacade.findAll();
-                    this.movil = instalCab.getIdMovil();
-                    
-                    this.listaKits = productoKitFacade.findAll();
                     //traemos los detalles
                     obtenerDetallesInstalacion(instalCab.getIdInstalacion());
-                    
+
                     this.tipoInstalacion = instalCab.getTipoInstalacion();
-                    this.movil = instalCab.getIdMovil();
-                    this.tipoServicio = instalCab.getNroOrden().getIdServicio().getDescripcion();
-                    this.tecnicoResponsable = instalCab.getNroOrden().getIdTecnico().getNombre();
-                    listaDetalle = instalCab.getNroOrden().getOrdenTrabajoDetList();
-                    this.ordenTrabajoCab = instalCab.getNroOrden();
-                    this.idCliente = instalCab.getNroOrden().getIdCliente().getIdCliente().intValue();
-                    this.fechaFin = instalCab.getFechaFinInstalacion();
-                    
-                    this.nroOrden = instalCab.getNroOrden().getNroOrden().toString();
-                    this.nroDocumento = instalCab.getNroOrden().getIdCliente().getNroDocumento();
-                    this.ciudad = instalCab.getNroOrden().getIdCliente().getIdCiudad().getCiudad();
-                    this.telefono = instalCab.getNroOrden().getIdCliente().getTelefono();
-                    this.direccion = instalCab.getNroOrden().getIdCliente().getDireccion();
-                    this.razonsocial = instalCab.getNroOrden().getIdCliente().getNombre()+" "+instalCab.getNroOrden().getIdCliente().getApellido();
-                    this.observacion = instalCab.getDescripcion();
+                    listaDetalle = instalCab.getIdOt().getOrdenTrabajoDetList();
+                    this.OrdenTrabajo = instalCab.getIdOt();
+                    this.idCliente = instalCab.getIdOt().getIdCliente().getIdCliente();
+                    this.fechaFin = instalCab.getFechaFin();
+
+                    this.nroOrden = instalCab.getIdOt().getIdOt().toString();
+                    this.nroDocumento = instalCab.getIdOt().getIdCliente().getNumeroDocumento();
+                    this.ciudad = instalCab.getIdOt().getIdCliente().getIdCiudad().getCiudad();
+                    this.telefono = instalCab.getIdOt().getIdCliente().getTelefono();
+                    this.direccion = instalCab.getIdOt().getIdCliente().getDireccion();
+                    this.razonsocial = instalCab.getIdOt().getIdCliente().getNombre() + " " + instalCab.getIdOt().getIdCliente().getApellido();
+                    this.observacion = instalCab.getObservacion();
                 }
             }
-            
-            
-            
 
-            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    
+
     public int obtenerNuevoIdInstalacion() {
         int ultimoValor = 0;
         try {
@@ -235,9 +206,9 @@ public class OrdenInstalacionBean implements Serializable{
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-               BigDecimal uv =  rs.getBigDecimal("last_value");
-               
-               ultimoValor = uv.toBigInteger().intValue();
+                BigDecimal uv = rs.getBigDecimal("last_value");
+
+                ultimoValor = uv.toBigInteger().intValue();
             }
         } catch (SQLException ex) {
             System.out.println("Error al obtener Secuencia de InstalacionCab -->" + ex.getMessage());
@@ -254,9 +225,9 @@ public class OrdenInstalacionBean implements Serializable{
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-               BigDecimal uv =  rs.getBigDecimal("nextval");
-               
-               nextVal = uv.toBigInteger();
+                BigDecimal uv = rs.getBigDecimal("nextval");
+
+                nextVal = uv.toBigInteger();
             }
         } catch (SQLException ex) {
             System.out.println("Error al obtener Secuencia de InstalacionDet -->" + ex.getMessage());
@@ -264,85 +235,51 @@ public class OrdenInstalacionBean implements Serializable{
 
         return nextVal;
     }
-    
-   
-    public String guardarOrdenInstalacion(){
-    
-        instalacionCab = new InstalacionCab();
-        instalacionCab.setDescripcion(this.observacion);
-        instalacionCab.setNroOrden(this.ordenTrabajoCab);
-        instalacionCab.setIdTecnico(this.ordenTrabajoCab.getIdTecnico());
-        instalacionCab.setTipoInstalacion(this.tipoInstalacion);
-        instalacionCab.setFechainstalacion(this.fechaInicio);
-        instalacionCab.setIdServicio(this.ordenTrabajoCab.getIdServicio());
-        instalacionCab.setIdMovil(this.movil);
-        instalacionCab.setIdCliente(this.ordenTrabajoCab.getIdCliente());
-        //instalacionCab.setIdEstado(estadoTrabFacade.findByIdEstado(idEstado));
 
-        if(!editando){
+    public String guardarOrdenInstalacion() {
+
+        instalacionCab = new InstalacionCab();
+        instalacionCab.setObservacion(this.observacion);
+        instalacionCab.setIdOt(this.OrdenTrabajo);
+
+        instalacionCab.setTipoInstalacion(this.tipoInstalacion);
+        instalacionCab.setFechaInicio(this.fechaInicio);
+
+        if (!editando) {
             persistInstalCab(PersistAction.CREATE, null);
-            persistInstalDet(PersistAction.CREATE, selectedKits, instalacionCab.getIdInstalacion(), "Instalacion guardada correctamente");
-            
-            cargarVista();    
-        }else{
+            //    persistInstalDet(PersistAction.CREATE, selectedKits, instalacionCab.getIdInstalacion(), "Instalacion guardada correctamente");
+
+            cargarVista();
+        } else {
             //estoy editando
-            instalacionCab.setIdInstalacion(BigDecimal.valueOf(Integer.parseInt(this.nroDeInstalacion)));
+            instalacionCab.setIdInstalacion(Integer.parseInt(this.nroDeInstalacion));
             persistInstalCab(PersistAction.UPDATE, null);
-            persistInstalDet(PersistAction.UPDATE, selectedKits, instalacionCab.getIdInstalacion(), "Instalacion guardada correctamente");
-         
+            //persistInstalDet(PersistAction.UPDATE, selectedKits, instalacionCab.getIdInstalacion(), "Instalacion guardada correctamente");
+
             this.editando = false;
-            
+
             return "BuscarModificarOT";
         }
-        
-        
+
         //return "/home";
         return null;
     }
-    
-    public String volver(){
+
+    public String volver() {
         return "/home";
     }
-    
-    public void addTarea(){
+
+    public void addTarea() {
         int i = this.listaDetalle.size() + 1;
-        OrdenTrabajoDet otd = new OrdenTrabajoDet( BigDecimal.valueOf(i)  , "");
+        OrdenTrabajoDet otd = new OrdenTrabajoDet();
         this.listaDetalle.add(otd);
     }
-    
-    private ArrayList<TipoServicios> obtenerTiposDeServicio() {
-        TipoServicios tipoServ = null;
-        ArrayList<TipoServicios> list = new ArrayList<TipoServicios>();
 
-        try {
-            
-            PreparedStatement ps = con.prepareStatement("select id_servicio, descripcion from tipo_servicios");
-
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()){
-                tipoServ = new TipoServicios();
-                String id_servicio = rs.getString("id_servicio");
-                String descripcion = rs.getString("descripcion");
-                
-                tipoServ.setIdServicio(new BigDecimal(id_servicio));
-                tipoServ.setDescripcion(descripcion);
-                list.add(tipoServ);
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener Tipos de Servicio -->" + ex.getMessage());
-            
-        } finally {
-            return list;
-        }
-        
-    }
-
-    private ArrayList<Tecnicos> obtenerTecnicos() {
+    private ArrayList<Tecnico> obtenerTecnicos() {
         Connection con = null;
         PreparedStatement ps = null;
-        Tecnicos tecnico = null;
-        ArrayList<Tecnicos> list = new ArrayList<Tecnicos>();
+        Tecnico tecnico = null;
+        ArrayList<Tecnico> list = new ArrayList<Tecnico>();
 
         try {
             con = DataConnect.getConnection();
@@ -350,35 +287,35 @@ public class OrdenInstalacionBean implements Serializable{
 
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()){
-                tecnico = new Tecnicos();
+            while (rs.next()) {
+                tecnico = new Tecnico();
                 String id_tecnico = rs.getString("id_tecnico");
                 String nombre = rs.getString("nombre");
-                
+
                 tecnico.setIdTecnico(Integer.parseInt(id_tecnico));
                 tecnico.setNombre(nombre);
                 list.add(tecnico);
             }
         } catch (SQLException ex) {
-            System.out.println("Error al obtener Tecnicos -->" + ex.getMessage());
-            
+            System.out.println("Error al obtener Tecnico -->" + ex.getMessage());
+
         } finally {
             DataConnect.close(con);
             return list;
         }
-        
+
     }
 
     public void obtenerDatosOrdenTrabajo() {
         String nroOrdenTrabajo = this.nroOrden;
         System.out.println("nroOrdenTrabajo: " + nroOrden);
-        
+
         this.listaDetalle = new ArrayList<OrdenTrabajoDet>();
-        
+
         if (nroOrdenTrabajo != null && !"".equalsIgnoreCase(nroOrdenTrabajo)) {
-            
-            OrdenTrabajoCab otCab = ejbOTCabFacade.findByNroOrden( Integer.valueOf(nroOrdenTrabajo) );
-            
+
+            OrdenTrabajo otCab = ejbOTCabFacade.findByNroOrden(Integer.valueOf(nroOrdenTrabajo));
+
             if (otCab == null) {
                 //no encontré nada
                 //limpiar filtros
@@ -389,21 +326,19 @@ public class OrdenInstalacionBean implements Serializable{
                 this.ciudad = "";
                 this.direccion = "";
                 this.telefono = 0;
-                this.ordenTrabajoCab = null;
-            }else{
-                this.ordenTrabajoCab = otCab;
-                this.tipoServicio = otCab.getIdServicio().getDescripcion();
-                this.tecnicoResponsable = otCab.getIdTecnico().getNombre();
-                this.nroDocumento = otCab.getIdCliente().getNroDocumento();
+                this.OrdenTrabajo = null;
+            } else {
+                this.OrdenTrabajo = otCab;
+                this.nroDocumento = otCab.getIdCliente().getNumeroDocumento();
                 this.razonsocial = otCab.getIdCliente().getNombre() + " " + otCab.getIdCliente().getApellido();
                 this.ciudad = otCab.getIdCliente().getIdCiudad().getCiudad();
                 this.direccion = otCab.getIdCliente().getDireccion();
                 this.telefono = otCab.getIdCliente().getTelefono();
 
-                if (ordenTrabajoCab.getOrdenTrabajoDetList().isEmpty()) {
-                    List<OrdenTrabajoDet> listaOrdenesTrabajoDet = ejbOTDetFacade.findByNroOrden(ordenTrabajoCab.getNroOrden().intValue());
+                if (OrdenTrabajo.getOrdenTrabajoDetList().isEmpty()) {
+                    List<OrdenTrabajoDet> listaOrdenesTrabajoDet = ejbOTDetFacade.findByNroOrden(OrdenTrabajo.getIdOt().intValue());
                     if (listaOrdenesTrabajoDet.size() > 0) {
-                        ordenTrabajoCab.setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
+                        OrdenTrabajo.setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
                         System.out.println("seteo la cantitad real: " + listaOrdenesTrabajoDet.size());
                     }
                 }
@@ -414,38 +349,36 @@ public class OrdenInstalacionBean implements Serializable{
 
             }
 
-        }else{
+        } else {
             //limpiar filtros
-            this.tipoServicio =  "";
+            this.tipoServicio = "";
             this.tecnicoResponsable = "";
             this.nroDocumento = "";
             this.razonsocial = "";
             this.ciudad = "";
             this.direccion = "";
             this.telefono = 0;
-            this.ordenTrabajoCab = null;
+            this.OrdenTrabajo = null;
         }
 
     }
 
- 
-    private void persistInstalCab(JsfUtil.PersistAction persistAction, String successMessage) {
+    private void persistInstalCab(PersistAction persistAction, String successMessage) {
         if (instalacionCab != null) {
 
             try {
-                if (persistAction == JsfUtil.PersistAction.CREATE) {
+                if (persistAction == PersistAction.CREATE) {
                     getEjbInstalCabFacade().create(instalacionCab);
-                }
-                else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+                } else if (persistAction == PersistAction.UPDATE) {
                     getEjbInstalCabFacade().edit(instalacionCab);
                 } else {
                     getEjbInstalCabFacade().remove(instalacionCab);
                 }
-                
-                if(successMessage != null){
+
+                if (successMessage != null) {
                     JsfUtil.addSuccessMessage(successMessage);
                 }
-                
+
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
@@ -464,137 +397,122 @@ public class OrdenInstalacionBean implements Serializable{
         }
     }
 
-    private void persistInstalDet(  JsfUtil.PersistAction persistAction, 
-                                ArrayList<ProductosKit> selectedProdKits,
-                                BigDecimal idInstalCab,
-                                String successMessage) {
-        
-        if(!instalacionesDetList.isEmpty()){
+    private void persistInstalDet(PersistAction persistAction,
+            BigDecimal idInstalCab,
+            String successMessage) {
+
+        if (!instalacionesDetList.isEmpty()) {
             //borramos los que ya no están
-            for(InstalacionDet instalacionDet : instalacionesDetList){
-                ProductosKit instaDetPrkit = new ProductosKit( new BigDecimal(instalacionDet.getIdProductosKit()) );
-                if( !selectedKits.contains(instaDetPrkit) ){
-                    System.out.println("No esta el detalle en selectedKits, se debe eliminar");
-                    getEjbInstalDetFacade().remove(instalacionDet);
-                }else{
-                    //si es que está todavía, sacarlo de la lista de seleccionados, para que no inserte dos veces
-                    selectedKits.remove(instaDetPrkit);
-                }
+            for (InstalacionDet instalacionDet : instalacionesDetList) {
+//                ProductosKit instaDetPrkit = new ProductosKit( new BigDecimal(instalacionDet.getIdProductosKit()) );
+//                if( !selectedKits.contains(instaDetPrkit) ){
+//                    System.out.println("No esta el detalle en selectedKits, se debe eliminar");
+//                    getEjbInstalDetFacade().remove(instalacionDet);
+//                }else{
+//                    //si es que está todavía, sacarlo de la lista de seleccionados, para que no inserte dos veces
+//                    selectedKits.remove(instaDetPrkit);
+//                }
             }
         }
-        
-        if (selectedProdKits != null && !selectedProdKits.isEmpty()) {
-            for(ProductosKit prodKit : selectedKits ) {
-                //solo inserto si es nuevo
-                InstalacionDet instalacionDet = new InstalacionDet();
-                instalacionDet.setCodProducto(prodKit.getCodProducto().getCodProducto().toBigInteger());
-                instalacionDet.setIdProductosKit(prodKit.getIdProductosKit().toBigInteger());
 
-                InstalacionDetPK pk = new InstalacionDetPK();
-                pk.setIdInstalacion(idInstalCab.toBigInteger());
-                pk.setNroLinea(getNextValInstalacionDet());
-                instalacionDet.setInstalacionDetPK(pk);
-
-                try {
-                    if (persistAction == JsfUtil.PersistAction.CREATE) {
-                        getEjbInstalDetFacade().create(instalacionDet);
-                    }
-                    else if (persistAction == JsfUtil.PersistAction.UPDATE) {
-                        getEjbInstalDetFacade().edit(instalacionDet);
-                    } 
-                    else {
-                        getEjbInstalDetFacade().remove(instalacionDet);
-                    }
-                    
-                } catch (EJBException ex) {
-                    String msg = "";
-                    Throwable cause = ex.getCause();
-                    if (cause != null) {
-                        msg = cause.getLocalizedMessage();
-                    }
-                    if (msg.length() > 0) {
-                        JsfUtil.addErrorMessage(msg);
-                    } else {
-                        JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-                }
-            }
-            
-            if (successMessage != null) {
-                JsfUtil.addSuccessMessage(successMessage);
-            }
+//        if (selectedProdKits != null && !selectedProdKits.isEmpty()) {
+//            for(ProductosKit prodKit : selectedKits ) {
+//                //solo inserto si es nuevo
+//                InstalacionDet instalacionDet = new InstalacionDet();
+//                instalacionDet.setCodProducto(prodKit.getCodProducto().getCodProducto().toBigInteger());
+//                instalacionDet.setIdProductosKit(prodKit.getIdProductosKit().toBigInteger());
+//
+//                InstalacionDetPK pk = new InstalacionDetPK();
+//                pk.setIdInstalacion(idInstalCab.toBigInteger());
+//                pk.setNroLinea(getNextValInstalacionDet());
+//                instalacionDet.setInstalacionDetPK(pk);
+//
+//                try {
+//                    if (persistAction == JsfUtil.PersistAction.CREATE) {
+//                        getEjbInstalDetFacade().create(instalacionDet);
+//                    }
+//                    else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+//                        getEjbInstalDetFacade().edit(instalacionDet);
+//                    } 
+//                    else {
+//                        getEjbInstalDetFacade().remove(instalacionDet);
+//                    }
+//                    
+//                } catch (EJBException ex) {
+//                    String msg = "";
+//                    Throwable cause = ex.getCause();
+//                    if (cause != null) {
+//                        msg = cause.getLocalizedMessage();
+//                    }
+//                    if (msg.length() > 0) {
+//                        JsfUtil.addErrorMessage(msg);
+//                    } else {
+//                        JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+//                    }
+//                } catch (Exception ex) {
+//                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+//                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+//                }
+//            }
+        if (successMessage != null) {
+            JsfUtil.addSuccessMessage(successMessage);
         }
+        //}
     }
 
-    public void onRowEditTarea(RowEditEvent event){
-            System.out.println("Editando Tarea");
+    public void onRowEditTarea(RowEditEvent event) {
+        System.out.println("Editando Tarea");
     }
-    
+
     public void onRowCancelTarea(RowEditEvent event) {
-        OrdenTrabajoDet det = (OrdenTrabajoDet)event.getObject();
-        
+        OrdenTrabajoDet det = (OrdenTrabajoDet) event.getObject();
+
         String descripcion = det.getDetalle(); //obtengo la descripción de la tarea
-        
+
         //si es vacio, es porque es nuevo
-        if( "".equalsIgnoreCase(descripcion) ){
+        if ("".equalsIgnoreCase(descripcion)) {
             //al cancelar borro la ultima fila insertada
-            listaDetalle.remove(det);        
+            listaDetalle.remove(det);
         }
     }
-    
-    public void obtenerDetallesInstalacion(BigDecimal idInstalacionCab) {
-        System.out.println("nroDocumentoCliente: " + idInstalacionCab);
-        if (idInstalacionCab != null ) {
-            Connection con = null;
-            PreparedStatement ps = null;
 
-            try {
-                con = DataConnect.getConnection();
-                ps = con.prepareStatement("SELECT id.id_instalacion, id.nro_linea, pk.id_productos_kit, pk.cantidad, pr.cod_producto, pr.descripcion, m.id_medida, m.desc_medida FROM productos_kit pk, productos pr, medidas m, instalacion_det id where pk.cod_producto = pr.cod_producto and pr.id_medida = m.id_medida and pk.id_productos_kit = id.id_productos_kit and id.id_instalacion = ?");
-                ps.setInt(1, idInstalacionCab.intValue() );
-                //ps.setInt(1, Integer.parseInt(idInstalacionCab));
-
-                ResultSet rs = ps.executeQuery();
-
-                while (rs.next()) {
-                    ProductosKit prodKit = new ProductosKit(rs.getBigDecimal("id_productos_kit"));
-                    prodKit.setCantidad(BigInteger.valueOf(rs.getInt("cantidad")) );
-                    
-                    Productos prod = new Productos();
-                    prod.setCodProducto(rs.getBigDecimal("cod_producto"));
-                    prod.setDescripcion(rs.getString("descripcion"));
-                    
-                    Medidas med = new Medidas(rs.getBigDecimal("id_medida"), rs.getString("desc_medida"));
-                    
-                    prod.setIdMedida(med);
-                    prodKit.setCodProducto(prod);
-                    
-                    selectedKits.add(prodKit);
-                    
-                    InstalacionDetPK instaldetPK = new InstalacionDetPK( 
-                            BigInteger.valueOf(rs.getInt("id_instalacion")),
-                            BigInteger.valueOf(rs.getInt("nro_linea")));
-                    InstalacionDet instaldet = new InstalacionDet(instaldetPK);
-                    instaldet.setCodProducto(prodKit.getCodProducto().getCodProducto().toBigInteger());
-                    instaldet.setIdProductosKit(prodKit.getIdProductosKit().toBigInteger());
-                    instalacionesDetList.add(instaldet);
-                }
-            } catch (SQLException ex) {
-                System.out.println("Error al obtener Productos Kit -->" + ex.getMessage());
-
-            } finally {
-                DataConnect.close(con);
-            }
-        }
+    public void obtenerDetallesInstalacion(int idInstalacionCab) {
+//        System.out.println("nroDocumentoCliente: " + idInstalacionCab);
+//        if (idInstalacionCab != null ) {
+//            Connection con = null;
+//            PreparedStatement ps = null;
+//
+//            try {
+//                con = DataConnect.getConnection();
+//                ps = con.prepareStatement("SELECT id.id_instalacion, id.nro_linea, pk.id_productos_kit, pk.cantidad, pr.cod_producto, pr.descripcion, m.id_medida, m.desc_medida FROM productos_kit pk, productos pr, medidas m, instalacion_det id where pk.cod_producto = pr.cod_producto and pr.id_medida = m.id_medida and pk.id_productos_kit = id.id_productos_kit and id.id_instalacion = ?");
+//                ps.setInt(1, idInstalacionCab.intValue() );
+//                //ps.setInt(1, Integer.parseInt(idInstalacionCab));
+//
+//                ResultSet rs = ps.executeQuery();
+//
+//                while (rs.next()) {
+//                    
+//                    InstalacionDetPK instaldetPK = new InstalacionDetPK( 
+//                            rs.getInt("id_instalacion"),
+//                            rs.getInt("nro_linea"));
+//                    InstalacionDet instaldet = new InstalacionDet(instaldetPK);
+//                    instaldet.setCodProducto(prodKit.getCodProducto().getCodProducto().toBigInteger());
+//                    instaldet.setIdProductosKit(prodKit.getIdProductosKit().toBigInteger());
+//                    instalacionesDetList.add(instaldet);
+//                }
+//            } catch (SQLException ex) {
+//                System.out.println("Error al obtener Productos Kit -->" + ex.getMessage());
+//
+//            } finally {
+//                DataConnect.close(con);
+//            }
+//        }
     }
-    
+
     public void onDateSelect(SelectEvent event) {
         if (event.getObject() != null) {
-            this.fechaInicio = (Date)event.getObject();
+            this.fechaInicio = (Date) event.getObject();
         }
     }
-    
+
 }

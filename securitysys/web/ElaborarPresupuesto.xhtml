@@ -33,18 +33,6 @@
                         <h:outputText value="Nombre:" 
                                       style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                         <h:outputText id="razonSocialCliente" value="#{ElaborarPresupuestoBean.razonsocial}" style="font-size: 11px;"/>
-                        <h:outputText value="Funcionario:"
-                                      style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                        <h:selectOneMenu id="funcionario" label="Funcionario" value="#{ElaborarPresupuestoBean.idFuncionario}">
-                            <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                            <f:selectItems value="#{ElaborarPresupuestoBean.listaFuncionarios}" var="est" itemLabel="#{est.nombre}" itemValue="#{est}"/>
-                        </h:selectOneMenu>
-                        <h:outputText value="Estado:"
-                                      style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                        <h:selectOneMenu id="estado" label="Estado" value="#{ElaborarPresupuestoBean.idEstado}">
-                            <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                            <f:selectItems value="#{ElaborarPresupuestoBean.listaEstados}" var="est" itemLabel="#{est.estado}" itemValue="#{est}"/>
-                        </h:selectOneMenu>
                     </h:panelGrid>
 
                     <p:dataTable id="datatable"
@@ -155,7 +143,7 @@
                     </p:dataTable>
                     <br/><br/>
                     <p:commandButton action="#{ElaborarPresupuestoBean.guardarPresupuesto}" id="buttonGuardar" value="Guardar" 
-                                     update=":growl estado datatable clienteFilter razonSocialCliente encabezado" 
+                                     update=":growl datatable clienteFilter razonSocialCliente encabezado" 
                                      icon="ui-icon-refresh" style="font-size: 12px;"/>
                     <p:commandButton action="Volver" id="buttonCancelar" value="Cancelar" immediate="true" style="font-size: 12px;"/>
                 </p:panel>

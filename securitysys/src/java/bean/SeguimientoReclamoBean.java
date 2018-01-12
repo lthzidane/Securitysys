@@ -4,18 +4,15 @@
  */
 package bean;
 
-
+import bean.util.JsfUtil.PersistAction;
 import entities.Cliente;
 import entities.Departamento;
 import entities.Estado;
-import entities.Funcionario;
 import entities.InstalacionDet;
 import entities.Moviles;
-import entities.Nivel;
 import entities.OrdenTrabajoDet;
-import entities.ProductosKit;
 import entities.Reclamo;
-import entities.Tecnicos;
+import entities.Tecnico;
 import entities.TipoReclamo;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -39,22 +36,22 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import lombok.Data;
 import session.util.JsfUtil;
-import session.util.JsfUtil.PersistAction;
 
 /**
  *
  * @author Acer
  *
  */
-@ManagedBean(name="SeguimientoReclamoBean")
+@ManagedBean(name = "SeguimientoReclamoBean")
 @ViewScoped
 @Data
-public class SeguimientoReclamoBean implements Serializable{
+public class SeguimientoReclamoBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     private String nroDeReclamo;
     private Integer idReclamo;
-    private String equipo; 
+    private String equipo;
     private String cliente;
     private BigDecimal pedido;
     private String estado;
@@ -83,24 +80,18 @@ public class SeguimientoReclamoBean implements Serializable{
     private String descripcion;
     private String solucion = "";
     private List<Departamento> listaDepartamentos = new ArrayList<>();
-    private ArrayList<Tecnicos> listaTecnicos = new ArrayList<>();
+    private ArrayList<Tecnico> listaTecnicos = new ArrayList<>();
     private List<Estado> listaEstados = new ArrayList<>();
     private List<TipoReclamo> listaTipoReclamo = new ArrayList<TipoReclamo>();
-    private List<Nivel> listaNivel = new ArrayList<Nivel>();
-    private List<Funcionario> listaFuncionario = new ArrayList<Funcionario>();
     private List<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
-    private List<ProductosKit> listaKits = new ArrayList<ProductosKit>();
-    private ArrayList<ProductosKit> selectedKits = new ArrayList<ProductosKit>();
     private ArrayList<InstalacionDet> instalacionesDetList = new ArrayList<InstalacionDet>();
-    private ArrayList<Tecnicos> selectedTecnicos = new ArrayList<Tecnicos>();
+    private ArrayList<Tecnico> selectedTecnicos = new ArrayList<Tecnico>();
     private List<Moviles> listaMoviles = new ArrayList<Moviles>();
-    
+
     @EJB
-    private bean.TecnicosFacade tecnicoFacade =  new TecnicosFacade();
+    private bean.TecnicoFacade tecnicoFacade = new TecnicoFacade();
     @EJB
     private bean.ClienteFacade clienteFacade = new ClienteFacade();
-    @EJB
-    private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
     @EJB
     private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
@@ -112,13 +103,12 @@ public class SeguimientoReclamoBean implements Serializable{
     private bean.UsuarioFacade usuarioFacade = new UsuarioFacade();
     @EJB
     private bean.ReclamoFacade reclamoFacade = new ReclamoFacade();
-    
+
     private Reclamo reclamo;
-    
+
     private Connection con = null;
-    private boolean editando = false;    
-    
-    
+    private boolean editando = false;
+
     @PostConstruct
     void initialiseSession() {
         con = DataConnect.getConnection();
@@ -127,8 +117,8 @@ public class SeguimientoReclamoBean implements Serializable{
         fechaFin = date;
         String today = formatter.format(date);
         fechaSolucion = today;
-    }   
-       
+    }
+
     public int obtenerNuevoIdReclamo() {
         int ultimoValor = 0;
         try {
@@ -137,9 +127,9 @@ public class SeguimientoReclamoBean implements Serializable{
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-               BigDecimal uv =  rs.getBigDecimal("last_value");
-               
-               ultimoValor = uv.toBigInteger().intValue();
+                BigDecimal uv = rs.getBigDecimal("last_value");
+
+                ultimoValor = uv.toBigInteger().intValue();
             }
         } catch (SQLException ex) {
             System.out.println("Error al obtener Secuencia de InstalacionCab -->" + ex.getMessage());
@@ -147,8 +137,8 @@ public class SeguimientoReclamoBean implements Serializable{
 
         return ultimoValor;
     }
-    
-    public String guardarReclamo(){
+
+    public String guardarReclamo() {
         //reclamo.setIdEstado(estadoTrabFacade.findByEstado("Cerrado"));
         reclamo.setSolucion(this.solucion);
         reclamo.setFechaAlta(this.fechaFin);
@@ -157,8 +147,8 @@ public class SeguimientoReclamoBean implements Serializable{
         limpiarCampos();
         return null;
     }
-    
-    public void limpiarCampos(){
+
+    public void limpiarCampos() {
         this.nroDeReclamo = "";
         this.idReclamo = null;
         this.reclamo = null;
@@ -178,28 +168,27 @@ public class SeguimientoReclamoBean implements Serializable{
         this.telefono = 0;
         this.solucion = "";
     }
-    
-    public String volver(){
+
+    public String volver() {
         return "/home";
     }
-    
-    private void persistReclamo(JsfUtil.PersistAction persistAction, String successMessage) {
+
+    private void persistReclamo(PersistAction persistAction, String successMessage) {
         if (reclamo != null) {
 
             try {
-                if (persistAction == JsfUtil.PersistAction.CREATE) {
+                if (persistAction == PersistAction.CREATE) {
                     getReclamoFacade().create(reclamo);
-                }
-                else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+                } else if (persistAction == PersistAction.UPDATE) {
                     getReclamoFacade().edit(reclamo);
                 } else {
                     getReclamoFacade().remove(reclamo);
                 }
-                
-                if(successMessage != null){
+
+                if (successMessage != null) {
                     JsfUtil.addSuccessMessage(successMessage);
                 }
-                
+
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
@@ -218,10 +207,10 @@ public class SeguimientoReclamoBean implements Serializable{
         }
     }
 
-    public void obtenerDatosReclamo(){
+    public void obtenerDatosReclamo() {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //defino el formato de fecha
-        if(this.nroDeReclamo != null){
-            System.out.println("Cargando datos del Reclamo: "+nroDeReclamo);
+        if (this.nroDeReclamo != null) {
+            System.out.println("Cargando datos del Reclamo: " + nroDeReclamo);
             this.idReclamo = Integer.parseInt(this.nroDeReclamo);
             this.reclamo = reclamoFacade.findByIdReclamo(idReclamo);
             //this.idEstado = this.reclamo.getIdEstado().getEstado();
@@ -229,16 +218,16 @@ public class SeguimientoReclamoBean implements Serializable{
             this.fechaInicio = this.reclamo.getFechaAlta();
             this.idDepartamento = this.reclamo.getIdDepartamento().getDescripcion();
             this.idTipoReclamo = this.reclamo.getIdTipoReclamo().getDescripcion();
-            
+
             this.usuario = this.reclamo.getIdUsuario().getNombre();
             this.descripcion = this.reclamo.getDescripcion();
             Cliente clienteAsociado = this.reclamo.getIdCliente();
-            this.nroDocumento = clienteAsociado.getNroDocumento();
-            this.razonsocial = clienteAsociado.getNombre()+" "+clienteAsociado.getApellido();
+            this.nroDocumento = clienteAsociado.getNumeroDocumento();
+            this.razonsocial = clienteAsociado.getNombre() + " " + clienteAsociado.getApellido();
             this.ciudad = clienteAsociado.getIdCiudad().getCiudad();
             this.direccion = clienteAsociado.getDireccion();
-            this.telefono = clienteAsociado.getTelefono();        
+            this.telefono = clienteAsociado.getTelefono();
         }
-        
-    } 
+
+    }
 }

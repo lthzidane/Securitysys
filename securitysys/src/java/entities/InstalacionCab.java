@@ -6,94 +6,104 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author LOTHAR
+ * @author sebas
  */
 @Entity
 @Table(name = "instalacion_cab")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "InstalacionCab.findAll", query = "SELECT i FROM InstalacionCab i ORDER BY i.fechainstalacion"),
-    @NamedQuery(name = "InstalacionCab.findByDescripcion", query = "SELECT i FROM InstalacionCab i WHERE i.descripcion = :descripcion"),
-    @NamedQuery(name = "InstalacionCab.findByTipoInstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.tipoInstalacion = :tipoInstalacion"),
-    @NamedQuery(name = "InstalacionCab.findByFechainstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.fechainstalacion = :fechainstalacion"),
-    @NamedQuery(name = "InstalacionCab.findByFechaFinInstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.fechaFinInstalacion = :fechaFinInstalacion"),
+    @NamedQuery(name = "InstalacionCab.findAll", query = "SELECT i FROM InstalacionCab i"),
     @NamedQuery(name = "InstalacionCab.findByIdInstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.idInstalacion = :idInstalacion"),
-    @NamedQuery(name = "InstalacionCab.findBetweenFechaInstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.fechainstalacion BETWEEN :startDate AND :endDate")})
+    @NamedQuery(name = "InstalacionCab.findByTipoInstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.tipoInstalacion = :tipoInstalacion"),
+    @NamedQuery(name = "InstalacionCab.findByFechaInicio", query = "SELECT i FROM InstalacionCab i WHERE i.fechaInicio = :fechaInicio"),
+    @NamedQuery(name = "InstalacionCab.findByFechaFin", query = "SELECT i FROM InstalacionCab i WHERE i.fechaFin = :fechaFin"),
+    @NamedQuery(name = "InstalacionCab.findByIdEstado", query = "SELECT i FROM InstalacionCab i WHERE i.idEstado = :idEstado"),
+    @NamedQuery(name = "InstalacionCab.findByObservacion", query = "SELECT i FROM InstalacionCab i WHERE i.observacion = :observacion"),
+    @NamedQuery(name = "InstalacionCab.findBetweenFechaInstalacion", query = "SELECT i FROM InstalacionCab i WHERE i.fechaInicio BETWEEN :startDate AND :endDate")
+})
 public class InstalacionCab implements Serializable {
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
-    @ManyToOne
-    private Cliente idCliente;
-    @JoinColumn(name = "id_estado_trab", referencedColumnName = "id_estado_trab")
-    @ManyToOne
-    private Estado idEstado;
-    @JoinColumn(name = "id_movil", referencedColumnName = "id_movil")
-    @ManyToOne
-    private Moviles idMovil;
-    @JoinColumn(name = "nro_orden", referencedColumnName = "nro_orden")
-    @ManyToOne
-    private OrdenTrabajoCab nroOrden;
-    @JoinColumn(name = "id_tecnico", referencedColumnName = "id_tecnico")
-    @ManyToOne
-    private Tecnicos idTecnico;
-    @JoinColumn(name = "id_servicio", referencedColumnName = "id_servicio")
-    @ManyToOne
-    private TipoServicios idServicio;
     private static final long serialVersionUID = 1L;
-    @Size(max = 500)
-    @Column(name = "descripcion")
-    private String descripcion;
-    @Size(max = 2147483647)
-    @Column(name = "tipo_instalacion")
-    private String tipoInstalacion;
-    @Column(name = "fecha_instalacion")
-    @Temporal(TemporalType.DATE)
-    private Date fechainstalacion;
-    @Column(name = "fecha_fin_instalacion")
-    @Temporal(TemporalType.DATE)
-    private Date fechaFinInstalacion;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_instalacion")
+    private Integer idInstalacion;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_instalacion")
-    @GeneratedValue(generator="InstalCabSeq") 
-    @SequenceGenerator(name="InstalCabSeq",sequenceName="id_instalacion_seq", allocationSize=1) 
-    private BigDecimal idInstalacion;
+    @Size(min = 1, max = 20)
+    @Column(name = "tipo_instalacion")
+    private String tipoInstalacion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fecha_inicio")
+    @Temporal(TemporalType.DATE)
+    private Date fechaInicio;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fecha_fin")
+    @Temporal(TemporalType.DATE)
+    private Date fechaFin;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_estado")
+    private int idEstado;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "observacion")
+    private String observacion;
+    @JoinColumn(name = "id_ot", referencedColumnName = "id_ot")
+    @ManyToOne(optional = false)
+    private OrdenTrabajo idOt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "instalacionCab")
+    private List<InstalacionDet> instalacionDetList;
 
     public InstalacionCab() {
     }
 
-    public InstalacionCab(BigDecimal idInstalacion) {
+    public InstalacionCab(Integer idInstalacion) {
         this.idInstalacion = idInstalacion;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public InstalacionCab(Integer idInstalacion, String tipoInstalacion, Date fechaInicio, Date fechaFin, int idEstado, String observacion) {
+        this.idInstalacion = idInstalacion;
+        this.tipoInstalacion = tipoInstalacion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.idEstado = idEstado;
+        this.observacion = observacion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public Integer getIdInstalacion() {
+        return idInstalacion;
+    }
+
+    public void setIdInstalacion(Integer idInstalacion) {
+        this.idInstalacion = idInstalacion;
     }
 
     public String getTipoInstalacion() {
@@ -104,28 +114,53 @@ public class InstalacionCab implements Serializable {
         this.tipoInstalacion = tipoInstalacion;
     }
 
-    public Date getFechainstalacion() {
-        return fechainstalacion;
+    public Date getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setFechainstalacion(Date fechainstalacion) {
-        this.fechainstalacion = fechainstalacion;
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFinInstalacion() {
-        return fechaFinInstalacion;
+    public Date getFechaFin() {
+        return fechaFin;
     }
 
-    public void setFechaFinInstalacion(Date fechaFinInstalacion) {
-        this.fechaFinInstalacion = fechaFinInstalacion;
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
     }
 
-    public BigDecimal getIdInstalacion() {
-        return idInstalacion;
+    public int getIdEstado() {
+        return idEstado;
     }
 
-    public void setIdInstalacion(BigDecimal idInstalacion) {
-        this.idInstalacion = idInstalacion;
+    public void setIdEstado(int idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
+    public OrdenTrabajo getIdOt() {
+        return idOt;
+    }
+
+    public void setIdOt(OrdenTrabajo idOt) {
+        this.idOt = idOt;
+    }
+
+    @XmlTransient
+    public List<InstalacionDet> getInstalacionDetList() {
+        return instalacionDetList;
+    }
+
+    public void setInstalacionDetList(List<InstalacionDet> instalacionDetList) {
+        this.instalacionDetList = instalacionDetList;
     }
 
     @Override
@@ -151,54 +186,6 @@ public class InstalacionCab implements Serializable {
     @Override
     public String toString() {
         return "entities.InstalacionCab[ idInstalacion=" + idInstalacion + " ]";
-    }
-
-    public Cliente getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public Estado getIdEstado() {
-        return idEstado;
-    }
-
-    public void setIdEstado(Estado idEstado) {
-        this.idEstado = idEstado;
-    }
-
-    public Moviles getIdMovil() {
-        return idMovil;
-    }
-
-    public void setIdMovil(Moviles idMovil) {
-        this.idMovil = idMovil;
-    }
-
-    public OrdenTrabajoCab getNroOrden() {
-        return nroOrden;
-    }
-
-    public void setNroOrden(OrdenTrabajoCab nroOrden) {
-        this.nroOrden = nroOrden;
-    }
-
-    public Tecnicos getIdTecnico() {
-        return idTecnico;
-    }
-
-    public void setIdTecnico(Tecnicos idTecnico) {
-        this.idTecnico = idTecnico;
-    }
-
-    public TipoServicios getIdServicio() {
-        return idServicio;
-    }
-
-    public void setIdServicio(TipoServicios idServicio) {
-        this.idServicio = idServicio;
     }
     
 }

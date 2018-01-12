@@ -1,161 +1,152 @@
 package session;
 
 import entities.Usuario;
-import session.util.JsfUtil;
-import session.util.JsfUtil.PersistAction;
-import bean.UsuarioFacade;
-
-import java.io.Serializable;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
-@ManagedBean(name = "usuarioController")
-@SessionScoped
-public class UsuarioController implements Serializable {
-
-    @EJB
-    private bean.UsuarioFacade ejbFacade;
-    private List<Usuario> items = null;
-    private Usuario selected;
+@Named(value = "usuarioController")
+@ViewScoped
+public class UsuarioController extends AbstractController<Usuario> {
 
     public UsuarioController() {
+        // Inform the Abstract parent controller of the concrete Usuario Entity
+        super(Usuario.class);
     }
 
-    public Usuario getSelected() {
-        return selected;
-    }
-
-    public void setSelected(Usuario selected) {
-        this.selected = selected;
-    }
-
-    protected void setEmbeddableKeys() {
-    }
-
-    protected void initializeEmbeddableKey() {
-    }
-
-    private UsuarioFacade getFacade() {
-        return ejbFacade;
-    }
-
-    public Usuario prepareCreate() {
-        selected = new Usuario();
-        initializeEmbeddableKey();
-        return selected;
-    }
-
-    public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+    /**
+     * Sets the "items" attribute with a collection of Promocion entities that
+     * are retrieved from Usuario?cap_first and returns the navigation outcome.
+     *
+     * @return navigation outcome for Promocion page
+     */
+    public String navigatePromocionList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("Promocion_items", this.getSelected().getPromocionList());
         }
+        return "/promocion/index";
     }
 
-    public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
+    /**
+     * Sets the "items" attribute with a collection of AperturaCierreCaja
+     * entities that are retrieved from Usuario?cap_first and returns the
+     * navigation outcome.
+     *
+     * @return navigation outcome for AperturaCierreCaja page
+     */
+    public String navigateAperturaCierreCajaList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("AperturaCierreCaja_items", this.getSelected().getAperturaCierreCajaList());
+        }
+        return "/aperturaCierreCaja/index";
     }
 
-    public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UsuarioDeleted"));
-        if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+    /**
+     * Sets the "items" attribute with a collection of Presupuesto entities that
+     * are retrieved from Usuario?cap_first and returns the navigation outcome.
+     *
+     * @return navigation outcome for Presupuesto page
+     */
+    public String navigatePresupuestoList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("Presupuesto_items", this.getSelected().getPresupuestoList());
         }
+        return "/presupuesto/index";
     }
 
-    public List<Usuario> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
+    /**
+     * Sets the "items" attribute with a collection of OrdenTrabajo entities
+     * that are retrieved from Usuario?cap_first and returns the navigation
+     * outcome.
+     *
+     * @return navigation outcome for OrdenTrabajo page
+     */
+    public String navigateOrdenTrabajoList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("OrdenTrabajo_items", this.getSelected().getOrdenTrabajoList());
         }
-        return items;
+        return "/ordenTrabajo/index";
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
-        if (selected != null) {
-            setEmbeddableKeys();
-            try {
-                if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
-                } else {
-                    getFacade().remove(selected);
-                }
-                JsfUtil.addSuccessMessage(successMessage);
-            } catch (EJBException ex) {
-                String msg = "";
-                Throwable cause = ex.getCause();
-                if (cause != null) {
-                    msg = cause.getLocalizedMessage();
-                }
-                if (msg.length() > 0) {
-                    JsfUtil.addErrorMessage(msg);
-                } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            }
+    /**
+     * Sets the "items" attribute with a collection of Reclamo entities that are
+     * retrieved from Usuario?cap_first and returns the navigation outcome.
+     *
+     * @return navigation outcome for Reclamo page
+     */
+    public String navigateReclamoList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("Reclamo_items", this.getSelected().getReclamoList());
         }
+        return "/reclamo/index";
     }
 
-    public List<Usuario> getItemsAvailableSelectMany() {
-        return getFacade().findAll();
+    /**
+     * Sets the "items" attribute with a collection of Venta entities that are
+     * retrieved from Usuario?cap_first and returns the navigation outcome.
+     *
+     * @return navigation outcome for Venta page
+     */
+    public String navigateVentaList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("Venta_items", this.getSelected().getVentaList());
+        }
+        return "/venta/index";
     }
 
-    public List<Usuario> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+    /**
+     * Sets the "items" attribute with a collection of NotaCrediDebiVenta
+     * entities that are retrieved from Usuario?cap_first and returns the
+     * navigation outcome.
+     *
+     * @return navigation outcome for NotaCrediDebiVenta page
+     */
+    public String navigateNotaCrediDebiVentaList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("NotaCrediDebiVenta_items", this.getSelected().getNotaCrediDebiVentaList());
+        }
+        return "/notaCrediDebiVenta/index";
     }
 
-    @FacesConverter(forClass = Usuario.class)
-    public static class UsuarioControllerConverter implements Converter {
-
-        @Override
-        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-            if (value == null || value.length() == 0) {
-                return null;
-            }
-            UsuarioController controller = (UsuarioController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "usuarioController");
-            return controller.getFacade().find(getKey(value));
+    /**
+     * Sets the "items" attribute with a collection of NotaRemisionVenta
+     * entities that are retrieved from Usuario?cap_first and returns the
+     * navigation outcome.
+     *
+     * @return navigation outcome for NotaRemisionVenta page
+     */
+    public String navigateNotaRemisionVentaList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("NotaRemisionVenta_items", this.getSelected().getNotaRemisionVentaList());
         }
+        return "/notaRemisionVenta/index";
+    }
 
-        java.math.BigDecimal getKey(String value) {
-            java.math.BigDecimal key;
-            key = new java.math.BigDecimal(value);
-            return key;
+    /**
+     * Sets the "items" attribute with a collection of Diagnostico entities that
+     * are retrieved from Usuario?cap_first and returns the navigation outcome.
+     *
+     * @return navigation outcome for Diagnostico page
+     */
+    public String navigateDiagnosticoList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("Diagnostico_items", this.getSelected().getDiagnosticoList());
         }
+        return "/diagnostico/index";
+    }
 
-        String getStringKey(java.math.BigDecimal value) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(value);
-            return sb.toString();
+    /**
+     * Sets the "items" attribute with a collection of Solicitud entities that
+     * are retrieved from Usuario?cap_first and returns the navigation outcome.
+     *
+     * @return navigation outcome for Solicitud page
+     */
+    public String navigateSolicitudList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("Solicitud_items", this.getSelected().getSolicitudList());
         }
-
-        @Override
-        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-            if (object == null) {
-                return null;
-            }
-            if (object instanceof Usuario) {
-                Usuario o = (Usuario) object;
-                return getStringKey(o.getIdUsuario());
-            } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Usuario.class.getName()});
-                return null;
-            }
-        }
-
+        return "/solicitud/index";
     }
 
 }

@@ -18,7 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -61,7 +60,7 @@ public class Promocion implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaFinPromo;
     @JoinColumn(name = "id_presu", referencedColumnName = "id_presupuesto", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Presupuesto presupuesto;
     @JoinColumn(name = "id_sucursal", referencedColumnName = "id_sucursal")
     @ManyToOne(optional = false)
@@ -70,10 +69,15 @@ public class Promocion implements Serializable {
     @ManyToOne(optional = false)
     private Usuario idUsuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPromocion")
-    private List<Servicio> servicioList;
-    
+    private List<SolicitudDet> solicitudDetList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "promocion")
     private List<PromocionDet> promocionDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPromocion")
+    private List<PresupuestoDet> presupuestoDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPromocion")
+    private List<Servicio> servicioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPromocion")
+    private List<VentaDet> ventaDetList;
 
     public Promocion() {
     }
@@ -150,12 +154,12 @@ public class Promocion implements Serializable {
     }
 
     @XmlTransient
-    public List<Servicio> getServicioList() {
-        return servicioList;
+    public List<SolicitudDet> getSolicitudDetList() {
+        return solicitudDetList;
     }
 
-    public void setServicioList(List<Servicio> servicioList) {
-        this.servicioList = servicioList;
+    public void setSolicitudDetList(List<SolicitudDet> solicitudDetList) {
+        this.solicitudDetList = solicitudDetList;
     }
 
     @XmlTransient
@@ -165,6 +169,33 @@ public class Promocion implements Serializable {
 
     public void setPromocionDetList(List<PromocionDet> promocionDetList) {
         this.promocionDetList = promocionDetList;
+    }
+
+    @XmlTransient
+    public List<PresupuestoDet> getPresupuestoDetList() {
+        return presupuestoDetList;
+    }
+
+    public void setPresupuestoDetList(List<PresupuestoDet> presupuestoDetList) {
+        this.presupuestoDetList = presupuestoDetList;
+    }
+
+    @XmlTransient
+    public List<Servicio> getServicioList() {
+        return servicioList;
+    }
+
+    public void setServicioList(List<Servicio> servicioList) {
+        this.servicioList = servicioList;
+    }
+
+    @XmlTransient
+    public List<VentaDet> getVentaDetList() {
+        return ventaDetList;
+    }
+
+    public void setVentaDetList(List<VentaDet> ventaDetList) {
+        this.ventaDetList = ventaDetList;
     }
 
     @Override

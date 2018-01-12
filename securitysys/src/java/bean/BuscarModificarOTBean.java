@@ -5,9 +5,10 @@
 package bean;
 
 
+import bean.util.JsfUtil.PersistAction;
 import entities.InstalacionCab;
 import entities.InstalacionDet;
-import entities.OrdenTrabajoCab;
+import entities.OrdenTrabajo;
 import entities.OrdenTrabajoDet;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -26,11 +27,10 @@ import lombok.Data;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.data.FilterEvent;
 import session.util.JsfUtil;
-import session.util.JsfUtil.PersistAction;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @ManagedBean(name="BuscarModificarOTBean")
 @ViewScoped
@@ -38,23 +38,21 @@ import session.util.JsfUtil.PersistAction;
 public class BuscarModificarOTBean implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    private ArrayList<OrdenTrabajoCab> listaOrdenesTrabajo = new ArrayList<OrdenTrabajoCab>();
+    private ArrayList<OrdenTrabajo> listaOrdenesTrabajo = new ArrayList<OrdenTrabajo>();
     private List<OrdenTrabajoDet> listaOrdenesTrabajoDet = new ArrayList<OrdenTrabajoDet>();
-    private ArrayList<OrdenTrabajoCab> filteredListOTs = new ArrayList<OrdenTrabajoCab>();
+    private ArrayList<OrdenTrabajo> filteredListOTs = new ArrayList<OrdenTrabajo>();
     
     private ArrayList<InstalacionCab> listaInstalaciones = new ArrayList<InstalacionCab>();
     private ArrayList<InstalacionCab> filteredListInstal = new ArrayList<InstalacionCab>();
     
     @EJB
-    private bean.TecnicosFacade tecnicoFacade =  new TecnicosFacade();
+    private bean.TecnicoFacade tecnicoFacade =  new TecnicoFacade();
     @EJB
     private bean.ClienteFacade clienteFacade = new ClienteFacade();
     @EJB
-    private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
-    @EJB
     private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
-    private bean.OrdenTrabajoCabFacade ordenTrabajoCabFacade;
+    private bean.OrdenTrabajoFacade OrdenTrabajoFacade;
     @EJB
     private bean.OrdenTrabajoDetFacade ordenTrabajoDetFacade;
     @EJB
@@ -63,7 +61,7 @@ public class BuscarModificarOTBean implements Serializable{
     private bean.InstalacionDetFacade insalacionDetFacade;
     
     
-    private OrdenTrabajoCab ordenTrabajoCab;
+    private OrdenTrabajo OrdenTrabajo;
     private OrdenTrabajoDet ordenTrabajoDet;
     
     private InstalacionCab instalacionCab;
@@ -82,12 +80,12 @@ public class BuscarModificarOTBean implements Serializable{
 
         try {
 
-            listaOrdenesTrabajo = new ArrayList<OrdenTrabajoCab>();
-            for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findAll()) {
-                System.out.println("ot.NroOrden:"+ot.getNroOrden()+" cantDet:"+ot.getOrdenTrabajoDetList().size());
+            listaOrdenesTrabajo = new ArrayList<OrdenTrabajo>();
+            for (OrdenTrabajo ot : OrdenTrabajoFacade.findAll()) {
+                System.out.println("ot.NroOrden:"+ot.getIdOt()+" cantDet:"+ot.getOrdenTrabajoDetList().size());
                 
                 if(ot.getOrdenTrabajoDetList().isEmpty()){
-                    listaOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(ot.getNroOrden().intValue());
+                    listaOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(ot.getIdOt());
                     if(listaOrdenesTrabajoDet.size() > 0){
                         ot.setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
                         System.out.println("seteo la cantitad real: "+listaOrdenesTrabajoDet.size());
@@ -116,7 +114,7 @@ public class BuscarModificarOTBean implements Serializable{
         if (filters.isEmpty()) {
             System.out.println("Filtro por primera vez todos");
             listaOrdenesTrabajo.clear();
-            for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findAll()) {
+            for (OrdenTrabajo ot : OrdenTrabajoFacade.findAll()) {
                 listaOrdenesTrabajo.add(ot);
             }
         }
@@ -139,7 +137,7 @@ public class BuscarModificarOTBean implements Serializable{
     
     public void eliminarOT(){
         System.out.println("Eliminar Orden de Trabajo");
-        //ordenTrabajoCab se setea con el item de la fila, via el serPropertyActionListener
+        //OrdenTrabajo se setea con el item de la fila, via el serPropertyActionListener
         persistOTCab(PersistAction.DELETE, "Orden de Trabajo eliminada correctamente");
         cargarVista();
     }
@@ -152,14 +150,14 @@ public class BuscarModificarOTBean implements Serializable{
         
     }
     
-    private void persistInstalCab(JsfUtil.PersistAction persistAction, String successMessage) {
+    private void persistInstalCab(PersistAction persistAction, String successMessage) {
         if (instalacionCab != null) {
 
             try {
-                if (persistAction == JsfUtil.PersistAction.CREATE) {
+                if (persistAction == PersistAction.CREATE) {
                     instalacionCabFacade.create(instalacionCab);
                 }
-                else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+                else if (persistAction == PersistAction.UPDATE) {
                     instalacionCabFacade.edit(instalacionCab);
                 } else {
                     instalacionCabFacade.remove(instalacionCab);
@@ -188,16 +186,16 @@ public class BuscarModificarOTBean implements Serializable{
     }
     
     
-    private void persistOTCab(JsfUtil.PersistAction persistAction, String successMessage) {
-        if (ordenTrabajoCab != null) {
+    private void persistOTCab(PersistAction persistAction, String successMessage) {
+        if (OrdenTrabajo != null) {
 
             try {
-                if (persistAction == JsfUtil.PersistAction.CREATE) {
-                    ordenTrabajoCabFacade.create(ordenTrabajoCab);
-                } else if (persistAction == JsfUtil.PersistAction.UPDATE) {
-                    ordenTrabajoCabFacade.edit(ordenTrabajoCab);
+                if (persistAction == PersistAction.CREATE) {
+                    OrdenTrabajoFacade.create(OrdenTrabajo);
+                } else if (persistAction == PersistAction.UPDATE) {
+                    OrdenTrabajoFacade.edit(OrdenTrabajo);
                 } else {
-                    ordenTrabajoCabFacade.remove(ordenTrabajoCab);
+                    OrdenTrabajoFacade.remove(OrdenTrabajo);
                 }
 
                 if (successMessage != null) {

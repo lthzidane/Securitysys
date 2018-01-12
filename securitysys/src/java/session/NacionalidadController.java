@@ -1,32 +1,31 @@
 package session;
 
-import bean.NacionalidadFacade;
 import entities.Nacionalidad;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.annotation.PostConstruct;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
-@ManagedBean(name = "nacionalidadController")
+@Named(value = "nacionalidadController")
 @ViewScoped
 public class NacionalidadController extends AbstractController<Nacionalidad> {
-
-    @EJB
-    private NacionalidadFacade ejbFacade;
-
-    /**
-     * Initialize the concrete Nacionalidad controller bean. The
-     * AbstractController requires the EJB Facade object for most operations.
-     */
-    @PostConstruct
-    @Override
-    public void init() {
-        super.setFacade(ejbFacade);
-    }
 
     public NacionalidadController() {
         // Inform the Abstract parent controller of the concrete Nacionalidad Entity
         super(Nacionalidad.class);
+    }
+
+    /**
+     * Sets the "items" attribute with a collection of Cliente entities that are
+     * retrieved from Nacionalidad?cap_first and returns the navigation outcome.
+     *
+     * @return navigation outcome for Cliente page
+     */
+    public String navigateClienteList() {
+        if (this.getSelected() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("Cliente_items", this.getSelected().getClienteList());
+        }
+        return "/cliente/index";
     }
 
 }

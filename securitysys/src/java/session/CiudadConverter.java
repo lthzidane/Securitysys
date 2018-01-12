@@ -6,18 +6,16 @@ import session.util.JsfUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.convert.FacesConverter;
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-
 @FacesConverter(value = "ciudadConverter")
 public class CiudadConverter implements Converter {
 
-    @EJB
+    @Inject
     private CiudadFacade ejbFacade;
-
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
@@ -27,22 +25,22 @@ public class CiudadConverter implements Converter {
         return this.ejbFacade.find(getKey(value));
     }
 
-    java.math.BigDecimal getKey(String value) {
-        java.math.BigDecimal key;
-            key = new java.math.BigDecimal(value);
+    java.lang.Integer getKey(String value) {
+        java.lang.Integer key;
+        key = Integer.valueOf(value);
         return key;
     }
 
-    String getStringKey(java.math.BigDecimal value) {
+    String getStringKey(java.lang.Integer value) {
         StringBuffer sb = new StringBuffer();
-            sb.append(value);
+        sb.append(value);
         return sb.toString();
     }
 
     @Override
     public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-        if (object == null || 
-            (object instanceof String && ((String) object).length() == 0)) {
+        if (object == null
+                || (object instanceof String && ((String) object).length() == 0)) {
             return null;
         }
         if (object instanceof Ciudad) {

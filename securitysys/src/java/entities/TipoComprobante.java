@@ -36,8 +36,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoComprobante.findByDescripcion", query = "SELECT t FROM TipoComprobante t WHERE t.descripcion = :descripcion"),
     @NamedQuery(name = "TipoComprobante.findByPrefijo", query = "SELECT t FROM TipoComprobante t WHERE t.prefijo = :prefijo")})
 public class TipoComprobante implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoComprobante")
-    private List<Timbrado> timbradoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +52,14 @@ public class TipoComprobante implements Serializable {
     @Size(min = 1, max = 5)
     @Column(name = "prefijo")
     private String prefijo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoComprobante")
+    private List<Timbrado> timbradoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoComprobante")
+    private List<Venta> ventaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoComprobante")
+    private List<NotaCrediDebiVenta> notaCrediDebiVentaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoComprobante")
+    private List<NotaRemisionVenta> notaRemisionVentaList;
 
     public TipoComprobante() {
     }
@@ -92,6 +98,42 @@ public class TipoComprobante implements Serializable {
         this.prefijo = prefijo.toUpperCase();
     }
 
+    @XmlTransient
+    public List<Timbrado> getTimbradoList() {
+        return timbradoList;
+    }
+
+    public void setTimbradoList(List<Timbrado> timbradoList) {
+        this.timbradoList = timbradoList;
+    }
+
+    @XmlTransient
+    public List<Venta> getVentaList() {
+        return ventaList;
+    }
+
+    public void setVentaList(List<Venta> ventaList) {
+        this.ventaList = ventaList;
+    }
+
+    @XmlTransient
+    public List<NotaCrediDebiVenta> getNotaCrediDebiVentaList() {
+        return notaCrediDebiVentaList;
+    }
+
+    public void setNotaCrediDebiVentaList(List<NotaCrediDebiVenta> notaCrediDebiVentaList) {
+        this.notaCrediDebiVentaList = notaCrediDebiVentaList;
+    }
+
+    @XmlTransient
+    public List<NotaRemisionVenta> getNotaRemisionVentaList() {
+        return notaRemisionVentaList;
+    }
+
+    public void setNotaRemisionVentaList(List<NotaRemisionVenta> notaRemisionVentaList) {
+        this.notaRemisionVentaList = notaRemisionVentaList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -115,15 +157,6 @@ public class TipoComprobante implements Serializable {
     @Override
     public String toString() {
         return "entities.TipoComprobante[ idTipoComprobante=" + idTipoComprobante + " ]";
-    }
-
-    @XmlTransient
-    public List<Timbrado> getTimbradoList() {
-        return timbradoList;
-    }
-
-    public void setTimbradoList(List<Timbrado> timbradoList) {
-        this.timbradoList = timbradoList;
     }
     
 }

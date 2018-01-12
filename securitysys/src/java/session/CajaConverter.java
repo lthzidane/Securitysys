@@ -1,20 +1,20 @@
 package session;
 
-import bean.CajaFacade;
 import entities.Caja;
+import bean.CajaFacade;
+import session.util.JsfUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
+import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
-import session.util.JsfUtil;
 
 @FacesConverter(value = "cajaConverter")
 public class CajaConverter implements Converter {
 
-    @EJB
+    @Inject
     private CajaFacade ejbFacade;
 
     @Override

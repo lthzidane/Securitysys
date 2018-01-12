@@ -25,7 +25,7 @@ import util.Sale;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @ManagedBean(name="OrdenCompraBean")
 @ViewScoped

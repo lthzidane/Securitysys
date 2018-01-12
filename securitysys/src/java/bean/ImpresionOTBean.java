@@ -5,7 +5,7 @@
 package bean;
 
 
-import entities.OrdenTrabajoCab;
+import entities.OrdenTrabajo;
 import entities.OrdenTrabajoDet;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -37,7 +37,7 @@ import org.primefaces.event.data.FilterEvent;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @ManagedBean(name="ImpresionOTBean")
 @ViewScoped
@@ -45,23 +45,21 @@ import org.primefaces.event.data.FilterEvent;
 public class ImpresionOTBean implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    private ArrayList<OrdenTrabajoCab> listaOrdenesTrabajo = new ArrayList<OrdenTrabajoCab>();
-    private ArrayList<OrdenTrabajoCab> filteredListOTs = new ArrayList<OrdenTrabajoCab>();
+    private ArrayList<OrdenTrabajo> listaOrdenesTrabajo = new ArrayList<OrdenTrabajo>();
+    private ArrayList<OrdenTrabajo> filteredListOTs = new ArrayList<OrdenTrabajo>();
     
     @EJB
-    private bean.TecnicosFacade tecnicoFacade =  new TecnicosFacade();
+    private bean.TecnicoFacade tecnicoFacade =  new TecnicoFacade();
     @EJB
     private bean.ClienteFacade clienteFacade = new ClienteFacade();
     @EJB
-    private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
-    @EJB
     private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
-    private bean.OrdenTrabajoCabFacade ordenTrabajoCabFacade;
+    private bean.OrdenTrabajoFacade OrdenTrabajoFacade;
     @EJB
     private bean.OrdenTrabajoDetFacade ordenTrabajoDetFacade;
     
-    private OrdenTrabajoCab ordenTrabajoCab;
+    private OrdenTrabajo OrdenTrabajo;
     private OrdenTrabajoDet ordenTrabajoDet;
     
     private Connection con = null;
@@ -77,7 +75,7 @@ public class ImpresionOTBean implements Serializable{
 
         try {
 
-            listaOrdenesTrabajo = new ArrayList<OrdenTrabajoCab>();
+            listaOrdenesTrabajo = new ArrayList<OrdenTrabajo>();
             obtenerOrdenesTrabajo();
             
             
@@ -87,7 +85,7 @@ public class ImpresionOTBean implements Serializable{
     }
 
     private void obtenerOrdenesTrabajo() {
-        for(OrdenTrabajoCab ot : ordenTrabajoCabFacade.findAll() ) {
+        for(OrdenTrabajo ot : OrdenTrabajoFacade.findAll() ) {
             listaOrdenesTrabajo.add(ot);
         }
         

@@ -97,7 +97,7 @@ public class ReportesVentasBean implements Serializable {
             cargarTabRepoReclamo();
         } else {
             listaReclamo = new ArrayList<>();
-            for (Reclamo rcl : reclamoFacade.findBetweenFechaIngreso(startDate, endDate)) {
+            for (Reclamo rcl : reclamoFacade.findBetweenfechaAlta(startDate, endDate)) {
                 listaReclamo.add(rcl);
             }
         }

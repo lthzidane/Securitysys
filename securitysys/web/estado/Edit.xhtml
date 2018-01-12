@@ -14,12 +14,10 @@
                     <p:panelGrid columns="2" rendered="#{estadoController.selected != null}">
                         <p:outputLabel value="#{bundle.EditEstadoLabel_idEstado}" for="idEstado" rendered="false"/>
                         <p:inputText id="idEstado" value="#{estadoController.selected.idEstado}" title="#{bundle.EditEstadoTitle_idEstado}" required="true" requiredMessage="#{bundle.EditEstadoRequiredMessage_idEstado}" rendered="false"/>
-                        <p:outputLabel value="#{bundle.EditEstadoLabel_modulo}" for="modulo" />
-                        <p:inputText id="modulo" value="#{estadoController.selected.modulo}" title="#{bundle.EditEstadoTitle_modulo}" required="true" requiredMessage="#{bundle.EditEstadoRequiredMessage_modulo}"  style="text-transform: uppercase"/>
-                        <p:outputLabel value="#{bundle.EditEstadoLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{estadoController.selected.estado}" title="#{bundle.EditEstadoTitle_estado}" required="true" requiredMessage="#{bundle.EditEstadoRequiredMessage_estado}"  style="text-transform: uppercase"/>
+                        <p:outputLabel value="#{bundle.EditEstadoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{estadoController.selected.descripcion}" title="#{bundle.EditEstadoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditEstadoRequiredMessage_descripcion}"  style="text-transform: uppercase"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{estadoController.update}" value="#{bundle.Save}" update="display,:EstadoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadoEditDialog');"/>
+                    <p:commandButton actionListener="#{estadoController.save}" value="#{bundle.Save}" update="display,:EstadoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="EstadoEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>

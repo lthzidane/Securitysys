@@ -6,7 +6,6 @@
 package bean;
 
 import entities.TipoReclamo;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -14,10 +13,11 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author LOTHAR
+ * @author sebas
  */
 @Stateless
 public class TipoReclamoFacade extends AbstractFacade<TipoReclamo> {
+
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -29,22 +29,13 @@ public class TipoReclamoFacade extends AbstractFacade<TipoReclamo> {
     public TipoReclamoFacade() {
         super(TipoReclamo.class);
     }
-    
-    @Override
-     public List<TipoReclamo> findAll() {
+
+    public TipoReclamo findByIdTipoReclamo(Integer idTipoReclamo) {
         try {
-            return (List<TipoReclamo>) em.createNamedQuery("TipoReclamo.findAll").getResultList();
+            return (TipoReclamo) em.createNamedQuery("TipoReclamo.findByIdTipoReclamo").setParameter("idTipoReclamo", idTipoReclamo).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
     }
-     
-    public TipoReclamo findByIdTiporecla(Integer idTiporecla) {
-        try {
-            return (TipoReclamo) em.createNamedQuery("TipoReclamo.findByIdTiporecla").setParameter("idTiporecla", idTiporecla).getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
-    
+
 }

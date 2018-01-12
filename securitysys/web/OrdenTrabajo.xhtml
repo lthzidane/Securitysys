@@ -24,12 +24,6 @@
                             <h:outputText value="Fecha Recepcion:"
                                           style="color: #78797A; font: 80% Tahoma; text-decoration: none; font-size: 11px;" />
                             <h:outputText id="buttonFR" value="#{OrdenTrabajoBean.fechaRecepcion}" style="font: 80% Tahoma; font-size: 11px;"/>
-                            <h:outputText value="Tipo de Servicio:"
-                                          style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <h:selectOneMenu id="tipoServicio" label="Tipo de Servicio" value="#{OrdenTrabajoBean.idServicio}">
-                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{OrdenTrabajoBean.listaServicios}" var="servicio" itemValue="#{servicio.idServicio}" itemLabel="#{servicio.descripcion}"/>
-                            </h:selectOneMenu>
                             <h:outputText value="Tecnico Responsable:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:selectOneMenu id="tecnico" label="Tecnico" value="#{OrdenTrabajoBean.idTecnico}">
@@ -48,9 +42,9 @@
 
                             <h:outputText value="Estado del Trabajo:"
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                            <h:selectOneMenu id="estado" label="Estado del Trabajo" value="#{OrdenTrabajoBean.idEstadoTrab}">
+                            <h:selectOneMenu id="estado" label="Estado del Trabajo" value="#{OrdenTrabajoBean.idEstado}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{OrdenTrabajoBean.listaEstados}" var="est" itemLabel="#{est.estado}" itemValue="#{est.idEstadoTrab}"/>
+                                <f:selectItems value="#{OrdenTrabajoBean.listaEstados}" var="est" itemLabel="#{est.descripcion}" itemValue="#{est.idEstado}"/>
                             </h:selectOneMenu>
                             <h:outputText value="Observacion:" 
                                           style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" rendered="false"/>
@@ -133,7 +127,7 @@
                         <br/><br/>
                         <h:panelGroup layout="block">
                             <p:commandButton action="#{OrdenTrabajoBean.guardarOrdenTrabajo}" 
-                                             update=":growl buttonIT buttonFT estado tecnico tipoServicio datatable clienteFilter nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente encabezado" 
+                                             update=":growl buttonIT buttonFT estado tecnico datatable clienteFilter nroDocCliente razonSocialCliente ciudadCliente direccionCliente telefonoCliente encabezado" 
                                              id="buttonGuardar" value="Guardar" style="font-size: 12px;"/>
                             <p:commandButton action="#{OrdenTrabajoBean.volver}" id="buttonCancelar" value="Cancelar" immediate="true" style="font-size: 12px;"/>
                         </h:panelGroup>

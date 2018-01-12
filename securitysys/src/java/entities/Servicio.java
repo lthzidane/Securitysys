@@ -6,7 +6,9 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,10 +19,12 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,7 +40,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Servicio.findByCantidad", query = "SELECT s FROM Servicio s WHERE s.cantidad = :cantidad"),
     @NamedQuery(name = "Servicio.findByCosto", query = "SELECT s FROM Servicio s WHERE s.costo = :costo")})
 public class Servicio implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +59,12 @@ public class Servicio implements Serializable {
     @NotNull
     @Column(name = "costo")
     private int costo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServicio")
+    private List<SolicitudDet> solicitudDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServicio")
+    private List<PromocionDet> promocionDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServicio")
+    private List<Contrato> contratoList;
     @JoinColumn(name = "id_descuento", referencedColumnName = "id_descuento")
     @ManyToOne(optional = false)
     private Descuento idDescuento;
@@ -65,13 +74,14 @@ public class Servicio implements Serializable {
     @JoinColumn(name = "id_moneda", referencedColumnName = "id_moneda")
     @ManyToOne(optional = false)
     private Moneda idMoneda;
-
     @JoinColumns({
-        @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion", insertable = false, updatable = false),
-        @JoinColumn(name = "id_presu_promocion", referencedColumnName = "id_presu", insertable = false, updatable = false)
+        @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion"),
+        @JoinColumn(name = "id_presu", referencedColumnName = "id_presu")
     })
     @ManyToOne(optional = false)
     private Promocion idPromocion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServicio")
+    private List<SegmentoContrato> segmentoContratoList;
 
     public Servicio() {
     }
@@ -119,6 +129,33 @@ public class Servicio implements Serializable {
         this.costo = costo;
     }
 
+    @XmlTransient
+    public List<SolicitudDet> getSolicitudDetList() {
+        return solicitudDetList;
+    }
+
+    public void setSolicitudDetList(List<SolicitudDet> solicitudDetList) {
+        this.solicitudDetList = solicitudDetList;
+    }
+
+    @XmlTransient
+    public List<PromocionDet> getPromocionDetList() {
+        return promocionDetList;
+    }
+
+    public void setPromocionDetList(List<PromocionDet> promocionDetList) {
+        this.promocionDetList = promocionDetList;
+    }
+
+    @XmlTransient
+    public List<Contrato> getContratoList() {
+        return contratoList;
+    }
+
+    public void setContratoList(List<Contrato> contratoList) {
+        this.contratoList = contratoList;
+    }
+
     public Descuento getIdDescuento() {
         return idDescuento;
     }
@@ -151,6 +188,15 @@ public class Servicio implements Serializable {
         this.idPromocion = idPromocion;
     }
 
+    @XmlTransient
+    public List<SegmentoContrato> getSegmentoContratoList() {
+        return segmentoContratoList;
+    }
+
+    public void setSegmentoContratoList(List<SegmentoContrato> segmentoContratoList) {
+        this.segmentoContratoList = segmentoContratoList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -175,5 +221,5 @@ public class Servicio implements Serializable {
     public String toString() {
         return "entities.Servicio[ idServicio=" + idServicio + " ]";
     }
-
+    
 }

@@ -1,37 +1,17 @@
 package session;
 
-import bean.EmpresaFacade;
 import entities.Empresa;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 
-@ManagedBean(name = "empresaController")
+@Named(value = "empresaController")
 @ViewScoped
 public class EmpresaController extends AbstractController<Empresa> {
 
-    @EJB
-    private EmpresaFacade ejbFacade;
-    @ManagedProperty(value = "#{ciudadController}")
+    @Inject
     private CiudadController idCiudadController;
-
-    /* Setter method for managed property idCiudadController */
-    public void setIdCiudadController(CiudadController idCiudadController) {
-        this.idCiudadController = idCiudadController;
-    }
-
-    /**
-     * Initialize the concrete Empresa controller bean. The AbstractController
-     * requires the EJB Facade object for most operations.
-     */
-    @PostConstruct
-    @Override
-    public void init() {
-        super.setFacade(ejbFacade);
-    }
 
     public EmpresaController() {
         // Inform the Abstract parent controller of the concrete Empresa Entity

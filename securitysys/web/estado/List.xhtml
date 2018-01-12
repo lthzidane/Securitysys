@@ -38,15 +38,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstadoTitle_modulo}"/>
+                                <h:outputText value="#{bundle.ListEstadoTitle_descripcion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.modulo}"  style="text-transform: uppercase"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstadoTitle_estado}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.estado}" style="text-transform: uppercase"/>
+                            <h:outputText value="#{item.descripcion}" style="text-transform: uppercase"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{estadoController.prepareCreate}" update=":EstadoCreateForm" oncomplete="PF('EstadoCreateDialog').show()"/>

@@ -1,161 +1,72 @@
 package session;
 
 import entities.Cliente;
-import session.util.JsfUtil;
-import session.util.JsfUtil.PersistAction;
-import bean.ClienteFacade;
+import javax.faces.event.ActionEvent;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+@Named(value = "clienteController")
+@ViewScoped
+public class ClienteController extends AbstractController<Cliente> {
 
-@ManagedBean(name = "clienteController")
-@SessionScoped
-public class ClienteController implements Serializable {
-
-    @EJB
-    private bean.ClienteFacade ejbFacade;
-    private List<Cliente> items = null;
-    private Cliente selected;
+    @Inject
+    private CiudadController idCiudadController;
+    @Inject
+    private NacionalidadController idNacionalidadController;
+    @Inject
+    private TipoDocumentoController idTipoDocumentoController;
 
     public ClienteController() {
+        // Inform the Abstract parent controller of the concrete Cliente Entity
+        super(Cliente.class);
     }
 
-    public Cliente getSelected() {
-        return selected;
+    /**
+     * Resets the "selected" attribute of any parent Entity controllers.
+     */
+    public void resetParents() {
+        idCiudadController.setSelected(null);
+        idNacionalidadController.setSelected(null);
+        idTipoDocumentoController.setSelected(null);
     }
 
-    public void setSelected(Cliente selected) {
-        this.selected = selected;
-    }
-
-    protected void setEmbeddableKeys() {
-    }
-
-    protected void initializeEmbeddableKey() {
-    }
-
-    private ClienteFacade getFacade() {
-        return ejbFacade;
-    }
-
-    public Cliente prepareCreate() {
-        selected = new Cliente();
-        initializeEmbeddableKey();
-        return selected;
-    }
-
-    public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ClienteCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+       /**
+     * Sets the "selected" attribute of the Ciudad controller in order to
+     * display its data in its View dialog.
+     *
+     * @param event Event object for the widget that triggered an action
+     */
+    public void prepareIdCiudad(ActionEvent event) {
+        if (this.getSelected() != null && idCiudadController.getSelected() == null) {
+            idCiudadController.setSelected(this.getSelected().getIdCiudad());
         }
     }
 
-    public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ClienteUpdated"));
-    }
-
-    public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ClienteDeleted"));
-        if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+    /**
+     * Sets the "selected" attribute of the Nacionalidad controller in order to
+     * display its data in its View dialog.
+     *
+     * @param event Event object for the widget that triggered an action
+     */
+    public void prepareIdNacionalidad(ActionEvent event) {
+        if (this.getSelected() != null && idNacionalidadController.getSelected() == null) {
+            idNacionalidadController.setSelected(this.getSelected().getIdNacionalidad());
         }
     }
 
-    public List<Cliente> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-        return items;
-    }
-
-    private void persist(PersistAction persistAction, String successMessage) {
-        if (selected != null) {
-            setEmbeddableKeys();
-            try {
-                if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
-                } else {
-                    getFacade().remove(selected);
-                }
-                JsfUtil.addSuccessMessage(successMessage);
-            } catch (EJBException ex) {
-                String msg = "";
-                Throwable cause = ex.getCause();
-                if (cause != null) {
-                    msg = cause.getLocalizedMessage();
-                }
-                if (msg.length() > 0) {
-                    JsfUtil.addErrorMessage(msg);
-                } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            }
+    /**
+     * Sets the "selected" attribute of the TipoDocumento controller in order to
+     * display its data in its View dialog.
+     *
+     * @param event Event object for the widget that triggered an action
+     */
+    public void prepareIdTipoDocumento(ActionEvent event) {
+        if (this.getSelected() != null && idTipoDocumentoController.getSelected() == null) {
+            idTipoDocumentoController.setSelected(this.getSelected().getIdTipoDocumento());
         }
     }
 
-    public List<Cliente> getItemsAvailableSelectMany() {
-        return getFacade().findAll();
-    }
 
-    public List<Cliente> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
-    }
-
-    @FacesConverter(forClass = Cliente.class)
-    public static class ClienteControllerConverter implements Converter {
-
-        @Override
-        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-            if (value == null || value.length() == 0) {
-                return null;
-            }
-            ClienteController controller = (ClienteController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "clienteController");
-            return controller.getFacade().find(getKey(value));
-        }
-
-        java.math.BigDecimal getKey(String value) {
-            java.math.BigDecimal key;
-            key = new java.math.BigDecimal(value);
-            return key;
-        }
-
-        String getStringKey(java.math.BigDecimal value) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(value);
-            return sb.toString();
-        }
-
-        @Override
-        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-            if (object == null) {
-                return null;
-            }
-            if (object instanceof Cliente) {
-                Cliente o = (Cliente) object;
-                return getStringKey(o.getIdCliente());
-            } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Cliente.class.getName()});
-                return null;
-            }
-        }
-
-    }
-
+   
 }

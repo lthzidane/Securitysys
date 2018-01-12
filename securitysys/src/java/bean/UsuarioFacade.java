@@ -5,7 +5,6 @@
  */
 package bean;
 
-import entities.Cliente;
 import entities.Usuario;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,10 +13,11 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Acer
+ * @author sebas
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> {
+
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -29,7 +29,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public UsuarioFacade() {
         super(Usuario.class);
     }
-    
+
     public Usuario findByNombre(String nombre) {
         try {
             return (Usuario) em.createNamedQuery("Usuario.findByNombre").setParameter("nombre", nombre).getSingleResult();
@@ -37,5 +37,4 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
             return null;
         }
     }
-    
 }

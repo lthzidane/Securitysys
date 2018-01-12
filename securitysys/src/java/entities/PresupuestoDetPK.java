@@ -6,87 +6,55 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
- * @author LOTHAR
+ * @author sebas
  */
 @Embeddable
 public class PresupuestoDetPK implements Serializable {
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 4)
-    @Column(name = "tipo_presupuesto")
-    private String tipoPresupuesto;
+    @Column(name = "id_presupuesto_cab")
+    private int idPresupuestoCab;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 1)
-    @Column(name = "ser_presupuesto")
-    private String serPresupuesto;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "nro_presupuesto")
-    private BigInteger nroPresupuesto;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "nro_secuencia")
-    private BigInteger nroSecuencia;
+    @Column(name = "id_secuencia")
+    private int idSecuencia;
 
     public PresupuestoDetPK() {
     }
 
-    public PresupuestoDetPK(String tipoPresupuesto, String serPresupuesto, BigInteger nroPresupuesto, BigInteger nroSecuencia) {
-        this.tipoPresupuesto = tipoPresupuesto;
-        this.serPresupuesto = serPresupuesto;
-        this.nroPresupuesto = nroPresupuesto;
-        this.nroSecuencia = nroSecuencia;
+    public PresupuestoDetPK(int idPresupuestoCab, int idSecuencia) {
+        this.idPresupuestoCab = idPresupuestoCab;
+        this.idSecuencia = idSecuencia;
     }
 
-    public String getTipoPresupuesto() {
-        return tipoPresupuesto;
+    public int getIdPresupuestoCab() {
+        return idPresupuestoCab;
     }
 
-    public void setTipoPresupuesto(String tipoPresupuesto) {
-        this.tipoPresupuesto = tipoPresupuesto;
+    public void setIdPresupuestoCab(int idPresupuestoCab) {
+        this.idPresupuestoCab = idPresupuestoCab;
     }
 
-    public String getSerPresupuesto() {
-        return serPresupuesto;
+    public int getIdSecuencia() {
+        return idSecuencia;
     }
 
-    public void setSerPresupuesto(String serPresupuesto) {
-        this.serPresupuesto = serPresupuesto;
-    }
-
-    public BigInteger getNroPresupuesto() {
-        return nroPresupuesto;
-    }
-
-    public void setNroPresupuesto(BigInteger nroPresupuesto) {
-        this.nroPresupuesto = nroPresupuesto;
-    }
-
-    public BigInteger getNroSecuencia() {
-        return nroSecuencia;
-    }
-
-    public void setNroSecuencia(BigInteger nroSecuencia) {
-        this.nroSecuencia = nroSecuencia;
+    public void setIdSecuencia(int idSecuencia) {
+        this.idSecuencia = idSecuencia;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (tipoPresupuesto != null ? tipoPresupuesto.hashCode() : 0);
-        hash += (serPresupuesto != null ? serPresupuesto.hashCode() : 0);
-        hash += (nroPresupuesto != null ? nroPresupuesto.hashCode() : 0);
-        hash += (nroSecuencia != null ? nroSecuencia.hashCode() : 0);
+        hash += (int) idPresupuestoCab;
+        hash += (int) idSecuencia;
         return hash;
     }
 
@@ -97,16 +65,10 @@ public class PresupuestoDetPK implements Serializable {
             return false;
         }
         PresupuestoDetPK other = (PresupuestoDetPK) object;
-        if ((this.tipoPresupuesto == null && other.tipoPresupuesto != null) || (this.tipoPresupuesto != null && !this.tipoPresupuesto.equals(other.tipoPresupuesto))) {
+        if (this.idPresupuestoCab != other.idPresupuestoCab) {
             return false;
         }
-        if ((this.serPresupuesto == null && other.serPresupuesto != null) || (this.serPresupuesto != null && !this.serPresupuesto.equals(other.serPresupuesto))) {
-            return false;
-        }
-        if ((this.nroPresupuesto == null && other.nroPresupuesto != null) || (this.nroPresupuesto != null && !this.nroPresupuesto.equals(other.nroPresupuesto))) {
-            return false;
-        }
-        if ((this.nroSecuencia == null && other.nroSecuencia != null) || (this.nroSecuencia != null && !this.nroSecuencia.equals(other.nroSecuencia))) {
+        if (this.idSecuencia != other.idSecuencia) {
             return false;
         }
         return true;
@@ -114,7 +76,7 @@ public class PresupuestoDetPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.PresupuestoDetPK[ tipoPresupuesto=" + tipoPresupuesto + ", serPresupuesto=" + serPresupuesto + ", nroPresupuesto=" + nroPresupuesto + ", nroSecuencia=" + nroSecuencia + " ]";
+        return "entities.PresupuestoDetPK[ idPresupuestoCab=" + idPresupuestoCab + ", idSecuencia=" + idSecuencia + " ]";
     }
     
 }

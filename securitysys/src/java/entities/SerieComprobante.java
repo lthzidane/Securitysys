@@ -6,20 +6,24 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,8 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class SerieComprobante implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(generator = "SerieCompSeq")
-    @SequenceGenerator(name = "SerieCompSeq", sequenceName = "serie_comprobante_id_serie_comprobante_seq_1", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_serie_comprobante")
     private Integer idSerieComprobante;
@@ -51,6 +54,10 @@ public class SerieComprobante implements Serializable {
     @Size(min = 1, max = 5)
     @Column(name = "prefijo")
     private String prefijo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSerieComprobante")
+    private List<Venta> ventaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSerieComprobante")
+    private List<NotaCrediDebiVenta> notaCrediDebiVentaList;
     @JoinColumn(name = "id_sucursal", referencedColumnName = "id_sucursal")
     @ManyToOne(optional = false)
     private Sucursal idSucursal;
@@ -90,6 +97,24 @@ public class SerieComprobante implements Serializable {
 
     public void setPrefijo(String prefijo) {
         this.prefijo = prefijo.toUpperCase();
+    }
+
+    @XmlTransient
+    public List<Venta> getVentaList() {
+        return ventaList;
+    }
+
+    public void setVentaList(List<Venta> ventaList) {
+        this.ventaList = ventaList;
+    }
+
+    @XmlTransient
+    public List<NotaCrediDebiVenta> getNotaCrediDebiVentaList() {
+        return notaCrediDebiVentaList;
+    }
+
+    public void setNotaCrediDebiVentaList(List<NotaCrediDebiVenta> notaCrediDebiVentaList) {
+        this.notaCrediDebiVentaList = notaCrediDebiVentaList;
     }
 
     public Sucursal getIdSucursal() {

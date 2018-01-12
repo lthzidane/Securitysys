@@ -42,9 +42,9 @@ public class Empresa implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
+    @GeneratedValue(generator = "EmpresaSeq")
+    @SequenceGenerator(name = "EmpresaSeq", sequenceName = "empresa_id_empresa_seq", allocationSize = 1)
     @Column(name = "id_empresa")
-    @GeneratedValue(generator="EmpresaSeq") 
-    @SequenceGenerator(name="EmpresaSeq",sequenceName="empresa_id_empresa_seq", allocationSize=1) 
     private Integer idEmpresa;
     @Basic(optional = false)
     @NotNull
@@ -93,7 +93,7 @@ public class Empresa implements Serializable {
         this.nombre = nombre.toUpperCase();
         this.direccion = direccion.toUpperCase();
         this.telefono = telefono;
-        this.ruc = ruc.toUpperCase();
+        this.ruc = ruc;
         this.rubro = rubro.toUpperCase();
     }
 
@@ -142,7 +142,7 @@ public class Empresa implements Serializable {
     }
 
     public void setRuc(String ruc) {
-        this.ruc = ruc.toUpperCase();
+        this.ruc = ruc;
     }
 
     public String getRubro() {
