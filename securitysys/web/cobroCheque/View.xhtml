@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CobroChequeViewDlg" widgetVar="CobroChequeViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewCobroChequeTitle}" closeOnEscape="true">
+
+            <h:form id="CobroChequeViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{cobroChequeController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewCobroChequeLabel_cobroChequePK_idCobroCheque}"/>
+                        <h:outputText value="#{cobroChequeController.selected.cobroChequePK.idCobroCheque}" title="#{bundle.ViewCobroChequeTitle_cobroChequePK_idCobroCheque}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroChequeLabel_cobroChequePK_idCobro}"/>
+                        <h:outputText value="#{cobroChequeController.selected.cobroChequePK.idCobro}" title="#{bundle.ViewCobroChequeTitle_cobroChequePK_idCobro}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroChequeLabel_cobroChequePK_idCtaACobrar}"/>
+                        <h:outputText value="#{cobroChequeController.selected.cobroChequePK.idCtaACobrar}" title="#{bundle.ViewCobroChequeTitle_cobroChequePK_idCtaACobrar}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroChequeLabel_cobroChequePK_idVenta}"/>
+                        <h:outputText value="#{cobroChequeController.selected.cobroChequePK.idVenta}" title="#{bundle.ViewCobroChequeTitle_cobroChequePK_idVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroChequeLabel_fechaEmision}"/>
+                        <h:outputText value="#{cobroChequeController.selected.fechaEmision}" title="#{bundle.ViewCobroChequeTitle_fechaEmision}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewCobroChequeLabel_fechaVencimiento}"/>
+                        <h:outputText value="#{cobroChequeController.selected.fechaVencimiento}" title="#{bundle.ViewCobroChequeTitle_fechaVencimiento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewCobroChequeLabel_titularCheque}"/>
+                        <h:outputText value="#{cobroChequeController.selected.titularCheque}" title="#{bundle.ViewCobroChequeTitle_titularCheque}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroChequeLabel_nroCheque}"/>
+                        <h:outputText value="#{cobroChequeController.selected.nroCheque}" title="#{bundle.ViewCobroChequeTitle_nroCheque}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroChequeLabel_montoCheque}"/>
+                        <h:outputText value="#{cobroChequeController.selected.montoCheque}" title="#{bundle.ViewCobroChequeTitle_montoCheque}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroChequeLabel_idBanco}"/>
+                        <h:outputText value="#{cobroChequeController.selected.idBanco.idBanco}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroChequeLabel_cobroDet}"/>
+                        <h:outputText value="#{cobroChequeController.selected.cobroDet.cobroDetPK}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('CobroChequeViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="VentaDetEditDlg" widgetVar="VentaDetEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditVentaDetTitle}" closeOnEscape="true">
+
+            <h:form id="VentaDetEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{ventaDetController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditVentaDetLabel_ventaDetPK_idVenta}" for="ventaDetPK_idVenta" />
+                        <h:outputText id="ventaDetPK_idVenta" value="#{ventaDetController.selected.ventaDetPK.idVenta}" />
+
+
+                        <h:outputLabel value="#{bundle.EditVentaDetLabel_ventaDetPK_idSecuencia}" for="ventaDetPK_idSecuencia" />
+                        <h:outputText id="ventaDetPK_idSecuencia" value="#{ventaDetController.selected.ventaDetPK.idSecuencia}" />
+
+                        <p:outputLabel value="#{bundle.EditVentaDetLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{ventaDetController.selected.cantidad}" title="#{bundle.EditVentaDetTitle_cantidad}" required="true" requiredMessage="#{bundle.EditVentaDetRequiredMessage_cantidad}"/>
+
+                        <p:outputLabel value="#{bundle.EditVentaDetLabel_precioVenta}" for="precioVenta" />
+                        <p:inputText id="precioVenta" value="#{ventaDetController.selected.precioVenta}" title="#{bundle.EditVentaDetTitle_precioVenta}" required="true" requiredMessage="#{bundle.EditVentaDetRequiredMessage_precioVenta}"/>
+
+                        <p:outputLabel value="#{bundle.EditVentaDetLabel_exento}" for="exento" />
+                        <p:inputText id="exento" value="#{ventaDetController.selected.exento}" title="#{bundle.EditVentaDetTitle_exento}" required="true" requiredMessage="#{bundle.EditVentaDetRequiredMessage_exento}"/>
+
+                        <p:outputLabel value="#{bundle.EditVentaDetLabel_gravada5}" for="gravada5" />
+                        <p:inputText id="gravada5" value="#{ventaDetController.selected.gravada5}" title="#{bundle.EditVentaDetTitle_gravada5}" required="true" requiredMessage="#{bundle.EditVentaDetRequiredMessage_gravada5}"/>
+
+                        <p:outputLabel value="#{bundle.EditVentaDetLabel_gravada10}" for="gravada10" />
+                        <p:inputText id="gravada10" value="#{ventaDetController.selected.gravada10}" title="#{bundle.EditVentaDetTitle_gravada10}" required="true" requiredMessage="#{bundle.EditVentaDetRequiredMessage_gravada10}"/>
+
+                        <p:outputLabel value="#{bundle.EditVentaDetLabel_iva5}" for="iva5" />
+                        <p:inputText id="iva5" value="#{ventaDetController.selected.iva5}" title="#{bundle.EditVentaDetTitle_iva5}" required="true" requiredMessage="#{bundle.EditVentaDetRequiredMessage_iva5}"/>
+
+                        <p:outputLabel value="#{bundle.EditVentaDetLabel_iva10}" for="iva10" />
+                        <p:inputText id="iva10" value="#{ventaDetController.selected.iva10}" title="#{bundle.EditVentaDetTitle_iva10}" required="true" requiredMessage="#{bundle.EditVentaDetRequiredMessage_iva10}"/>
+
+                        <p:outputLabel value="#{bundle.EditVentaDetLabel_idDescuento}" for="idDescuento" />
+                        <p:selectOneMenu id="idDescuento" value="#{ventaDetController.selected.idDescuento}" required="true" requiredMessage="#{bundle.EditVentaDetRequiredMessage_idDescuento}" converter="descuentoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{descuentoController.items}"
+                                           var="idDescuentoItem"
+                                           itemValue="#{idDescuentoItem}"
+                                           itemLabel="#{idDescuentoItem.descripcionDesc.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditVentaDetLabel_idEquipo}" for="idEquipo" />
+                        <p:selectOneMenu id="idEquipo" value="#{ventaDetController.selected.idEquipo}" required="true" requiredMessage="#{bundle.EditVentaDetRequiredMessage_idEquipo}" converter="equipoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{equipoController.items}"
+                                           var="idEquipoItem"
+                                           itemValue="#{idEquipoItem}"
+                                           itemLabel="#{idEquipoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditVentaDetLabel_idPromocion}" for="idPromocion" />
+                        <p:selectOneMenu id="idPromocion" value="#{ventaDetController.selected.idPromocion}" required="true" requiredMessage="#{bundle.EditVentaDetRequiredMessage_idPromocion}" converter="promocionConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{promocionController.items}"
+                                           var="idPromocionItem"
+                                           itemValue="#{idPromocionItem}"
+                                           itemLabel="#{idPromocionItem.promocionPK.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+
+                        <h:outputLabel value="#{bundle.EditVentaDetLabel_venta}" for="venta" />
+                        <h:outputText id="venta" value="#{ventaDetController.selected.venta}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ventaDetController.save}" value="#{bundle.Save}" update="display,:VentaDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('VentaDetEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('VentaDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

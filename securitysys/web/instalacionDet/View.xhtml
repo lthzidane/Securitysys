@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InstalacionDetViewDlg" widgetVar="InstalacionDetViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewInstalacionDetTitle}" closeOnEscape="true">
+
+            <h:form id="InstalacionDetViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{instalacionDetController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewInstalacionDetLabel_instalacionDetPK_idInstalacion}"/>
+                        <h:outputText value="#{instalacionDetController.selected.instalacionDetPK.idInstalacion}" title="#{bundle.ViewInstalacionDetTitle_instalacionDetPK_idInstalacion}"/>
+
+                        <h:outputText value="#{bundle.ViewInstalacionDetLabel_instalacionDetPK_idSecuencia}"/>
+                        <h:outputText value="#{instalacionDetController.selected.instalacionDetPK.idSecuencia}" title="#{bundle.ViewInstalacionDetTitle_instalacionDetPK_idSecuencia}"/>
+
+                        <h:outputText value="#{bundle.ViewInstalacionDetLabel_detalle}"/>
+                        <h:outputText value="#{instalacionDetController.selected.detalle}" title="#{bundle.ViewInstalacionDetTitle_detalle}"/>
+
+                        <h:outputText value="#{bundle.ViewInstalacionDetLabel_idEquipo}"/>
+                        <h:outputText value="#{instalacionDetController.selected.idEquipo.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewInstalacionDetLabel_instalacionCab}"/>
+                        <h:outputText value="#{instalacionDetController.selected.instalacionCab.idInstalacion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('InstalacionDetViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

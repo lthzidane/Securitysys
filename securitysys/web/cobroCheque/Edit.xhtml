@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CobroChequeEditDlg" widgetVar="CobroChequeEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditCobroChequeTitle}" closeOnEscape="true">
+
+            <h:form id="CobroChequeEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{cobroChequeController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditCobroChequeLabel_cobroChequePK_idCobroCheque}" for="cobroChequePK_idCobroCheque" />
+                        <h:outputText id="cobroChequePK_idCobroCheque" value="#{cobroChequeController.selected.cobroChequePK.idCobroCheque}" />
+
+
+                        <h:outputLabel value="#{bundle.EditCobroChequeLabel_cobroChequePK_idCobro}" for="cobroChequePK_idCobro" />
+                        <h:outputText id="cobroChequePK_idCobro" value="#{cobroChequeController.selected.cobroChequePK.idCobro}" />
+
+
+                        <h:outputLabel value="#{bundle.EditCobroChequeLabel_cobroChequePK_idCtaACobrar}" for="cobroChequePK_idCtaACobrar" />
+                        <h:outputText id="cobroChequePK_idCtaACobrar" value="#{cobroChequeController.selected.cobroChequePK.idCtaACobrar}" />
+
+
+                        <h:outputLabel value="#{bundle.EditCobroChequeLabel_cobroChequePK_idVenta}" for="cobroChequePK_idVenta" />
+                        <h:outputText id="cobroChequePK_idVenta" value="#{cobroChequeController.selected.cobroChequePK.idVenta}" />
+
+                        <p:outputLabel value="#{bundle.EditCobroChequeLabel_fechaEmision}" for="fechaEmision" />
+                        <p:calendar id="fechaEmision" pattern="MM/dd/yyyy" value="#{cobroChequeController.selected.fechaEmision}" title="#{bundle.EditCobroChequeTitle_fechaEmision}" required="true" requiredMessage="#{bundle.EditCobroChequeRequiredMessage_fechaEmision}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditCobroChequeLabel_fechaVencimiento}" for="fechaVencimiento" />
+                        <p:calendar id="fechaVencimiento" pattern="MM/dd/yyyy" value="#{cobroChequeController.selected.fechaVencimiento}" title="#{bundle.EditCobroChequeTitle_fechaVencimiento}" required="true" requiredMessage="#{bundle.EditCobroChequeRequiredMessage_fechaVencimiento}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditCobroChequeLabel_titularCheque}" for="titularCheque" />
+                        <p:inputText id="titularCheque" value="#{cobroChequeController.selected.titularCheque}" title="#{bundle.EditCobroChequeTitle_titularCheque}" required="true" requiredMessage="#{bundle.EditCobroChequeRequiredMessage_titularCheque}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.EditCobroChequeLabel_nroCheque}" for="nroCheque" />
+                        <p:inputText id="nroCheque" value="#{cobroChequeController.selected.nroCheque}" title="#{bundle.EditCobroChequeTitle_nroCheque}" required="true" requiredMessage="#{bundle.EditCobroChequeRequiredMessage_nroCheque}" size="60" maxlength="60"/>
+
+                        <p:outputLabel value="#{bundle.EditCobroChequeLabel_montoCheque}" for="montoCheque" />
+                        <p:inputText id="montoCheque" value="#{cobroChequeController.selected.montoCheque}" title="#{bundle.EditCobroChequeTitle_montoCheque}" required="true" requiredMessage="#{bundle.EditCobroChequeRequiredMessage_montoCheque}"/>
+
+                        <p:outputLabel value="#{bundle.EditCobroChequeLabel_idBanco}" for="idBanco" />
+                        <p:selectOneMenu id="idBanco" value="#{cobroChequeController.selected.idBanco}" required="true" requiredMessage="#{bundle.EditCobroChequeRequiredMessage_idBanco}" converter="bancoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{bancoController.items}"
+                                           var="idBancoItem"
+                                           itemValue="#{idBancoItem}"
+                                           itemLabel="#{idBancoItem.idBanco.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+
+                        <h:outputLabel value="#{bundle.EditCobroChequeLabel_cobroDet}" for="cobroDet" />
+                        <h:outputText id="cobroDet" value="#{cobroChequeController.selected.cobroDet}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cobroChequeController.save}" value="#{bundle.Save}" update="display,:CobroChequeListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CobroChequeEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CobroChequeEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

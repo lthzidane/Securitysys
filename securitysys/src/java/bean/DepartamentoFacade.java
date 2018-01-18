@@ -6,18 +6,23 @@
 package bean;
 
 import entities.Departamento;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import entities.Reclamo;
+import java.util.List;
 
 /**
  *
- * @author Acer
+ * @author acer
  */
 @Stateless
 public class DepartamentoFacade extends AbstractFacade<Departamento> {
+
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -29,22 +34,20 @@ public class DepartamentoFacade extends AbstractFacade<Departamento> {
     public DepartamentoFacade() {
         super(Departamento.class);
     }
-    
-    @Override
-     public List<Departamento> findAll() {
-        try {
-            return (List<Departamento>) em.createNamedQuery("Departamento.findAll").getResultList();
-        } catch (NoResultException e) {
-            return null;
-        }
+
+    public boolean isReclamoListEmpty(Departamento entity) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<Departamento> departamento = cq.from(Departamento.class);
+        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(departamento, entity), cb.isNotEmpty(departamento.get(Departamento_.reclamoList)));
+        return em.createQuery(cq).getResultList().isEmpty();
     }
-     
-    public Departamento findByIdDpto(Integer idDpto) {
-        try {
-            return (Departamento) em.createNamedQuery("Departamento.findByIdDpto").setParameter("idDpto", idDpto).getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }     
-     
+
+    public List<Reclamo> findReclamoList(Departamento entity) {
+        Departamento mergedEntity = this.getMergedEntity(entity);
+        List<Reclamo> reclamoList = mergedEntity.getReclamoList();
+        reclamoList.size();
+        return reclamoList;
+    }
+    
 }

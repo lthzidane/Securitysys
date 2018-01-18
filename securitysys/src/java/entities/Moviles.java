@@ -6,38 +6,42 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Entity
 @Table(name = "moviles")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Moviles.findAll", query = "SELECT m FROM Moviles m"),
-    @NamedQuery(name = "Moviles.findByIdMovil", query = "SELECT m FROM Moviles m WHERE m.idMovil = :idMovil"),
-    @NamedQuery(name = "Moviles.findByMatricula", query = "SELECT m FROM Moviles m WHERE m.matricula = :matricula"),
-    @NamedQuery(name = "Moviles.findByAnio", query = "SELECT m FROM Moviles m WHERE m.anio = :anio")})
+    @NamedQuery(name = "Moviles.findAll", query = "SELECT m FROM Moviles m")
+    , @NamedQuery(name = "Moviles.findByIdMovil", query = "SELECT m FROM Moviles m WHERE m.idMovil = :idMovil")
+    , @NamedQuery(name = "Moviles.findByMatricula", query = "SELECT m FROM Moviles m WHERE m.matricula = :matricula")
+    , @NamedQuery(name = "Moviles.findByAnio", query = "SELECT m FROM Moviles m WHERE m.anio = :anio")})
 public class Moviles implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(generator="MovilSeq") 
-    @SequenceGenerator(name="MovilSeq",sequenceName="moviles_id_movil_seq", allocationSize=1) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_movil")
     private Integer idMovil;
@@ -56,6 +60,12 @@ public class Moviles implements Serializable {
     @JoinColumn(name = "id_tipo_movil", referencedColumnName = "id_tipo_movil")
     @ManyToOne(optional = false)
     private TipoMovil idTipoMovil;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMovil")
+    private List<Cuadrilla> cuadrillaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMovil")
+    private List<Itinerario> itinerarioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMovil")
+    private List<NotaRemisionVenta> notaRemisionVentaList;
 
     public Moviles() {
     }
@@ -66,7 +76,7 @@ public class Moviles implements Serializable {
 
     public Moviles(Integer idMovil, String matricula, int anio) {
         this.idMovil = idMovil;
-        this.matricula = matricula;
+        this.matricula = matricula.toUpperCase();
         this.anio = anio;
     }
 
@@ -83,7 +93,7 @@ public class Moviles implements Serializable {
     }
 
     public void setMatricula(String matricula) {
-        this.matricula = matricula;
+        this.matricula = matricula.toUpperCase();
     }
 
     public int getAnio() {
@@ -108,6 +118,33 @@ public class Moviles implements Serializable {
 
     public void setIdTipoMovil(TipoMovil idTipoMovil) {
         this.idTipoMovil = idTipoMovil;
+    }
+
+    @XmlTransient
+    public List<Cuadrilla> getCuadrillaList() {
+        return cuadrillaList;
+    }
+
+    public void setCuadrillaList(List<Cuadrilla> cuadrillaList) {
+        this.cuadrillaList = cuadrillaList;
+    }
+
+    @XmlTransient
+    public List<Itinerario> getItinerarioList() {
+        return itinerarioList;
+    }
+
+    public void setItinerarioList(List<Itinerario> itinerarioList) {
+        this.itinerarioList = itinerarioList;
+    }
+
+    @XmlTransient
+    public List<NotaRemisionVenta> getNotaRemisionVentaList() {
+        return notaRemisionVentaList;
+    }
+
+    public void setNotaRemisionVentaList(List<NotaRemisionVenta> notaRemisionVentaList) {
+        this.notaRemisionVentaList = notaRemisionVentaList;
     }
 
     @Override

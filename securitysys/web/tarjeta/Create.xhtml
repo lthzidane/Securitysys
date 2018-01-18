@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TarjetaCreateDlg" widgetVar="TarjetaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTarjetaTitle}" closeOnEscape="true">
+
+            <h:form id="TarjetaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{tarjetaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateTarjetaLabel_descTarjeta}" for="descTarjeta" />
+                        <p:inputText id="descTarjeta" value="#{tarjetaController.selected.descTarjeta}" title="#{bundle.CreateTarjetaTitle_descTarjeta}" required="true" requiredMessage="#{bundle.CreateTarjetaRequiredMessage_descTarjeta}" size="60" maxlength="60"/>
+
+                        <p:outputLabel value="#{bundle.CreateTarjetaLabel_nroTarjeta}" for="nroTarjeta" />
+                        <p:inputText id="nroTarjeta" value="#{tarjetaController.selected.nroTarjeta}" title="#{bundle.CreateTarjetaTitle_nroTarjeta}" required="true" requiredMessage="#{bundle.CreateTarjetaRequiredMessage_nroTarjeta}" size="60" maxlength="60"/>
+
+                        <p:outputLabel value="#{bundle.CreateTarjetaLabel_idEntidadEmisora}" for="idEntidadEmisora" />
+                        <p:selectOneMenu id="idEntidadEmisora" value="#{tarjetaController.selected.idEntidadEmisora}" required="true" requiredMessage="#{bundle.CreateTarjetaRequiredMessage_idEntidadEmisora}" converter="entidadEmisoraConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{entidadEmisoraController.items}"
+                                           var="idEntidadEmisoraItem"
+                                           itemValue="#{idEntidadEmisoraItem}"
+                                           itemLabel="#{idEntidadEmisoraItem.idEntidadEmisora.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateTarjetaLabel_idMarcaTarjeta}" for="idMarcaTarjeta" />
+                        <p:selectOneMenu id="idMarcaTarjeta" value="#{tarjetaController.selected.idMarcaTarjeta}" required="true" requiredMessage="#{bundle.CreateTarjetaRequiredMessage_idMarcaTarjeta}" converter="marcaTarjetaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{marcaTarjetaController.items}"
+                                           var="idMarcaTarjetaItem"
+                                           itemValue="#{idMarcaTarjetaItem}"
+                                           itemLabel="#{idMarcaTarjetaItem.idMarcaTarjeta.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateTarjetaLabel_idTipoTarjeta}" for="idTipoTarjeta" />
+                        <p:selectOneMenu id="idTipoTarjeta" value="#{tarjetaController.selected.idTipoTarjeta}" required="true" requiredMessage="#{bundle.CreateTarjetaRequiredMessage_idTipoTarjeta}" converter="tipoTarjetaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoTarjetaController.items}"
+                                           var="idTipoTarjetaItem"
+                                           itemValue="#{idTipoTarjetaItem}"
+                                           itemLabel="#{idTipoTarjetaItem.idTipoTarjeta.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tarjetaController.saveNew}" value="#{bundle.Save}" update="display,:TarjetaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TarjetaCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TarjetaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

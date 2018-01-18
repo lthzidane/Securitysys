@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ReclamoEditDlg" widgetVar="ReclamoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditReclamoTitle}" closeOnEscape="true">
+
+            <h:form id="ReclamoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{reclamoController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditReclamoLabel_idReclamo}" for="idReclamo" />
+                        <h:outputText id="idReclamo" value="#{reclamoController.selected.idReclamo}" />
+
+                        <p:outputLabel value="#{bundle.EditReclamoLabel_descripcion}" for="descripcion" />
+                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{reclamoController.selected.descripcion}" title="#{bundle.EditReclamoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditReclamoRequiredMessage_descripcion}"/>
+
+                        <p:outputLabel value="#{bundle.EditReclamoLabel_fechaAlta}" for="fechaAlta" />
+                        <p:calendar id="fechaAlta" pattern="MM/dd/yyyy" value="#{reclamoController.selected.fechaAlta}" title="#{bundle.EditReclamoTitle_fechaAlta}" required="true" requiredMessage="#{bundle.EditReclamoRequiredMessage_fechaAlta}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditReclamoLabel_idTipoReclamo1}" for="idTipoReclamo1" />
+                        <p:calendar id="idTipoReclamo1" pattern="MM/dd/yyyy" value="#{reclamoController.selected.idTipoReclamo1}" title="#{bundle.EditReclamoTitle_idTipoReclamo1}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditReclamoLabel_solucion}" for="solucion" />
+                        <p:inputText id="solucion" value="#{reclamoController.selected.solucion}" title="#{bundle.EditReclamoTitle_solucion}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{bundle.EditReclamoLabel_contacto}" for="contacto" />
+                        <p:inputText id="contacto" value="#{reclamoController.selected.contacto}" title="#{bundle.EditReclamoTitle_contacto}" required="true" requiredMessage="#{bundle.EditReclamoRequiredMessage_contacto}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{bundle.EditReclamoLabel_idCliente}" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" value="#{reclamoController.selected.idCliente}" required="true" requiredMessage="#{bundle.EditReclamoRequiredMessage_idCliente}" converter="clienteConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clienteController.items}"
+                                           var="idClienteItem"
+                                           itemValue="#{idClienteItem}"
+                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditReclamoLabel_idDepartamento}" for="idDepartamento" />
+                        <p:selectOneMenu id="idDepartamento" value="#{reclamoController.selected.idDepartamento}" required="true" requiredMessage="#{bundle.EditReclamoRequiredMessage_idDepartamento}" converter="departamentoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{departamentoController.items}"
+                                           var="idDepartamentoItem"
+                                           itemValue="#{idDepartamentoItem}"
+                                           itemLabel="#{idDepartamentoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditReclamoLabel_idEstado}" for="idEstado" />
+                        <p:selectOneMenu id="idEstado" value="#{reclamoController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditReclamoRequiredMessage_idEstado}" converter="estadoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{estadoController.items}"
+                                           var="idEstadoItem"
+                                           itemValue="#{idEstadoItem}"
+                                           itemLabel="#{idEstadoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditReclamoLabel_idSucursal}" for="idSucursal" />
+                        <p:selectOneMenu id="idSucursal" value="#{reclamoController.selected.idSucursal}" required="true" requiredMessage="#{bundle.EditReclamoRequiredMessage_idSucursal}" converter="sucursalConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sucursalController.items}"
+                                           var="idSucursalItem"
+                                           itemValue="#{idSucursalItem}"
+                                           itemLabel="#{idSucursalItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditReclamoLabel_idTipoReclamo}" for="idTipoReclamo" />
+                        <p:selectOneMenu id="idTipoReclamo" value="#{reclamoController.selected.idTipoReclamo}" required="true" requiredMessage="#{bundle.EditReclamoRequiredMessage_idTipoReclamo}" converter="tipoReclamoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoReclamoController.items}"
+                                           var="idTipoReclamoItem"
+                                           itemValue="#{idTipoReclamoItem}"
+                                           itemLabel="#{idTipoReclamoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditReclamoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{reclamoController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditReclamoRequiredMessage_idUsuario}" converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{reclamoController.save}" value="#{bundle.Save}" update="display,:ReclamoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ReclamoEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ReclamoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

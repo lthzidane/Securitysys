@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ItinerarioViewDlg" widgetVar="ItinerarioViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewItinerarioTitle}" closeOnEscape="true">
+
+            <h:form id="ItinerarioViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{itinerarioController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewItinerarioLabel_idItinerario}"/>
+                        <h:outputText value="#{itinerarioController.selected.idItinerario}" title="#{bundle.ViewItinerarioTitle_idItinerario}"/>
+
+                        <h:outputText value="#{bundle.ViewItinerarioLabel_horaInicio}"/>
+                        <h:outputText value="#{itinerarioController.selected.horaInicio}" title="#{bundle.ViewItinerarioTitle_horaInicio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewItinerarioLabel_horaFin}"/>
+                        <h:outputText value="#{itinerarioController.selected.horaFin}" title="#{bundle.ViewItinerarioTitle_horaFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewItinerarioLabel_idMovil}"/>
+                        <h:outputText value="#{itinerarioController.selected.idMovil.idMovil}"/>
+
+                        <h:outputText value="#{bundle.ViewItinerarioLabel_idRuta}"/>
+                        <h:outputText value="#{itinerarioController.selected.idRuta.idRuta}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('ItinerarioViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

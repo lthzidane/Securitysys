@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ValorCreateDlg" widgetVar="ValorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateValorTitle}" closeOnEscape="true">
+
+            <h:form id="ValorCreateForm">
+
+                <h:panelGroup id="display" rendered="#{valorController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateValorLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{valorController.selected.descripcion}" title="#{bundle.CreateValorTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateValorRequiredMessage_descripcion}" size="50" maxlength="50"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{valorController.saveNew}" value="#{bundle.Save}" update="display,:ValorListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ValorCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ValorCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

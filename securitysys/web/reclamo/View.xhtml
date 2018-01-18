@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReclamoViewDlg" widgetVar="ReclamoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewReclamoTitle}" closeOnEscape="true">
+
+            <h:form id="ReclamoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{reclamoController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewReclamoLabel_idReclamo}"/>
+                        <h:outputText value="#{reclamoController.selected.idReclamo}" title="#{bundle.ViewReclamoTitle_idReclamo}"/>
+
+                        <h:outputText value="#{bundle.ViewReclamoLabel_descripcion}"/>
+                        <h:outputText value="#{reclamoController.selected.descripcion}" title="#{bundle.ViewReclamoTitle_descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewReclamoLabel_fechaAlta}"/>
+                        <h:outputText value="#{reclamoController.selected.fechaAlta}" title="#{bundle.ViewReclamoTitle_fechaAlta}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewReclamoLabel_idTipoReclamo1}"/>
+                        <h:outputText value="#{reclamoController.selected.idTipoReclamo1}" title="#{bundle.ViewReclamoTitle_idTipoReclamo1}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewReclamoLabel_solucion}"/>
+                        <h:outputText value="#{reclamoController.selected.solucion}" title="#{bundle.ViewReclamoTitle_solucion}"/>
+
+                        <h:outputText value="#{bundle.ViewReclamoLabel_contacto}"/>
+                        <h:outputText value="#{reclamoController.selected.contacto}" title="#{bundle.ViewReclamoTitle_contacto}"/>
+
+                        <h:outputText value="#{bundle.ViewReclamoLabel_idCliente}"/>
+                        <h:outputText value="#{reclamoController.selected.idCliente.idCliente}"/>
+
+                        <h:outputText value="#{bundle.ViewReclamoLabel_idDepartamento}"/>
+                        <h:outputText value="#{reclamoController.selected.idDepartamento.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewReclamoLabel_idEstado}"/>
+                        <h:outputText value="#{reclamoController.selected.idEstado.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewReclamoLabel_idSucursal}"/>
+                        <h:outputText value="#{reclamoController.selected.idSucursal.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewReclamoLabel_idTipoReclamo}"/>
+                        <h:outputText value="#{reclamoController.selected.idTipoReclamo.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewReclamoLabel_idUsuario}"/>
+                        <h:outputText value="#{reclamoController.selected.idUsuario.idUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('ReclamoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

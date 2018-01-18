@@ -6,18 +6,23 @@
 package bean;
 
 import entities.TipoReclamo;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import entities.Reclamo;
+import java.util.List;
 
 /**
  *
- * @author LOTHAR
+ * @author acer
  */
 @Stateless
 public class TipoReclamoFacade extends AbstractFacade<TipoReclamo> {
+
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -29,22 +34,20 @@ public class TipoReclamoFacade extends AbstractFacade<TipoReclamo> {
     public TipoReclamoFacade() {
         super(TipoReclamo.class);
     }
-    
-    @Override
-     public List<TipoReclamo> findAll() {
-        try {
-            return (List<TipoReclamo>) em.createNamedQuery("TipoReclamo.findAll").getResultList();
-        } catch (NoResultException e) {
-            return null;
-        }
+
+    public boolean isReclamoListEmpty(TipoReclamo entity) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<TipoReclamo> tipoReclamo = cq.from(TipoReclamo.class);
+        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(tipoReclamo, entity), cb.isNotEmpty(tipoReclamo.get(TipoReclamo_.reclamoList)));
+        return em.createQuery(cq).getResultList().isEmpty();
     }
-     
-    public TipoReclamo findByIdTiporecla(Integer idTiporecla) {
-        try {
-            return (TipoReclamo) em.createNamedQuery("TipoReclamo.findByIdTiporecla").setParameter("idTiporecla", idTiporecla).getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
+
+    public List<Reclamo> findReclamoList(TipoReclamo entity) {
+        TipoReclamo mergedEntity = this.getMergedEntity(entity);
+        List<Reclamo> reclamoList = mergedEntity.getReclamoList();
+        reclamoList.size();
+        return reclamoList;
     }
     
 }

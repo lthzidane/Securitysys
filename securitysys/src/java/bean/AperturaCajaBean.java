@@ -7,14 +7,12 @@ package bean;
 
 import entities.Departamento;
 import entities.Estado;
-import entities.Funcionario;
+
 import entities.InstalacionDet;
 import entities.Moviles;
-import entities.Nivel;
 import entities.OrdenTrabajoDet;
-import entities.ProductosKit;
 import entities.Reclamo;
-import entities.Tecnicos;
+import entities.Tecnico;
 import entities.TipoReclamo;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -28,17 +26,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import lombok.Data;
-import session.util.JsfUtil;
 
 /**
  *
@@ -80,24 +73,18 @@ public class AperturaCajaBean implements Serializable{
     private String ciudad;
     private String descripcion;
     private List<Departamento> listaDepartamentos = new ArrayList<Departamento>();
-    private ArrayList<Tecnicos> listaTecnicos = new ArrayList<Tecnicos>();
+    private ArrayList<Tecnico> listaTecnico = new ArrayList<Tecnico>();
     private List<Estado> listaEstados = new ArrayList<Estado>();
     private List<TipoReclamo> listaTipoReclamo = new ArrayList<TipoReclamo>();
-    private List<Nivel> listaNivel = new ArrayList<Nivel>();
-    private List<Funcionario> listaFuncionario = new ArrayList<Funcionario>();
     private List<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
-    private List<ProductosKit> listaKits = new ArrayList<ProductosKit>();
-    private ArrayList<ProductosKit> selectedKits = new ArrayList<ProductosKit>();
     private ArrayList<InstalacionDet> instalacionesDetList = new ArrayList<InstalacionDet>();
-    private ArrayList<Tecnicos> selectedTecnicos = new ArrayList<Tecnicos>();
+    private ArrayList<Tecnico> selectedTecnico = new ArrayList<Tecnico>();
     private List<Moviles> listaMoviles = new ArrayList<Moviles>();
     
     @EJB
-    private bean.TecnicosFacade tecnicoFacade =  new TecnicosFacade();
+    private bean.TecnicoFacade tecnicoFacade =  new TecnicoFacade();
     @EJB
     private bean.ClienteFacade clienteFacade = new ClienteFacade();
-    @EJB
-    private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
     @EJB
     private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
@@ -155,8 +142,8 @@ public class AperturaCajaBean implements Serializable{
                 this.usuario = (String)SessionBean.getSession().getAttribute("username");
                 description = "";
 
-                this.selectedKits = new ArrayList<ProductosKit>();
-                this.selectedTecnicos = new ArrayList<Tecnicos>();
+//                
+                this.selectedTecnico = new ArrayList<Tecnico>();
 
                 this.tipoServicio = "";
                 this.tecnicoResponsable = "";
@@ -174,7 +161,7 @@ public class AperturaCajaBean implements Serializable{
                 this.razonsocial = "";
                 this.descripcion = "";
                 
-                this.listaTecnicos = obtenerTecnicos();
+                this.listaTecnico = obtenerTecnico();
 
             }else{
                 //estoy editando
@@ -210,40 +197,40 @@ public class AperturaCajaBean implements Serializable{
     }
     
  
-    private void persistReclamo(JsfUtil.PersistAction persistAction, String successMessage) {
-        if (reclamo != null) {
-
-            try {
-                if (persistAction == JsfUtil.PersistAction.CREATE) {
-                    getReclamoFacade().create(reclamo);
-                }
-                else if (persistAction == JsfUtil.PersistAction.UPDATE) {
-                    getReclamoFacade().edit(reclamo);
-                } else {
-                    getReclamoFacade().remove(reclamo);
-                }
-                
-                if(successMessage != null){
-                    JsfUtil.addSuccessMessage(successMessage);
-                }
-                
-            } catch (EJBException ex) {
-                String msg = "";
-                Throwable cause = ex.getCause();
-                if (cause != null) {
-                    msg = cause.getLocalizedMessage();
-                }
-                if (msg.length() > 0) {
-                    JsfUtil.addErrorMessage(msg);
-                } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            }
-        }
-    }
+//    private void persistReclamo(JsfUtil.PersistAction persistAction, String successMessage) {
+//        if (reclamo != null) {
+//
+//            try {
+//                if (persistAction == JsfUtil.PersistAction.CREATE) {
+//                    getReclamoFacade().create(reclamo);
+//                }
+//                else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+//                    getReclamoFacade().edit(reclamo);
+//                } else {
+//                    getReclamoFacade().remove(reclamo);
+//                }
+//                
+//                if(successMessage != null){
+//                    JsfUtil.addSuccessMessage(successMessage);
+//                }
+//                
+//            } catch (EJBException ex) {
+//                String msg = "";
+//                Throwable cause = ex.getCause();
+//                if (cause != null) {
+//                    msg = cause.getLocalizedMessage();
+//                }
+//                if (msg.length() > 0) {
+//                    JsfUtil.addErrorMessage(msg);
+//                } else {
+//                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+//                }
+//            } catch (Exception ex) {
+//                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+//                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+//            }
+//        }
+//    }
 
     public void obtenerDatosCliente() {
         String nroDocumentoCliente = this.cliente;
@@ -288,11 +275,11 @@ public class AperturaCajaBean implements Serializable{
         }
     }
     
-    private ArrayList<Tecnicos> obtenerTecnicos() {
+    private ArrayList<Tecnico> obtenerTecnico() {
         Connection con = null;
         PreparedStatement ps = null;
-        Tecnicos tecnico = null;
-        ArrayList<Tecnicos> list = new ArrayList<Tecnicos>();
+        Tecnico tecnico = null;
+        ArrayList<Tecnico> list = new ArrayList<Tecnico>();
 
         try {
             con = DataConnect.getConnection();
@@ -301,7 +288,7 @@ public class AperturaCajaBean implements Serializable{
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
-                tecnico = new Tecnicos();
+                tecnico = new Tecnico();
                 String id_tecnico = rs.getString("id_tecnico");
                 String nombre = rs.getString("nombre");
                 
@@ -310,7 +297,7 @@ public class AperturaCajaBean implements Serializable{
                 list.add(tecnico);
             }
         } catch (SQLException ex) {
-            System.out.println("Error al obtener Tecnicos -->" + ex.getMessage());
+            System.out.println("Error al obtener Tecnico -->" + ex.getMessage());
             
         } finally {
             DataConnect.close(con);

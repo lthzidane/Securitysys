@@ -7,42 +7,51 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Entity
 @Table(name = "timbrado")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Timbrado.findAll", query = "SELECT t FROM Timbrado t"),
-    @NamedQuery(name = "Timbrado.findByIdTimbrado", query = "SELECT t FROM Timbrado t WHERE t.idTimbrado = :idTimbrado"),
-    @NamedQuery(name = "Timbrado.findByFechaDesde", query = "SELECT t FROM Timbrado t WHERE t.fechaDesde = :fechaDesde"),
-    @NamedQuery(name = "Timbrado.findByFechaHasta", query = "SELECT t FROM Timbrado t WHERE t.fechaHasta = :fechaHasta"),
-    @NamedQuery(name = "Timbrado.findByNroDesde", query = "SELECT t FROM Timbrado t WHERE t.nroDesde = :nroDesde"),
-    @NamedQuery(name = "Timbrado.findByNroHasta", query = "SELECT t FROM Timbrado t WHERE t.nroHasta = :nroHasta"),
-    @NamedQuery(name = "Timbrado.findByUltimoNro", query = "SELECT t FROM Timbrado t WHERE t.ultimoNro = :ultimoNro"),
-    @NamedQuery(name = "Timbrado.findByNroTimbrado", query = "SELECT t FROM Timbrado t WHERE t.nroTimbrado = :nroTimbrado")})
+    @NamedQuery(name = "Timbrado.findAll", query = "SELECT t FROM Timbrado t")
+    , @NamedQuery(name = "Timbrado.findByIdTimbrado", query = "SELECT t FROM Timbrado t WHERE t.idTimbrado = :idTimbrado")
+    , @NamedQuery(name = "Timbrado.findByFechaDesde", query = "SELECT t FROM Timbrado t WHERE t.fechaDesde = :fechaDesde")
+    , @NamedQuery(name = "Timbrado.findByFechaHasta", query = "SELECT t FROM Timbrado t WHERE t.fechaHasta = :fechaHasta")
+    , @NamedQuery(name = "Timbrado.findByNroDesde", query = "SELECT t FROM Timbrado t WHERE t.nroDesde = :nroDesde")
+    , @NamedQuery(name = "Timbrado.findByNroHasta", query = "SELECT t FROM Timbrado t WHERE t.nroHasta = :nroHasta")
+    , @NamedQuery(name = "Timbrado.findByUltimoNro", query = "SELECT t FROM Timbrado t WHERE t.ultimoNro = :ultimoNro")
+    , @NamedQuery(name = "Timbrado.findByNroTimbrado", query = "SELECT t FROM Timbrado t WHERE t.nroTimbrado = :nroTimbrado")})
 public class Timbrado implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_timbrado")
+    @GeneratedValue(generator="TimbradoSeq") 
+    @SequenceGenerator(name="TimbradoSeq",sequenceName="timbrado_id_timbrado_seq", allocationSize=1) 
     private Integer idTimbrado;
     @Basic(optional = false)
     @NotNull
@@ -73,6 +82,10 @@ public class Timbrado implements Serializable {
     @JoinColumn(name = "id_tipo_comprobante", referencedColumnName = "id_tipo_comprobante")
     @ManyToOne(optional = false)
     private TipoComprobante idTipoComprobante;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTimbrado")
+    private List<Venta> ventaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTimbrado")
+    private List<NotaCrediDebiVenta> notaCrediDebiVentaList;
 
     public Timbrado() {
     }
@@ -153,6 +166,24 @@ public class Timbrado implements Serializable {
 
     public void setIdTipoComprobante(TipoComprobante idTipoComprobante) {
         this.idTipoComprobante = idTipoComprobante;
+    }
+
+    @XmlTransient
+    public List<Venta> getVentaList() {
+        return ventaList;
+    }
+
+    public void setVentaList(List<Venta> ventaList) {
+        this.ventaList = ventaList;
+    }
+
+    @XmlTransient
+    public List<NotaCrediDebiVenta> getNotaCrediDebiVentaList() {
+        return notaCrediDebiVentaList;
+    }
+
+    public void setNotaCrediDebiVentaList(List<NotaCrediDebiVenta> notaCrediDebiVentaList) {
+        this.notaCrediDebiVentaList = notaCrediDebiVentaList;
     }
 
     @Override

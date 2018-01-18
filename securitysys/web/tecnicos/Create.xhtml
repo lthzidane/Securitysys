@@ -8,26 +8,26 @@
 
     <ui:composition>
 
-        <p:dialog id="TecnicosCreateDlg" widgetVar="TecnicosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTecnicosTitle}">
-            <h:form id="TecnicosCreateForm">
+        <p:dialog id="TecnicoCreateDlg" widgetVar="TecnicoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTecnicoTitle}">
+            <h:form id="TecnicoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tecnicosController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateTecnicosLabel_idTecnico}" for="idTecnico" rendered="false"/>
-                        <p:inputText id="idTecnico" value="#{tecnicosController.selected.idTecnico}" title="#{bundle.CreateTecnicosTitle_idTecnico}" required="true" requiredMessage="#{bundle.CreateTecnicosRequiredMessage_idTecnico}" rendered="false"/>
-                        <p:outputLabel value="#{bundle.CreateTecnicosLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{tecnicosController.selected.nombre}" title="#{bundle.CreateTecnicosTitle_nombre}" required="true" requiredMessage="#{bundle.CreateTecnicosRequiredMessage_nombre}"  style="text-transform: uppercase"/>
-                        <p:outputLabel value="#{bundle.CreateTecnicosLabel_tipoDocu}" for="tipoDocu" />                        
-                        <p:selectOneMenu id="tipoDocu" value="#{tecnicosController.selected.tipoDocumento}" required="true" requiredMessage="#{bundle.CreateTecnicosRequiredMessage_tipoDocu}">
+                        <p:outputLabel value="#{bundle.CreateTecnicoLabel_idTecnico}" for="idTecnico" rendered="false"/>
+                        <p:inputText id="idTecnico" value="#{tecnicosController.selected.idTecnico}" title="#{bundle.CreateTecnicoTitle_idTecnico}" required="true" requiredMessage="#{bundle.CreateTecnicoRequiredMessage_idTecnico}" rendered="false"/>
+                        <p:outputLabel value="#{bundle.CreateTecnicoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{tecnicosController.selected.nombre}" title="#{bundle.CreateTecnicoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateTecnicoRequiredMessage_nombre}"  style="text-transform: uppercase"/>
+                        <p:outputLabel value="#{bundle.CreateTecnicoLabel_tipoDocu}" for="tipoDocu" />                        
+                        <p:selectOneMenu id="tipoDocu" value="#{tecnicosController.selected.tipoDocumento}" required="true" requiredMessage="#{bundle.CreateTecnicoRequiredMessage_tipoDocu}">
                             <f:selectItems value="#{tipoDocumentoController.itemsAvailableSelectOne}"
                                            var="idTipoDocuItem"
                                            itemLabel="#{idTipoDocuItem.tipoDocu}"
                                            itemValue="#{idTipoDocuItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateTecnicosLabel_nroDocu}" for="nroDocu" />
-                        <p:inputText id="nroDocu" value="#{tecnicosController.selected.nroDocumento}" title="#{bundle.CreateTecnicosTitle_nroDocu}" required="true" requiredMessage="#{bundle.CreateTecnicosRequiredMessage_nroDocu}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
+                        <p:outputLabel value="#{bundle.CreateTecnicoLabel_nroDocu}" for="nroDocu" />
+                        <p:inputText id="nroDocu" value="#{tecnicosController.selected.nroDocumento}" title="#{bundle.CreateTecnicoTitle_nroDocu}" required="true" requiredMessage="#{bundle.CreateTecnicoRequiredMessage_nroDocu}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tecnicosController.create}" value="#{bundle.Save}" update="display,:TecnicosListForm:datalist,:growl" oncomplete="handleSubmit(args,'TecnicosCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="TecnicosCreateDialog.hide()" immediate="true"/>
+                    <p:commandButton actionListener="#{tecnicosController.create}" value="#{bundle.Save}" update="display,:TecnicoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TecnicoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TecnicoCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

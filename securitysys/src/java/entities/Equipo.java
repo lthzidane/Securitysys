@@ -12,11 +12,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -25,30 +25,40 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Entity
 @Table(name = "equipo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Equipo.findAll", query = "SELECT e FROM Equipo e"),
-    @NamedQuery(name = "Equipo.findByIdEquipo", query = "SELECT e FROM Equipo e WHERE e.idEquipo = :idEquipo"),
-    @NamedQuery(name = "Equipo.findByDescripcion", query = "SELECT e FROM Equipo e WHERE e.descripcion = :descripcion")})
+    @NamedQuery(name = "Equipo.findAll", query = "SELECT e FROM Equipo e")
+    , @NamedQuery(name = "Equipo.findByIdEquipo", query = "SELECT e FROM Equipo e WHERE e.idEquipo = :idEquipo")
+    , @NamedQuery(name = "Equipo.findByDescripcion", query = "SELECT e FROM Equipo e WHERE e.descripcion = :descripcion")})
 public class Equipo implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEquipo")
-    private List<PromocionDet> promocionDetList;
+
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_equipo")
-    @GeneratedValue(generator="EquipoSeq") 
-    @SequenceGenerator(name="EquipoSeq",sequenceName="equipo_id_equipo_seq", allocationSize=1) 
     private Integer idEquipo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "descripcion")
     private String descripcion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEquipo")
+    private List<PromocionDet> promocionDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEquipo")
+    private List<NotaCrediDebiVentaDet> notaCrediDebiVentaDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEquipo")
+    private List<DiagnosticoDet> diagnosticoDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEquipo")
+    private List<NotaRemisionVentaDet> notaRemisionVentaDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEquipo")
+    private List<VentaDet> ventaDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEquipo")
+    private List<InstalacionDet> instalacionDetList;
 
     public Equipo() {
     }
@@ -78,6 +88,60 @@ public class Equipo implements Serializable {
         this.descripcion = descripcion.toUpperCase();
     }
 
+    @XmlTransient
+    public List<PromocionDet> getPromocionDetList() {
+        return promocionDetList;
+    }
+
+    public void setPromocionDetList(List<PromocionDet> promocionDetList) {
+        this.promocionDetList = promocionDetList;
+    }
+
+    @XmlTransient
+    public List<NotaCrediDebiVentaDet> getNotaCrediDebiVentaDetList() {
+        return notaCrediDebiVentaDetList;
+    }
+
+    public void setNotaCrediDebiVentaDetList(List<NotaCrediDebiVentaDet> notaCrediDebiVentaDetList) {
+        this.notaCrediDebiVentaDetList = notaCrediDebiVentaDetList;
+    }
+
+    @XmlTransient
+    public List<DiagnosticoDet> getDiagnosticoDetList() {
+        return diagnosticoDetList;
+    }
+
+    public void setDiagnosticoDetList(List<DiagnosticoDet> diagnosticoDetList) {
+        this.diagnosticoDetList = diagnosticoDetList;
+    }
+
+    @XmlTransient
+    public List<NotaRemisionVentaDet> getNotaRemisionVentaDetList() {
+        return notaRemisionVentaDetList;
+    }
+
+    public void setNotaRemisionVentaDetList(List<NotaRemisionVentaDet> notaRemisionVentaDetList) {
+        this.notaRemisionVentaDetList = notaRemisionVentaDetList;
+    }
+
+    @XmlTransient
+    public List<VentaDet> getVentaDetList() {
+        return ventaDetList;
+    }
+
+    public void setVentaDetList(List<VentaDet> ventaDetList) {
+        this.ventaDetList = ventaDetList;
+    }
+
+    @XmlTransient
+    public List<InstalacionDet> getInstalacionDetList() {
+        return instalacionDetList;
+    }
+
+    public void setInstalacionDetList(List<InstalacionDet> instalacionDetList) {
+        this.instalacionDetList = instalacionDetList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -101,15 +165,6 @@ public class Equipo implements Serializable {
     @Override
     public String toString() {
         return "entities.Equipo[ idEquipo=" + idEquipo + " ]";
-    }
-
-    @XmlTransient
-    public List<PromocionDet> getPromocionDetList() {
-        return promocionDetList;
-    }
-
-    public void setPromocionDetList(List<PromocionDet> promocionDetList) {
-        this.promocionDetList = promocionDetList;
     }
     
 }

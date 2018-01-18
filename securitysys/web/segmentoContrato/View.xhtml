@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SegmentoContratoViewDlg" widgetVar="SegmentoContratoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewSegmentoContratoTitle}" closeOnEscape="true">
+
+            <h:form id="SegmentoContratoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{segmentoContratoController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewSegmentoContratoLabel_idSegmento}"/>
+                        <h:outputText value="#{segmentoContratoController.selected.idSegmento}" title="#{bundle.ViewSegmentoContratoTitle_idSegmento}"/>
+
+                        <h:outputText value="#{bundle.ViewSegmentoContratoLabel_descripcion}"/>
+                        <h:outputText value="#{segmentoContratoController.selected.descripcion}" title="#{bundle.ViewSegmentoContratoTitle_descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewSegmentoContratoLabel_idCliente}"/>
+                        <h:outputText value="#{segmentoContratoController.selected.idCliente.idCliente}"/>
+
+                        <h:outputText value="#{bundle.ViewSegmentoContratoLabel_idServicio}"/>
+                        <h:outputText value="#{segmentoContratoController.selected.idServicio.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('SegmentoContratoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

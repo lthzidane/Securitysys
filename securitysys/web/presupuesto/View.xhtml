@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PresupuestoViewDlg" widgetVar="PresupuestoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewPresupuestoTitle}" closeOnEscape="true">
+
+            <h:form id="PresupuestoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{presupuestoController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_idPresupuesto}"/>
+                        <h:outputText value="#{presupuestoController.selected.idPresupuesto}" title="#{bundle.ViewPresupuestoTitle_idPresupuesto}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_fecha}"/>
+                        <h:outputText value="#{presupuestoController.selected.fecha}" title="#{bundle.ViewPresupuestoTitle_fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_plazo}"/>
+                        <h:outputText value="#{presupuestoController.selected.plazo}" title="#{bundle.ViewPresupuestoTitle_plazo}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_validez}"/>
+                        <h:outputText value="#{presupuestoController.selected.validez}" title="#{bundle.ViewPresupuestoTitle_validez}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_exenta}"/>
+                        <h:outputText value="#{presupuestoController.selected.exenta}" title="#{bundle.ViewPresupuestoTitle_exenta}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_gravada5}"/>
+                        <h:outputText value="#{presupuestoController.selected.gravada5}" title="#{bundle.ViewPresupuestoTitle_gravada5}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_gravada10}"/>
+                        <h:outputText value="#{presupuestoController.selected.gravada10}" title="#{bundle.ViewPresupuestoTitle_gravada10}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_iva5}"/>
+                        <h:outputText value="#{presupuestoController.selected.iva5}" title="#{bundle.ViewPresupuestoTitle_iva5}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_iva10}"/>
+                        <h:outputText value="#{presupuestoController.selected.iva10}" title="#{bundle.ViewPresupuestoTitle_iva10}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_promocion}"/>
+                        <h:outputText value="#{presupuestoController.selected.promocion.promocionPK}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_idCliente}"/>
+                        <h:outputText value="#{presupuestoController.selected.idCliente.idCliente}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_id}"/>
+                        <h:outputText value="#{presupuestoController.selected.id.id}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_idEstado}"/>
+                        <h:outputText value="#{presupuestoController.selected.idEstado.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_idSucursal}"/>
+                        <h:outputText value="#{presupuestoController.selected.idSucursal.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoLabel_idUsuario}"/>
+                        <h:outputText value="#{presupuestoController.selected.idUsuario.idUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('PresupuestoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

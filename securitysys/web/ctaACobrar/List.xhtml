@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CtaACobrarListForm">
+
+        <p:panel header="#{bundle.ListCtaACobrarTitle}">
+            <p:dataTable id="datalist"
+                         value="#{ctaACobrarController.items}"
+                         lazy="false"
+                         rowKey="#{item.ctaACobrarPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{ctaACobrarController.selected}"
+                         filteredValue="#{ctaACobrarController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{ctaACobrarController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.ctaACobrarPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.ctaACobrarPK.idCtaACobrar}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCtaACobrarTitle_ctaACobrarPK_idCtaACobrar}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ctaACobrarPK.idCtaACobrar}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ctaACobrarPK.idVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCtaACobrarTitle_ctaACobrarPK_idVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ctaACobrarPK.idVenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nroCuota}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCtaACobrarTitle_nroCuota}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nroCuota}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.montoACobrar}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCtaACobrarTitle_montoACobrar}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.montoACobrar}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.saldoACobrar}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCtaACobrarTitle_saldoACobrar}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.saldoACobrar}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.vencimientoACobrar}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCtaACobrarTitle_vencimientoACobrar}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.vencimientoACobrar}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.estadoACobrar}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCtaACobrarTitle_estadoACobrar}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.estadoACobrar}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.venta.idVenta}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCtaACobrarTitle_venta}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.venta.idVenta}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ctaACobrarController.prepareCreate}" update=":CtaACobrarCreateForm" oncomplete="PF('CtaACobrarCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CtaACobrarViewForm" oncomplete="PF('CtaACobrarViewDialog').show()" disabled="#{empty ctaACobrarController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CtaACobrarEditForm" oncomplete="PF('CtaACobrarEditDialog').show()" disabled="#{empty ctaACobrarController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ctaACobrarController.delete}" update=":growl,datalist" disabled="#{empty ctaACobrarController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

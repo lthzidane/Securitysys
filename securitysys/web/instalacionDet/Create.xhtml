@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InstalacionDetCreateDlg" widgetVar="InstalacionDetCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInstalacionDetTitle}" closeOnEscape="true">
+
+            <h:form id="InstalacionDetCreateForm">
+
+                <h:panelGroup id="display" rendered="#{instalacionDetController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateInstalacionDetLabel_instalacionDetPK_idInstalacion}" for="instalacionDetPK_idInstalacion" />
+                        <p:inputText id="instalacionDetPK_idInstalacion" value="#{instalacionDetController.selected.instalacionDetPK.idInstalacion}" title="#{bundle.CreateInstalacionDetTitle_instalacionDetPK_idInstalacion}" required="true" requiredMessage="#{bundle.CreateInstalacionDetRequiredMessage_instalacionDetPK_idInstalacion}"/>
+
+                        <p:outputLabel value="#{bundle.CreateInstalacionDetLabel_instalacionDetPK_idSecuencia}" for="instalacionDetPK_idSecuencia" />
+                        <p:inputText id="instalacionDetPK_idSecuencia" value="#{instalacionDetController.selected.instalacionDetPK.idSecuencia}" title="#{bundle.CreateInstalacionDetTitle_instalacionDetPK_idSecuencia}" required="true" requiredMessage="#{bundle.CreateInstalacionDetRequiredMessage_instalacionDetPK_idSecuencia}"/>
+
+                        <p:outputLabel value="#{bundle.CreateInstalacionDetLabel_detalle}" for="detalle" />
+                        <p:inputText id="detalle" value="#{instalacionDetController.selected.detalle}" title="#{bundle.CreateInstalacionDetTitle_detalle}" required="true" requiredMessage="#{bundle.CreateInstalacionDetRequiredMessage_detalle}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{bundle.CreateInstalacionDetLabel_idEquipo}" for="idEquipo" />
+                        <p:selectOneMenu id="idEquipo" value="#{instalacionDetController.selected.idEquipo}" required="true" requiredMessage="#{bundle.CreateInstalacionDetRequiredMessage_idEquipo}" converter="equipoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{equipoController.items}"
+                                           var="idEquipoItem"
+                                           itemValue="#{idEquipoItem}"
+                                           itemLabel="#{idEquipoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateInstalacionDetLabel_instalacionCab}" for="instalacionCab" />
+                        <p:selectOneMenu id="instalacionCab" value="#{instalacionDetController.selected.instalacionCab}" required="true" requiredMessage="#{bundle.CreateInstalacionDetRequiredMessage_instalacionCab}" converter="instalacionCabConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{instalacionCabController.items}"
+                                           var="instalacionCabItem"
+                                           itemValue="#{instalacionCabItem}"
+                                           itemLabel="#{instalacionCabItem.idInstalacion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{instalacionDetController.saveNew}" value="#{bundle.Save}" update="display,:InstalacionDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InstalacionDetCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('InstalacionDetCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

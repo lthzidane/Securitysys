@@ -69,16 +69,16 @@ public class Login implements Serializable {
     }
 
     public boolean showMenu(String menuTitle) {
-        if(menuTitle.equalsIgnoreCase("Ver vista de Admin") && "ADMIN".equalsIgnoreCase(userrol)){
+        if (menuTitle.equalsIgnoreCase("Ver vista de Admin") && "ADMIN".equalsIgnoreCase(getUserrol())) {
             return true;
-        }else if(menuTitle.equalsIgnoreCase("Ver vista de Jefe") && "JEFE".equalsIgnoreCase(userrol)){
+        } else if (menuTitle.equalsIgnoreCase("Ver vista de Jefe") && "JEFE".equalsIgnoreCase(getUserrol())) {
             return true;
-        }else if(menuTitle.equalsIgnoreCase("Ver vista de Empleado") && "EMPLEADO".equalsIgnoreCase(userrol)){
+        } else if (menuTitle.equalsIgnoreCase("Ver vista de Empleado") && "EMPLEADO".equalsIgnoreCase(getUserrol())) {
             return true;
-        }else{
+        } else {
             return false;
         }
-        
+
 //        //List<UiItems> items = uiItemsFacade.findByRole(current.getIdRole().getIdRole());
 //        return true;
     }
@@ -93,9 +93,9 @@ public class Login implements Serializable {
         if (valid) {
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", username);
-            session.setAttribute("userrol",LoginDao.UserRol);
+            session.setAttribute("userrol", LoginDao.UserRol);
             this.setUserrol(LoginDao.UserRol);
-            logueado = true;
+            setLogueado(true);
             return "home";
         } else {
             this.setUserrol("");
@@ -113,5 +113,29 @@ public class Login implements Serializable {
         session.invalidate();
         return "login";
     }
-}
 
+    private void setUserrol(String UserRol) {
+        this.userrol = UserRol;
+    }
+
+    /**
+     * @return the userrol
+     */
+    public String getUserrol() {
+        return userrol;
+    }
+
+    /**
+     * @return the logueado
+     */
+    public boolean isLogueado() {
+        return logueado;
+    }
+
+    /**
+     * @param logueado the logueado to set
+     */
+    public void setLogueado(boolean logueado) {
+        this.logueado = logueado;
+    }
+}

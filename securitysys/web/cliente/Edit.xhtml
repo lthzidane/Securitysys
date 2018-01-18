@@ -1,66 +1,84 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
+        <p:dialog id="ClienteEditDlg" widgetVar="ClienteEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditClienteTitle}" closeOnEscape="true">
 
-        <p:dialog id="ClienteEditDlg" widgetVar="ClienteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditClienteTitle}">
             <h:form id="ClienteEditForm">
+
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditClienteLabel_idCliente}" for="idCliente" rendered="false"/>
-                        <p:inputText id="idCliente" value="#{clienteController.selected.idCliente}" title="#{bundle.EditClienteTitle_idCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idCliente}" rendered="false"/>
-                        <p:outputLabel value="#{bundle.EditClienteLabel_idTipoCliente}" for="idTipoCliente" />
-                        <p:selectOneMenu id="idTipoCliente" value="#{clienteController.selected.idTipoCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idTipoCliente}">
-                            <f:selectItems value="#{tipoClienteController.itemsAvailableSelectOne}"
-                                           var="idTipoClienteItem"
-                                           itemLabel="#{idTipoClienteItem.tipoCliente}"
-                                           itemValue="#{idTipoClienteItem}"/>
-                        </p:selectOneMenu>
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{clienteController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditClienteLabel_idCliente}" for="idCliente" />
+                        <h:outputText id="idCliente" value="#{clienteController.selected.idCliente}" />
+
                         <p:outputLabel value="#{bundle.EditClienteLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{clienteController.selected.nombre}" title="#{bundle.EditClienteTitle_nombre}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_nombre}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.EditClienteLabel_apellido}" for="apellido" />
-                        <p:inputText id="apellido" value="#{clienteController.selected.apellido}" title="#{bundle.EditClienteTitle_apellido}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_apellido}" style="text-transform: uppercase"/>
+                        <p:inputText id="apellido" value="#{clienteController.selected.apellido}" title="#{bundle.EditClienteTitle_apellido}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_apellido}" size="100" maxlength="100" style="text-transform: uppercase"/>
+
+                        <p:outputLabel value="#{bundle.EditClienteLabel_numeroDocumento}" for="numeroDocumento" />
+                        <p:inputText id="numeroDocumento" value="#{clienteController.selected.numeroDocumento}" title="#{bundle.EditClienteTitle_numeroDocumento}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_numeroDocumento}" size="30" maxlength="30"/>
+
                         <p:outputLabel value="#{bundle.EditClienteLabel_direccion}" for="direccion" />
-                        <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.EditClienteTitle_direccion}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_direccion}" style="text-transform: uppercase"/>
+                        <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.EditClienteTitle_direccion}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_direccion}" size="100" maxlength="100" style="text-transform: uppercase"/>
+
                         <p:outputLabel value="#{bundle.EditClienteLabel_telefono}" for="telefono" />
                         <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.EditClienteTitle_telefono}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_telefono}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
+
+                        <p:outputLabel value="#{bundle.EditClienteLabel_EMail}" for="EMail" />
+                        <p:inputText id="EMail" value="#{clienteController.selected.EMail}" title="#{bundle.EditClienteTitle_EMail}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_EMail}" size="60" maxlength="60"/>
+
+                        <p:outputLabel value="#{bundle.EditClienteLabel_estadoCliente}" for="estadoCliente" />
+                        <p:inputText id="estadoCliente" value="#{clienteController.selected.estadoCliente}" title="#{bundle.EditClienteTitle_estadoCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_estadoCliente}" size="10" maxlength="10" style="text-transform: uppercase"/>
+
                         <p:outputLabel value="#{bundle.EditClienteLabel_idCiudad}" for="idCiudad" />
-                        <p:selectOneMenu id="idCiudad" value="#{clienteController.selected.idCiudad}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idCiudad}">
+                        <p:selectOneMenu id="idCiudad" value="#{clienteController.selected.idCiudad}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idCiudad}" converter="ciudadConverter">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{ciudadController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{ciudadController.items}"
                                            var="idCiudadItem"
+                                           itemValue="#{idCiudadItem}"
                                            itemLabel="#{idCiudadItem.ciudad}"
-                                           itemValue="#{idCiudadItem}"/>
-                                                    </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditClienteLabel_idEstado}" for="idEstado" />
-                        <p:selectOneMenu id="idEstado" value="#{clienteController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idEstado}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
-                                           var="idEstadoItem"
-                                           itemLabel="#{idEstadoItem.estado}"
-                                           itemValue="#{idEstadoItem}"/>
+                                           />
+
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditClienteLabel_idTipoDocu}" for="idTipoDocu" />
-                        <p:selectOneMenu id="idTipoDocu" value="#{clienteController.selected.idTipoDocu}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idTipoDocu}">
+
+                        <p:outputLabel value="#{bundle.EditClienteLabel_idNacionalidad}" for="idNacionalidad" />
+                        <p:selectOneMenu id="idNacionalidad" value="#{clienteController.selected.idNacionalidad}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idNacionalidad}" converter="nacionalidadConverter">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{tipoDocumentoController.itemsAvailableSelectOne}"
-                                           var="idTipoDocuItem"
-                                           itemLabel="#{idTipoDocuItem.tipoDocu}"
-                                           itemValue="#{idTipoDocuItem}"/>
+                            <f:selectItems value="#{nacionalidadController.items}"
+                                           var="idNacionalidadItem"
+                                           itemValue="#{idNacionalidadItem}"
+                                           itemLabel="#{idNacionalidadItem.descripcion}"
+                                           />
+
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditClienteLabel_nroDocu}" for="nroDocumento" />
-                        <p:inputText id="nroDocumento" value="#{clienteController.selected.nroDocumento}" title="#{bundle.EditClienteTitle_nroDocu}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_nroDocu}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
+
+                        <p:outputLabel value="#{bundle.EditClienteLabel_idTipoDocumento}" for="idTipoDocumento" />
+                        <p:selectOneMenu id="idTipoDocumento" value="#{clienteController.selected.idTipoDocumento}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idTipoDocumento}" converter="tipoDocumentoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoDocumentoController.items}"
+                                           var="idTipoDocumentoItem"
+                                           itemValue="#{idTipoDocumentoItem}"
+                                           itemLabel="#{idTipoDocumentoItem.descripcion}"
+                                           />
+
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{clienteController.update}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ClienteEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClienteEditDialog.hide()"  immediate="true"/>
                 </h:panelGroup>
+
             </h:form>
+
         </p:dialog>
 
     </ui:composition>
+
 </html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DescuentoEditDlg" widgetVar="DescuentoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditDescuentoTitle}" closeOnEscape="true">
+
+            <h:form id="DescuentoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{descuentoController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditDescuentoLabel_idDescuento}" for="idDescuento" />
+                        <h:outputText id="idDescuento" value="#{descuentoController.selected.idDescuento}" />
+
+                        <p:outputLabel value="#{bundle.EditDescuentoLabel_idUsuario}" for="idUsuario" />
+                        <p:inputText id="idUsuario" value="#{descuentoController.selected.idUsuario}" title="#{bundle.EditDescuentoTitle_idUsuario}" required="true" requiredMessage="#{bundle.EditDescuentoRequiredMessage_idUsuario}"/>
+
+                        <p:outputLabel value="#{bundle.EditDescuentoLabel_idSucursal}" for="idSucursal" />
+                        <p:inputText id="idSucursal" value="#{descuentoController.selected.idSucursal}" title="#{bundle.EditDescuentoTitle_idSucursal}" required="true" requiredMessage="#{bundle.EditDescuentoRequiredMessage_idSucursal}"/>
+
+                        <p:outputLabel value="#{bundle.EditDescuentoLabel_descripcionDesc}" for="descripcionDesc" />
+                        <p:inputText id="descripcionDesc" value="#{descuentoController.selected.descripcionDesc}" title="#{bundle.EditDescuentoTitle_descripcionDesc}" required="true" requiredMessage="#{bundle.EditDescuentoRequiredMessage_descripcionDesc}" size="100" maxlength="100"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{descuentoController.save}" value="#{bundle.Save}" update="display,:DescuentoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DescuentoEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DescuentoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

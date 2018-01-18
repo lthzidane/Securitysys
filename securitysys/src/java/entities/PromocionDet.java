@@ -21,16 +21,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Entity
 @Table(name = "promocion_det")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PromocionDet.findAll", query = "SELECT p FROM PromocionDet p"),
-    @NamedQuery(name = "PromocionDet.findByIdPromocionCab", query = "SELECT p FROM PromocionDet p WHERE p.promocionDetPK.idPromocionCab = :idPromocionCab"),
-    @NamedQuery(name = "PromocionDet.findByIdSecuencia", query = "SELECT p FROM PromocionDet p WHERE p.promocionDetPK.idSecuencia = :idSecuencia"),
-    @NamedQuery(name = "PromocionDet.findByCostoPromo", query = "SELECT p FROM PromocionDet p WHERE p.costoPromo = :costoPromo")})
+    @NamedQuery(name = "PromocionDet.findAll", query = "SELECT p FROM PromocionDet p")
+    , @NamedQuery(name = "PromocionDet.findByIdPromocionCab", query = "SELECT p FROM PromocionDet p WHERE p.promocionDetPK.idPromocionCab = :idPromocionCab")
+    , @NamedQuery(name = "PromocionDet.findByIdSecuencia", query = "SELECT p FROM PromocionDet p WHERE p.promocionDetPK.idSecuencia = :idSecuencia")
+    , @NamedQuery(name = "PromocionDet.findByCostoPromo", query = "SELECT p FROM PromocionDet p WHERE p.costoPromo = :costoPromo")})
 public class PromocionDet implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,14 +43,13 @@ public class PromocionDet implements Serializable {
     @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo")
     @ManyToOne(optional = false)
     private Equipo idEquipo;
-
     @JoinColumns({
-        @JoinColumn(name = "id_promocion_cab", referencedColumnName = "id_promocion", insertable = false, updatable = false),
-        @JoinColumn(name = "id_presu_promocion_cab", referencedColumnName = "id_presu", insertable = false, updatable = false)
+        @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion", insertable = false, updatable = false)
+        ,
+        @JoinColumn(name = "id_presu", referencedColumnName = "id_presu", insertable = false, updatable = false)
     })
     @ManyToOne(optional = false)
     private Promocion promocion;
-
     @JoinColumn(name = "id_servicio", referencedColumnName = "id_servicio")
     @ManyToOne(optional = false)
     private Servicio idServicio;

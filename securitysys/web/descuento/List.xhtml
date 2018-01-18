@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DescuentoListForm">
+
+        <p:panel header="#{bundle.ListDescuentoTitle}">
+            <p:dataTable id="datalist"
+                         value="#{descuentoController.items}"
+                         lazy="false"
+                         rowKey="#{item.idDescuento}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{descuentoController.selected}"
+                         filteredValue="#{descuentoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{descuentoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idDescuento}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.idDescuento}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListDescuentoTitle_idDescuento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idDescuento}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idUsuario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListDescuentoTitle_idUsuario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idUsuario}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idSucursal}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListDescuentoTitle_idSucursal}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idSucursal}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descripcionDesc}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListDescuentoTitle_descripcionDesc}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcionDesc}"/>
+                </p:column>
+
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{descuentoController.prepareCreate}" update=":DescuentoCreateForm" oncomplete="PF('DescuentoCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DescuentoViewForm" oncomplete="PF('DescuentoViewDialog').show()" disabled="#{empty descuentoController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DescuentoEditForm" oncomplete="PF('DescuentoEditDialog').show()" disabled="#{empty descuentoController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{descuentoController.delete}" update=":growl,datalist" disabled="#{empty descuentoController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

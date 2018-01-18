@@ -9,13 +9,20 @@ import entities.TipoMovil;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import entities.Moviles;
+import java.util.List;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Stateless
 public class TipoMovilFacade extends AbstractFacade<TipoMovil> {
+
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -26,6 +33,21 @@ public class TipoMovilFacade extends AbstractFacade<TipoMovil> {
 
     public TipoMovilFacade() {
         super(TipoMovil.class);
+    }
+
+    public boolean isMovilesListEmpty(TipoMovil entity) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<TipoMovil> tipoMovil = cq.from(TipoMovil.class);
+        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(tipoMovil, entity), cb.isNotEmpty(tipoMovil.get(TipoMovil_.movilesList)));
+        return em.createQuery(cq).getResultList().isEmpty();
+    }
+
+    public List<Moviles> findMovilesList(TipoMovil entity) {
+        TipoMovil mergedEntity = this.getMergedEntity(entity);
+        List<Moviles> movilesList = mergedEntity.getMovilesList();
+        movilesList.size();
+        return movilesList;
     }
     
 }

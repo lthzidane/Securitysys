@@ -19,10 +19,10 @@
                         <h:outputText id="idNacionalidad" value="#{nacionalidadController.selected.idNacionalidad}" />
 
                         <p:outputLabel value="#{bundle.EditNacionalidadLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{nacionalidadController.selected.descripcion}" title="#{bundle.EditNacionalidadTitle_descripcion}" required="true" requiredMessage="#{bundle.EditNacionalidadRequiredMessage_descripcion}" size="30" maxlength="30" style="text-transform: uppercase"/>
+                        <p:inputText id="descripcion" value="#{nacionalidadController.selected.descripcion}" title="#{bundle.EditNacionalidadTitle_descripcion}" required="true" requiredMessage="#{bundle.EditNacionalidadRequiredMessage_descripcion}" size="30" maxlength="30"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{nacionalidadController.save}" value="#{bundle.Save}" update="display,:NacionalidadListForm:datalist,:growl" oncomplete="handleSubmit(args,'NacionalidadEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="NacionalidadEditDialog.hide()" update="display" immediate="true"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="NacionalidadEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 
             </h:form>

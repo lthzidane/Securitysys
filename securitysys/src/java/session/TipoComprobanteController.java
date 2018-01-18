@@ -1,28 +1,18 @@
 package session;
 
-import bean.TipoComprobanteFacade;
 import entities.TipoComprobante;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import entities.Timbrado;
+import entities.Venta;
+import entities.NotaCrediDebiVenta;
+import entities.NotaRemisionVenta;
+import java.util.List;
+import bean.TipoComprobanteFacade;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 
-@ManagedBean(name = "tipoComprobanteController")
+@Named(value = "tipoComprobanteController")
 @ViewScoped
 public class TipoComprobanteController extends AbstractController<TipoComprobante> {
-
-    @EJB
-    private TipoComprobanteFacade ejbFacade;
-
-    /**
-     * Initialize the concrete TipoComprobante controller bean. The
-     * AbstractController requires the EJB Facade object for most operations.
-     */
-    @PostConstruct
-    @Override
-    public void init() {
-        super.setFacade(ejbFacade);
-    }
 
     public TipoComprobanteController() {
         // Inform the Abstract parent controller of the concrete TipoComprobante Entity

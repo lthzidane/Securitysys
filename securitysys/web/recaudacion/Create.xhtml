@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RecaudacionCreateDlg" widgetVar="RecaudacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRecaudacionTitle}" closeOnEscape="true">
+
+            <h:form id="RecaudacionCreateForm">
+
+                <h:panelGroup id="display" rendered="#{recaudacionController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateRecaudacionLabel_recaudacionPK_idRecaudacion}" for="recaudacionPK_idRecaudacion" />
+                        <p:inputText id="recaudacionPK_idRecaudacion" value="#{recaudacionController.selected.recaudacionPK.idRecaudacion}" title="#{bundle.CreateRecaudacionTitle_recaudacionPK_idRecaudacion}" required="true" requiredMessage="#{bundle.CreateRecaudacionRequiredMessage_recaudacionPK_idRecaudacion}"/>
+
+                        <p:outputLabel value="#{bundle.CreateRecaudacionLabel_recaudacionPK_idFormaCobro}" for="recaudacionPK_idFormaCobro" />
+                        <p:inputText id="recaudacionPK_idFormaCobro" value="#{recaudacionController.selected.recaudacionPK.idFormaCobro}" title="#{bundle.CreateRecaudacionTitle_recaudacionPK_idFormaCobro}" required="true" requiredMessage="#{bundle.CreateRecaudacionRequiredMessage_recaudacionPK_idFormaCobro}"/>
+
+                        <p:outputLabel value="#{bundle.CreateRecaudacionLabel_fechaRecaudacion}" for="fechaRecaudacion" />
+                        <p:calendar id="fechaRecaudacion" pattern="MM/dd/yyyy" value="#{recaudacionController.selected.fechaRecaudacion}" title="#{bundle.CreateRecaudacionTitle_fechaRecaudacion}" required="true" requiredMessage="#{bundle.CreateRecaudacionRequiredMessage_fechaRecaudacion}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateRecaudacionLabel_montoRecaudacion}" for="montoRecaudacion" />
+                        <p:inputText id="montoRecaudacion" value="#{recaudacionController.selected.montoRecaudacion}" title="#{bundle.CreateRecaudacionTitle_montoRecaudacion}" required="true" requiredMessage="#{bundle.CreateRecaudacionRequiredMessage_montoRecaudacion}"/>
+
+                        <p:outputLabel value="#{bundle.CreateRecaudacionLabel_arqueo}" for="arqueo" />
+                        <p:selectOneMenu id="arqueo" value="#{recaudacionController.selected.arqueo}" required="true" requiredMessage="#{bundle.CreateRecaudacionRequiredMessage_arqueo}" converter="arqueoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{arqueoController.items}"
+                                           var="arqueoItem"
+                                           itemValue="#{arqueoItem}"
+                                           itemLabel="#{arqueoItem.arqueoPK.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateRecaudacionLabel_formaCobro}" for="formaCobro" />
+                        <p:selectOneMenu id="formaCobro" value="#{recaudacionController.selected.formaCobro}" required="true" requiredMessage="#{bundle.CreateRecaudacionRequiredMessage_formaCobro}" converter="formaCobroConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{formaCobroController.items}"
+                                           var="formaCobroItem"
+                                           itemValue="#{formaCobroItem}"
+                                           itemLabel="#{formaCobroItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{recaudacionController.saveNew}" value="#{bundle.Save}" update="display,:RecaudacionListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RecaudacionCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('RecaudacionCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

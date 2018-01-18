@@ -1,23 +1,28 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package bean;
 
-import entities.OrdenTrabajoCab;
 import entities.OrdenTrabajoDet;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import entities.OrdenTrabajo;
+import java.util.List;
 
 /**
  *
- * @author expsee
+ * @author acer
  */
 @Stateless
 public class OrdenTrabajoDetFacade extends AbstractFacade<OrdenTrabajoDet> {
+
     @PersistenceContext(unitName = "securitysysPU")
     private EntityManager em;
 
@@ -29,13 +34,21 @@ public class OrdenTrabajoDetFacade extends AbstractFacade<OrdenTrabajoDet> {
     public OrdenTrabajoDetFacade() {
         super(OrdenTrabajoDet.class);
     }
- 
-    public List<OrdenTrabajoDet> findByNroOrden(Integer nroOrden) {
-        try {
-            return (List<OrdenTrabajoDet>) em.createNamedQuery("OrdenTrabajoDet.findByNroOrden").setParameter("nroOrden", nroOrden).getResultList();
-        } catch (NoResultException e) {
-            return null;
-        }
+
+    public boolean isOrdenTrabajoEmpty(OrdenTrabajoDet entity) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<OrdenTrabajoDet> ordenTrabajoDet = cq.from(OrdenTrabajoDet.class);
+        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ordenTrabajoDet, entity), cb.isNotNull(ordenTrabajoDet.get(OrdenTrabajoDet_.ordenTrabajo)));
+        return em.createQuery(cq).getResultList().isEmpty();
+    }
+
+    public OrdenTrabajo findOrdenTrabajo(OrdenTrabajoDet entity) {
+        return this.getMergedEntity(entity).getOrdenTrabajo();
+    }
+
+    List<OrdenTrabajoDet> findByNroOrden(int intValue) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -8,14 +8,14 @@ package bean;
 import entities.Cliente;
 import entities.Departamento;
 import entities.Estado;
-import entities.Funcionario;
+
 import entities.InstalacionDet;
 import entities.Moviles;
-import entities.Nivel;
+
 import entities.OrdenTrabajoDet;
-import entities.ProductosKit;
+
 import entities.Reclamo;
-import entities.Tecnicos;
+import entities.Tecnico;
 import entities.TipoReclamo;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -39,7 +39,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import lombok.Data;
 import session.util.JsfUtil;
-import session.util.JsfUtil.PersistAction;
+
 
 /**
  *
@@ -83,24 +83,22 @@ public class SeguimientoReclamoBean implements Serializable{
     private String descripcion;
     private String solucion = "";
     private List<Departamento> listaDepartamentos = new ArrayList<>();
-    private ArrayList<Tecnicos> listaTecnicos = new ArrayList<>();
+    private ArrayList<Tecnico> listaTecnico = new ArrayList<>();
     private List<Estado> listaEstados = new ArrayList<>();
     private List<TipoReclamo> listaTipoReclamo = new ArrayList<TipoReclamo>();
-    private List<Nivel> listaNivel = new ArrayList<Nivel>();
-    private List<Funcionario> listaFuncionario = new ArrayList<Funcionario>();
+    
+    
     private List<OrdenTrabajoDet> listaDetalle = new ArrayList<OrdenTrabajoDet>();
-    private List<ProductosKit> listaKits = new ArrayList<ProductosKit>();
-    private ArrayList<ProductosKit> selectedKits = new ArrayList<ProductosKit>();
+    
+    
     private ArrayList<InstalacionDet> instalacionesDetList = new ArrayList<InstalacionDet>();
-    private ArrayList<Tecnicos> selectedTecnicos = new ArrayList<Tecnicos>();
+    private ArrayList<Tecnico> selectedTecnico = new ArrayList<Tecnico>();
     private List<Moviles> listaMoviles = new ArrayList<Moviles>();
     
     @EJB
-    private bean.TecnicosFacade tecnicoFacade =  new TecnicosFacade();
+    private bean.TecnicoFacade tecnicoFacade =  new TecnicoFacade();
     @EJB
     private bean.ClienteFacade clienteFacade = new ClienteFacade();
-    @EJB
-    private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
     @EJB
     private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
@@ -152,7 +150,7 @@ public class SeguimientoReclamoBean implements Serializable{
         //reclamo.setIdEstado(estadoTrabFacade.findByEstado("Cerrado"));
         reclamo.setSolucion(this.solucion);
         reclamo.setFechaAlta(this.fechaFin);
-        persistReclamo(PersistAction.UPDATE, "Reclamo Editado correctamente");
+        //persistReclamo(PersistAction.UPDATE, "Reclamo Editado correctamente");
         this.editando = false;
         limpiarCampos();
         return null;
@@ -183,40 +181,40 @@ public class SeguimientoReclamoBean implements Serializable{
         return "/home";
     }
     
-    private void persistReclamo(JsfUtil.PersistAction persistAction, String successMessage) {
-        if (reclamo != null) {
-
-            try {
-                if (persistAction == JsfUtil.PersistAction.CREATE) {
-                    getReclamoFacade().create(reclamo);
-                }
-                else if (persistAction == JsfUtil.PersistAction.UPDATE) {
-                    getReclamoFacade().edit(reclamo);
-                } else {
-                    getReclamoFacade().remove(reclamo);
-                }
-                
-                if(successMessage != null){
-                    JsfUtil.addSuccessMessage(successMessage);
-                }
-                
-            } catch (EJBException ex) {
-                String msg = "";
-                Throwable cause = ex.getCause();
-                if (cause != null) {
-                    msg = cause.getLocalizedMessage();
-                }
-                if (msg.length() > 0) {
-                    JsfUtil.addErrorMessage(msg);
-                } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            }
-        }
-    }
+//    private void persistReclamo(JsfUtil.PersistAction persistAction, String successMessage) {
+//        if (reclamo != null) {
+//
+//            try {
+//                if (persistAction == JsfUtil.PersistAction.CREATE) {
+//                    getReclamoFacade().create(reclamo);
+//                }
+//                else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+//                    getReclamoFacade().edit(reclamo);
+//                } else {
+//                    getReclamoFacade().remove(reclamo);
+//                }
+//                
+//                if(successMessage != null){
+//                    JsfUtil.addSuccessMessage(successMessage);
+//                }
+//                
+//            } catch (EJBException ex) {
+//                String msg = "";
+//                Throwable cause = ex.getCause();
+//                if (cause != null) {
+//                    msg = cause.getLocalizedMessage();
+//                }
+//                if (msg.length() > 0) {
+//                    JsfUtil.addErrorMessage(msg);
+//                } else {
+//                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+//                }
+//            } catch (Exception ex) {
+//                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+//                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+//            }
+//        }
+//    }
 
     public void obtenerDatosReclamo(){
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //defino el formato de fecha
@@ -233,7 +231,7 @@ public class SeguimientoReclamoBean implements Serializable{
             this.usuario = this.reclamo.getIdUsuario().getNombre();
             this.descripcion = this.reclamo.getDescripcion();
             Cliente clienteAsociado = this.reclamo.getIdCliente();
-            this.nroDocumento = clienteAsociado.getNroDocumento();
+            this.nroDocumento = clienteAsociado.getNumeroDocumento();
             this.razonsocial = clienteAsociado.getNombre()+" "+clienteAsociado.getApellido();
             this.ciudad = clienteAsociado.getIdCiudad().getCiudad();
             this.direccion = clienteAsociado.getDireccion();

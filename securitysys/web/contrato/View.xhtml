@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContratoViewDlg" widgetVar="ContratoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewContratoTitle}" closeOnEscape="true">
+
+            <h:form id="ContratoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{contratoController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewContratoLabel_contratoPK_idContrato}"/>
+                        <h:outputText value="#{contratoController.selected.contratoPK.idContrato}" title="#{bundle.ViewContratoTitle_contratoPK_idContrato}"/>
+
+                        <h:outputText value="#{bundle.ViewContratoLabel_contratoPK_idCliente}"/>
+                        <h:outputText value="#{contratoController.selected.contratoPK.idCliente}" title="#{bundle.ViewContratoTitle_contratoPK_idCliente}"/>
+
+                        <h:outputText value="#{bundle.ViewContratoLabel_fechaIngreso}"/>
+                        <h:outputText value="#{contratoController.selected.fechaIngreso}" title="#{bundle.ViewContratoTitle_fechaIngreso}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewContratoLabel_cliente}"/>
+                        <h:outputText value="#{contratoController.selected.cliente.idCliente}"/>
+
+                        <h:outputText value="#{bundle.ViewContratoLabel_idEstado}"/>
+                        <h:outputText value="#{contratoController.selected.idEstado.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewContratoLabel_idServicio}"/>
+                        <h:outputText value="#{contratoController.selected.idServicio.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewContratoLabel_idSucursal}"/>
+                        <h:outputText value="#{contratoController.selected.idSucursal.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('ContratoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CobroEditDlg" widgetVar="CobroEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditCobroTitle}" closeOnEscape="true">
+
+            <h:form id="CobroEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{cobroController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditCobroLabel_idCobro}" for="idCobro" />
+                        <h:outputText id="idCobro" value="#{cobroController.selected.idCobro}" />
+
+                        <p:outputLabel value="#{bundle.EditCobroLabel_fechaCobro}" for="fechaCobro" />
+                        <p:calendar id="fechaCobro" pattern="MM/dd/yyyy" value="#{cobroController.selected.fechaCobro}" title="#{bundle.EditCobroTitle_fechaCobro}" required="true" requiredMessage="#{bundle.EditCobroRequiredMessage_fechaCobro}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditCobroLabel_nroRecibo}" for="nroRecibo" />
+                        <p:inputText id="nroRecibo" value="#{cobroController.selected.nroRecibo}" title="#{bundle.EditCobroTitle_nroRecibo}" required="true" requiredMessage="#{bundle.EditCobroRequiredMessage_nroRecibo}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{bundle.EditCobroLabel_efectivo}" for="efectivo" />
+                        <p:inputText id="efectivo" value="#{cobroController.selected.efectivo}" title="#{bundle.EditCobroTitle_efectivo}" required="true" requiredMessage="#{bundle.EditCobroRequiredMessage_efectivo}"/>
+
+                        <p:outputLabel value="#{bundle.EditCobroLabel_estadoCobro}" for="estadoCobro" />
+                        <p:inputText id="estadoCobro" value="#{cobroController.selected.estadoCobro}" title="#{bundle.EditCobroTitle_estadoCobro}" required="true" requiredMessage="#{bundle.EditCobroRequiredMessage_estadoCobro}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{bundle.EditCobroLabel_idAperturaCierre}" for="idAperturaCierre" />
+                        <p:selectOneMenu id="idAperturaCierre" value="#{cobroController.selected.idAperturaCierre}" required="true" requiredMessage="#{bundle.EditCobroRequiredMessage_idAperturaCierre}" converter="aperturaCierreCajaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{aperturaCierreCajaController.items}"
+                                           var="idAperturaCierreItem"
+                                           itemValue="#{idAperturaCierreItem}"
+                                           itemLabel="#{idAperturaCierreItem.idAperturaCierre.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditCobroLabel_idFormaCobro}" for="idFormaCobro" />
+                        <p:selectOneMenu id="idFormaCobro" value="#{cobroController.selected.idFormaCobro}" required="true" requiredMessage="#{bundle.EditCobroRequiredMessage_idFormaCobro}" converter="formaCobroConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{formaCobroController.items}"
+                                           var="idFormaCobroItem"
+                                           itemValue="#{idFormaCobroItem}"
+                                           itemLabel="#{idFormaCobroItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cobroController.save}" value="#{bundle.Save}" update="display,:CobroListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CobroEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CobroEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

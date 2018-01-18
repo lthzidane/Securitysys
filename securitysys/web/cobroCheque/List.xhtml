@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CobroChequeListForm">
+
+        <p:panel header="#{bundle.ListCobroChequeTitle}">
+            <p:dataTable id="datalist"
+                         value="#{cobroChequeController.items}"
+                         lazy="false"
+                         rowKey="#{item.cobroChequePK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{cobroChequeController.selected}"
+                         filteredValue="#{cobroChequeController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{cobroChequeController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.cobroChequePK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.cobroChequePK.idCobroCheque}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCobroChequeTitle_cobroChequePK_idCobroCheque}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cobroChequePK.idCobroCheque}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cobroChequePK.idCobro}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCobroChequeTitle_cobroChequePK_idCobro}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cobroChequePK.idCobro}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cobroChequePK.idCtaACobrar}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCobroChequeTitle_cobroChequePK_idCtaACobrar}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cobroChequePK.idCtaACobrar}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cobroChequePK.idVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCobroChequeTitle_cobroChequePK_idVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cobroChequePK.idVenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaEmision}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCobroChequeTitle_fechaEmision}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaEmision}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaVencimiento}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCobroChequeTitle_fechaVencimiento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaVencimiento}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.titularCheque}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCobroChequeTitle_titularCheque}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.titularCheque}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.nroCheque}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCobroChequeTitle_nroCheque}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nroCheque}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.montoCheque}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCobroChequeTitle_montoCheque}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.montoCheque}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idBanco.idBanco}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCobroChequeTitle_idBanco}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idBanco.idBanco}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.cobroDet.cobroDetPK}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCobroChequeTitle_cobroDet}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.cobroDet.cobroDetPK}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cobroChequeController.prepareCreate}" update=":CobroChequeCreateForm" oncomplete="PF('CobroChequeCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CobroChequeViewForm" oncomplete="PF('CobroChequeViewDialog').show()" disabled="#{empty cobroChequeController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CobroChequeEditForm" oncomplete="PF('CobroChequeEditDialog').show()" disabled="#{empty cobroChequeController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{cobroChequeController.delete}" update=":growl,datalist" disabled="#{empty cobroChequeController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

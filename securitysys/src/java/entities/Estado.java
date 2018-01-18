@@ -6,18 +6,17 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,104 +25,110 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author LOTHAR
+ * @author acer
  */
 @Entity
 @Table(name = "estado")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e"),
-    @NamedQuery(name = "Estado.findByIdEstado", query = "SELECT e FROM Estado e WHERE e.idEstado = :idEstado"),
-    @NamedQuery(name = "Estado.findByModulo", query = "SELECT e FROM Estado e WHERE e.modulo = :modulo"),
-    @NamedQuery(name = "Estado.findByEstado", query = "SELECT e FROM Estado e WHERE e.estado = :estado")})
+    @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e")
+    , @NamedQuery(name = "Estado.findByIdEstado", query = "SELECT e FROM Estado e WHERE e.idEstado = :idEstado")
+    , @NamedQuery(name = "Estado.findByDescripcion", query = "SELECT e FROM Estado e WHERE e.descripcion = :descripcion")})
 public class Estado implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_estado")
+    private Integer idEstado;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "descripcion")
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
-    private List<Reclamo> reclamoList;
+    private List<CuentaCliente> cuentaClienteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
-    private List<Servicio> servicioList;
+    private List<Contrato> contratoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
     private List<Presupuesto> presupuestoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
-    private List<PedidosCab> pedidosCabList;
+    private List<Reclamo> reclamoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
-    private List<PresupuestoCab> presupuestoCabList;
-    @OneToMany(mappedBy = "idEstado")
-    private List<OrdenTrabajoCab> ordenTrabajoCabList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
-    private List<Cliente> clienteList;
-    private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_estado")
-    @GeneratedValue(generator="EstadoSeq") 
-    @SequenceGenerator(name="EstadoSeq",sequenceName="id_estado_estado_seq_1", allocationSize=1) 
-
-    
-    private BigDecimal idEstado;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "modulo")
-    private String modulo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
-    @Column(name = "estado")
-    private String estado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
-    private List<OrdenCompraCab> ordenCompraCabList;
+    private List<Servicio> servicioList;
 
     public Estado() {
     }
 
-    public Estado(BigDecimal idEstado) {
+    public Estado(Integer idEstado) {
         this.idEstado = idEstado;
     }
 
-    public Estado(BigDecimal idEstado, String modulo, String estado) {
+    public Estado(Integer idEstado, String descripcion) {
         this.idEstado = idEstado;
-        this.modulo = modulo;
-        this.estado = estado;
+        this.descripcion = descripcion;
     }
 
-    public BigDecimal getIdEstado() {
+    public Integer getIdEstado() {
         return idEstado;
     }
 
-    public void setIdEstado(BigDecimal idEstado) {
+    public void setIdEstado(Integer idEstado) {
         this.idEstado = idEstado;
     }
 
-    public String getModulo() {
-        return modulo;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setModulo(String modulo) {
-        this.modulo = modulo;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @XmlTransient
-    public List<OrdenCompraCab> getOrdenCompraCabList() {
-        return ordenCompraCabList;
+    public List<CuentaCliente> getCuentaClienteList() {
+        return cuentaClienteList;
     }
 
-    public void setOrdenCompraCabList(List<OrdenCompraCab> ordenCompraCabList) {
-        this.ordenCompraCabList = ordenCompraCabList;
+    public void setCuentaClienteList(List<CuentaCliente> cuentaClienteList) {
+        this.cuentaClienteList = cuentaClienteList;
+    }
+
+    @XmlTransient
+    public List<Contrato> getContratoList() {
+        return contratoList;
+    }
+
+    public void setContratoList(List<Contrato> contratoList) {
+        this.contratoList = contratoList;
+    }
+
+    @XmlTransient
+    public List<Presupuesto> getPresupuestoList() {
+        return presupuestoList;
+    }
+
+    public void setPresupuestoList(List<Presupuesto> presupuestoList) {
+        this.presupuestoList = presupuestoList;
+    }
+
+    @XmlTransient
+    public List<Reclamo> getReclamoList() {
+        return reclamoList;
+    }
+
+    public void setReclamoList(List<Reclamo> reclamoList) {
+        this.reclamoList = reclamoList;
+    }
+
+    @XmlTransient
+    public List<Servicio> getServicioList() {
+        return servicioList;
+    }
+
+    public void setServicioList(List<Servicio> servicioList) {
+        this.servicioList = servicioList;
     }
 
     @Override
@@ -149,77 +154,6 @@ public class Estado implements Serializable {
     @Override
     public String toString() {
         return "entities.Estado[ idEstado=" + idEstado + " ]";
-    }
-
-    @XmlTransient
-    public List<Cliente> getClienteList() {
-        return clienteList;
-    }
-
-    public void setClienteList(List<Cliente> clienteList) {
-        this.clienteList = clienteList;
-    }
-
-    @XmlTransient
-    public List<OrdenTrabajoCab> getOrdenTrabajoCabList() {
-        return ordenTrabajoCabList;
-    }
-
-    public void setOrdenTrabajoCabList(List<OrdenTrabajoCab> ordenTrabajoCabList) {
-        this.ordenTrabajoCabList = ordenTrabajoCabList;
-    }
-
-    @XmlTransient
-    public List<PresupuestoCab> getPresupuestoCabList() {
-        return presupuestoCabList;
-    }
-
-    public void setPresupuestoCabList(List<PresupuestoCab> presupuestoCabList) {
-        this.presupuestoCabList = presupuestoCabList;
-    }
-
-    @XmlTransient
-    public List<PedidosCab> getPedidosCabList() {
-        return pedidosCabList;
-    }
-
-    public void setPedidosCabList(List<PedidosCab> pedidosCabList) {
-        this.pedidosCabList = pedidosCabList;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    @XmlTransient
-    public List<Reclamo> getReclamoList() {
-        return reclamoList;
-    }
-
-    public void setReclamoList(List<Reclamo> reclamoList) {
-        this.reclamoList = reclamoList;
-    }
-
-    @XmlTransient
-    public List<Servicio> getServicioList() {
-        return servicioList;
-    }
-
-    public void setServicioList(List<Servicio> servicioList) {
-        this.servicioList = servicioList;
-    }
-
-    @XmlTransient
-    public List<Presupuesto> getPresupuestoList() {
-        return presupuestoList;
-    }
-
-    public void setPresupuestoList(List<Presupuesto> presupuestoList) {
-        this.presupuestoList = presupuestoList;
     }
     
 }

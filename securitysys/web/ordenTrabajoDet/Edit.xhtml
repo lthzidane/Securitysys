@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="OrdenTrabajoDetEditDlg" widgetVar="OrdenTrabajoDetEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditOrdenTrabajoDetTitle}" closeOnEscape="true">
+
+            <h:form id="OrdenTrabajoDetEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{ordenTrabajoDetController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditOrdenTrabajoDetLabel_ordenTrabajoDetPK_idOrdenTrabajo}" for="ordenTrabajoDetPK_idOrdenTrabajo" />
+                        <h:outputText id="ordenTrabajoDetPK_idOrdenTrabajo" value="#{ordenTrabajoDetController.selected.ordenTrabajoDetPK.idOrdenTrabajo}" />
+
+
+                        <h:outputLabel value="#{bundle.EditOrdenTrabajoDetLabel_ordenTrabajoDetPK_idSecuencia}" for="ordenTrabajoDetPK_idSecuencia" />
+                        <h:outputText id="ordenTrabajoDetPK_idSecuencia" value="#{ordenTrabajoDetController.selected.ordenTrabajoDetPK.idSecuencia}" />
+
+                        <p:outputLabel value="#{bundle.EditOrdenTrabajoDetLabel_detalle}" for="detalle" />
+                        <p:inputTextarea rows="4" cols="30" id="detalle" value="#{ordenTrabajoDetController.selected.detalle}" title="#{bundle.EditOrdenTrabajoDetTitle_detalle}" required="true" requiredMessage="#{bundle.EditOrdenTrabajoDetRequiredMessage_detalle}"/>
+
+
+                        <h:outputLabel value="#{bundle.EditOrdenTrabajoDetLabel_ordenTrabajo}" for="ordenTrabajo" />
+                        <h:outputText id="ordenTrabajo" value="#{ordenTrabajoDetController.selected.ordenTrabajo}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ordenTrabajoDetController.save}" value="#{bundle.Save}" update="display,:OrdenTrabajoDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OrdenTrabajoDetEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('OrdenTrabajoDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

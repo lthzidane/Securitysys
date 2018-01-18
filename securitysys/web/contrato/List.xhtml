@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ContratoListForm">
+
+        <p:panel header="#{bundle.ListContratoTitle}">
+            <p:dataTable id="datalist"
+                         value="#{contratoController.items}"
+                         lazy="false"
+                         rowKey="#{item.contratoPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{contratoController.selected}"
+                         filteredValue="#{contratoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{contratoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.contratoPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.contratoPK.idContrato}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListContratoTitle_contratoPK_idContrato}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contratoPK.idContrato}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.contratoPK.idCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListContratoTitle_contratoPK_idCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contratoPK.idCliente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaIngreso}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListContratoTitle_fechaIngreso}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaIngreso}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cliente.idCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListContratoTitle_cliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cliente.idCliente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idEstado.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListContratoTitle_idEstado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEstado.descripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idServicio.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListContratoTitle_idServicio}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idServicio.descripcion}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.idSucursal.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListContratoTitle_idSucursal}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idSucursal.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{contratoController.prepareCreate}" update=":ContratoCreateForm" oncomplete="PF('ContratoCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ContratoViewForm" oncomplete="PF('ContratoViewDialog').show()" disabled="#{empty contratoController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ContratoEditForm" oncomplete="PF('ContratoEditDialog').show()" disabled="#{empty contratoController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{contratoController.delete}" update=":growl,datalist" disabled="#{empty contratoController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

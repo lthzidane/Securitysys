@@ -14,59 +14,51 @@
         </ui:define>
 
         <ui:define name="container">
-           <p:growl id="growl" life="3000" />
-           
-        <!--<ui:define name="body"> -->
+            <p:growl id="growl" life="3000" />
+
+            <!--<ui:define name="body"> -->
             <h:form id="DepartamentoListForm">
+
                 <p:panel header="#{bundle.ListDepartamentoTitle}">
-                    <p:dataTable id="datalist" value="#{departamentoController.items}" var="item"
-                                 selectionMode="single" selection="#{departamentoController.selected}"
+                    <p:dataTable id="datalist"
+                                 value="#{departamentoController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.idDepartamento}"
+                                 var="item"
                                  paginator="true"
-                                 rowKey="#{item.idDpto}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+                                 selectionMode="single"
+                                 selection="#{departamentoController.selected}"
+                                 filteredValue="#{departamentoController.filteredItems}">
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
-                        <p:column>
+                        <p:column sortBy="#{item.idDepartamento}">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDepartamentoTitle_idDpto}"/>
+                                <h:outputText value="#{bundle.ListDepartamentoTitle_idDepartamento}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idDpto}"/>
+                            <h:outputText value="#{item.idDepartamento}"/>
                         </p:column>
-                        <p:column>
+
+
+                        <p:column sortBy="#{item.descripcion}">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDepartamentoTitle_nombreDpto}"/>
+                                <h:outputText value="#{bundle.ListDepartamentoTitle_descripcion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.nombreDpto}" style="text-transform: uppercase"/>
+                            <h:outputText value="#{item.descripcion}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDepartamentoTitle_funcion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.funcion}" style="text-transform: uppercase"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDepartamentoTitle_responsable}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.responsable}" style="text-transform: uppercase"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDepartamentoTitle_estado}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.estado}" style="text-transform: uppercase"/>
-                        </p:column>
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{departamentoController.prepareCreate}" update=":DepartamentoCreateForm" oncomplete="PF('DepartamentoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DepartamentoViewForm" oncomplete="PF('DepartamentoViewDialog').show()" disabled="#{empty departamentoController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DepartamentoEditForm" oncomplete="PF('DepartamentoEditDialog').show()" disabled="#{empty departamentoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{departamentoController.destroy}" update=":growl,datalist" disabled="#{empty departamentoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{departamentoController.delete}" update=":growl,datalist" disabled="#{empty departamentoController.selected}"/>
                         </f:facet>
+
                     </p:dataTable>
+
                 </p:panel>
             </h:form>
 

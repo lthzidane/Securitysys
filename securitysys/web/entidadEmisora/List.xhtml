@@ -31,10 +31,11 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  selectionMode="single"
-                                 selection="#{entidadEmisoraController.selected}">
+                                 selection="#{entidadEmisoraController.selected}"
+                                 filteredValue="#{entidadEmisoraController.filteredItems}">
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton "/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton "/>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
                         <p:column sortBy="#{item.idEntidadEmisora}">
                             <f:facet name="header">
@@ -76,11 +77,12 @@
                         </p:column>
 
                         <f:facet name="footer">
-                            <p:commandButton id="createButton"  icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{entidadEmisoraController.prepareCreate}" update=":EntidadEmisoraCreateForm" oncomplete="PF('EntidadEmisoraCreateDialog').show()"/>
-                            <p:commandButton id="viewButton" icon="ui-icon-search" value="#{bundle.View}" update=":EntidadEmisoraViewForm" oncomplete="PF('EntidadEmisoraViewDialog').show()" disabled="#{empty entidadEmisoraController.selected}"/>
-                            <p:commandButton id="editButton"  icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EntidadEmisoraEditForm" oncomplete="PF('EntidadEmisoraEditDialog').show()" disabled="#{empty entidadEmisoraController.selected}"/>
-                            <p:commandButton id="deleteButton"  icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{entidadEmisoraController.delete}" update=":growl datalist" disabled="#{empty entidadEmisoraController.selected}"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{entidadEmisoraController.prepareCreate}" update=":EntidadEmisoraCreateForm" oncomplete="PF('EntidadEmisoraCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EntidadEmisoraViewForm" oncomplete="PF('EntidadEmisoraViewDialog').show()" disabled="#{empty entidadEmisoraController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EntidadEmisoraEditForm" oncomplete="PF('EntidadEmisoraEditDialog').show()" disabled="#{empty entidadEmisoraController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{entidadEmisoraController.delete}" update=":growl,datalist" disabled="#{empty entidadEmisoraController.selected}"/>
                         </f:facet>
+
                     </p:dataTable>
 
                 </p:panel>

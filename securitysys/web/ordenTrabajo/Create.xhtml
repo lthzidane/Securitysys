@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrdenTrabajoCreateDlg" widgetVar="OrdenTrabajoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateOrdenTrabajoTitle}" closeOnEscape="true">
+
+            <h:form id="OrdenTrabajoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{ordenTrabajoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_fechaOrden}" for="fechaOrden" />
+                        <p:calendar id="fechaOrden" pattern="MM/dd/yyyy" value="#{ordenTrabajoController.selected.fechaOrden}" title="#{bundle.CreateOrdenTrabajoTitle_fechaOrden}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_fechaOrden}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_idEstado}" for="idEstado" />
+                        <p:inputText id="idEstado" value="#{ordenTrabajoController.selected.idEstado}" title="#{bundle.CreateOrdenTrabajoTitle_idEstado}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idEstado}"/>
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_idCliente}" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" value="#{ordenTrabajoController.selected.idCliente}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idCliente}" converter="clienteConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clienteController.items}"
+                                           var="idClienteItem"
+                                           itemValue="#{idClienteItem}"
+                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_idCuadrilla}" for="idCuadrilla" />
+                        <p:selectOneMenu id="idCuadrilla" value="#{ordenTrabajoController.selected.idCuadrilla}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idCuadrilla}" converter="cuadrillaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cuadrillaController.items}"
+                                           var="idCuadrillaItem"
+                                           itemValue="#{idCuadrillaItem}"
+                                           itemLabel="#{idCuadrillaItem.idCuadrilla.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_idItinerario}" for="idItinerario" />
+                        <p:selectOneMenu id="idItinerario" value="#{ordenTrabajoController.selected.idItinerario}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idItinerario}" converter="itinerarioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{itinerarioController.items}"
+                                           var="idItinerarioItem"
+                                           itemValue="#{idItinerarioItem}"
+                                           itemLabel="#{idItinerarioItem.idItinerario.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_idPresupuesto}" for="idPresupuesto" />
+                        <p:selectOneMenu id="idPresupuesto" value="#{ordenTrabajoController.selected.idPresupuesto}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idPresupuesto}" converter="presupuestoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{presupuestoController.items}"
+                                           var="idPresupuestoItem"
+                                           itemValue="#{idPresupuestoItem}"
+                                           itemLabel="#{idPresupuestoItem.idPresupuesto.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_idReclamo}" for="idReclamo" />
+                        <p:selectOneMenu id="idReclamo" value="#{ordenTrabajoController.selected.idReclamo}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idReclamo}" converter="reclamoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{reclamoController.items}"
+                                           var="idReclamoItem"
+                                           itemValue="#{idReclamoItem}"
+                                           itemLabel="#{idReclamoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_idSolicitud}" for="idSolicitud" />
+                        <p:selectOneMenu id="idSolicitud" value="#{ordenTrabajoController.selected.idSolicitud}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idSolicitud}" converter="solicitudConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{solicitudController.items}"
+                                           var="idSolicitudItem"
+                                           itemValue="#{idSolicitudItem}"
+                                           itemLabel="#{idSolicitudItem.idSolicitud.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_idSucursal}" for="idSucursal" />
+                        <p:selectOneMenu id="idSucursal" value="#{ordenTrabajoController.selected.idSucursal}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idSucursal}" converter="sucursalConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sucursalController.items}"
+                                           var="idSucursalItem"
+                                           itemValue="#{idSucursalItem}"
+                                           itemLabel="#{idSucursalItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{ordenTrabajoController.selected.idUsuario}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idUsuario}" converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ordenTrabajoController.saveNew}" value="#{bundle.Save}" update="display,:OrdenTrabajoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OrdenTrabajoCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('OrdenTrabajoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

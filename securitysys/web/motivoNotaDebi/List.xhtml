@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MotivoNotaDebiListForm">
+
+        <p:panel header="#{bundle.ListMotivoNotaDebiTitle}">
+            <p:dataTable id="datalist"
+                         value="#{motivoNotaDebiController.items}"
+                         lazy="false"
+                         rowKey="#{item.idMotivoNota}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{motivoNotaDebiController.selected}"
+                         filteredValue="#{motivoNotaDebiController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{motivoNotaDebiController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idMotivoNota}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.idMotivoNota}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListMotivoNotaDebiTitle_idMotivoNota}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idMotivoNota}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descMotivoNota}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListMotivoNotaDebiTitle_descMotivoNota}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descMotivoNota}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.tipoNota}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListMotivoNotaDebiTitle_tipoNota}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tipoNota}"/>
+                </p:column>
+
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{motivoNotaDebiController.prepareCreate}" update=":MotivoNotaDebiCreateForm" oncomplete="PF('MotivoNotaDebiCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MotivoNotaDebiViewForm" oncomplete="PF('MotivoNotaDebiViewDialog').show()" disabled="#{empty motivoNotaDebiController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MotivoNotaDebiEditForm" oncomplete="PF('MotivoNotaDebiEditDialog').show()" disabled="#{empty motivoNotaDebiController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{motivoNotaDebiController.delete}" update=":growl,datalist" disabled="#{empty motivoNotaDebiController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

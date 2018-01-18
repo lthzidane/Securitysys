@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VentaDetViewDlg" widgetVar="VentaDetViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewVentaDetTitle}" closeOnEscape="true">
+
+            <h:form id="VentaDetViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{ventaDetController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_ventaDetPK_idVenta}"/>
+                        <h:outputText value="#{ventaDetController.selected.ventaDetPK.idVenta}" title="#{bundle.ViewVentaDetTitle_ventaDetPK_idVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_ventaDetPK_idSecuencia}"/>
+                        <h:outputText value="#{ventaDetController.selected.ventaDetPK.idSecuencia}" title="#{bundle.ViewVentaDetTitle_ventaDetPK_idSecuencia}"/>
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_cantidad}"/>
+                        <h:outputText value="#{ventaDetController.selected.cantidad}" title="#{bundle.ViewVentaDetTitle_cantidad}"/>
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_precioVenta}"/>
+                        <h:outputText value="#{ventaDetController.selected.precioVenta}" title="#{bundle.ViewVentaDetTitle_precioVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_exento}"/>
+                        <h:outputText value="#{ventaDetController.selected.exento}" title="#{bundle.ViewVentaDetTitle_exento}"/>
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_gravada5}"/>
+                        <h:outputText value="#{ventaDetController.selected.gravada5}" title="#{bundle.ViewVentaDetTitle_gravada5}"/>
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_gravada10}"/>
+                        <h:outputText value="#{ventaDetController.selected.gravada10}" title="#{bundle.ViewVentaDetTitle_gravada10}"/>
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_iva5}"/>
+                        <h:outputText value="#{ventaDetController.selected.iva5}" title="#{bundle.ViewVentaDetTitle_iva5}"/>
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_iva10}"/>
+                        <h:outputText value="#{ventaDetController.selected.iva10}" title="#{bundle.ViewVentaDetTitle_iva10}"/>
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_idDescuento}"/>
+                        <h:outputText value="#{ventaDetController.selected.idDescuento.descripcionDesc}"/>
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_idEquipo}"/>
+                        <h:outputText value="#{ventaDetController.selected.idEquipo.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_idPromocion}"/>
+                        <h:outputText value="#{ventaDetController.selected.idPromocion.promocionPK}"/>
+
+                        <h:outputText value="#{bundle.ViewVentaDetLabel_venta}"/>
+                        <h:outputText value="#{ventaDetController.selected.venta.idVenta}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('VentaDetViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

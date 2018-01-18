@@ -7,7 +7,6 @@ package bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -87,17 +86,17 @@ public class OrdenCompraBean implements Serializable{
 
         try {
 
-            setDetalleOC(new ArrayList<Sale>());
-            for (int i = 0; i < 10; i++) {
-                
-                int cant = getRandomAmount();
-                int pUni = getRandomPercentage();
-                getDetalleOC().add(new Sale(getNombreProducto()[i], 
-                        i+1, 
-                        cant, 
-                        pUni, 
-                        cant*pUni  ));
-            }
+//            setDetalleOC(new ArrayList<Sale>());
+//            for (int i = 0; i < 10; i++) {
+//                
+//                int cant = getRandomAmount();
+//                int pUni = getRandomPercentage();
+//                getDetalleOC().add(new Sale(getNombreProducto()[i], 
+//                        i+1, 
+//                        cant, 
+//                        pUni, 
+//                        cant*pUni  ));
+//            }
 
             nroDeOrden = "0001";
 
@@ -153,9 +152,9 @@ public class OrdenCompraBean implements Serializable{
     public String getLastYearTotal() {
         int total = 0;
  
-        for(Sale sale : getDetalleOC()) {
-            total += sale.getNroOrden();
-        }
+//        for(Sale sale : getDetalleOC()) {
+//            total += sale.getIdOt();
+//        }
  
         return new DecimalFormat("###,###").format(total);
     }
@@ -163,11 +162,19 @@ public class OrdenCompraBean implements Serializable{
     public String getOrdenCompraTotal() {
         int total = 0;
  
-        for(Sale sale : getDetalleOC()) {
-            total += sale.getPrecioTotal();
-        }
+//        for(Sale sale : getDetalleOC()) {
+//            total += sale.getPrecioTotal();
+//        }
  
         return new DecimalFormat("###,###").format(total);
+    }
+
+    private void setDetalleOC(ArrayList<Sale> arrayList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private Object getDetalleOC() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

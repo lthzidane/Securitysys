@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CobroViewDlg" widgetVar="CobroViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewCobroTitle}" closeOnEscape="true">
+
+            <h:form id="CobroViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{cobroController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewCobroLabel_idCobro}"/>
+                        <h:outputText value="#{cobroController.selected.idCobro}" title="#{bundle.ViewCobroTitle_idCobro}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroLabel_fechaCobro}"/>
+                        <h:outputText value="#{cobroController.selected.fechaCobro}" title="#{bundle.ViewCobroTitle_fechaCobro}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewCobroLabel_nroRecibo}"/>
+                        <h:outputText value="#{cobroController.selected.nroRecibo}" title="#{bundle.ViewCobroTitle_nroRecibo}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroLabel_efectivo}"/>
+                        <h:outputText value="#{cobroController.selected.efectivo}" title="#{bundle.ViewCobroTitle_efectivo}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroLabel_estadoCobro}"/>
+                        <h:outputText value="#{cobroController.selected.estadoCobro}" title="#{bundle.ViewCobroTitle_estadoCobro}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroLabel_idAperturaCierre}"/>
+                        <h:outputText value="#{cobroController.selected.idAperturaCierre.idAperturaCierre}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroLabel_idFormaCobro}"/>
+                        <h:outputText value="#{cobroController.selected.idFormaCobro.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('CobroViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

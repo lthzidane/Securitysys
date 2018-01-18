@@ -37,15 +37,17 @@
             <file>file:/C:/test/Securitysys/securitysys/web/OrdenTrabajo.xhtml</file>
             <file>file:/C:/test/Securitysys/securitysys/src/java/bean/MonitoreoClientesBean.java</file>
         </group>
-        <group>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/DataConnect.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/LoginDao.java</file>
-        </group>
         <group name="SecuritySys">
             <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/timbrado/Edit.xhtml</file>
             <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/timbrado/Create.xhtml</file>
             <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
             <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/timbrado/List.xhtml</file>
+        </group>
+        <group>
+            <file>file:/C:/test/Securitysys/securitysys/web/depositos/List.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/depositos/Edit.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/AperturaCajaBean.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/AperturaCierreCajaFacade.java</file>
         </group>
     </open-files>
 </project-private>

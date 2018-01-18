@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-      <ui:composition template="/resources/templates/template.xhtml">
+    <ui:composition template="/resources/templates/template.xhtml">
 
         <ui:define name="title">Clientes</ui:define>
         <ui:define name="containerTitle">
@@ -14,92 +14,126 @@
         </ui:define>
 
 
-          <ui:define name="container">
-           <script name="jquery/jquery.js" library="primefaces"></script>
-           <h:outputStylesheet library="css" name="menu.css" />
-           <h:outputStylesheet library="css" name="facade.css" />
-           <p:growl id="growl" life="3000" />
-        <!--<ui:define name="body">-->
+        <ui:define name="container">
+            <script name="jquery/jquery.js" library="primefaces"></script>
+            <h:outputStylesheet library="css" name="menu.css" />
+            <h:outputStylesheet library="css" name="facade.css" />
+            <p:growl id="growl" life="3000" />
+            <!--<ui:define name="body">-->
             <h:form id="ClienteListForm">
+
                 <p:panel header="#{bundle.ListClienteTitle}">
-                    <p:dataTable id="datalist" value="#{clienteController.items}" var="item"
-                                 selectionMode="single" selection="#{clienteController.selected}"
-                                 paginator="true"
+                    <p:dataTable id="datalist"
+                                 value="#{clienteController.items}"
+                                 lazy="false"
                                  rowKey="#{item.idCliente}"
+                                 var="item"
+                                 paginator="true"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+                                 selectionMode="single"
+                                 selection="#{clienteController.selected}"
+                                 filteredValue="#{clienteController.filteredItems}">
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
-                        <p:column rendered="false">
+                        <p:column sortBy="#{item.idCliente}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_idCliente}"/>
                             </f:facet>
                             <h:outputText value="#{item.idCliente}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_tipoCliente}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idTipoCliente.tipoCliente}"/>
-                        </p:column>
-                        <p:column>
+
+
+                        <p:column sortBy="#{item.nombre}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_nombre}"/>
                             </f:facet>
-                            <h:outputText value="#{item.nombre}" style="text-transform: uppercase"/>
+                            <h:outputText value="#{item.nombre}"/>
                         </p:column>
-                        <p:column>
+
+
+                        <p:column sortBy="#{item.apellido}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_apellido}"/>
                             </f:facet>
-                            <h:outputText value="#{item.apellido}" style="text-transform: uppercase"/>
+                            <h:outputText value="#{item.apellido}"/>
                         </p:column>
-                        <p:column>
+
+
+                        <p:column sortBy="#{item.numeroDocumento}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_numeroDocumento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeroDocumento}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.direccion}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_direccion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.direccion}" style="text-transform: uppercase"/>
+                            <h:outputText value="#{item.direccion}"/>
                         </p:column>
-                        <p:column>
+
+
+                        <p:column sortBy="#{item.telefono}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_telefono}"/>
                             </f:facet>
                             <h:outputText value="#{item.telefono}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_idCiudad}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idCiudad.ciudad}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_idEstado}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idEstado.estado}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_idTipoDocu}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idTipoDocu.tipoDocu}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_nroDocu}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nroDocumento}"/>
-                        </p:column>
+
+                        <ui:remove>
+                            <p:column sortBy="#{item.EMail}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListClienteTitle_EMail}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.EMail}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.estadoCliente}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListClienteTitle_estadoCliente}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.estadoCliente}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.idCiudad.idCiudad}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListClienteTitle_idCiudad}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCiudad.idCiudad}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.idNacionalidad.descripcion}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListClienteTitle_idNacionalidad}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idNacionalidad.descripcion}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.idTipoDocumento.descripcion}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListClienteTitle_idTipoDocumento}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idTipoDocumento.descripcion}"/>
+                            </p:column>
+                        </ui:remove>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{clienteController.prepareCreate}" update=":ClienteCreateForm" oncomplete="PF('ClienteCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty clienteController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ClienteEditForm" oncomplete="PF('ClienteEditDialog').show()" disabled="#{empty clienteController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{clienteController.destroy}" update=":growl,datalist" disabled="#{empty clienteController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{clienteController.delete}" update=":growl,datalist" disabled="#{empty clienteController.selected}"/>
                         </f:facet>
+
                     </p:dataTable>
+
                 </p:panel>
             </h:form>
 

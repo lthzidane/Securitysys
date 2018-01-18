@@ -2,18 +2,20 @@ package session;
 
 import bean.AbstractFacade;
 import bean.LazyEntityDataModel;
+import session.util.JsfUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJBException;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
+
+import java.util.ResourceBundle;
+import javax.ejb.EJBException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import session.util.JsfUtil;
 
 /**
  * Represents an abstract shell of to be used as JSF Controller to be used in
@@ -26,14 +28,15 @@ public abstract class AbstractController<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Inject
     private AbstractFacade<T> ejbFacade;
     private Class<T> itemClass;
     private T selected;
     private Collection<T> items;
     private LazyEntityDataModel<T> lazyItems;
+    private List<T> filteredItems;
 
     private enum PersistAction {
-
         CREATE,
         DELETE,
         UPDATE
@@ -47,13 +50,6 @@ public abstract class AbstractController<T> implements Serializable {
     }
 
     /**
-     * Initialize the concrete controller bean. This AbstractController requires
-     * the EJB Facade object for most operations, and that task is performed by
-     * the concrete controller bean.
-     */
-    public abstract void init();
-
-    /**
      * Retrieve the current EJB Facade object so that other beans in this
      * package can perform additional data layer tasks (e.g. additional queries)
      *
@@ -65,15 +61,13 @@ public abstract class AbstractController<T> implements Serializable {
     }
 
     /**
-     * Sets the concrete EJB Facade object so that data layer actions can be
-     * performed. This applies to all basic CRUD actions this controller
-     * performs.
+     * Set any isChildEntityEmpty flags, if any children are defined in entity.
+     * This method should be overridden inside specific entity controllers if
+     * the entity has any OneToMany relationships. (see specific controllers for
+     * more detail.
      *
-     * @param ejbFacade the concrete EJB Facade to perform data layer actions
-     * with
      */
-    protected void setFacade(AbstractFacade<T> ejbFacade) {
-        this.ejbFacade = ejbFacade;
+    protected void setChildrenEmptyFlags() {
     }
 
     /**
@@ -91,7 +85,14 @@ public abstract class AbstractController<T> implements Serializable {
      * @param selected the Entity that should be set as selected
      */
     public void setSelected(T selected) {
-        this.selected = selected;
+        if (selected != null) {
+            if (this.selected == null || !this.selected.equals(selected)) {
+                this.selected = this.ejbFacade.findWithParents(selected);
+                this.setChildrenEmptyFlags();
+            }
+        } else {
+            this.selected = null;
+        }
     }
 
     /**
@@ -158,6 +159,14 @@ public abstract class AbstractController<T> implements Serializable {
         }
     }
 
+    public List<T> getFilteredItems() {
+        return filteredItems;
+    }
+
+    public void setFilteredItems(List<T> filteredItems) {
+        this.filteredItems = filteredItems;
+    }
+
     /**
      * Apply changes to an existing item to the data layer.
      *
@@ -167,6 +176,23 @@ public abstract class AbstractController<T> implements Serializable {
     public void save(ActionEvent event) {
         String msg = ResourceBundle.getBundle("/Bundle").getString(itemClass.getSimpleName() + "Updated");
         persist(PersistAction.UPDATE, msg);
+
+        if (!isValidationFailed()) {
+
+            // Update the existing entity inside the item list
+            List<T> itemList = refreshItem(this.selected, this.items);
+            // If the original list has changed (it is a new object)
+            if (this.items != itemList) {
+                this.setItems(itemList);
+            }
+
+            // Also refresh the filteredItems list in case the user has filtered the DataTable
+            if (filteredItems != null) {
+                refreshItem(this.selected, this.filteredItems);
+            }
+
+        }
+
     }
 
     /**
@@ -219,9 +245,10 @@ public abstract class AbstractController<T> implements Serializable {
                 } else {
                     this.ejbFacade.remove(selected);
                 }
+                this.setChildrenEmptyFlags();
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
-                Throwable cause = ex.getCause();
+                Throwable cause = JsfUtil.getRootCause(ex.getCause());
                 if (cause != null) {
                     if (cause instanceof ConstraintViolationException) {
                         ConstraintViolationException excp = (ConstraintViolationException) cause;
@@ -274,4 +301,34 @@ public abstract class AbstractController<T> implements Serializable {
         return JsfUtil.isValidationFailed();
     }
 
+    /**
+     * Retrieve all messages as a String to be displayed on the page.
+     *
+     * @param clientComponent the component for which the message applies
+     * @param defaultMessage a default message to be shown
+     * @return a concatenation of all messages
+     */
+    public String getComponentMessages(String clientComponent, String defaultMessage) {
+        return JsfUtil.getComponentMessages(clientComponent, defaultMessage);
+    }
+
+    private List<T> refreshItem(T item, Collection<T> items) {
+        // Use List#set to replace the existing instance of this entity
+        // If items is not a List, convert the Collection to a List
+        List<T> itemList;
+        if (this.items instanceof List) {
+            itemList = (List<T>) items;
+        } else {
+            itemList = new ArrayList<>(items);
+        }
+        int i = itemList.indexOf(item);
+        if (i >= 0) {
+            try {
+                itemList.set(i, item);
+            } catch (UnsupportedOperationException ex) {
+                return refreshItem(item, new ArrayList<>(items));
+            }
+        }
+        return itemList;
+    }
 }

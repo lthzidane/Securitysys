@@ -25,18 +25,19 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Entity
 @Table(name = "descuento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Descuento.findAll", query = "SELECT d FROM Descuento d"),
-    @NamedQuery(name = "Descuento.findByIdDescuento", query = "SELECT d FROM Descuento d WHERE d.idDescuento = :idDescuento"),
-    @NamedQuery(name = "Descuento.findByIdUsuario", query = "SELECT d FROM Descuento d WHERE d.idUsuario = :idUsuario"),
-    @NamedQuery(name = "Descuento.findByIdSucursal", query = "SELECT d FROM Descuento d WHERE d.idSucursal = :idSucursal"),
-    @NamedQuery(name = "Descuento.findByDescripcionDesc", query = "SELECT d FROM Descuento d WHERE d.descripcionDesc = :descripcionDesc")})
+    @NamedQuery(name = "Descuento.findAll", query = "SELECT d FROM Descuento d")
+    , @NamedQuery(name = "Descuento.findByIdDescuento", query = "SELECT d FROM Descuento d WHERE d.idDescuento = :idDescuento")
+    , @NamedQuery(name = "Descuento.findByIdUsuario", query = "SELECT d FROM Descuento d WHERE d.idUsuario = :idUsuario")
+    , @NamedQuery(name = "Descuento.findByIdSucursal", query = "SELECT d FROM Descuento d WHERE d.idSucursal = :idSucursal")
+    , @NamedQuery(name = "Descuento.findByDescripcionDesc", query = "SELECT d FROM Descuento d WHERE d.descripcionDesc = :descripcionDesc")})
 public class Descuento implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,7 +58,15 @@ public class Descuento implements Serializable {
     @Column(name = "descripcion_desc")
     private String descripcionDesc;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDescuento")
+    private List<SolicitudDet> solicitudDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "descuento")
+    private List<DescuentoDet> descuentoDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDescuento")
+    private List<PresupuestoDet> presupuestoDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDescuento")
     private List<Servicio> servicioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDescuento")
+    private List<VentaDet> ventaDetList;
 
     public Descuento() {
     }
@@ -106,12 +115,48 @@ public class Descuento implements Serializable {
     }
 
     @XmlTransient
+    public List<SolicitudDet> getSolicitudDetList() {
+        return solicitudDetList;
+    }
+
+    public void setSolicitudDetList(List<SolicitudDet> solicitudDetList) {
+        this.solicitudDetList = solicitudDetList;
+    }
+
+    @XmlTransient
+    public List<DescuentoDet> getDescuentoDetList() {
+        return descuentoDetList;
+    }
+
+    public void setDescuentoDetList(List<DescuentoDet> descuentoDetList) {
+        this.descuentoDetList = descuentoDetList;
+    }
+
+    @XmlTransient
+    public List<PresupuestoDet> getPresupuestoDetList() {
+        return presupuestoDetList;
+    }
+
+    public void setPresupuestoDetList(List<PresupuestoDet> presupuestoDetList) {
+        this.presupuestoDetList = presupuestoDetList;
+    }
+
+    @XmlTransient
     public List<Servicio> getServicioList() {
         return servicioList;
     }
 
     public void setServicioList(List<Servicio> servicioList) {
         this.servicioList = servicioList;
+    }
+
+    @XmlTransient
+    public List<VentaDet> getVentaDetList() {
+        return ventaDetList;
+    }
+
+    public void setVentaDetList(List<VentaDet> ventaDetList) {
+        this.ventaDetList = ventaDetList;
     }
 
     @Override

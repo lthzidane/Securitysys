@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SolicitudDetCreateDlg" widgetVar="SolicitudDetCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSolicitudDetTitle}" closeOnEscape="true">
+
+            <h:form id="SolicitudDetCreateForm">
+
+                <h:panelGroup id="display" rendered="#{solicitudDetController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateSolicitudDetLabel_solicitudDetPK_idSolicitudCab}" for="solicitudDetPK_idSolicitudCab" />
+                        <p:inputText id="solicitudDetPK_idSolicitudCab" value="#{solicitudDetController.selected.solicitudDetPK.idSolicitudCab}" title="#{bundle.CreateSolicitudDetTitle_solicitudDetPK_idSolicitudCab}" required="true" requiredMessage="#{bundle.CreateSolicitudDetRequiredMessage_solicitudDetPK_idSolicitudCab}"/>
+
+                        <p:outputLabel value="#{bundle.CreateSolicitudDetLabel_solicitudDetPK_idSecuencia}" for="solicitudDetPK_idSecuencia" />
+                        <p:inputText id="solicitudDetPK_idSecuencia" value="#{solicitudDetController.selected.solicitudDetPK.idSecuencia}" title="#{bundle.CreateSolicitudDetTitle_solicitudDetPK_idSecuencia}" required="true" requiredMessage="#{bundle.CreateSolicitudDetRequiredMessage_solicitudDetPK_idSecuencia}"/>
+
+                        <p:outputLabel value="#{bundle.CreateSolicitudDetLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{solicitudDetController.selected.descripcion}" title="#{bundle.CreateSolicitudDetTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateSolicitudDetRequiredMessage_descripcion}" size="250" maxlength="250"/>
+
+                        <p:outputLabel value="#{bundle.CreateSolicitudDetLabel_idDescuento}" for="idDescuento" />
+                        <p:selectOneMenu id="idDescuento" value="#{solicitudDetController.selected.idDescuento}" required="true" requiredMessage="#{bundle.CreateSolicitudDetRequiredMessage_idDescuento}" converter="descuentoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{descuentoController.items}"
+                                           var="idDescuentoItem"
+                                           itemValue="#{idDescuentoItem}"
+                                           itemLabel="#{idDescuentoItem.descripcionDesc.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateSolicitudDetLabel_idPromocion}" for="idPromocion" />
+                        <p:selectOneMenu id="idPromocion" value="#{solicitudDetController.selected.idPromocion}" required="true" requiredMessage="#{bundle.CreateSolicitudDetRequiredMessage_idPromocion}" converter="promocionConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{promocionController.items}"
+                                           var="idPromocionItem"
+                                           itemValue="#{idPromocionItem}"
+                                           itemLabel="#{idPromocionItem.promocionPK.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateSolicitudDetLabel_idServicio}" for="idServicio" />
+                        <p:selectOneMenu id="idServicio" value="#{solicitudDetController.selected.idServicio}" required="true" requiredMessage="#{bundle.CreateSolicitudDetRequiredMessage_idServicio}" converter="servicioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{servicioController.items}"
+                                           var="idServicioItem"
+                                           itemValue="#{idServicioItem}"
+                                           itemLabel="#{idServicioItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateSolicitudDetLabel_solicitud}" for="solicitud" />
+                        <p:selectOneMenu id="solicitud" value="#{solicitudDetController.selected.solicitud}" required="true" requiredMessage="#{bundle.CreateSolicitudDetRequiredMessage_solicitud}" converter="solicitudConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{solicitudController.items}"
+                                           var="solicitudItem"
+                                           itemValue="#{solicitudItem}"
+                                           itemLabel="#{solicitudItem.idSolicitud.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{solicitudDetController.saveNew}" value="#{bundle.Save}" update="display,:SolicitudDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SolicitudDetCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('SolicitudDetCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -23,21 +23,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Entity
 @Table(name = "empresa")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Empresa.findAll", query = "SELECT e FROM Empresa e"),
-    @NamedQuery(name = "Empresa.findByIdEmpresa", query = "SELECT e FROM Empresa e WHERE e.idEmpresa = :idEmpresa"),
-    @NamedQuery(name = "Empresa.findByPropietario", query = "SELECT e FROM Empresa e WHERE e.propietario = :propietario"),
-    @NamedQuery(name = "Empresa.findByNombre", query = "SELECT e FROM Empresa e WHERE e.nombre = :nombre"),
-    @NamedQuery(name = "Empresa.findByDireccion", query = "SELECT e FROM Empresa e WHERE e.direccion = :direccion"),
-    @NamedQuery(name = "Empresa.findByTelefono", query = "SELECT e FROM Empresa e WHERE e.telefono = :telefono"),
-    @NamedQuery(name = "Empresa.findByRuc", query = "SELECT e FROM Empresa e WHERE e.ruc = :ruc"),
-    @NamedQuery(name = "Empresa.findByRubro", query = "SELECT e FROM Empresa e WHERE e.rubro = :rubro")})
+    @NamedQuery(name = "Empresa.findAll", query = "SELECT e FROM Empresa e")
+    , @NamedQuery(name = "Empresa.findByIdEmpresa", query = "SELECT e FROM Empresa e WHERE e.idEmpresa = :idEmpresa")
+    , @NamedQuery(name = "Empresa.findByPropietario", query = "SELECT e FROM Empresa e WHERE e.propietario = :propietario")
+    , @NamedQuery(name = "Empresa.findByNombre", query = "SELECT e FROM Empresa e WHERE e.nombre = :nombre")
+    , @NamedQuery(name = "Empresa.findByDireccion", query = "SELECT e FROM Empresa e WHERE e.direccion = :direccion")
+    , @NamedQuery(name = "Empresa.findByTelefono", query = "SELECT e FROM Empresa e WHERE e.telefono = :telefono")
+    , @NamedQuery(name = "Empresa.findByRuc", query = "SELECT e FROM Empresa e WHERE e.ruc = :ruc")
+    , @NamedQuery(name = "Empresa.findByRubro", query = "SELECT e FROM Empresa e WHERE e.rubro = :rubro")})
 public class Empresa implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -93,7 +94,7 @@ public class Empresa implements Serializable {
         this.nombre = nombre.toUpperCase();
         this.direccion = direccion.toUpperCase();
         this.telefono = telefono;
-        this.ruc = ruc.toUpperCase();
+        this.ruc = ruc;
         this.rubro = rubro.toUpperCase();
     }
 
@@ -142,7 +143,7 @@ public class Empresa implements Serializable {
     }
 
     public void setRuc(String ruc) {
-        this.ruc = ruc.toUpperCase();
+        this.ruc = ruc;
     }
 
     public String getRubro() {

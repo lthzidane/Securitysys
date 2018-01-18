@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
+        <p:dialog id="EstadoEditDlg" widgetVar="EstadoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditEstadoTitle}" closeOnEscape="true">
 
-        <p:dialog id="EstadoEditDlg" widgetVar="EstadoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEstadoTitle}">
             <h:form id="EstadoEditForm">
+
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{estadoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditEstadoLabel_idEstado}" for="idEstado" rendered="false"/>
-                        <p:inputText id="idEstado" value="#{estadoController.selected.idEstado}" title="#{bundle.EditEstadoTitle_idEstado}" required="true" requiredMessage="#{bundle.EditEstadoRequiredMessage_idEstado}" rendered="false"/>
-                        <p:outputLabel value="#{bundle.EditEstadoLabel_modulo}" for="modulo" />
-                        <p:inputText id="modulo" value="#{estadoController.selected.modulo}" title="#{bundle.EditEstadoTitle_modulo}" required="true" requiredMessage="#{bundle.EditEstadoRequiredMessage_modulo}"  style="text-transform: uppercase"/>
-                        <p:outputLabel value="#{bundle.EditEstadoLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{estadoController.selected.estado}" title="#{bundle.EditEstadoTitle_estado}" required="true" requiredMessage="#{bundle.EditEstadoRequiredMessage_estado}"  style="text-transform: uppercase"/>
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{estadoController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditEstadoLabel_idEstado}" for="idEstado" />
+                        <h:outputText id="idEstado" value="#{estadoController.selected.idEstado}" />
+
+                        <p:outputLabel value="#{bundle.EditEstadoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{estadoController.selected.descripcion}" title="#{bundle.EditEstadoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditEstadoRequiredMessage_descripcion}" size="20" maxlength="20" style="text-transform: uppercase"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{estadoController.update}" value="#{bundle.Save}" update="display,:EstadoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="EstadoEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
+
             </h:form>
+
         </p:dialog>
 
     </ui:composition>
+
 </html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ContratoEditDlg" widgetVar="ContratoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditContratoTitle}" closeOnEscape="true">
+
+            <h:form id="ContratoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{contratoController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditContratoLabel_contratoPK_idContrato}" for="contratoPK_idContrato" />
+                        <h:outputText id="contratoPK_idContrato" value="#{contratoController.selected.contratoPK.idContrato}" />
+
+
+                        <h:outputLabel value="#{bundle.EditContratoLabel_contratoPK_idCliente}" for="contratoPK_idCliente" />
+                        <h:outputText id="contratoPK_idCliente" value="#{contratoController.selected.contratoPK.idCliente}" />
+
+                        <p:outputLabel value="#{bundle.EditContratoLabel_fechaIngreso}" for="fechaIngreso" />
+                        <p:calendar id="fechaIngreso" pattern="MM/dd/yyyy" value="#{contratoController.selected.fechaIngreso}" title="#{bundle.EditContratoTitle_fechaIngreso}" required="true" requiredMessage="#{bundle.EditContratoRequiredMessage_fechaIngreso}" showOn="button"/>
+
+
+                        <h:outputLabel value="#{bundle.EditContratoLabel_cliente}" for="cliente" />
+                        <h:outputText id="cliente" value="#{contratoController.selected.cliente}" />
+
+                        <p:outputLabel value="#{bundle.EditContratoLabel_idEstado}" for="idEstado" />
+                        <p:selectOneMenu id="idEstado" value="#{contratoController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditContratoRequiredMessage_idEstado}" converter="estadoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{estadoController.items}"
+                                           var="idEstadoItem"
+                                           itemValue="#{idEstadoItem}"
+                                           itemLabel="#{idEstadoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditContratoLabel_idServicio}" for="idServicio" />
+                        <p:selectOneMenu id="idServicio" value="#{contratoController.selected.idServicio}" required="true" requiredMessage="#{bundle.EditContratoRequiredMessage_idServicio}" converter="servicioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{servicioController.items}"
+                                           var="idServicioItem"
+                                           itemValue="#{idServicioItem}"
+                                           itemLabel="#{idServicioItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditContratoLabel_idSucursal}" for="idSucursal" />
+                        <p:selectOneMenu id="idSucursal" value="#{contratoController.selected.idSucursal}" required="true" requiredMessage="#{bundle.EditContratoRequiredMessage_idSucursal}" converter="sucursalConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sucursalController.items}"
+                                           var="idSucursalItem"
+                                           itemValue="#{idSucursalItem}"
+                                           itemLabel="#{idSucursalItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contratoController.save}" value="#{bundle.Save}" update="display,:ContratoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ContratoEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ContratoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

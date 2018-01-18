@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PromocionViewDlg" widgetVar="PromocionViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewPromocionTitle}" closeOnEscape="true">
+
+            <h:form id="PromocionViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{promocionController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewPromocionLabel_promocionPK_idPromocion}"/>
+                        <h:outputText value="#{promocionController.selected.promocionPK.idPromocion}" title="#{bundle.ViewPromocionTitle_promocionPK_idPromocion}"/>
+
+                        <h:outputText value="#{bundle.ViewPromocionLabel_promocionPK_idPresu}"/>
+                        <h:outputText value="#{promocionController.selected.promocionPK.idPresu}" title="#{bundle.ViewPromocionTitle_promocionPK_idPresu}"/>
+
+                        <h:outputText value="#{bundle.ViewPromocionLabel_descipcion}"/>
+                        <h:outputText value="#{promocionController.selected.descipcion}" title="#{bundle.ViewPromocionTitle_descipcion}"/>
+
+                        <h:outputText value="#{bundle.ViewPromocionLabel_fechaIniPromo}"/>
+                        <h:outputText value="#{promocionController.selected.fechaIniPromo}" title="#{bundle.ViewPromocionTitle_fechaIniPromo}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewPromocionLabel_fechaFinPromo}"/>
+                        <h:outputText value="#{promocionController.selected.fechaFinPromo}" title="#{bundle.ViewPromocionTitle_fechaFinPromo}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewPromocionLabel_presupuesto}"/>
+                        <h:outputText value="#{promocionController.selected.presupuesto.idPresupuesto}"/>
+
+                        <h:outputText value="#{bundle.ViewPromocionLabel_idSucursal}"/>
+                        <h:outputText value="#{promocionController.selected.idSucursal.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewPromocionLabel_idUsuario}"/>
+                        <h:outputText value="#{promocionController.selected.idUsuario.idUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('PromocionViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

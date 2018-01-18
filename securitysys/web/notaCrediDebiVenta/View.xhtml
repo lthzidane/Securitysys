@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotaCrediDebiVentaViewDlg" widgetVar="NotaCrediDebiVentaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewNotaCrediDebiVentaTitle}" closeOnEscape="true">
+
+            <h:form id="NotaCrediDebiVentaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{notaCrediDebiVentaController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_idNotaVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.idNotaVenta}" title="#{bundle.ViewNotaCrediDebiVentaTitle_idNotaVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_nroComprobante}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.nroComprobante}" title="#{bundle.ViewNotaCrediDebiVentaTitle_nroComprobante}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_fechaNotaVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.fechaNotaVenta}" title="#{bundle.ViewNotaCrediDebiVentaTitle_fechaNotaVenta}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_estadoNotaVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.estadoNotaVenta}" title="#{bundle.ViewNotaCrediDebiVentaTitle_estadoNotaVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_exentaNota}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.exentaNota}" title="#{bundle.ViewNotaCrediDebiVentaTitle_exentaNota}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_gravada10Nota}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.gravada10Nota}" title="#{bundle.ViewNotaCrediDebiVentaTitle_gravada10Nota}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_gravada5Nota}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.gravada5Nota}" title="#{bundle.ViewNotaCrediDebiVentaTitle_gravada5Nota}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_iva10Nota}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.iva10Nota}" title="#{bundle.ViewNotaCrediDebiVentaTitle_iva10Nota}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_iva5Nota}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.iva5Nota}" title="#{bundle.ViewNotaCrediDebiVentaTitle_iva5Nota}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_idMotivoNota}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.idMotivoNota.idMotivoNota}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_idSerieComprobante}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.idSerieComprobante.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_idSucursal}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.idSucursal.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_idTimbrado}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.idTimbrado.idTimbrado}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_idTipoComprobante}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.idTipoComprobante.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_idUsuario}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.idUsuario.idUsuario}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaLabel_idVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaController.selected.idVenta.idVenta}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('NotaCrediDebiVentaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

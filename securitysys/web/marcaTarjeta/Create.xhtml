@@ -19,7 +19,6 @@
                         <p:inputText id="descMarcaTarjeta" value="#{marcaTarjetaController.selected.descMarcaTarjeta}" title="#{bundle.CreateMarcaTarjetaTitle_descMarcaTarjeta}" required="true" requiredMessage="#{bundle.CreateMarcaTarjetaRequiredMessage_descMarcaTarjeta}" size="60" maxlength="60" style="text-transform: uppercase"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{marcaTarjetaController.saveNew}" value="#{bundle.Save}" update="display,:MarcaTarjetaListForm:datalist,:growl" oncomplete="handleSubmit(args,'MarcaTarjetaCreateDialog');"/>
-
                     <p:commandButton value="#{bundle.Cancel}" onclick="MarcaTarjetaCreateDialog.hide()" immediate="true" />
                 </h:panelGroup>
 

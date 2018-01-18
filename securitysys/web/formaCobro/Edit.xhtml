@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="FormaCobroEditDlg" widgetVar="FormaCobroEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditFormaCobroTitle}" closeOnEscape="true">
+
+            <h:form id="FormaCobroEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{formaCobroController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditFormaCobroLabel_idFormaCobro}" for="idFormaCobro" />
+                        <h:outputText id="idFormaCobro" value="#{formaCobroController.selected.idFormaCobro}" />
+
+                        <p:outputLabel value="#{bundle.EditFormaCobroLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{formaCobroController.selected.descripcion}" title="#{bundle.EditFormaCobroTitle_descripcion}" required="true" requiredMessage="#{bundle.EditFormaCobroRequiredMessage_descripcion}" size="50" maxlength="50"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{formaCobroController.save}" value="#{bundle.Save}" update="display,:FormaCobroListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('FormaCobroEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('FormaCobroEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

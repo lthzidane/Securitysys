@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PromocionEditDlg" widgetVar="PromocionEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditPromocionTitle}" closeOnEscape="true">
+
+            <h:form id="PromocionEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{promocionController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditPromocionLabel_promocionPK_idPromocion}" for="promocionPK_idPromocion" />
+                        <h:outputText id="promocionPK_idPromocion" value="#{promocionController.selected.promocionPK.idPromocion}" />
+
+
+                        <h:outputLabel value="#{bundle.EditPromocionLabel_promocionPK_idPresu}" for="promocionPK_idPresu" />
+                        <h:outputText id="promocionPK_idPresu" value="#{promocionController.selected.promocionPK.idPresu}" />
+
+                        <p:outputLabel value="#{bundle.EditPromocionLabel_descipcion}" for="descipcion" />
+                        <p:inputText id="descipcion" value="#{promocionController.selected.descipcion}" title="#{bundle.EditPromocionTitle_descipcion}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_descipcion}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.EditPromocionLabel_fechaIniPromo}" for="fechaIniPromo" />
+                        <p:calendar id="fechaIniPromo" pattern="MM/dd/yyyy" value="#{promocionController.selected.fechaIniPromo}" title="#{bundle.EditPromocionTitle_fechaIniPromo}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_fechaIniPromo}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditPromocionLabel_fechaFinPromo}" for="fechaFinPromo" />
+                        <p:calendar id="fechaFinPromo" pattern="MM/dd/yyyy" value="#{promocionController.selected.fechaFinPromo}" title="#{bundle.EditPromocionTitle_fechaFinPromo}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_fechaFinPromo}" showOn="button"/>
+
+
+                        <h:outputLabel value="#{bundle.EditPromocionLabel_presupuesto}" for="presupuesto" />
+                        <h:outputText id="presupuesto" value="#{promocionController.selected.presupuesto}" />
+
+                        <p:outputLabel value="#{bundle.EditPromocionLabel_idSucursal}" for="idSucursal" />
+                        <p:selectOneMenu id="idSucursal" value="#{promocionController.selected.idSucursal}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_idSucursal}" converter="sucursalConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sucursalController.items}"
+                                           var="idSucursalItem"
+                                           itemValue="#{idSucursalItem}"
+                                           itemLabel="#{idSucursalItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditPromocionLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{promocionController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_idUsuario}" converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{promocionController.save}" value="#{bundle.Save}" update="display,:PromocionListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PromocionEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PromocionEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

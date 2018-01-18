@@ -1,28 +1,15 @@
 package session;
 
-import bean.NacionalidadFacade;
 import entities.Nacionalidad;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.annotation.PostConstruct;
+import entities.Cliente;
+import java.util.List;
+import bean.NacionalidadFacade;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 
-@ManagedBean(name = "nacionalidadController")
+@Named(value = "nacionalidadController")
 @ViewScoped
 public class NacionalidadController extends AbstractController<Nacionalidad> {
-
-    @EJB
-    private NacionalidadFacade ejbFacade;
-
-    /**
-     * Initialize the concrete Nacionalidad controller bean. The
-     * AbstractController requires the EJB Facade object for most operations.
-     */
-    @PostConstruct
-    @Override
-    public void init() {
-        super.setFacade(ejbFacade);
-    }
 
     public NacionalidadController() {
         // Inform the Abstract parent controller of the concrete Nacionalidad Entity

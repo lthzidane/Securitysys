@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="VentaDetListForm">
+
+        <p:panel header="#{bundle.ListVentaDetTitle}">
+            <p:dataTable id="datalist"
+                         value="#{ventaDetController.items}"
+                         lazy="false"
+                         rowKey="#{item.ventaDetPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{ventaDetController.selected}"
+                         filteredValue="#{ventaDetController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{ventaDetController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.ventaDetPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.ventaDetPK.idVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListVentaDetTitle_ventaDetPK_idVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ventaDetPK.idVenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ventaDetPK.idSecuencia}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListVentaDetTitle_ventaDetPK_idSecuencia}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ventaDetPK.idSecuencia}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cantidad}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListVentaDetTitle_cantidad}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidad}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.precioVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListVentaDetTitle_precioVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.precioVenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.exento}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListVentaDetTitle_exento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.exento}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.gravada5}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListVentaDetTitle_gravada5}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.gravada5}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.gravada10}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListVentaDetTitle_gravada10}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.gravada10}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.iva5}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListVentaDetTitle_iva5}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.iva5}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.iva10}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListVentaDetTitle_iva10}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.iva10}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idDescuento.descripcionDesc}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListVentaDetTitle_idDescuento}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idDescuento.descripcionDesc}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idEquipo.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListVentaDetTitle_idEquipo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idEquipo.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idPromocion.promocionPK}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListVentaDetTitle_idPromocion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idPromocion.promocionPK}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.venta.idVenta}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListVentaDetTitle_venta}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.venta.idVenta}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ventaDetController.prepareCreate}" update=":VentaDetCreateForm" oncomplete="PF('VentaDetCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VentaDetViewForm" oncomplete="PF('VentaDetViewDialog').show()" disabled="#{empty ventaDetController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VentaDetEditForm" oncomplete="PF('VentaDetEditDialog').show()" disabled="#{empty ventaDetController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ventaDetController.delete}" update=":growl,datalist" disabled="#{empty ventaDetController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

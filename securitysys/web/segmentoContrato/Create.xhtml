@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SegmentoContratoCreateDlg" widgetVar="SegmentoContratoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSegmentoContratoTitle}" closeOnEscape="true">
+
+            <h:form id="SegmentoContratoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{segmentoContratoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateSegmentoContratoLabel_idSegmento}" for="idSegmento" />
+                        <p:inputText id="idSegmento" value="#{segmentoContratoController.selected.idSegmento}" title="#{bundle.CreateSegmentoContratoTitle_idSegmento}" required="true" requiredMessage="#{bundle.CreateSegmentoContratoRequiredMessage_idSegmento}"/>
+
+                        <p:outputLabel value="#{bundle.CreateSegmentoContratoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{segmentoContratoController.selected.descripcion}" title="#{bundle.CreateSegmentoContratoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateSegmentoContratoRequiredMessage_descripcion}" size="60" maxlength="60"/>
+
+                        <p:outputLabel value="#{bundle.CreateSegmentoContratoLabel_idCliente}" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" value="#{segmentoContratoController.selected.idCliente}" required="true" requiredMessage="#{bundle.CreateSegmentoContratoRequiredMessage_idCliente}" converter="clienteConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clienteController.items}"
+                                           var="idClienteItem"
+                                           itemValue="#{idClienteItem}"
+                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateSegmentoContratoLabel_idServicio}" for="idServicio" />
+                        <p:selectOneMenu id="idServicio" value="#{segmentoContratoController.selected.idServicio}" required="true" requiredMessage="#{bundle.CreateSegmentoContratoRequiredMessage_idServicio}" converter="servicioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{servicioController.items}"
+                                           var="idServicioItem"
+                                           itemValue="#{idServicioItem}"
+                                           itemLabel="#{idServicioItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{segmentoContratoController.saveNew}" value="#{bundle.Save}" update="display,:SegmentoContratoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SegmentoContratoCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('SegmentoContratoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

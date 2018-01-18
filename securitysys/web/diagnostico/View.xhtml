@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DiagnosticoViewDlg" widgetVar="DiagnosticoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewDiagnosticoTitle}" closeOnEscape="true">
+
+            <h:form id="DiagnosticoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{diagnosticoController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewDiagnosticoLabel_id}"/>
+                        <h:outputText value="#{diagnosticoController.selected.id}" title="#{bundle.ViewDiagnosticoTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewDiagnosticoLabel_fechaDiagnostico}"/>
+                        <h:outputText value="#{diagnosticoController.selected.fechaDiagnostico}" title="#{bundle.ViewDiagnosticoTitle_fechaDiagnostico}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewDiagnosticoLabel_estadoDiag}"/>
+                        <h:outputText value="#{diagnosticoController.selected.estadoDiag}" title="#{bundle.ViewDiagnosticoTitle_estadoDiag}"/>
+
+                        <h:outputText value="#{bundle.ViewDiagnosticoLabel_idReclamo}"/>
+                        <h:outputText value="#{diagnosticoController.selected.idReclamo.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewDiagnosticoLabel_idSucursal}"/>
+                        <h:outputText value="#{diagnosticoController.selected.idSucursal.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewDiagnosticoLabel_idUsuario}"/>
+                        <h:outputText value="#{diagnosticoController.selected.idUsuario.idUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('DiagnosticoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="NotaCrediDebiVentaDetEditDlg" widgetVar="NotaCrediDebiVentaDetEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditNotaCrediDebiVentaDetTitle}" closeOnEscape="true">
+
+            <h:form id="NotaCrediDebiVentaDetEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{notaCrediDebiVentaDetController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditNotaCrediDebiVentaDetLabel_notaCrediDebiVentaDetPK_idNotaVenta}" for="notaCrediDebiVentaDetPK_idNotaVenta" />
+                        <h:outputText id="notaCrediDebiVentaDetPK_idNotaVenta" value="#{notaCrediDebiVentaDetController.selected.notaCrediDebiVentaDetPK.idNotaVenta}" />
+
+
+                        <h:outputLabel value="#{bundle.EditNotaCrediDebiVentaDetLabel_notaCrediDebiVentaDetPK_idSecuencia}" for="notaCrediDebiVentaDetPK_idSecuencia" />
+                        <h:outputText id="notaCrediDebiVentaDetPK_idSecuencia" value="#{notaCrediDebiVentaDetController.selected.notaCrediDebiVentaDetPK.idSecuencia}" />
+
+                        <p:outputLabel value="#{bundle.EditNotaCrediDebiVentaDetLabel_precioNotaVenta}" for="precioNotaVenta" />
+                        <p:inputText id="precioNotaVenta" value="#{notaCrediDebiVentaDetController.selected.precioNotaVenta}" title="#{bundle.EditNotaCrediDebiVentaDetTitle_precioNotaVenta}" required="true" requiredMessage="#{bundle.EditNotaCrediDebiVentaDetRequiredMessage_precioNotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.EditNotaCrediDebiVentaDetLabel_cantidadNotaVenta}" for="cantidadNotaVenta" />
+                        <p:inputText id="cantidadNotaVenta" value="#{notaCrediDebiVentaDetController.selected.cantidadNotaVenta}" title="#{bundle.EditNotaCrediDebiVentaDetTitle_cantidadNotaVenta}" required="true" requiredMessage="#{bundle.EditNotaCrediDebiVentaDetRequiredMessage_cantidadNotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.EditNotaCrediDebiVentaDetLabel_exentaNotaVenta}" for="exentaNotaVenta" />
+                        <p:inputText id="exentaNotaVenta" value="#{notaCrediDebiVentaDetController.selected.exentaNotaVenta}" title="#{bundle.EditNotaCrediDebiVentaDetTitle_exentaNotaVenta}" required="true" requiredMessage="#{bundle.EditNotaCrediDebiVentaDetRequiredMessage_exentaNotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.EditNotaCrediDebiVentaDetLabel_gravada10NotaVenta}" for="gravada10NotaVenta" />
+                        <p:inputText id="gravada10NotaVenta" value="#{notaCrediDebiVentaDetController.selected.gravada10NotaVenta}" title="#{bundle.EditNotaCrediDebiVentaDetTitle_gravada10NotaVenta}" required="true" requiredMessage="#{bundle.EditNotaCrediDebiVentaDetRequiredMessage_gravada10NotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.EditNotaCrediDebiVentaDetLabel_gravada5NotaVenta}" for="gravada5NotaVenta" />
+                        <p:inputText id="gravada5NotaVenta" value="#{notaCrediDebiVentaDetController.selected.gravada5NotaVenta}" title="#{bundle.EditNotaCrediDebiVentaDetTitle_gravada5NotaVenta}" required="true" requiredMessage="#{bundle.EditNotaCrediDebiVentaDetRequiredMessage_gravada5NotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.EditNotaCrediDebiVentaDetLabel_iva10NotaVenta}" for="iva10NotaVenta" />
+                        <p:inputText id="iva10NotaVenta" value="#{notaCrediDebiVentaDetController.selected.iva10NotaVenta}" title="#{bundle.EditNotaCrediDebiVentaDetTitle_iva10NotaVenta}" required="true" requiredMessage="#{bundle.EditNotaCrediDebiVentaDetRequiredMessage_iva10NotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.EditNotaCrediDebiVentaDetLabel_iva5NotaVenta}" for="iva5NotaVenta" />
+                        <p:inputText id="iva5NotaVenta" value="#{notaCrediDebiVentaDetController.selected.iva5NotaVenta}" title="#{bundle.EditNotaCrediDebiVentaDetTitle_iva5NotaVenta}" required="true" requiredMessage="#{bundle.EditNotaCrediDebiVentaDetRequiredMessage_iva5NotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.EditNotaCrediDebiVentaDetLabel_idEquipo}" for="idEquipo" />
+                        <p:selectOneMenu id="idEquipo" value="#{notaCrediDebiVentaDetController.selected.idEquipo}" required="true" requiredMessage="#{bundle.EditNotaCrediDebiVentaDetRequiredMessage_idEquipo}" converter="equipoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{equipoController.items}"
+                                           var="idEquipoItem"
+                                           itemValue="#{idEquipoItem}"
+                                           itemLabel="#{idEquipoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+
+                        <h:outputLabel value="#{bundle.EditNotaCrediDebiVentaDetLabel_notaCrediDebiVenta}" for="notaCrediDebiVenta" />
+                        <h:outputText id="notaCrediDebiVenta" value="#{notaCrediDebiVentaDetController.selected.notaCrediDebiVenta}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{notaCrediDebiVentaDetController.save}" value="#{bundle.Save}" update="display,:NotaCrediDebiVentaDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('NotaCrediDebiVentaDetEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('NotaCrediDebiVentaDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

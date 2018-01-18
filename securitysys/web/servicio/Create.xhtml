@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ServicioCreateDlg" widgetVar="ServicioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateServicioTitle}" closeOnEscape="true">
+
+            <h:form id="ServicioCreateForm">
+
+                <h:panelGroup id="display" rendered="#{servicioController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateServicioLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{servicioController.selected.descripcion}" title="#{bundle.CreateServicioTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateServicioRequiredMessage_descripcion}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{bundle.CreateServicioLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{servicioController.selected.cantidad}" title="#{bundle.CreateServicioTitle_cantidad}" required="true" requiredMessage="#{bundle.CreateServicioRequiredMessage_cantidad}"/>
+
+                        <p:outputLabel value="#{bundle.CreateServicioLabel_costo}" for="costo" />
+                        <p:inputText id="costo" value="#{servicioController.selected.costo}" title="#{bundle.CreateServicioTitle_costo}" required="true" requiredMessage="#{bundle.CreateServicioRequiredMessage_costo}"/>
+
+                        <p:outputLabel value="#{bundle.CreateServicioLabel_idDescuento}" for="idDescuento" />
+                        <p:selectOneMenu id="idDescuento" value="#{servicioController.selected.idDescuento}" required="true" requiredMessage="#{bundle.CreateServicioRequiredMessage_idDescuento}" converter="descuentoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{descuentoController.items}"
+                                           var="idDescuentoItem"
+                                           itemValue="#{idDescuentoItem}"
+                                           itemLabel="#{idDescuentoItem.descripcionDesc.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateServicioLabel_idEstado}" for="idEstado" />
+                        <p:selectOneMenu id="idEstado" value="#{servicioController.selected.idEstado}" required="true" requiredMessage="#{bundle.CreateServicioRequiredMessage_idEstado}" converter="estadoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{estadoController.items}"
+                                           var="idEstadoItem"
+                                           itemValue="#{idEstadoItem}"
+                                           itemLabel="#{idEstadoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateServicioLabel_idMoneda}" for="idMoneda" />
+                        <p:selectOneMenu id="idMoneda" value="#{servicioController.selected.idMoneda}" required="true" requiredMessage="#{bundle.CreateServicioRequiredMessage_idMoneda}" converter="monedaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{monedaController.items}"
+                                           var="idMonedaItem"
+                                           itemValue="#{idMonedaItem}"
+                                           itemLabel="#{idMonedaItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateServicioLabel_idPromocion}" for="idPromocion" />
+                        <p:selectOneMenu id="idPromocion" value="#{servicioController.selected.idPromocion}" required="true" requiredMessage="#{bundle.CreateServicioRequiredMessage_idPromocion}" converter="promocionConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{promocionController.items}"
+                                           var="idPromocionItem"
+                                           itemValue="#{idPromocionItem}"
+                                           itemLabel="#{idPromocionItem.promocionPK.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{servicioController.saveNew}" value="#{bundle.Save}" update="display,:ServicioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ServicioCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ServicioCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

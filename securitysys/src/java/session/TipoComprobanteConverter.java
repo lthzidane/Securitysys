@@ -1,20 +1,19 @@
 package session;
 
-import bean.TipoComprobanteFacade;
 import entities.TipoComprobante;
+import bean.TipoComprobanteFacade;
+import session.util.JsfUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
+import javax.faces.convert.FacesConverter;
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
-import session.util.JsfUtil;
 
 @FacesConverter(value = "tipoComprobanteConverter")
 public class TipoComprobanteConverter implements Converter {
 
-    @EJB
     private TipoComprobanteFacade ejbFacade;
 
     @Override
@@ -22,7 +21,7 @@ public class TipoComprobanteConverter implements Converter {
         if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
             return null;
         }
-        return this.ejbFacade.find(getKey(value));
+        return this.getEjbFacade().find(getKey(value));
     }
 
     java.lang.Integer getKey(String value) {
@@ -52,4 +51,8 @@ public class TipoComprobanteConverter implements Converter {
         }
     }
 
+    private TipoComprobanteFacade getEjbFacade() {
+        this.ejbFacade = CDI.current().select(TipoComprobanteFacade.class).get();
+        return this.ejbFacade;
+    }
 }

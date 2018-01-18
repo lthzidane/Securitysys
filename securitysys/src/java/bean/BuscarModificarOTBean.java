@@ -7,7 +7,7 @@ package bean;
 
 import entities.InstalacionCab;
 import entities.InstalacionDet;
-import entities.OrdenTrabajoCab;
+import entities.OrdenTrabajo;
 import entities.OrdenTrabajoDet;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -26,7 +26,6 @@ import lombok.Data;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.data.FilterEvent;
 import session.util.JsfUtil;
-import session.util.JsfUtil.PersistAction;
 
 /**
  *
@@ -38,23 +37,21 @@ import session.util.JsfUtil.PersistAction;
 public class BuscarModificarOTBean implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    private ArrayList<OrdenTrabajoCab> listaOrdenesTrabajo = new ArrayList<OrdenTrabajoCab>();
+    private ArrayList<OrdenTrabajo> listaOrdenesTrabajo = new ArrayList<OrdenTrabajo>();
     private List<OrdenTrabajoDet> listaOrdenesTrabajoDet = new ArrayList<OrdenTrabajoDet>();
-    private ArrayList<OrdenTrabajoCab> filteredListOTs = new ArrayList<OrdenTrabajoCab>();
+    private ArrayList<OrdenTrabajo> filteredListOTs = new ArrayList<OrdenTrabajo>();
     
     private ArrayList<InstalacionCab> listaInstalaciones = new ArrayList<InstalacionCab>();
     private ArrayList<InstalacionCab> filteredListInstal = new ArrayList<InstalacionCab>();
     
     @EJB
-    private bean.TecnicosFacade tecnicoFacade =  new TecnicosFacade();
+    private bean.TecnicoFacade tecnicoFacade =  new TecnicoFacade();
     @EJB
     private bean.ClienteFacade clienteFacade = new ClienteFacade();
     @EJB
-    private bean.TipoServiciosFacade tipoServiciosFacade = new TipoServiciosFacade();
-    @EJB
     private bean.EstadoFacade estadoTrabFacade = new EstadoFacade();
     @EJB
-    private bean.OrdenTrabajoCabFacade ordenTrabajoCabFacade;
+    private bean.OrdenTrabajoFacade ordenTrabajoCabFacade;
     @EJB
     private bean.OrdenTrabajoDetFacade ordenTrabajoDetFacade;
     @EJB
@@ -63,7 +60,7 @@ public class BuscarModificarOTBean implements Serializable{
     private bean.InstalacionDetFacade insalacionDetFacade;
     
     
-    private OrdenTrabajoCab ordenTrabajoCab;
+    private OrdenTrabajo ordenTrabajoCab;
     private OrdenTrabajoDet ordenTrabajoDet;
     
     private InstalacionCab instalacionCab;
@@ -82,12 +79,12 @@ public class BuscarModificarOTBean implements Serializable{
 
         try {
 
-            listaOrdenesTrabajo = new ArrayList<OrdenTrabajoCab>();
-            for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findAll()) {
-                System.out.println("ot.NroOrden:"+ot.getNroOrden()+" cantDet:"+ot.getOrdenTrabajoDetList().size());
+            listaOrdenesTrabajo = new ArrayList<OrdenTrabajo>();
+            for (OrdenTrabajo ot : ordenTrabajoCabFacade.findAll()) {
+                System.out.println("ot.NroOrden:"+ot.getIdOt()+" cantDet:"+ot.getOrdenTrabajoDetList().size());
                 
                 if(ot.getOrdenTrabajoDetList().isEmpty()){
-                    listaOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(ot.getNroOrden().intValue());
+                    listaOrdenesTrabajoDet = ordenTrabajoDetFacade.findByNroOrden(ot.getIdOt().intValue());
                     if(listaOrdenesTrabajoDet.size() > 0){
                         ot.setOrdenTrabajoDetList(listaOrdenesTrabajoDet);
                         System.out.println("seteo la cantitad real: "+listaOrdenesTrabajoDet.size());
@@ -116,7 +113,7 @@ public class BuscarModificarOTBean implements Serializable{
         if (filters.isEmpty()) {
             System.out.println("Filtro por primera vez todos");
             listaOrdenesTrabajo.clear();
-            for (OrdenTrabajoCab ot : ordenTrabajoCabFacade.findAll()) {
+            for (OrdenTrabajo ot : ordenTrabajoCabFacade.findAll()) {
                 listaOrdenesTrabajo.add(ot);
             }
         }
@@ -137,98 +134,98 @@ public class BuscarModificarOTBean implements Serializable{
         }
     }
     
-    public void eliminarOT(){
-        System.out.println("Eliminar Orden de Trabajo");
-        //ordenTrabajoCab se setea con el item de la fila, via el serPropertyActionListener
-        persistOTCab(PersistAction.DELETE, "Orden de Trabajo eliminada correctamente");
-        cargarVista();
-    }
-    
-    public void eliminarInstalacion(){
-        System.out.println("Eliminar Instalacion");
-        //instalacionCab se setea con el item de la fila, via el serPropertyActionListener
-        persistInstalCab(PersistAction.DELETE, "Instalacion eliminada correctamente");
-        cargarVista();
-        
-    }
-    
-    private void persistInstalCab(JsfUtil.PersistAction persistAction, String successMessage) {
-        if (instalacionCab != null) {
-
-            try {
-                if (persistAction == JsfUtil.PersistAction.CREATE) {
-                    instalacionCabFacade.create(instalacionCab);
-                }
-                else if (persistAction == JsfUtil.PersistAction.UPDATE) {
-                    instalacionCabFacade.edit(instalacionCab);
-                } else {
-                    instalacionCabFacade.remove(instalacionCab);
-                }
-                
-                if(successMessage != null){
-                    JsfUtil.addSuccessMessage(successMessage);
-                }
-                
-            } catch (EJBException ex) {
-                String msg = "";
-                Throwable cause = ex.getCause();
-                if (cause != null) {
-                    msg = cause.getLocalizedMessage();
-                }
-                if (msg.length() > 0) {
-                    JsfUtil.addErrorMessage(msg);
-                } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            }
-        }
-    }
-    
-    
-    private void persistOTCab(JsfUtil.PersistAction persistAction, String successMessage) {
-        if (ordenTrabajoCab != null) {
-
-            try {
-                if (persistAction == JsfUtil.PersistAction.CREATE) {
-                    ordenTrabajoCabFacade.create(ordenTrabajoCab);
-                } else if (persistAction == JsfUtil.PersistAction.UPDATE) {
-                    ordenTrabajoCabFacade.edit(ordenTrabajoCab);
-                } else {
-                    ordenTrabajoCabFacade.remove(ordenTrabajoCab);
-                }
-
-                if (successMessage != null) {
-                    JsfUtil.addSuccessMessage(successMessage);
-                }
-
-            } catch (EJBException ex) {
-                String msg = "";
-                Throwable cause = ex.getCause(); 
-                if (cause != null) {
-                    msg = cause.getLocalizedMessage();
-                }
-                if (msg.length() > 0) {
-                    Exception cbe = ex.getCausedByException();
-                    if(cbe != null){
-                        if(cbe.getCause() != null){
-                            if (cbe.getCause().getLocalizedMessage().contains("viola la llave foránea")){
-                                msg = "La Orden de Trabajo no puede ser borrada debido a que esta asociada a una Instalación";
-                            }
-                        }
-                    }
-                    
-                    JsfUtil.addErrorMessage(msg);
-                } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            }
-        }
-    }
+//    public void eliminarOT(){
+//        System.out.println("Eliminar Orden de Trabajo");
+//        //ordenTrabajoCab se setea con el item de la fila, via el serPropertyActionListener
+//        persistOTCab(DELETE, "Orden de Trabajo eliminada correctamente");
+//        cargarVista();
+//    }
+//    
+//    public void eliminarInstalacion(){
+//        System.out.println("Eliminar Instalacion");
+//        //instalacionCab se setea con el item de la fila, via el serPropertyActionListener
+//        persistInstalCab(DELETE, "Instalacion eliminada correctamente");
+//        cargarVista();
+//        
+//    }
+//    
+//    private void persistInstalCab(JsfUtil.PersistAction persistAction, String successMessage) {
+//        if (instalacionCab != null) {
+//
+//            try {
+//                if (persistAction == JsfUtil.PersistAction.CREATE) {
+//                    instalacionCabFacade.create(instalacionCab);
+//                }
+//                else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+//                    instalacionCabFacade.edit(instalacionCab);
+//                } else {
+//                    instalacionCabFacade.remove(instalacionCab);
+//                }
+//                
+//                if(successMessage != null){
+//                    JsfUtil.addSuccessMessage(successMessage);
+//                }
+//                
+//            } catch (EJBException ex) {
+//                String msg = "";
+//                Throwable cause = ex.getCause();
+//                if (cause != null) {
+//                    msg = cause.getLocalizedMessage();
+//                }
+//                if (msg.length() > 0) {
+//                    JsfUtil.addErrorMessage(msg);
+//                } else {
+//                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+//                }
+//            } catch (Exception ex) {
+//                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+//                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+//            }
+//        }
+//    }
+//    
+//    
+//    private void persistOTCab(JsfUtil.PersistAction persistAction, String successMessage) {
+//        if (ordenTrabajoCab != null) {
+//
+//            try {
+//                if (persistAction == JsfUtil.PersistAction.CREATE) {
+//                    ordenTrabajoCabFacade.create(ordenTrabajoCab);
+//                } else if (persistAction == JsfUtil.PersistAction.UPDATE) {
+//                    ordenTrabajoCabFacade.edit(ordenTrabajoCab);
+//                } else {
+//                    ordenTrabajoCabFacade.remove(ordenTrabajoCab);
+//                }
+//
+//                if (successMessage != null) {
+//                    JsfUtil.addSuccessMessage(successMessage);
+//                }
+//
+//            } catch (EJBException ex) {
+//                String msg = "";
+//                Throwable cause = ex.getCause(); 
+//                if (cause != null) {
+//                    msg = cause.getLocalizedMessage();
+//                }
+//                if (msg.length() > 0) {
+//                    Exception cbe = ex.getCausedByException();
+//                    if(cbe != null){
+//                        if(cbe.getCause() != null){
+//                            if (cbe.getCause().getLocalizedMessage().contains("viola la llave foránea")){
+//                                msg = "La Orden de Trabajo no puede ser borrada debido a que esta asociada a una Instalación";
+//                            }
+//                        }
+//                    }
+//                    
+//                    JsfUtil.addErrorMessage(msg);
+//                } else {
+//                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+//                }
+//            } catch (Exception ex) {
+//                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+//                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+//            }
+//        }
+//    }
     
 }

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ArqueoListForm">
+
+        <p:panel header="#{bundle.ListArqueoTitle}">
+            <p:dataTable id="datalist"
+                         value="#{arqueoController.items}"
+                         lazy="false"
+                         rowKey="#{item.arqueoPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{arqueoController.selected}"
+                         filteredValue="#{arqueoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{arqueoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.arqueoPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.arqueoPK.idArqueo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListArqueoTitle_arqueoPK_idArqueo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.arqueoPK.idArqueo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.arqueoPK.idValor}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListArqueoTitle_arqueoPK_idValor}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.arqueoPK.idValor}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.arqueoPK.idAperturaCierre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListArqueoTitle_arqueoPK_idAperturaCierre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.arqueoPK.idAperturaCierre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cantidadValor}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListArqueoTitle_cantidadValor}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidadValor}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaArqueo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListArqueoTitle_fechaArqueo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaArqueo}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.horaArqueo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListArqueoTitle_horaArqueo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.horaArqueo}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.estadoArqueo}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListArqueoTitle_estadoArqueo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.estadoArqueo}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.aperturaCierreCaja.idAperturaCierre}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListArqueoTitle_aperturaCierreCaja}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.aperturaCierreCaja.idAperturaCierre}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.valor.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListArqueoTitle_valor}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.valor.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{arqueoController.prepareCreate}" update=":ArqueoCreateForm" oncomplete="PF('ArqueoCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ArqueoViewForm" oncomplete="PF('ArqueoViewDialog').show()" disabled="#{empty arqueoController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ArqueoEditForm" oncomplete="PF('ArqueoEditDialog').show()" disabled="#{empty arqueoController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{arqueoController.delete}" update=":growl,datalist" disabled="#{empty arqueoController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

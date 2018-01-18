@@ -30,22 +30,21 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Entity
 @Table(name = "reclamo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Reclamo.findAll", query = "SELECT r FROM Reclamo r"),
-    @NamedQuery(name = "Reclamo.findByIdReclamo", query = "SELECT r FROM Reclamo r WHERE r.idReclamo = :idReclamo"),
-    @NamedQuery(name = "Reclamo.findByDescripcion", query = "SELECT r FROM Reclamo r WHERE r.descripcion = :descripcion"),
-    @NamedQuery(name = "Reclamo.findByFechaAlta", query = "SELECT r FROM Reclamo r WHERE r.fechaAlta = :fechaAlta"),
-    @NamedQuery(name = "Reclamo.findByIdTipoReclamo1", query = "SELECT r FROM Reclamo r WHERE r.idTipoReclamo1 = :idTipoReclamo1"),
-    @NamedQuery(name = "Reclamo.findBySolucion", query = "SELECT r FROM Reclamo r WHERE r.solucion = :solucion"),
-    @NamedQuery(name = "Reclamo.findByContacto", query = "SELECT r FROM Reclamo r WHERE r.contacto = :contacto")})
+    @NamedQuery(name = "Reclamo.findAll", query = "SELECT r FROM Reclamo r")
+    , @NamedQuery(name = "Reclamo.findByIdReclamo", query = "SELECT r FROM Reclamo r WHERE r.idReclamo = :idReclamo")
+    , @NamedQuery(name = "Reclamo.findByDescripcion", query = "SELECT r FROM Reclamo r WHERE r.descripcion = :descripcion")
+    , @NamedQuery(name = "Reclamo.findByFechaAlta", query = "SELECT r FROM Reclamo r WHERE r.fechaAlta = :fechaAlta")
+    , @NamedQuery(name = "Reclamo.findByIdTipoReclamo1", query = "SELECT r FROM Reclamo r WHERE r.idTipoReclamo1 = :idTipoReclamo1")
+    , @NamedQuery(name = "Reclamo.findBySolucion", query = "SELECT r FROM Reclamo r WHERE r.solucion = :solucion")
+    , @NamedQuery(name = "Reclamo.findByContacto", query = "SELECT r FROM Reclamo r WHERE r.contacto = :contacto")})
 public class Reclamo implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReclamo")
-    private List<Diagnostico> diagnosticoList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,6 +72,8 @@ public class Reclamo implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "contacto")
     private String contacto;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReclamo")
+    private List<OrdenTrabajo> ordenTrabajoList;
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     @ManyToOne(optional = false)
     private Cliente idCliente;
@@ -91,6 +92,8 @@ public class Reclamo implements Serializable {
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReclamo")
+    private List<Diagnostico> diagnosticoList;
 
     public Reclamo() {
     }
@@ -154,6 +157,15 @@ public class Reclamo implements Serializable {
         this.contacto = contacto;
     }
 
+    @XmlTransient
+    public List<OrdenTrabajo> getOrdenTrabajoList() {
+        return ordenTrabajoList;
+    }
+
+    public void setOrdenTrabajoList(List<OrdenTrabajo> ordenTrabajoList) {
+        this.ordenTrabajoList = ordenTrabajoList;
+    }
+
     public Cliente getIdCliente() {
         return idCliente;
     }
@@ -202,6 +214,15 @@ public class Reclamo implements Serializable {
         this.idUsuario = idUsuario;
     }
 
+    @XmlTransient
+    public List<Diagnostico> getDiagnosticoList() {
+        return diagnosticoList;
+    }
+
+    public void setDiagnosticoList(List<Diagnostico> diagnosticoList) {
+        this.diagnosticoList = diagnosticoList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -225,15 +246,6 @@ public class Reclamo implements Serializable {
     @Override
     public String toString() {
         return "entities.Reclamo[ idReclamo=" + idReclamo + " ]";
-    }
-
-    @XmlTransient
-    public List<Diagnostico> getDiagnosticoList() {
-        return diagnosticoList;
-    }
-
-    public void setDiagnosticoList(List<Diagnostico> diagnosticoList) {
-        this.diagnosticoList = diagnosticoList;
     }
     
 }

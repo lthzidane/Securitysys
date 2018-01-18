@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PresupuestoDetViewDlg" widgetVar="PresupuestoDetViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewPresupuestoDetTitle}" closeOnEscape="true">
+
+            <h:form id="PresupuestoDetViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{presupuestoDetController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewPresupuestoDetLabel_presupuestoDetPK_idPresupuesto}"/>
+                        <h:outputText value="#{presupuestoDetController.selected.presupuestoDetPK.idPresupuesto}" title="#{bundle.ViewPresupuestoDetTitle_presupuestoDetPK_idPresupuesto}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoDetLabel_presupuestoDetPK_idSecuencia}"/>
+                        <h:outputText value="#{presupuestoDetController.selected.presupuestoDetPK.idSecuencia}" title="#{bundle.ViewPresupuestoDetTitle_presupuestoDetPK_idSecuencia}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoDetLabel_cantidad}"/>
+                        <h:outputText value="#{presupuestoDetController.selected.cantidad}" title="#{bundle.ViewPresupuestoDetTitle_cantidad}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoDetLabel_exenta}"/>
+                        <h:outputText value="#{presupuestoDetController.selected.exenta}" title="#{bundle.ViewPresupuestoDetTitle_exenta}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoDetLabel_gravada5}"/>
+                        <h:outputText value="#{presupuestoDetController.selected.gravada5}" title="#{bundle.ViewPresupuestoDetTitle_gravada5}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoDetLabel_gravada10}"/>
+                        <h:outputText value="#{presupuestoDetController.selected.gravada10}" title="#{bundle.ViewPresupuestoDetTitle_gravada10}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoDetLabel_precio}"/>
+                        <h:outputText value="#{presupuestoDetController.selected.precio}" title="#{bundle.ViewPresupuestoDetTitle_precio}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoDetLabel_idDescuento}"/>
+                        <h:outputText value="#{presupuestoDetController.selected.idDescuento.descripcionDesc}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoDetLabel_presupuesto}"/>
+                        <h:outputText value="#{presupuestoDetController.selected.presupuesto.idPresupuesto}"/>
+
+                        <h:outputText value="#{bundle.ViewPresupuestoDetLabel_idPromocion}"/>
+                        <h:outputText value="#{presupuestoDetController.selected.idPromocion.promocionPK}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('PresupuestoDetViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

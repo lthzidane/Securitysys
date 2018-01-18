@@ -15,14 +15,14 @@
                     <p:panelGrid  columns="2" columnClasses="column" rendered="#{zonaController.selected != null}">
 
 
-                        <h:outputLabel value="#{bundle.EditZonaLabel_idZona}" for="idZona" rendered="false"/>
-                        <h:outputText id="idZona" value="#{zonaController.selected.idZona}" rendered="false"/>
+                        <h:outputLabel value="#{bundle.EditZonaLabel_idZona}" for="idZona" />
+                        <h:outputText id="idZona" value="#{zonaController.selected.idZona}" />
 
                         <p:outputLabel value="#{bundle.EditZonaLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{zonaController.selected.descripcion}" title="#{bundle.EditZonaTitle_descripcion}" required="true" requiredMessage="#{bundle.EditZonaRequiredMessage_descripcion}" size="50" maxlength="50" style="text-transform: uppercase"/>
 
                         <p:outputLabel value="#{bundle.EditZonaLabel_idCiudad}" for="idCiudad" />
-                        <p:selectOneMenu id="idCiudad" value="#{zonaController.selected.idCiudad}" required="true" requiredMessage="#{bundle.EditZonaRequiredMessage_idCiudad}" >
+                        <p:selectOneMenu id="idCiudad" value="#{zonaController.selected.idCiudad}" required="true" requiredMessage="#{bundle.EditZonaRequiredMessage_idCiudad}" converter="ciudadConverter">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{ciudadController.items}"
                                            var="idCiudadItem"

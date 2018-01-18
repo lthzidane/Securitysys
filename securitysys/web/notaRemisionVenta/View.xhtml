@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotaRemisionVentaViewDlg" widgetVar="NotaRemisionVentaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewNotaRemisionVentaTitle}" closeOnEscape="true">
+
+            <h:form id="NotaRemisionVentaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{notaRemisionVentaController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaLabel_idRemision}"/>
+                        <h:outputText value="#{notaRemisionVentaController.selected.idRemision}" title="#{bundle.ViewNotaRemisionVentaTitle_idRemision}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaLabel_fechaSalida}"/>
+                        <h:outputText value="#{notaRemisionVentaController.selected.fechaSalida}" title="#{bundle.ViewNotaRemisionVentaTitle_fechaSalida}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaLabel_fechaLlegada}"/>
+                        <h:outputText value="#{notaRemisionVentaController.selected.fechaLlegada}" title="#{bundle.ViewNotaRemisionVentaTitle_fechaLlegada}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaLabel_puntoSalida}"/>
+                        <h:outputText value="#{notaRemisionVentaController.selected.puntoSalida}" title="#{bundle.ViewNotaRemisionVentaTitle_puntoSalida}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaLabel_puntoLlegada}"/>
+                        <h:outputText value="#{notaRemisionVentaController.selected.puntoLlegada}" title="#{bundle.ViewNotaRemisionVentaTitle_puntoLlegada}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaLabel_estadoRemision}"/>
+                        <h:outputText value="#{notaRemisionVentaController.selected.estadoRemision}" title="#{bundle.ViewNotaRemisionVentaTitle_estadoRemision}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaLabel_idMotivoNota}"/>
+                        <h:outputText value="#{notaRemisionVentaController.selected.idMotivoNota.idMotivoNota}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaLabel_idMovil}"/>
+                        <h:outputText value="#{notaRemisionVentaController.selected.idMovil.idMovil}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaLabel_idSucursal}"/>
+                        <h:outputText value="#{notaRemisionVentaController.selected.idSucursal.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaLabel_idTipoComprobante}"/>
+                        <h:outputText value="#{notaRemisionVentaController.selected.idTipoComprobante.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaLabel_idUsuario}"/>
+                        <h:outputText value="#{notaRemisionVentaController.selected.idUsuario.idUsuario}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaLabel_idVenta}"/>
+                        <h:outputText value="#{notaRemisionVentaController.selected.idVenta.idVenta}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('NotaRemisionVentaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

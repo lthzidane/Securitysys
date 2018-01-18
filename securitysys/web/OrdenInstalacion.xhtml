@@ -132,14 +132,14 @@
                             <br/><br/>        
                             <p:dataTable id="datatableEquipoTecnico" disabledSelection="#{OrdenInstalacionBean.editando}"
                                          var="tec" 
-                                         value="#{OrdenInstalacionBean.listaTecnicos}" 
-                                         selection="#{OrdenInstalacionBean.selectedTecnicos}" 
+                                         value="#{OrdenInstalacionBean.listaTecnico}" 
+                                         selection="#{OrdenInstalacionBean.selectedTecnico}" 
                                          rowKey="#{tec.idTecnico}"
                                          style="width: 500px; margin-bottom:0;" 
                                          scrollable="true"
                                          scrollHeight="100">
                                 <f:facet name="header">
-                                    Tecnicos Asignados
+                                    Tecnico Asignados
                                 </f:facet>
                                 <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                                 <p:column headerText="Nombre">

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DescuentoViewDlg" widgetVar="DescuentoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewDescuentoTitle}" closeOnEscape="true">
+
+            <h:form id="DescuentoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{descuentoController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewDescuentoLabel_idDescuento}"/>
+                        <h:outputText value="#{descuentoController.selected.idDescuento}" title="#{bundle.ViewDescuentoTitle_idDescuento}"/>
+
+                        <h:outputText value="#{bundle.ViewDescuentoLabel_idUsuario}"/>
+                        <h:outputText value="#{descuentoController.selected.idUsuario}" title="#{bundle.ViewDescuentoTitle_idUsuario}"/>
+
+                        <h:outputText value="#{bundle.ViewDescuentoLabel_idSucursal}"/>
+                        <h:outputText value="#{descuentoController.selected.idSucursal}" title="#{bundle.ViewDescuentoTitle_idSucursal}"/>
+
+                        <h:outputText value="#{bundle.ViewDescuentoLabel_descripcionDesc}"/>
+                        <h:outputText value="#{descuentoController.selected.descripcionDesc}" title="#{bundle.ViewDescuentoTitle_descripcionDesc}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('DescuentoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

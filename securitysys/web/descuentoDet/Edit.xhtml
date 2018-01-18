@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DescuentoDetEditDlg" widgetVar="DescuentoDetEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditDescuentoDetTitle}" closeOnEscape="true">
+
+            <h:form id="DescuentoDetEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{descuentoDetController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditDescuentoDetLabel_descuentoDetPK_idDescuentoCab}" for="descuentoDetPK_idDescuentoCab" />
+                        <h:outputText id="descuentoDetPK_idDescuentoCab" value="#{descuentoDetController.selected.descuentoDetPK.idDescuentoCab}" />
+
+
+                        <h:outputLabel value="#{bundle.EditDescuentoDetLabel_descuentoDetPK_idSecuencia}" for="descuentoDetPK_idSecuencia" />
+                        <h:outputText id="descuentoDetPK_idSecuencia" value="#{descuentoDetController.selected.descuentoDetPK.idSecuencia}" />
+
+                        <p:outputLabel value="#{bundle.EditDescuentoDetLabel_porcentajeDesc}" for="porcentajeDesc" />
+                        <p:inputText id="porcentajeDesc" value="#{descuentoDetController.selected.porcentajeDesc}" title="#{bundle.EditDescuentoDetTitle_porcentajeDesc}" required="true" requiredMessage="#{bundle.EditDescuentoDetRequiredMessage_porcentajeDesc}"/>
+
+
+                        <h:outputLabel value="#{bundle.EditDescuentoDetLabel_descuento}" for="descuento" />
+                        <h:outputText id="descuento" value="#{descuentoDetController.selected.descuento}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{descuentoDetController.save}" value="#{bundle.Save}" update="display,:DescuentoDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DescuentoDetEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DescuentoDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

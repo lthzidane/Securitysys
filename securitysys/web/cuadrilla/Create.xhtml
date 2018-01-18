@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CuadrillaCreateDlg" widgetVar="CuadrillaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCuadrillaTitle}" closeOnEscape="true">
+
+            <h:form id="CuadrillaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{cuadrillaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateCuadrillaLabel_idMovil}" for="idMovil" />
+                        <p:selectOneMenu id="idMovil" value="#{cuadrillaController.selected.idMovil}" required="true" requiredMessage="#{bundle.CreateCuadrillaRequiredMessage_idMovil}" converter="movilesConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{movilesController.items}"
+                                           var="idMovilItem"
+                                           itemValue="#{idMovilItem}"
+                                           itemLabel="#{idMovilItem.idMovil.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateCuadrillaLabel_idTecnico}" for="idTecnico" />
+                        <p:selectOneMenu id="idTecnico" value="#{cuadrillaController.selected.idTecnico}" required="true" requiredMessage="#{bundle.CreateCuadrillaRequiredMessage_idTecnico}" converter="tecnicoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tecnicoController.items}"
+                                           var="idTecnicoItem"
+                                           itemValue="#{idTecnicoItem}"
+                                           itemLabel="#{idTecnicoItem.idTecnico.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateCuadrillaLabel_idTipoCuadrilla}" for="idTipoCuadrilla" />
+                        <p:selectOneMenu id="idTipoCuadrilla" value="#{cuadrillaController.selected.idTipoCuadrilla}" required="true" requiredMessage="#{bundle.CreateCuadrillaRequiredMessage_idTipoCuadrilla}" converter="tipoCuadrillaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoCuadrillaController.items}"
+                                           var="idTipoCuadrillaItem"
+                                           itemValue="#{idTipoCuadrillaItem}"
+                                           itemLabel="#{idTipoCuadrillaItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateCuadrillaLabel_idZona}" for="idZona" />
+                        <p:selectOneMenu id="idZona" value="#{cuadrillaController.selected.idZona}" required="true" requiredMessage="#{bundle.CreateCuadrillaRequiredMessage_idZona}" converter="zonaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{zonaController.items}"
+                                           var="idZonaItem"
+                                           itemValue="#{idZonaItem}"
+                                           itemLabel="#{idZonaItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cuadrillaController.saveNew}" value="#{bundle.Save}" update="display,:CuadrillaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CuadrillaCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CuadrillaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

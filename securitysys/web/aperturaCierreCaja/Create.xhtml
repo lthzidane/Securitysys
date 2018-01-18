@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AperturaCierreCajaCreateDlg" widgetVar="AperturaCierreCajaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAperturaCierreCajaTitle}" closeOnEscape="true">
+
+            <h:form id="AperturaCierreCajaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{aperturaCierreCajaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_fechaApertura}" for="fechaApertura" />
+                        <p:calendar id="fechaApertura" pattern="MM/dd/yyyy" value="#{aperturaCierreCajaController.selected.fechaApertura}" title="#{bundle.CreateAperturaCierreCajaTitle_fechaApertura}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_fechaApertura}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_horaApertura}" for="horaApertura" />
+                        <p:calendar id="horaApertura" pattern="HH:mm:ss" value="#{aperturaCierreCajaController.selected.horaApertura}" title="#{bundle.CreateAperturaCierreCajaTitle_horaApertura}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_horaApertura}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_fechaCierre}" for="fechaCierre" />
+                        <p:calendar id="fechaCierre" pattern="MM/dd/yyyy" value="#{aperturaCierreCajaController.selected.fechaCierre}" title="#{bundle.CreateAperturaCierreCajaTitle_fechaCierre}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_fechaCierre}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_horaCierre}" for="horaCierre" />
+                        <p:calendar id="horaCierre" pattern="HH:mm:ss" value="#{aperturaCierreCajaController.selected.horaCierre}" title="#{bundle.CreateAperturaCierreCajaTitle_horaCierre}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_horaCierre}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_montoApertura}" for="montoApertura" />
+                        <p:inputText id="montoApertura" value="#{aperturaCierreCajaController.selected.montoApertura}" title="#{bundle.CreateAperturaCierreCajaTitle_montoApertura}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_montoApertura}"/>
+
+                        <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_idCaja}" for="idCaja" />
+                        <p:selectOneMenu id="idCaja" value="#{aperturaCierreCajaController.selected.idCaja}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_idCaja}" converter="cajaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cajaController.items}"
+                                           var="idCajaItem"
+                                           itemValue="#{idCajaItem}"
+                                           itemLabel="#{idCajaItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_idSucursal}" for="idSucursal" />
+                        <p:selectOneMenu id="idSucursal" value="#{aperturaCierreCajaController.selected.idSucursal}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_idSucursal}" converter="sucursalConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sucursalController.items}"
+                                           var="idSucursalItem"
+                                           itemValue="#{idSucursalItem}"
+                                           itemLabel="#{idSucursalItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{aperturaCierreCajaController.selected.idUsuario}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_idUsuario}" converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{aperturaCierreCajaController.saveNew}" value="#{bundle.Save}" update="display,:AperturaCierreCajaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AperturaCierreCajaCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('AperturaCierreCajaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

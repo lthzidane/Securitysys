@@ -6,7 +6,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -22,48 +21,58 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author LOTHAR
+ * @author acer
  */
 @Entity
 @Table(name = "presupuesto_det")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PresupuestoDet.findAll", query = "SELECT p FROM PresupuestoDet p"),
-    @NamedQuery(name = "PresupuestoDet.findByTipoPresupuesto", query = "SELECT p FROM PresupuestoDet p WHERE p.presupuestoDetPK.tipoPresupuesto = :tipoPresupuesto"),
-    @NamedQuery(name = "PresupuestoDet.findBySerPresupuesto", query = "SELECT p FROM PresupuestoDet p WHERE p.presupuestoDetPK.serPresupuesto = :serPresupuesto"),
-    @NamedQuery(name = "PresupuestoDet.findByNroPresupuesto", query = "SELECT p FROM PresupuestoDet p WHERE p.presupuestoDetPK.nroPresupuesto = :nroPresupuesto"),
-    @NamedQuery(name = "PresupuestoDet.findByNroSecuencia", query = "SELECT p FROM PresupuestoDet p WHERE p.presupuestoDetPK.nroSecuencia = :nroSecuencia"),
-    @NamedQuery(name = "PresupuestoDet.findByPrecio", query = "SELECT p FROM PresupuestoDet p WHERE p.precio = :precio"),
-    @NamedQuery(name = "PresupuestoDet.findByTotalDetalle", query = "SELECT p FROM PresupuestoDet p WHERE p.totalDetalle = :totalDetalle"),
-    @NamedQuery(name = "PresupuestoDet.findByCantidad", query = "SELECT p FROM PresupuestoDet p WHERE p.cantidad = :cantidad"),
-    @NamedQuery(name = "PresupuestoDet.findByTotalDescuento", query = "SELECT p FROM PresupuestoDet p WHERE p.totalDescuento = :totalDescuento")})
+    @NamedQuery(name = "PresupuestoDet.findAll", query = "SELECT p FROM PresupuestoDet p")
+    , @NamedQuery(name = "PresupuestoDet.findByIdPresupuesto", query = "SELECT p FROM PresupuestoDet p WHERE p.presupuestoDetPK.idPresupuesto = :idPresupuesto")
+    , @NamedQuery(name = "PresupuestoDet.findByIdSecuencia", query = "SELECT p FROM PresupuestoDet p WHERE p.presupuestoDetPK.idSecuencia = :idSecuencia")
+    , @NamedQuery(name = "PresupuestoDet.findByCantidad", query = "SELECT p FROM PresupuestoDet p WHERE p.cantidad = :cantidad")
+    , @NamedQuery(name = "PresupuestoDet.findByExenta", query = "SELECT p FROM PresupuestoDet p WHERE p.exenta = :exenta")
+    , @NamedQuery(name = "PresupuestoDet.findByGravada5", query = "SELECT p FROM PresupuestoDet p WHERE p.gravada5 = :gravada5")
+    , @NamedQuery(name = "PresupuestoDet.findByGravada10", query = "SELECT p FROM PresupuestoDet p WHERE p.gravada10 = :gravada10")
+    , @NamedQuery(name = "PresupuestoDet.findByPrecio", query = "SELECT p FROM PresupuestoDet p WHERE p.precio = :precio")})
 public class PresupuestoDet implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected PresupuestoDetPK presupuestoDetPK;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "precio")
-    private BigInteger precio;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "total_detalle")
-    private BigInteger totalDetalle;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "cantidad")
-    private BigInteger cantidad;
-    @Column(name = "total_descuento")
-    private BigInteger totalDescuento;
+    private int cantidad;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "exenta")
+    private int exenta;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "gravada5")
+    private int gravada5;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "gravada10")
+    private int gravada10;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "precio")
+    private int precio;
+    @JoinColumn(name = "id_descuento", referencedColumnName = "id_descuento")
+    @ManyToOne(optional = false)
+    private Descuento idDescuento;
+    @JoinColumn(name = "id_presupuesto_cab", referencedColumnName = "id_presupuesto", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Presupuesto presupuesto;
     @JoinColumns({
-        @JoinColumn(name = "tipo_presupuesto", referencedColumnName = "tipo_presupuesto", insertable = false, updatable = false),
-        @JoinColumn(name = "ser_presupuesto", referencedColumnName = "ser_presupuesto", insertable = false, updatable = false),
-        @JoinColumn(name = "nro_presupuesto", referencedColumnName = "nro_presupuesto", insertable = false, updatable = false)})
+        @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion", insertable = false, updatable = false)
+        ,
+        @JoinColumn(name = "id_presu", referencedColumnName = "id_presu", insertable = false, updatable = false)
+    })
     @ManyToOne(optional = false)
-    private PresupuestoCab presupuestoCab;
-    @JoinColumn(name = "cod_producto", referencedColumnName = "cod_producto")
-    @ManyToOne(optional = false)
-    private Productos codProducto;
+    private Promocion idPromocion;
 
     public PresupuestoDet() {
     }
@@ -72,15 +81,17 @@ public class PresupuestoDet implements Serializable {
         this.presupuestoDetPK = presupuestoDetPK;
     }
 
-    public PresupuestoDet(PresupuestoDetPK presupuestoDetPK, BigInteger precio, BigInteger totalDetalle, BigInteger cantidad) {
+    public PresupuestoDet(PresupuestoDetPK presupuestoDetPK, int cantidad, int exenta, int gravada5, int gravada10, int precio) {
         this.presupuestoDetPK = presupuestoDetPK;
-        this.precio = precio;
-        this.totalDetalle = totalDetalle;
         this.cantidad = cantidad;
+        this.exenta = exenta;
+        this.gravada5 = gravada5;
+        this.gravada10 = gravada10;
+        this.precio = precio;
     }
 
-    public PresupuestoDet(String tipoPresupuesto, String serPresupuesto, BigInteger nroPresupuesto, BigInteger nroSecuencia) {
-        this.presupuestoDetPK = new PresupuestoDetPK(tipoPresupuesto, serPresupuesto, nroPresupuesto, nroSecuencia);
+    public PresupuestoDet(int idPresupuesto, int idSecuencia) {
+        this.presupuestoDetPK = new PresupuestoDetPK(idPresupuesto, idSecuencia);
     }
 
     public PresupuestoDetPK getPresupuestoDetPK() {
@@ -91,52 +102,68 @@ public class PresupuestoDet implements Serializable {
         this.presupuestoDetPK = presupuestoDetPK;
     }
 
-    public BigInteger getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(BigInteger precio) {
-        this.precio = precio;
-    }
-
-    public BigInteger getTotalDetalle() {
-        return totalDetalle;
-    }
-
-    public void setTotalDetalle(BigInteger totalDetalle) {
-        this.totalDetalle = totalDetalle;
-    }
-
-    public BigInteger getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(BigInteger cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
-    public BigInteger getTotalDescuento() {
-        return totalDescuento;
+    public int getExenta() {
+        return exenta;
     }
 
-    public void setTotalDescuento(BigInteger totalDescuento) {
-        this.totalDescuento = totalDescuento;
+    public void setExenta(int exenta) {
+        this.exenta = exenta;
     }
 
-    public PresupuestoCab getPresupuestoCab() {
-        return presupuestoCab;
+    public int getGravada5() {
+        return gravada5;
     }
 
-    public void setPresupuestoCab(PresupuestoCab presupuestoCab) {
-        this.presupuestoCab = presupuestoCab;
+    public void setGravada5(int gravada5) {
+        this.gravada5 = gravada5;
     }
 
-    public Productos getCodProducto() {
-        return codProducto;
+    public int getGravada10() {
+        return gravada10;
     }
 
-    public void setCodProducto(Productos codProducto) {
-        this.codProducto = codProducto;
+    public void setGravada10(int gravada10) {
+        this.gravada10 = gravada10;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    public Descuento getIdDescuento() {
+        return idDescuento;
+    }
+
+    public void setIdDescuento(Descuento idDescuento) {
+        this.idDescuento = idDescuento;
+    }
+
+    public Presupuesto getPresupuesto() {
+        return presupuesto;
+    }
+
+    public void setPresupuesto(Presupuesto presupuesto) {
+        this.presupuesto = presupuesto;
+    }
+
+    public Promocion getIdPromocion() {
+        return idPromocion;
+    }
+
+    public void setIdPromocion(Promocion idPromocion) {
+        this.idPromocion = idPromocion;
     }
 
     @Override
@@ -163,5 +190,5 @@ public class PresupuestoDet implements Serializable {
     public String toString() {
         return "entities.PresupuestoDet[ presupuestoDetPK=" + presupuestoDetPK + " ]";
     }
-    
+
 }

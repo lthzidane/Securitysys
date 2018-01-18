@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SolicitudViewDlg" widgetVar="SolicitudViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewSolicitudTitle}" closeOnEscape="true">
+
+            <h:form id="SolicitudViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{solicitudController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewSolicitudLabel_idSolicitud}"/>
+                        <h:outputText value="#{solicitudController.selected.idSolicitud}" title="#{bundle.ViewSolicitudTitle_idSolicitud}"/>
+
+                        <h:outputText value="#{bundle.ViewSolicitudLabel_fechaSolicitud}"/>
+                        <h:outputText value="#{solicitudController.selected.fechaSolicitud}" title="#{bundle.ViewSolicitudTitle_fechaSolicitud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewSolicitudLabel_estado}"/>
+                        <h:outputText value="#{solicitudController.selected.estado}" title="#{bundle.ViewSolicitudTitle_estado}"/>
+
+                        <h:outputText value="#{bundle.ViewSolicitudLabel_idCliente}"/>
+                        <h:outputText value="#{solicitudController.selected.idCliente.idCliente}"/>
+
+                        <h:outputText value="#{bundle.ViewSolicitudLabel_idSucursal}"/>
+                        <h:outputText value="#{solicitudController.selected.idSucursal.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewSolicitudLabel_idUsuario}"/>
+                        <h:outputText value="#{solicitudController.selected.idUsuario.idUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('SolicitudViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -8,17 +8,17 @@
 
     <ui:composition template="/resources/templates/template.xhtml">
 
-    <ui:define name="title">Tecnicos</ui:define>
+    <ui:define name="title">Tecnico</ui:define>
         <ui:define name="containerTitle">
-            <h:outputText styleClass="containerTitle" value="#{bundle.ListTecnicosTitle}"/>
+            <h:outputText styleClass="containerTitle" value="#{bundle.ListTecnicoTitle}"/>
         </ui:define>
 
        <ui:define name="container">
            <p:growl id="growl" life="3000" />
            
         <!--<ui:define name="body"> -->
-            <h:form id="TecnicosListForm">
-                <p:panel header="#{bundle.ListTecnicosTitle}">
+            <h:form id="TecnicoListForm">
+                <p:panel header="#{bundle.ListTecnicoTitle}">
                     <p:dataTable id="datalist" value="#{tecnicosController.items}" var="item"
                                  selectionMode="single" selection="#{tecnicosController.selected}"
                                  paginator="true"
@@ -33,32 +33,32 @@
 
                         <p:column rendered="false">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTecnicosTitle_idTecnico}"/>
+                                <h:outputText value="#{bundle.ListTecnicoTitle_idTecnico}"/>
                             </f:facet>
                             <h:outputText value="#{item.idTecnico}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTecnicosTitle_nombre}"/>
+                                <h:outputText value="#{bundle.ListTecnicoTitle_nombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}" style="text-transform: uppercase"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTecnicosTitle_tipoDocu}"/>
+                                <h:outputText value="#{bundle.ListTecnicoTitle_tipoDocu}"/>
                             </f:facet>
                             <h:outputText value="#{item.tipoDocumento.tipoDocu}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTecnicosTitle_nroDocu}"/>
+                                <h:outputText value="#{bundle.ListTecnicoTitle_nroDocu}"/>
                             </f:facet>
                             <h:outputText value="#{item.nroDocumento}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tecnicosController.prepareCreate}" update=":TecnicosCreateForm" oncomplete="PF('TecnicosCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TecnicosViewForm" oncomplete="PF('TecnicosViewDialog').show()" disabled="#{empty tecnicosController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TecnicosEditForm" oncomplete="PF('TecnicosEditDialog').show()" disabled="#{empty tecnicosController.selected}"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tecnicosController.prepareCreate}" update=":TecnicoCreateForm" oncomplete="PF('TecnicoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TecnicoViewForm" oncomplete="PF('TecnicoViewDialog').show()" disabled="#{empty tecnicosController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TecnicoEditForm" oncomplete="PF('TecnicoEditDialog').show()" disabled="#{empty tecnicosController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tecnicosController.destroy}" update=":growl,datalist" disabled="#{empty tecnicosController.selected}"/>
                         </f:facet>
                     </p:dataTable>

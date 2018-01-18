@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotaCrediDebiVentaDetCreateDlg" widgetVar="NotaCrediDebiVentaDetCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateNotaCrediDebiVentaDetTitle}" closeOnEscape="true">
+
+            <h:form id="NotaCrediDebiVentaDetCreateForm">
+
+                <h:panelGroup id="display" rendered="#{notaCrediDebiVentaDetController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateNotaCrediDebiVentaDetLabel_notaCrediDebiVentaDetPK_idNotaVenta}" for="notaCrediDebiVentaDetPK_idNotaVenta" />
+                        <p:inputText id="notaCrediDebiVentaDetPK_idNotaVenta" value="#{notaCrediDebiVentaDetController.selected.notaCrediDebiVentaDetPK.idNotaVenta}" title="#{bundle.CreateNotaCrediDebiVentaDetTitle_notaCrediDebiVentaDetPK_idNotaVenta}" required="true" requiredMessage="#{bundle.CreateNotaCrediDebiVentaDetRequiredMessage_notaCrediDebiVentaDetPK_idNotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaCrediDebiVentaDetLabel_notaCrediDebiVentaDetPK_idSecuencia}" for="notaCrediDebiVentaDetPK_idSecuencia" />
+                        <p:inputText id="notaCrediDebiVentaDetPK_idSecuencia" value="#{notaCrediDebiVentaDetController.selected.notaCrediDebiVentaDetPK.idSecuencia}" title="#{bundle.CreateNotaCrediDebiVentaDetTitle_notaCrediDebiVentaDetPK_idSecuencia}" required="true" requiredMessage="#{bundle.CreateNotaCrediDebiVentaDetRequiredMessage_notaCrediDebiVentaDetPK_idSecuencia}"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaCrediDebiVentaDetLabel_precioNotaVenta}" for="precioNotaVenta" />
+                        <p:inputText id="precioNotaVenta" value="#{notaCrediDebiVentaDetController.selected.precioNotaVenta}" title="#{bundle.CreateNotaCrediDebiVentaDetTitle_precioNotaVenta}" required="true" requiredMessage="#{bundle.CreateNotaCrediDebiVentaDetRequiredMessage_precioNotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaCrediDebiVentaDetLabel_cantidadNotaVenta}" for="cantidadNotaVenta" />
+                        <p:inputText id="cantidadNotaVenta" value="#{notaCrediDebiVentaDetController.selected.cantidadNotaVenta}" title="#{bundle.CreateNotaCrediDebiVentaDetTitle_cantidadNotaVenta}" required="true" requiredMessage="#{bundle.CreateNotaCrediDebiVentaDetRequiredMessage_cantidadNotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaCrediDebiVentaDetLabel_exentaNotaVenta}" for="exentaNotaVenta" />
+                        <p:inputText id="exentaNotaVenta" value="#{notaCrediDebiVentaDetController.selected.exentaNotaVenta}" title="#{bundle.CreateNotaCrediDebiVentaDetTitle_exentaNotaVenta}" required="true" requiredMessage="#{bundle.CreateNotaCrediDebiVentaDetRequiredMessage_exentaNotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaCrediDebiVentaDetLabel_gravada10NotaVenta}" for="gravada10NotaVenta" />
+                        <p:inputText id="gravada10NotaVenta" value="#{notaCrediDebiVentaDetController.selected.gravada10NotaVenta}" title="#{bundle.CreateNotaCrediDebiVentaDetTitle_gravada10NotaVenta}" required="true" requiredMessage="#{bundle.CreateNotaCrediDebiVentaDetRequiredMessage_gravada10NotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaCrediDebiVentaDetLabel_gravada5NotaVenta}" for="gravada5NotaVenta" />
+                        <p:inputText id="gravada5NotaVenta" value="#{notaCrediDebiVentaDetController.selected.gravada5NotaVenta}" title="#{bundle.CreateNotaCrediDebiVentaDetTitle_gravada5NotaVenta}" required="true" requiredMessage="#{bundle.CreateNotaCrediDebiVentaDetRequiredMessage_gravada5NotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaCrediDebiVentaDetLabel_iva10NotaVenta}" for="iva10NotaVenta" />
+                        <p:inputText id="iva10NotaVenta" value="#{notaCrediDebiVentaDetController.selected.iva10NotaVenta}" title="#{bundle.CreateNotaCrediDebiVentaDetTitle_iva10NotaVenta}" required="true" requiredMessage="#{bundle.CreateNotaCrediDebiVentaDetRequiredMessage_iva10NotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaCrediDebiVentaDetLabel_iva5NotaVenta}" for="iva5NotaVenta" />
+                        <p:inputText id="iva5NotaVenta" value="#{notaCrediDebiVentaDetController.selected.iva5NotaVenta}" title="#{bundle.CreateNotaCrediDebiVentaDetTitle_iva5NotaVenta}" required="true" requiredMessage="#{bundle.CreateNotaCrediDebiVentaDetRequiredMessage_iva5NotaVenta}"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaCrediDebiVentaDetLabel_idEquipo}" for="idEquipo" />
+                        <p:selectOneMenu id="idEquipo" value="#{notaCrediDebiVentaDetController.selected.idEquipo}" required="true" requiredMessage="#{bundle.CreateNotaCrediDebiVentaDetRequiredMessage_idEquipo}" converter="equipoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{equipoController.items}"
+                                           var="idEquipoItem"
+                                           itemValue="#{idEquipoItem}"
+                                           itemLabel="#{idEquipoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateNotaCrediDebiVentaDetLabel_notaCrediDebiVenta}" for="notaCrediDebiVenta" />
+                        <p:selectOneMenu id="notaCrediDebiVenta" value="#{notaCrediDebiVentaDetController.selected.notaCrediDebiVenta}" required="true" requiredMessage="#{bundle.CreateNotaCrediDebiVentaDetRequiredMessage_notaCrediDebiVenta}" converter="notaCrediDebiVentaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{notaCrediDebiVentaController.items}"
+                                           var="notaCrediDebiVentaItem"
+                                           itemValue="#{notaCrediDebiVentaItem}"
+                                           itemLabel="#{notaCrediDebiVentaItem.idNotaVenta.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{notaCrediDebiVentaDetController.saveNew}" value="#{bundle.Save}" update="display,:NotaCrediDebiVentaDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('NotaCrediDebiVentaDetCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('NotaCrediDebiVentaDetCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

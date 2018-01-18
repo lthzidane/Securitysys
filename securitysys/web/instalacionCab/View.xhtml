@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InstalacionCabViewDlg" widgetVar="InstalacionCabViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewInstalacionCabTitle}" closeOnEscape="true">
+
+            <h:form id="InstalacionCabViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{instalacionCabController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewInstalacionCabLabel_idInstalacion}"/>
+                        <h:outputText value="#{instalacionCabController.selected.idInstalacion}" title="#{bundle.ViewInstalacionCabTitle_idInstalacion}"/>
+
+                        <h:outputText value="#{bundle.ViewInstalacionCabLabel_tipoInstalacion}"/>
+                        <h:outputText value="#{instalacionCabController.selected.tipoInstalacion}" title="#{bundle.ViewInstalacionCabTitle_tipoInstalacion}"/>
+
+                        <h:outputText value="#{bundle.ViewInstalacionCabLabel_fechaInicio}"/>
+                        <h:outputText value="#{instalacionCabController.selected.fechaInicio}" title="#{bundle.ViewInstalacionCabTitle_fechaInicio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewInstalacionCabLabel_fechaFin}"/>
+                        <h:outputText value="#{instalacionCabController.selected.fechaFin}" title="#{bundle.ViewInstalacionCabTitle_fechaFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewInstalacionCabLabel_idEstado}"/>
+                        <h:outputText value="#{instalacionCabController.selected.idEstado}" title="#{bundle.ViewInstalacionCabTitle_idEstado}"/>
+
+                        <h:outputText value="#{bundle.ViewInstalacionCabLabel_observacion}"/>
+                        <h:outputText value="#{instalacionCabController.selected.observacion}" title="#{bundle.ViewInstalacionCabTitle_observacion}"/>
+
+                        <h:outputText value="#{bundle.ViewInstalacionCabLabel_idOt}"/>
+                        <h:outputText value="#{instalacionCabController.selected.idOt.idOt}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('InstalacionCabViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

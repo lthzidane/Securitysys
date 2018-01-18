@@ -17,7 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,31 +25,30 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Entity
 @Table(name = "marca")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Marca.findAll", query = "SELECT m FROM Marca m"),
-    @NamedQuery(name = "Marca.findByIdMarca", query = "SELECT m FROM Marca m WHERE m.idMarca = :idMarca"),
-    @NamedQuery(name = "Marca.findByDescripcion", query = "SELECT m FROM Marca m WHERE m.descripcion = :descripcion")})
+    @NamedQuery(name = "Marca.findAll", query = "SELECT m FROM Marca m")
+    , @NamedQuery(name = "Marca.findByIdMarca", query = "SELECT m FROM Marca m WHERE m.idMarca = :idMarca")
+    , @NamedQuery(name = "Marca.findByDescripcion", query = "SELECT m FROM Marca m WHERE m.descripcion = :descripcion")})
 public class Marca implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMarca")
-    private List<Moviles> movilesList;
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_marca")
-    @GeneratedValue(generator = "MarcSeq")
-    @SequenceGenerator(name = "MarcSeq", sequenceName = "marca_id_marca_seq", allocationSize = 1)
     private Integer idMarca;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "descripcion")
     private String descripcion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMarca")
+    private List<Moviles> movilesList;
 
     public Marca() {
     }
@@ -61,7 +59,7 @@ public class Marca implements Serializable {
 
     public Marca(Integer idMarca, String descripcion) {
         this.idMarca = idMarca;
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.toUpperCase();
     }
 
     public Integer getIdMarca() {
@@ -78,6 +76,15 @@ public class Marca implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion.toUpperCase();
+    }
+
+    @XmlTransient
+    public List<Moviles> getMovilesList() {
+        return movilesList;
+    }
+
+    public void setMovilesList(List<Moviles> movilesList) {
+        this.movilesList = movilesList;
     }
 
     @Override
@@ -104,14 +111,5 @@ public class Marca implements Serializable {
     public String toString() {
         return "entities.Marca[ idMarca=" + idMarca + " ]";
     }
-
-    @XmlTransient
-    public List<Moviles> getMovilesList() {
-        return movilesList;
-    }
-
-    public void setMovilesList(List<Moviles> movilesList) {
-        this.movilesList = movilesList;
-    }
-
+    
 }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PresupuestoDetCreateDlg" widgetVar="PresupuestoDetCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePresupuestoDetTitle}" closeOnEscape="true">
+
+            <h:form id="PresupuestoDetCreateForm">
+
+                <h:panelGroup id="display" rendered="#{presupuestoDetController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_presupuestoDetPK_idPresupuesto}" for="presupuestoDetPK_idPresupuesto" />
+                        <p:inputText id="presupuestoDetPK_idPresupuesto" value="#{presupuestoDetController.selected.presupuestoDetPK.idPresupuesto}" title="#{bundle.CreatePresupuestoDetTitle_presupuestoDetPK_idPresupuesto}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_presupuestoDetPK_idPresupuesto}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_presupuestoDetPK_idSecuencia}" for="presupuestoDetPK_idSecuencia" />
+                        <p:inputText id="presupuestoDetPK_idSecuencia" value="#{presupuestoDetController.selected.presupuestoDetPK.idSecuencia}" title="#{bundle.CreatePresupuestoDetTitle_presupuestoDetPK_idSecuencia}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_presupuestoDetPK_idSecuencia}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{presupuestoDetController.selected.cantidad}" title="#{bundle.CreatePresupuestoDetTitle_cantidad}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_cantidad}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_exenta}" for="exenta" />
+                        <p:inputText id="exenta" value="#{presupuestoDetController.selected.exenta}" title="#{bundle.CreatePresupuestoDetTitle_exenta}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_exenta}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_gravada5}" for="gravada5" />
+                        <p:inputText id="gravada5" value="#{presupuestoDetController.selected.gravada5}" title="#{bundle.CreatePresupuestoDetTitle_gravada5}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_gravada5}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_gravada10}" for="gravada10" />
+                        <p:inputText id="gravada10" value="#{presupuestoDetController.selected.gravada10}" title="#{bundle.CreatePresupuestoDetTitle_gravada10}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_gravada10}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_precio}" for="precio" />
+                        <p:inputText id="precio" value="#{presupuestoDetController.selected.precio}" title="#{bundle.CreatePresupuestoDetTitle_precio}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_precio}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_idDescuento}" for="idDescuento" />
+                        <p:selectOneMenu id="idDescuento" value="#{presupuestoDetController.selected.idDescuento}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_idDescuento}" converter="descuentoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{descuentoController.items}"
+                                           var="idDescuentoItem"
+                                           itemValue="#{idDescuentoItem}"
+                                           itemLabel="#{idDescuentoItem.descripcionDesc.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_presupuesto}" for="presupuesto" />
+                        <p:selectOneMenu id="presupuesto" value="#{presupuestoDetController.selected.presupuesto}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_presupuesto}" converter="presupuestoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{presupuestoController.items}"
+                                           var="presupuestoItem"
+                                           itemValue="#{presupuestoItem}"
+                                           itemLabel="#{presupuestoItem.idPresupuesto.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_idPromocion}" for="idPromocion" />
+                        <p:selectOneMenu id="idPromocion" value="#{presupuestoDetController.selected.idPromocion}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_idPromocion}" converter="promocionConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{promocionController.items}"
+                                           var="idPromocionItem"
+                                           itemValue="#{idPromocionItem}"
+                                           itemLabel="#{idPromocionItem.promocionPK.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{presupuestoDetController.saveNew}" value="#{bundle.Save}" update="display,:PresupuestoDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PresupuestoDetCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PresupuestoDetCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

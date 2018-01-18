@@ -34,7 +34,7 @@
                                           style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                             <h:selectOneMenu id="tecnico" label="Tecnico" value="#{OrdenTrabajoBean.idTecnico}">
                                 <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{OrdenTrabajoBean.listaTecnicos}" var="tec" itemLabel="#{tec.nombre}" itemValue="#{tec.idTecnico}" />
+                                <f:selectItems value="#{OrdenTrabajoBean.listaTecnico}" var="tec" itemLabel="#{tec.nombre}" itemValue="#{tec.idTecnico}" />
                             </h:selectOneMenu>
 
                             <h:outputText rendered="false" value="Inicio Previsto del Trabajo:"

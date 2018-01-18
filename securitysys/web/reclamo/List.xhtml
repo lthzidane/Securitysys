@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ReclamoListForm">
+
+        <p:panel header="#{bundle.ListReclamoTitle}">
+            <p:dataTable id="datalist"
+                         value="#{reclamoController.items}"
+                         lazy="false"
+                         rowKey="#{item.idReclamo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{reclamoController.selected}"
+                         filteredValue="#{reclamoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{reclamoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idReclamo}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.idReclamo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListReclamoTitle_idReclamo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idReclamo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListReclamoTitle_descripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaAlta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListReclamoTitle_fechaAlta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaAlta}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idTipoReclamo1}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListReclamoTitle_idTipoReclamo1}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idTipoReclamo1}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.solucion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListReclamoTitle_solucion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.solucion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.contacto}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListReclamoTitle_contacto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contacto}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.idCliente.idCliente}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListReclamoTitle_idCliente}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idCliente.idCliente}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idDepartamento.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListReclamoTitle_idDepartamento}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idDepartamento.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idEstado.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListReclamoTitle_idEstado}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idEstado.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idSucursal.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListReclamoTitle_idSucursal}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idSucursal.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idTipoReclamo.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListReclamoTitle_idTipoReclamo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idTipoReclamo.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idUsuario.idUsuario}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListReclamoTitle_idUsuario}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idUsuario.idUsuario}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{reclamoController.prepareCreate}" update=":ReclamoCreateForm" oncomplete="PF('ReclamoCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ReclamoViewForm" oncomplete="PF('ReclamoViewDialog').show()" disabled="#{empty reclamoController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ReclamoEditForm" oncomplete="PF('ReclamoEditDialog').show()" disabled="#{empty reclamoController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{reclamoController.delete}" update=":growl,datalist" disabled="#{empty reclamoController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

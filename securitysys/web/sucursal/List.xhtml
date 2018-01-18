@@ -17,7 +17,7 @@
             <h:outputStylesheet library="css" name="menu.css" />
             <h:outputStylesheet library="css" name="facade.css" />
             <p:growl id="growl" life="3000" />    
-            
+
             <h:form id="SucursalListForm">
 
                 <p:panel header="#{bundle.ListSucursalTitle}">
@@ -30,8 +30,8 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  selectionMode="single"
-                                 selection="#{sucursalController.selected}">
-
+                                 selection="#{sucursalController.selected}"
+                                 filteredValue="#{sucursalController.filteredItems}">
 
                         <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>

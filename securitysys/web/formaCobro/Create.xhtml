@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FormaCobroCreateDlg" widgetVar="FormaCobroCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFormaCobroTitle}" closeOnEscape="true">
+
+            <h:form id="FormaCobroCreateForm">
+
+                <h:panelGroup id="display" rendered="#{formaCobroController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateFormaCobroLabel_idFormaCobro}" for="idFormaCobro" />
+                        <p:inputText id="idFormaCobro" value="#{formaCobroController.selected.idFormaCobro}" title="#{bundle.CreateFormaCobroTitle_idFormaCobro}" required="true" requiredMessage="#{bundle.CreateFormaCobroRequiredMessage_idFormaCobro}"/>
+
+                        <p:outputLabel value="#{bundle.CreateFormaCobroLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{formaCobroController.selected.descripcion}" title="#{bundle.CreateFormaCobroTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateFormaCobroRequiredMessage_descripcion}" size="50" maxlength="50"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{formaCobroController.saveNew}" value="#{bundle.Save}" update="display,:FormaCobroListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('FormaCobroCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('FormaCobroCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

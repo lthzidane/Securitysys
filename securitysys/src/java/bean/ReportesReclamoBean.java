@@ -12,7 +12,7 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import entities.InstalacionCab;
-import entities.OrdenTrabajoCab;
+import entities.OrdenTrabajo;
 import entities.OrdenTrabajoDet;
 import entities.Reclamo;
 import java.io.File;

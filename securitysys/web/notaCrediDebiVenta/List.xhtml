@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="NotaCrediDebiVentaListForm">
+
+        <p:panel header="#{bundle.ListNotaCrediDebiVentaTitle}">
+            <p:dataTable id="datalist"
+                         value="#{notaCrediDebiVentaController.items}"
+                         lazy="false"
+                         rowKey="#{item.idNotaVenta}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{notaCrediDebiVentaController.selected}"
+                         filteredValue="#{notaCrediDebiVentaController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{notaCrediDebiVentaController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idNotaVenta}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.idNotaVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_idNotaVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idNotaVenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nroComprobante}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_nroComprobante}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nroComprobante}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaNotaVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_fechaNotaVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaNotaVenta}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estadoNotaVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_estadoNotaVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estadoNotaVenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.exentaNota}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_exentaNota}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.exentaNota}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.gravada10Nota}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_gravada10Nota}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.gravada10Nota}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.gravada5Nota}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_gravada5Nota}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.gravada5Nota}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.iva10Nota}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_iva10Nota}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.iva10Nota}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.iva5Nota}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_iva5Nota}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.iva5Nota}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idMotivoNota.idMotivoNota}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_idMotivoNota}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idMotivoNota.idMotivoNota}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idSerieComprobante.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_idSerieComprobante}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idSerieComprobante.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idSucursal.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_idSucursal}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idSucursal.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idTimbrado.idTimbrado}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_idTimbrado}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idTimbrado.idTimbrado}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idTipoComprobante.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_idTipoComprobante}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idTipoComprobante.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idUsuario.idUsuario}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_idUsuario}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idUsuario.idUsuario}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idVenta.idVenta}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaTitle_idVenta}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idVenta.idVenta}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{notaCrediDebiVentaController.prepareCreate}" update=":NotaCrediDebiVentaCreateForm" oncomplete="PF('NotaCrediDebiVentaCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":NotaCrediDebiVentaViewForm" oncomplete="PF('NotaCrediDebiVentaViewDialog').show()" disabled="#{empty notaCrediDebiVentaController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":NotaCrediDebiVentaEditForm" oncomplete="PF('NotaCrediDebiVentaEditDialog').show()" disabled="#{empty notaCrediDebiVentaController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{notaCrediDebiVentaController.delete}" update=":growl,datalist" disabled="#{empty notaCrediDebiVentaController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

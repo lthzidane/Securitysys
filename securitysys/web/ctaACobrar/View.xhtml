@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CtaACobrarViewDlg" widgetVar="CtaACobrarViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewCtaACobrarTitle}" closeOnEscape="true">
+
+            <h:form id="CtaACobrarViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{ctaACobrarController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewCtaACobrarLabel_ctaACobrarPK_idCtaACobrar}"/>
+                        <h:outputText value="#{ctaACobrarController.selected.ctaACobrarPK.idCtaACobrar}" title="#{bundle.ViewCtaACobrarTitle_ctaACobrarPK_idCtaACobrar}"/>
+
+                        <h:outputText value="#{bundle.ViewCtaACobrarLabel_ctaACobrarPK_idVenta}"/>
+                        <h:outputText value="#{ctaACobrarController.selected.ctaACobrarPK.idVenta}" title="#{bundle.ViewCtaACobrarTitle_ctaACobrarPK_idVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewCtaACobrarLabel_nroCuota}"/>
+                        <h:outputText value="#{ctaACobrarController.selected.nroCuota}" title="#{bundle.ViewCtaACobrarTitle_nroCuota}"/>
+
+                        <h:outputText value="#{bundle.ViewCtaACobrarLabel_montoACobrar}"/>
+                        <h:outputText value="#{ctaACobrarController.selected.montoACobrar}" title="#{bundle.ViewCtaACobrarTitle_montoACobrar}"/>
+
+                        <h:outputText value="#{bundle.ViewCtaACobrarLabel_saldoACobrar}"/>
+                        <h:outputText value="#{ctaACobrarController.selected.saldoACobrar}" title="#{bundle.ViewCtaACobrarTitle_saldoACobrar}"/>
+
+                        <h:outputText value="#{bundle.ViewCtaACobrarLabel_vencimientoACobrar}"/>
+                        <h:outputText value="#{ctaACobrarController.selected.vencimientoACobrar}" title="#{bundle.ViewCtaACobrarTitle_vencimientoACobrar}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewCtaACobrarLabel_estadoACobrar}"/>
+                        <h:outputText value="#{ctaACobrarController.selected.estadoACobrar}" title="#{bundle.ViewCtaACobrarTitle_estadoACobrar}"/>
+
+                        <h:outputText value="#{bundle.ViewCtaACobrarLabel_venta}"/>
+                        <h:outputText value="#{ctaACobrarController.selected.venta.idVenta}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('CtaACobrarViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

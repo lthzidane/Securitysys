@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DiagnosticoDetEditDlg" widgetVar="DiagnosticoDetEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditDiagnosticoDetTitle}" closeOnEscape="true">
+
+            <h:form id="DiagnosticoDetEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{diagnosticoDetController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditDiagnosticoDetLabel_diagnosticoDetPK_idDiagnostico}" for="diagnosticoDetPK_idDiagnostico" />
+                        <h:outputText id="diagnosticoDetPK_idDiagnostico" value="#{diagnosticoDetController.selected.diagnosticoDetPK.idDiagnostico}" />
+
+
+                        <h:outputLabel value="#{bundle.EditDiagnosticoDetLabel_diagnosticoDetPK_idSecuencia}" for="diagnosticoDetPK_idSecuencia" />
+                        <h:outputText id="diagnosticoDetPK_idSecuencia" value="#{diagnosticoDetController.selected.diagnosticoDetPK.idSecuencia}" />
+
+                        <p:outputLabel value="#{bundle.EditDiagnosticoDetLabel_detalle}" for="detalle" />
+                        <p:inputTextarea rows="4" cols="30" id="detalle" value="#{diagnosticoDetController.selected.detalle}" title="#{bundle.EditDiagnosticoDetTitle_detalle}" required="true" requiredMessage="#{bundle.EditDiagnosticoDetRequiredMessage_detalle}"/>
+
+
+                        <h:outputLabel value="#{bundle.EditDiagnosticoDetLabel_diagnostico}" for="diagnostico" />
+                        <h:outputText id="diagnostico" value="#{diagnosticoDetController.selected.diagnostico}" />
+
+                        <p:outputLabel value="#{bundle.EditDiagnosticoDetLabel_idEquipo}" for="idEquipo" />
+                        <p:selectOneMenu id="idEquipo" value="#{diagnosticoDetController.selected.idEquipo}" required="true" requiredMessage="#{bundle.EditDiagnosticoDetRequiredMessage_idEquipo}" converter="equipoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{equipoController.items}"
+                                           var="idEquipoItem"
+                                           itemValue="#{idEquipoItem}"
+                                           itemLabel="#{idEquipoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{diagnosticoDetController.save}" value="#{bundle.Save}" update="display,:DiagnosticoDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DiagnosticoDetEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DiagnosticoDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

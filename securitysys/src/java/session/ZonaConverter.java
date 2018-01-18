@@ -6,7 +6,7 @@ import session.util.JsfUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -14,15 +14,14 @@ import javax.faces.convert.Converter;
 @FacesConverter(value = "zonaConverter")
 public class ZonaConverter implements Converter {
 
-    @Inject
     private ZonaFacade ejbFacade;
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-        if (value == null || value.length() == 0) {
+        if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
             return null;
         }
-        return this.ejbFacade.find(getKey(value));
+        return this.getEjbFacade().find(getKey(value));
     }
 
     java.lang.Integer getKey(String value) {
@@ -52,4 +51,8 @@ public class ZonaConverter implements Converter {
         }
     }
 
+    private ZonaFacade getEjbFacade() {
+        this.ejbFacade = CDI.current().select(ZonaFacade.class).get();
+        return this.ejbFacade;
+    }
 }

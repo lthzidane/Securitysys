@@ -1,28 +1,15 @@
 package session;
 
 import entities.MarcaTarjeta;
+import entities.Tarjeta;
+import java.util.List;
 import bean.MarcaTarjetaFacade;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.annotation.PostConstruct;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 
-@ManagedBean(name = "marcaTarjetaController")
+@Named(value = "marcaTarjetaController")
 @ViewScoped
 public class MarcaTarjetaController extends AbstractController<MarcaTarjeta> {
-
-    @EJB
-    private MarcaTarjetaFacade ejbFacade;
-
-    /**
-     * Initialize the concrete MarcaTarjeta controller bean. The
-     * AbstractController requires the EJB Facade object for most operations.
-     */
-    @PostConstruct
-    @Override
-    public void init() {
-        super.setFacade(ejbFacade);
-    }
 
     public MarcaTarjetaController() {
         // Inform the Abstract parent controller of the concrete MarcaTarjeta Entity

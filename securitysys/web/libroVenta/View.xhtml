@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LibroVentaViewDlg" widgetVar="LibroVentaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewLibroVentaTitle}" closeOnEscape="true">
+
+            <h:form id="LibroVentaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{libroVentaController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewLibroVentaLabel_libroVentaPK_idLibroVenta}"/>
+                        <h:outputText value="#{libroVentaController.selected.libroVentaPK.idLibroVenta}" title="#{bundle.ViewLibroVentaTitle_libroVentaPK_idLibroVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewLibroVentaLabel_libroVentaPK_idVenta}"/>
+                        <h:outputText value="#{libroVentaController.selected.libroVentaPK.idVenta}" title="#{bundle.ViewLibroVentaTitle_libroVentaPK_idVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewLibroVentaLabel_rucCliente}"/>
+                        <h:outputText value="#{libroVentaController.selected.rucCliente}" title="#{bundle.ViewLibroVentaTitle_rucCliente}"/>
+
+                        <h:outputText value="#{bundle.ViewLibroVentaLabel_ventaExenta}"/>
+                        <h:outputText value="#{libroVentaController.selected.ventaExenta}" title="#{bundle.ViewLibroVentaTitle_ventaExenta}"/>
+
+                        <h:outputText value="#{bundle.ViewLibroVentaLabel_ventaGravada10}"/>
+                        <h:outputText value="#{libroVentaController.selected.ventaGravada10}" title="#{bundle.ViewLibroVentaTitle_ventaGravada10}"/>
+
+                        <h:outputText value="#{bundle.ViewLibroVentaLabel_ventaGravada5}"/>
+                        <h:outputText value="#{libroVentaController.selected.ventaGravada5}" title="#{bundle.ViewLibroVentaTitle_ventaGravada5}"/>
+
+                        <h:outputText value="#{bundle.ViewLibroVentaLabel_ivaGravada10}"/>
+                        <h:outputText value="#{libroVentaController.selected.ivaGravada10}" title="#{bundle.ViewLibroVentaTitle_ivaGravada10}"/>
+
+                        <h:outputText value="#{bundle.ViewLibroVentaLabel_ivaGravada5}"/>
+                        <h:outputText value="#{libroVentaController.selected.ivaGravada5}" title="#{bundle.ViewLibroVentaTitle_ivaGravada5}"/>
+
+                        <h:outputText value="#{bundle.ViewLibroVentaLabel_estadoLibroVenta}"/>
+                        <h:outputText value="#{libroVentaController.selected.estadoLibroVenta}" title="#{bundle.ViewLibroVentaTitle_estadoLibroVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewLibroVentaLabel_periodoVenta}"/>
+                        <h:outputText value="#{libroVentaController.selected.periodoVenta}" title="#{bundle.ViewLibroVentaTitle_periodoVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewLibroVentaLabel_idCliente}"/>
+                        <h:outputText value="#{libroVentaController.selected.idCliente.idCliente}"/>
+
+                        <h:outputText value="#{bundle.ViewLibroVentaLabel_venta}"/>
+                        <h:outputText value="#{libroVentaController.selected.venta.idVenta}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('LibroVentaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

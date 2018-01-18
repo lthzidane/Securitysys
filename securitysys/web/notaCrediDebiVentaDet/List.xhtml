@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="NotaCrediDebiVentaDetListForm">
+
+        <p:panel header="#{bundle.ListNotaCrediDebiVentaDetTitle}">
+            <p:dataTable id="datalist"
+                         value="#{notaCrediDebiVentaDetController.items}"
+                         lazy="false"
+                         rowKey="#{item.notaCrediDebiVentaDetPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{notaCrediDebiVentaDetController.selected}"
+                         filteredValue="#{notaCrediDebiVentaDetController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{notaCrediDebiVentaDetController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.notaCrediDebiVentaDetPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.notaCrediDebiVentaDetPK.idNotaVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListNotaCrediDebiVentaDetTitle_notaCrediDebiVentaDetPK_idNotaVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.notaCrediDebiVentaDetPK.idNotaVenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.notaCrediDebiVentaDetPK.idSecuencia}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListNotaCrediDebiVentaDetTitle_notaCrediDebiVentaDetPK_idSecuencia}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.notaCrediDebiVentaDetPK.idSecuencia}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.precioNotaVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListNotaCrediDebiVentaDetTitle_precioNotaVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.precioNotaVenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cantidadNotaVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListNotaCrediDebiVentaDetTitle_cantidadNotaVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidadNotaVenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.exentaNotaVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListNotaCrediDebiVentaDetTitle_exentaNotaVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.exentaNotaVenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.gravada10NotaVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListNotaCrediDebiVentaDetTitle_gravada10NotaVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.gravada10NotaVenta}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.gravada5NotaVenta}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaDetTitle_gravada5NotaVenta}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.gravada5NotaVenta}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.iva10NotaVenta}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaDetTitle_iva10NotaVenta}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.iva10NotaVenta}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.iva5NotaVenta}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaDetTitle_iva5NotaVenta}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.iva5NotaVenta}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idEquipo.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaDetTitle_idEquipo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idEquipo.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.notaCrediDebiVenta.idNotaVenta}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListNotaCrediDebiVentaDetTitle_notaCrediDebiVenta}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.notaCrediDebiVenta.idNotaVenta}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{notaCrediDebiVentaDetController.prepareCreate}" update=":NotaCrediDebiVentaDetCreateForm" oncomplete="PF('NotaCrediDebiVentaDetCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":NotaCrediDebiVentaDetViewForm" oncomplete="PF('NotaCrediDebiVentaDetViewDialog').show()" disabled="#{empty notaCrediDebiVentaDetController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":NotaCrediDebiVentaDetEditForm" oncomplete="PF('NotaCrediDebiVentaDetEditDialog').show()" disabled="#{empty notaCrediDebiVentaDetController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{notaCrediDebiVentaDetController.delete}" update=":growl,datalist" disabled="#{empty notaCrediDebiVentaDetController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MotivoNotaDebiViewDlg" widgetVar="MotivoNotaDebiViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewMotivoNotaDebiTitle}" closeOnEscape="true">
+
+            <h:form id="MotivoNotaDebiViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{motivoNotaDebiController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewMotivoNotaDebiLabel_idMotivoNota}"/>
+                        <h:outputText value="#{motivoNotaDebiController.selected.idMotivoNota}" title="#{bundle.ViewMotivoNotaDebiTitle_idMotivoNota}"/>
+
+                        <h:outputText value="#{bundle.ViewMotivoNotaDebiLabel_descMotivoNota}"/>
+                        <h:outputText value="#{motivoNotaDebiController.selected.descMotivoNota}" title="#{bundle.ViewMotivoNotaDebiTitle_descMotivoNota}"/>
+
+                        <h:outputText value="#{bundle.ViewMotivoNotaDebiLabel_tipoNota}"/>
+                        <h:outputText value="#{motivoNotaDebiController.selected.tipoNota}" title="#{bundle.ViewMotivoNotaDebiTitle_tipoNota}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('MotivoNotaDebiViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RecaudacionViewDlg" widgetVar="RecaudacionViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewRecaudacionTitle}" closeOnEscape="true">
+
+            <h:form id="RecaudacionViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{recaudacionController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewRecaudacionLabel_recaudacionPK_idRecaudacion}"/>
+                        <h:outputText value="#{recaudacionController.selected.recaudacionPK.idRecaudacion}" title="#{bundle.ViewRecaudacionTitle_recaudacionPK_idRecaudacion}"/>
+
+                        <h:outputText value="#{bundle.ViewRecaudacionLabel_recaudacionPK_idFormaCobro}"/>
+                        <h:outputText value="#{recaudacionController.selected.recaudacionPK.idFormaCobro}" title="#{bundle.ViewRecaudacionTitle_recaudacionPK_idFormaCobro}"/>
+
+                        <h:outputText value="#{bundle.ViewRecaudacionLabel_fechaRecaudacion}"/>
+                        <h:outputText value="#{recaudacionController.selected.fechaRecaudacion}" title="#{bundle.ViewRecaudacionTitle_fechaRecaudacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewRecaudacionLabel_montoRecaudacion}"/>
+                        <h:outputText value="#{recaudacionController.selected.montoRecaudacion}" title="#{bundle.ViewRecaudacionTitle_montoRecaudacion}"/>
+
+                        <h:outputText value="#{bundle.ViewRecaudacionLabel_arqueo}"/>
+                        <h:outputText value="#{recaudacionController.selected.arqueo.arqueoPK}"/>
+
+                        <h:outputText value="#{bundle.ViewRecaudacionLabel_formaCobro}"/>
+                        <h:outputText value="#{recaudacionController.selected.formaCobro.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('RecaudacionViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

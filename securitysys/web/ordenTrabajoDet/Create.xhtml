@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrdenTrabajoDetCreateDlg" widgetVar="OrdenTrabajoDetCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateOrdenTrabajoDetTitle}" closeOnEscape="true">
+
+            <h:form id="OrdenTrabajoDetCreateForm">
+
+                <h:panelGroup id="display" rendered="#{ordenTrabajoDetController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoDetLabel_ordenTrabajoDetPK_idOrdenTrabajo}" for="ordenTrabajoDetPK_idOrdenTrabajo" />
+                        <p:inputText id="ordenTrabajoDetPK_idOrdenTrabajo" value="#{ordenTrabajoDetController.selected.ordenTrabajoDetPK.idOrdenTrabajo}" title="#{bundle.CreateOrdenTrabajoDetTitle_ordenTrabajoDetPK_idOrdenTrabajo}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoDetRequiredMessage_ordenTrabajoDetPK_idOrdenTrabajo}"/>
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoDetLabel_ordenTrabajoDetPK_idSecuencia}" for="ordenTrabajoDetPK_idSecuencia" />
+                        <p:inputText id="ordenTrabajoDetPK_idSecuencia" value="#{ordenTrabajoDetController.selected.ordenTrabajoDetPK.idSecuencia}" title="#{bundle.CreateOrdenTrabajoDetTitle_ordenTrabajoDetPK_idSecuencia}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoDetRequiredMessage_ordenTrabajoDetPK_idSecuencia}"/>
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoDetLabel_detalle}" for="detalle" />
+                        <p:inputTextarea rows="4" cols="30" id="detalle" value="#{ordenTrabajoDetController.selected.detalle}" title="#{bundle.CreateOrdenTrabajoDetTitle_detalle}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoDetRequiredMessage_detalle}"/>
+
+                        <p:outputLabel value="#{bundle.CreateOrdenTrabajoDetLabel_ordenTrabajo}" for="ordenTrabajo" />
+                        <p:selectOneMenu id="ordenTrabajo" value="#{ordenTrabajoDetController.selected.ordenTrabajo}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoDetRequiredMessage_ordenTrabajo}" converter="ordenTrabajoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ordenTrabajoController.items}"
+                                           var="ordenTrabajoItem"
+                                           itemValue="#{ordenTrabajoItem}"
+                                           itemLabel="#{ordenTrabajoItem.idOt.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ordenTrabajoDetController.saveNew}" value="#{bundle.Save}" update="display,:OrdenTrabajoDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OrdenTrabajoDetCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('OrdenTrabajoDetCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

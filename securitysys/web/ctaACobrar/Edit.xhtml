@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CtaACobrarEditDlg" widgetVar="CtaACobrarEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditCtaACobrarTitle}" closeOnEscape="true">
+
+            <h:form id="CtaACobrarEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{ctaACobrarController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditCtaACobrarLabel_ctaACobrarPK_idCtaACobrar}" for="ctaACobrarPK_idCtaACobrar" />
+                        <h:outputText id="ctaACobrarPK_idCtaACobrar" value="#{ctaACobrarController.selected.ctaACobrarPK.idCtaACobrar}" />
+
+
+                        <h:outputLabel value="#{bundle.EditCtaACobrarLabel_ctaACobrarPK_idVenta}" for="ctaACobrarPK_idVenta" />
+                        <h:outputText id="ctaACobrarPK_idVenta" value="#{ctaACobrarController.selected.ctaACobrarPK.idVenta}" />
+
+                        <p:outputLabel value="#{bundle.EditCtaACobrarLabel_nroCuota}" for="nroCuota" />
+                        <p:inputText id="nroCuota" value="#{ctaACobrarController.selected.nroCuota}" title="#{bundle.EditCtaACobrarTitle_nroCuota}" required="true" requiredMessage="#{bundle.EditCtaACobrarRequiredMessage_nroCuota}"/>
+
+                        <p:outputLabel value="#{bundle.EditCtaACobrarLabel_montoACobrar}" for="montoACobrar" />
+                        <p:inputText id="montoACobrar" value="#{ctaACobrarController.selected.montoACobrar}" title="#{bundle.EditCtaACobrarTitle_montoACobrar}" required="true" requiredMessage="#{bundle.EditCtaACobrarRequiredMessage_montoACobrar}"/>
+
+                        <p:outputLabel value="#{bundle.EditCtaACobrarLabel_saldoACobrar}" for="saldoACobrar" />
+                        <p:inputText id="saldoACobrar" value="#{ctaACobrarController.selected.saldoACobrar}" title="#{bundle.EditCtaACobrarTitle_saldoACobrar}" required="true" requiredMessage="#{bundle.EditCtaACobrarRequiredMessage_saldoACobrar}"/>
+
+                        <p:outputLabel value="#{bundle.EditCtaACobrarLabel_vencimientoACobrar}" for="vencimientoACobrar" />
+                        <p:calendar id="vencimientoACobrar" pattern="MM/dd/yyyy" value="#{ctaACobrarController.selected.vencimientoACobrar}" title="#{bundle.EditCtaACobrarTitle_vencimientoACobrar}" required="true" requiredMessage="#{bundle.EditCtaACobrarRequiredMessage_vencimientoACobrar}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditCtaACobrarLabel_estadoACobrar}" for="estadoACobrar" />
+                        <p:inputText id="estadoACobrar" value="#{ctaACobrarController.selected.estadoACobrar}" title="#{bundle.EditCtaACobrarTitle_estadoACobrar}" required="true" requiredMessage="#{bundle.EditCtaACobrarRequiredMessage_estadoACobrar}" size="50" maxlength="50"/>
+
+
+                        <h:outputLabel value="#{bundle.EditCtaACobrarLabel_venta}" for="venta" />
+                        <h:outputText id="venta" value="#{ctaACobrarController.selected.venta}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ctaACobrarController.save}" value="#{bundle.Save}" update="display,:CtaACobrarListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CtaACobrarEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CtaACobrarEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

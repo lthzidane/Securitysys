@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="SegmentoContratoListForm">
+
+        <p:panel header="#{bundle.ListSegmentoContratoTitle}">
+            <p:dataTable id="datalist"
+                         value="#{segmentoContratoController.items}"
+                         lazy="false"
+                         rowKey="#{item.idSegmento}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{segmentoContratoController.selected}"
+                         filteredValue="#{segmentoContratoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{segmentoContratoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idSegmento}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.idSegmento}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListSegmentoContratoTitle_idSegmento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idSegmento}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListSegmentoContratoTitle_descripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idCliente.idCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListSegmentoContratoTitle_idCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idCliente.idCliente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idServicio.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListSegmentoContratoTitle_idServicio}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idServicio.descripcion}"/>
+                </p:column>
+
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{segmentoContratoController.prepareCreate}" update=":SegmentoContratoCreateForm" oncomplete="PF('SegmentoContratoCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SegmentoContratoViewForm" oncomplete="PF('SegmentoContratoViewDialog').show()" disabled="#{empty segmentoContratoController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SegmentoContratoEditForm" oncomplete="PF('SegmentoContratoEditDialog').show()" disabled="#{empty segmentoContratoController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{segmentoContratoController.delete}" update=":growl,datalist" disabled="#{empty segmentoContratoController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ArqueoViewDlg" widgetVar="ArqueoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewArqueoTitle}" closeOnEscape="true">
+
+            <h:form id="ArqueoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{arqueoController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewArqueoLabel_arqueoPK_idArqueo}"/>
+                        <h:outputText value="#{arqueoController.selected.arqueoPK.idArqueo}" title="#{bundle.ViewArqueoTitle_arqueoPK_idArqueo}"/>
+
+                        <h:outputText value="#{bundle.ViewArqueoLabel_arqueoPK_idValor}"/>
+                        <h:outputText value="#{arqueoController.selected.arqueoPK.idValor}" title="#{bundle.ViewArqueoTitle_arqueoPK_idValor}"/>
+
+                        <h:outputText value="#{bundle.ViewArqueoLabel_arqueoPK_idAperturaCierre}"/>
+                        <h:outputText value="#{arqueoController.selected.arqueoPK.idAperturaCierre}" title="#{bundle.ViewArqueoTitle_arqueoPK_idAperturaCierre}"/>
+
+                        <h:outputText value="#{bundle.ViewArqueoLabel_cantidadValor}"/>
+                        <h:outputText value="#{arqueoController.selected.cantidadValor}" title="#{bundle.ViewArqueoTitle_cantidadValor}"/>
+
+                        <h:outputText value="#{bundle.ViewArqueoLabel_fechaArqueo}"/>
+                        <h:outputText value="#{arqueoController.selected.fechaArqueo}" title="#{bundle.ViewArqueoTitle_fechaArqueo}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewArqueoLabel_horaArqueo}"/>
+                        <h:outputText value="#{arqueoController.selected.horaArqueo}" title="#{bundle.ViewArqueoTitle_horaArqueo}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewArqueoLabel_estadoArqueo}"/>
+                        <h:outputText value="#{arqueoController.selected.estadoArqueo}" title="#{bundle.ViewArqueoTitle_estadoArqueo}"/>
+
+                        <h:outputText value="#{bundle.ViewArqueoLabel_aperturaCierreCaja}"/>
+                        <h:outputText value="#{arqueoController.selected.aperturaCierreCaja.idAperturaCierre}"/>
+
+                        <h:outputText value="#{bundle.ViewArqueoLabel_valor}"/>
+                        <h:outputText value="#{arqueoController.selected.valor.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('ArqueoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

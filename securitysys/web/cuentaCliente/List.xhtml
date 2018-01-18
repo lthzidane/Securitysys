@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CuentaClienteListForm">
+
+        <p:panel header="#{bundle.ListCuentaClienteTitle}">
+            <p:dataTable id="datalist"
+                         value="#{cuentaClienteController.items}"
+                         lazy="false"
+                         rowKey="#{item.idCuenta}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{cuentaClienteController.selected}"
+                         filteredValue="#{cuentaClienteController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{cuentaClienteController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idCuenta}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.idCuenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCuentaClienteTitle_idCuenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idCuenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.contacto}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCuentaClienteTitle_contacto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contacto}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaHabilitacion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCuentaClienteTitle_fechaHabilitacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaHabilitacion}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idCliente.idCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCuentaClienteTitle_idCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idCliente.idCliente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.contrato.contratoPK}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCuentaClienteTitle_contrato}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contrato.contratoPK}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idEstado.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCuentaClienteTitle_idEstado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEstado.descripcion}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.idSegmento.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCuentaClienteTitle_idSegmento}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idSegmento.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idSucursal.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCuentaClienteTitle_idSucursal}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idSucursal.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cuentaClienteController.prepareCreate}" update=":CuentaClienteCreateForm" oncomplete="PF('CuentaClienteCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CuentaClienteViewForm" oncomplete="PF('CuentaClienteViewDialog').show()" disabled="#{empty cuentaClienteController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CuentaClienteEditForm" oncomplete="PF('CuentaClienteEditDialog').show()" disabled="#{empty cuentaClienteController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{cuentaClienteController.delete}" update=":growl,datalist" disabled="#{empty cuentaClienteController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

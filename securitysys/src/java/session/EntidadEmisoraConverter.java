@@ -6,7 +6,7 @@ import session.util.JsfUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.convert.FacesConverter;
-import javax.ejb.EJB;
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -14,7 +14,6 @@ import javax.faces.convert.Converter;
 @FacesConverter(value = "entidadEmisoraConverter")
 public class EntidadEmisoraConverter implements Converter {
 
-    @EJB
     private EntidadEmisoraFacade ejbFacade;
 
     @Override
@@ -22,7 +21,7 @@ public class EntidadEmisoraConverter implements Converter {
         if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
             return null;
         }
-        return this.ejbFacade.find(getKey(value));
+        return this.getEjbFacade().find(getKey(value));
     }
 
     java.lang.Integer getKey(String value) {
@@ -52,4 +51,8 @@ public class EntidadEmisoraConverter implements Converter {
         }
     }
 
+    private EntidadEmisoraFacade getEjbFacade() {
+        this.ejbFacade = CDI.current().select(EntidadEmisoraFacade.class).get();
+        return this.ejbFacade;
+    }
 }

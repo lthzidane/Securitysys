@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TarjetaEditDlg" widgetVar="TarjetaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditTarjetaTitle}" closeOnEscape="true">
+
+            <h:form id="TarjetaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tarjetaController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditTarjetaLabel_idTarjeta}" for="idTarjeta" />
+                        <h:outputText id="idTarjeta" value="#{tarjetaController.selected.idTarjeta}" />
+
+                        <p:outputLabel value="#{bundle.EditTarjetaLabel_descTarjeta}" for="descTarjeta" />
+                        <p:inputText id="descTarjeta" value="#{tarjetaController.selected.descTarjeta}" title="#{bundle.EditTarjetaTitle_descTarjeta}" required="true" requiredMessage="#{bundle.EditTarjetaRequiredMessage_descTarjeta}" size="60" maxlength="60"/>
+
+                        <p:outputLabel value="#{bundle.EditTarjetaLabel_nroTarjeta}" for="nroTarjeta" />
+                        <p:inputText id="nroTarjeta" value="#{tarjetaController.selected.nroTarjeta}" title="#{bundle.EditTarjetaTitle_nroTarjeta}" required="true" requiredMessage="#{bundle.EditTarjetaRequiredMessage_nroTarjeta}" size="60" maxlength="60"/>
+
+                        <p:outputLabel value="#{bundle.EditTarjetaLabel_idEntidadEmisora}" for="idEntidadEmisora" />
+                        <p:selectOneMenu id="idEntidadEmisora" value="#{tarjetaController.selected.idEntidadEmisora}" required="true" requiredMessage="#{bundle.EditTarjetaRequiredMessage_idEntidadEmisora}" converter="entidadEmisoraConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{entidadEmisoraController.items}"
+                                           var="idEntidadEmisoraItem"
+                                           itemValue="#{idEntidadEmisoraItem}"
+                                           itemLabel="#{idEntidadEmisoraItem.idEntidadEmisora.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditTarjetaLabel_idMarcaTarjeta}" for="idMarcaTarjeta" />
+                        <p:selectOneMenu id="idMarcaTarjeta" value="#{tarjetaController.selected.idMarcaTarjeta}" required="true" requiredMessage="#{bundle.EditTarjetaRequiredMessage_idMarcaTarjeta}" converter="marcaTarjetaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{marcaTarjetaController.items}"
+                                           var="idMarcaTarjetaItem"
+                                           itemValue="#{idMarcaTarjetaItem}"
+                                           itemLabel="#{idMarcaTarjetaItem.idMarcaTarjeta.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditTarjetaLabel_idTipoTarjeta}" for="idTipoTarjeta" />
+                        <p:selectOneMenu id="idTipoTarjeta" value="#{tarjetaController.selected.idTipoTarjeta}" required="true" requiredMessage="#{bundle.EditTarjetaRequiredMessage_idTipoTarjeta}" converter="tipoTarjetaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoTarjetaController.items}"
+                                           var="idTipoTarjetaItem"
+                                           itemValue="#{idTipoTarjetaItem}"
+                                           itemLabel="#{idTipoTarjetaItem.idTipoTarjeta.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tarjetaController.save}" value="#{bundle.Save}" update="display,:TarjetaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TarjetaEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TarjetaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

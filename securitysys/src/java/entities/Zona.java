@@ -19,7 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,25 +27,22 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Entity
 @Table(name = "zona")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Zona.findAll", query = "SELECT z FROM Zona z"),
-    @NamedQuery(name = "Zona.findByIdZona", query = "SELECT z FROM Zona z WHERE z.idZona = :idZona"),
-    @NamedQuery(name = "Zona.findByDescripcion", query = "SELECT z FROM Zona z WHERE z.descripcion = :descripcion")})
+    @NamedQuery(name = "Zona.findAll", query = "SELECT z FROM Zona z")
+    , @NamedQuery(name = "Zona.findByIdZona", query = "SELECT z FROM Zona z WHERE z.idZona = :idZona")
+    , @NamedQuery(name = "Zona.findByDescripcion", query = "SELECT z FROM Zona z WHERE z.descripcion = :descripcion")})
 public class Zona implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idZona")
-    private List<Ruta> rutaList;
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_zona")
-    @GeneratedValue(generator = "ZonaSeq")
-    @SequenceGenerator(name = "ZonaSeq", sequenceName = "zona_id_zona_seq", allocationSize = 1)
     private Integer idZona;
     @Basic(optional = false)
     @NotNull
@@ -56,6 +52,10 @@ public class Zona implements Serializable {
     @JoinColumn(name = "id_ciudad", referencedColumnName = "id_ciudad")
     @ManyToOne(optional = false)
     private Ciudad idCiudad;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idZona")
+    private List<Ruta> rutaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idZona")
+    private List<Cuadrilla> cuadrillaList;
 
     public Zona() {
     }
@@ -93,6 +93,24 @@ public class Zona implements Serializable {
         this.idCiudad = idCiudad;
     }
 
+    @XmlTransient
+    public List<Ruta> getRutaList() {
+        return rutaList;
+    }
+
+    public void setRutaList(List<Ruta> rutaList) {
+        this.rutaList = rutaList;
+    }
+
+    @XmlTransient
+    public List<Cuadrilla> getCuadrillaList() {
+        return cuadrillaList;
+    }
+
+    public void setCuadrillaList(List<Cuadrilla> cuadrillaList) {
+        this.cuadrillaList = cuadrillaList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -117,14 +135,5 @@ public class Zona implements Serializable {
     public String toString() {
         return "entities.Zona[ idZona=" + idZona + " ]";
     }
-
-    @XmlTransient
-    public List<Ruta> getRutaList() {
-        return rutaList;
-    }
-
-    public void setRutaList(List<Ruta> rutaList) {
-        this.rutaList = rutaList;
-    }
-
+    
 }

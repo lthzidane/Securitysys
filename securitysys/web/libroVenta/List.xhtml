@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="LibroVentaListForm">
+
+        <p:panel header="#{bundle.ListLibroVentaTitle}">
+            <p:dataTable id="datalist"
+                         value="#{libroVentaController.items}"
+                         lazy="false"
+                         rowKey="#{item.libroVentaPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{libroVentaController.selected}"
+                         filteredValue="#{libroVentaController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{libroVentaController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.libroVentaPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.libroVentaPK.idLibroVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListLibroVentaTitle_libroVentaPK_idLibroVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.libroVentaPK.idLibroVenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.libroVentaPK.idVenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListLibroVentaTitle_libroVentaPK_idVenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.libroVentaPK.idVenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.rucCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListLibroVentaTitle_rucCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.rucCliente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ventaExenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListLibroVentaTitle_ventaExenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ventaExenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ventaGravada10}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListLibroVentaTitle_ventaGravada10}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ventaGravada10}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.ventaGravada5}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListLibroVentaTitle_ventaGravada5}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ventaGravada5}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.ivaGravada10}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLibroVentaTitle_ivaGravada10}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.ivaGravada10}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.ivaGravada5}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLibroVentaTitle_ivaGravada5}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.ivaGravada5}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.estadoLibroVenta}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLibroVentaTitle_estadoLibroVenta}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.estadoLibroVenta}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.periodoVenta}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLibroVentaTitle_periodoVenta}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.periodoVenta}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idCliente.idCliente}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLibroVentaTitle_idCliente}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idCliente.idCliente}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.venta.idVenta}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListLibroVentaTitle_venta}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.venta.idVenta}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{libroVentaController.prepareCreate}" update=":LibroVentaCreateForm" oncomplete="PF('LibroVentaCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LibroVentaViewForm" oncomplete="PF('LibroVentaViewDialog').show()" disabled="#{empty libroVentaController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LibroVentaEditForm" oncomplete="PF('LibroVentaEditDialog').show()" disabled="#{empty libroVentaController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{libroVentaController.delete}" update=":growl,datalist" disabled="#{empty libroVentaController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

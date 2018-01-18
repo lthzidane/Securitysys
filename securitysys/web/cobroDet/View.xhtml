@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CobroDetViewDlg" widgetVar="CobroDetViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewCobroDetTitle}" closeOnEscape="true">
+
+            <h:form id="CobroDetViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{cobroDetController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewCobroDetLabel_cobroDetPK_idCobro}"/>
+                        <h:outputText value="#{cobroDetController.selected.cobroDetPK.idCobro}" title="#{bundle.ViewCobroDetTitle_cobroDetPK_idCobro}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroDetLabel_cobroDetPK_idCtaACobrar}"/>
+                        <h:outputText value="#{cobroDetController.selected.cobroDetPK.idCtaACobrar}" title="#{bundle.ViewCobroDetTitle_cobroDetPK_idCtaACobrar}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroDetLabel_cobroDetPK_idVenta}"/>
+                        <h:outputText value="#{cobroDetController.selected.cobroDetPK.idVenta}" title="#{bundle.ViewCobroDetTitle_cobroDetPK_idVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroDetLabel_montoCobroDet}"/>
+                        <h:outputText value="#{cobroDetController.selected.montoCobroDet}" title="#{bundle.ViewCobroDetTitle_montoCobroDet}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroDetLabel_cobro}"/>
+                        <h:outputText value="#{cobroDetController.selected.cobro.idCobro}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroDetLabel_ctaACobrar}"/>
+                        <h:outputText value="#{cobroDetController.selected.ctaACobrar.ctaACobrarPK}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('CobroDetViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrdenTrabajoViewDlg" widgetVar="OrdenTrabajoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewOrdenTrabajoTitle}" closeOnEscape="true">
+
+            <h:form id="OrdenTrabajoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{ordenTrabajoController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoLabel_idOt}"/>
+                        <h:outputText value="#{ordenTrabajoController.selected.idOt}" title="#{bundle.ViewOrdenTrabajoTitle_idOt}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoLabel_fechaOrden}"/>
+                        <h:outputText value="#{ordenTrabajoController.selected.fechaOrden}" title="#{bundle.ViewOrdenTrabajoTitle_fechaOrden}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoLabel_idEstado}"/>
+                        <h:outputText value="#{ordenTrabajoController.selected.idEstado}" title="#{bundle.ViewOrdenTrabajoTitle_idEstado}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoLabel_idCliente}"/>
+                        <h:outputText value="#{ordenTrabajoController.selected.idCliente.idCliente}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoLabel_idCuadrilla}"/>
+                        <h:outputText value="#{ordenTrabajoController.selected.idCuadrilla.idCuadrilla}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoLabel_idItinerario}"/>
+                        <h:outputText value="#{ordenTrabajoController.selected.idItinerario.idItinerario}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoLabel_idPresupuesto}"/>
+                        <h:outputText value="#{ordenTrabajoController.selected.idPresupuesto.idPresupuesto}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoLabel_idReclamo}"/>
+                        <h:outputText value="#{ordenTrabajoController.selected.idReclamo.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoLabel_idSolicitud}"/>
+                        <h:outputText value="#{ordenTrabajoController.selected.idSolicitud.idSolicitud}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoLabel_idSucursal}"/>
+                        <h:outputText value="#{ordenTrabajoController.selected.idSucursal.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoLabel_idUsuario}"/>
+                        <h:outputText value="#{ordenTrabajoController.selected.idUsuario.idUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('OrdenTrabajoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

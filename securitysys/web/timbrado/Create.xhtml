@@ -15,8 +15,8 @@
                 <h:panelGroup id="display" rendered="#{timbradoController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
 
-                        <p:outputLabel value="#{bundle.CreateTimbradoLabel_idTimbrado}" for="idTimbrado" />
-                        <p:inputText id="idTimbrado" value="#{timbradoController.selected.idTimbrado}" title="#{bundle.CreateTimbradoTitle_idTimbrado}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_idTimbrado}"/>
+                        <p:outputLabel value="#{bundle.CreateTimbradoLabel_idTimbrado}" for="idTimbrado" rendered="false"/>
+                        <p:inputText id="idTimbrado" value="#{timbradoController.selected.idTimbrado}" title="#{bundle.CreateTimbradoTitle_idTimbrado}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_idTimbrado}" rendered="false"/>
 
                         <p:outputLabel value="#{bundle.CreateTimbradoLabel_fechaDesde}" for="fechaDesde" />
                         <p:calendar id="fechaDesde" pattern="MM/dd/yyyy" value="#{timbradoController.selected.fechaDesde}" title="#{bundle.CreateTimbradoTitle_fechaDesde}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_fechaDesde}" showOn="button"/>

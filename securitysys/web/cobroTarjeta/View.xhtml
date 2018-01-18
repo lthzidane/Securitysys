@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CobroTarjetaViewDlg" widgetVar="CobroTarjetaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewCobroTarjetaTitle}" closeOnEscape="true">
+
+            <h:form id="CobroTarjetaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{cobroTarjetaController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewCobroTarjetaLabel_cobroTarjetaPK_idCobroTarjeta}"/>
+                        <h:outputText value="#{cobroTarjetaController.selected.cobroTarjetaPK.idCobroTarjeta}" title="#{bundle.ViewCobroTarjetaTitle_cobroTarjetaPK_idCobroTarjeta}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroTarjetaLabel_cobroTarjetaPK_idCobro}"/>
+                        <h:outputText value="#{cobroTarjetaController.selected.cobroTarjetaPK.idCobro}" title="#{bundle.ViewCobroTarjetaTitle_cobroTarjetaPK_idCobro}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroTarjetaLabel_cobroTarjetaPK_idCtaACobrar}"/>
+                        <h:outputText value="#{cobroTarjetaController.selected.cobroTarjetaPK.idCtaACobrar}" title="#{bundle.ViewCobroTarjetaTitle_cobroTarjetaPK_idCtaACobrar}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroTarjetaLabel_cobroTarjetaPK_idVenta}"/>
+                        <h:outputText value="#{cobroTarjetaController.selected.cobroTarjetaPK.idVenta}" title="#{bundle.ViewCobroTarjetaTitle_cobroTarjetaPK_idVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroTarjetaLabel_montoCobroTarjeta}"/>
+                        <h:outputText value="#{cobroTarjetaController.selected.montoCobroTarjeta}" title="#{bundle.ViewCobroTarjetaTitle_montoCobroTarjeta}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroTarjetaLabel_cuotaTarjeta}"/>
+                        <h:outputText value="#{cobroTarjetaController.selected.cuotaTarjeta}" title="#{bundle.ViewCobroTarjetaTitle_cuotaTarjeta}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroTarjetaLabel_codAutorizacion}"/>
+                        <h:outputText value="#{cobroTarjetaController.selected.codAutorizacion}" title="#{bundle.ViewCobroTarjetaTitle_codAutorizacion}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroTarjetaLabel_vaucherNro}"/>
+                        <h:outputText value="#{cobroTarjetaController.selected.vaucherNro}" title="#{bundle.ViewCobroTarjetaTitle_vaucherNro}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroTarjetaLabel_cobroDet}"/>
+                        <h:outputText value="#{cobroTarjetaController.selected.cobroDet.cobroDetPK}"/>
+
+                        <h:outputText value="#{bundle.ViewCobroTarjetaLabel_idTarjeta}"/>
+                        <h:outputText value="#{cobroTarjetaController.selected.idTarjeta.idTarjeta}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('CobroTarjetaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

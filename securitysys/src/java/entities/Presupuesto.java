@@ -31,25 +31,24 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Entity
 @Table(name = "presupuesto")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Presupuesto.findAll", query = "SELECT p FROM Presupuesto p"),
-    @NamedQuery(name = "Presupuesto.findByIdPresupuesto", query = "SELECT p FROM Presupuesto p WHERE p.idPresupuesto = :idPresupuesto"),
-    @NamedQuery(name = "Presupuesto.findByFecha", query = "SELECT p FROM Presupuesto p WHERE p.fecha = :fecha"),
-    @NamedQuery(name = "Presupuesto.findByPlazo", query = "SELECT p FROM Presupuesto p WHERE p.plazo = :plazo"),
-    @NamedQuery(name = "Presupuesto.findByValidez", query = "SELECT p FROM Presupuesto p WHERE p.validez = :validez"),
-    @NamedQuery(name = "Presupuesto.findByExenta", query = "SELECT p FROM Presupuesto p WHERE p.exenta = :exenta"),
-    @NamedQuery(name = "Presupuesto.findByGravada5", query = "SELECT p FROM Presupuesto p WHERE p.gravada5 = :gravada5"),
-    @NamedQuery(name = "Presupuesto.findByGravada10", query = "SELECT p FROM Presupuesto p WHERE p.gravada10 = :gravada10"),
-    @NamedQuery(name = "Presupuesto.findByIva5", query = "SELECT p FROM Presupuesto p WHERE p.iva5 = :iva5"),
-    @NamedQuery(name = "Presupuesto.findByIva10", query = "SELECT p FROM Presupuesto p WHERE p.iva10 = :iva10")})
+    @NamedQuery(name = "Presupuesto.findAll", query = "SELECT p FROM Presupuesto p")
+    , @NamedQuery(name = "Presupuesto.findByIdPresupuesto", query = "SELECT p FROM Presupuesto p WHERE p.idPresupuesto = :idPresupuesto")
+    , @NamedQuery(name = "Presupuesto.findByFecha", query = "SELECT p FROM Presupuesto p WHERE p.fecha = :fecha")
+    , @NamedQuery(name = "Presupuesto.findByPlazo", query = "SELECT p FROM Presupuesto p WHERE p.plazo = :plazo")
+    , @NamedQuery(name = "Presupuesto.findByValidez", query = "SELECT p FROM Presupuesto p WHERE p.validez = :validez")
+    , @NamedQuery(name = "Presupuesto.findByExenta", query = "SELECT p FROM Presupuesto p WHERE p.exenta = :exenta")
+    , @NamedQuery(name = "Presupuesto.findByGravada5", query = "SELECT p FROM Presupuesto p WHERE p.gravada5 = :gravada5")
+    , @NamedQuery(name = "Presupuesto.findByGravada10", query = "SELECT p FROM Presupuesto p WHERE p.gravada10 = :gravada10")
+    , @NamedQuery(name = "Presupuesto.findByIva5", query = "SELECT p FROM Presupuesto p WHERE p.iva5 = :iva5")
+    , @NamedQuery(name = "Presupuesto.findByIva10", query = "SELECT p FROM Presupuesto p WHERE p.iva10 = :iva10")})
 public class Presupuesto implements Serializable {
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "presupuesto")
-    private Promocion promocion;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -91,8 +90,10 @@ public class Presupuesto implements Serializable {
     @NotNull
     @Column(name = "iva10")
     private int iva10;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "presupuesto")
+    private Promocion promocion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "presupuesto")
-    private List<Promocion> promocionList;
+    private List<PresupuestoDet> presupuestoDetList;
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     @ManyToOne(optional = false)
     private Cliente idCliente;
@@ -108,6 +109,10 @@ public class Presupuesto implements Serializable {
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPresupuesto")
+    private List<OrdenTrabajo> ordenTrabajoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPresupuesto")
+    private List<Venta> ventaList;
 
     public Presupuesto() {
     }
@@ -200,13 +205,21 @@ public class Presupuesto implements Serializable {
         this.iva10 = iva10;
     }
 
-    @XmlTransient
-    public List<Promocion> getPromocionList() {
-        return promocionList;
+    public Promocion getPromocion() {
+        return promocion;
     }
 
-    public void setPromocionList(List<Promocion> promocionList) {
-        this.promocionList = promocionList;
+    public void setPromocion(Promocion promocion) {
+        this.promocion = promocion;
+    }
+
+    @XmlTransient
+    public List<PresupuestoDet> getPresupuestoDetList() {
+        return presupuestoDetList;
+    }
+
+    public void setPresupuestoDetList(List<PresupuestoDet> presupuestoDetList) {
+        this.presupuestoDetList = presupuestoDetList;
     }
 
     public Cliente getIdCliente() {
@@ -249,6 +262,24 @@ public class Presupuesto implements Serializable {
         this.idUsuario = idUsuario;
     }
 
+    @XmlTransient
+    public List<OrdenTrabajo> getOrdenTrabajoList() {
+        return ordenTrabajoList;
+    }
+
+    public void setOrdenTrabajoList(List<OrdenTrabajo> ordenTrabajoList) {
+        this.ordenTrabajoList = ordenTrabajoList;
+    }
+
+    @XmlTransient
+    public List<Venta> getVentaList() {
+        return ventaList;
+    }
+
+    public void setVentaList(List<Venta> ventaList) {
+        this.ventaList = ventaList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -272,14 +303,6 @@ public class Presupuesto implements Serializable {
     @Override
     public String toString() {
         return "entities.Presupuesto[ idPresupuesto=" + idPresupuesto + " ]";
-    }
-
-    public Promocion getPromocion() {
-        return promocion;
-    }
-
-    public void setPromocion(Promocion promocion) {
-        this.promocion = promocion;
     }
     
 }

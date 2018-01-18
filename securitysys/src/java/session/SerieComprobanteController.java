@@ -1,28 +1,16 @@
 package session;
 
-import bean.SerieComprobanteFacade;
 import entities.SerieComprobante;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import entities.Venta;
+import entities.NotaCrediDebiVenta;
+import java.util.List;
+import bean.SerieComprobanteFacade;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 
-@ManagedBean(name = "serieComprobanteController")
+@Named(value = "serieComprobanteController")
 @ViewScoped
 public class SerieComprobanteController extends AbstractController<SerieComprobante> {
-
-    @EJB
-    private SerieComprobanteFacade ejbFacade;
-
-    /**
-     * Initialize the concrete SerieComprobante controller bean. The
-     * AbstractController requires the EJB Facade object for most operations.
-     */
-    @PostConstruct
-    @Override
-    public void init() {
-        super.setFacade(ejbFacade);
-    }
 
     public SerieComprobanteController() {
         // Inform the Abstract parent controller of the concrete SerieComprobante Entity

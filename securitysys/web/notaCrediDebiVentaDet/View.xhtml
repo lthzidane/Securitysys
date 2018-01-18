@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotaCrediDebiVentaDetViewDlg" widgetVar="NotaCrediDebiVentaDetViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewNotaCrediDebiVentaDetTitle}" closeOnEscape="true">
+
+            <h:form id="NotaCrediDebiVentaDetViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{notaCrediDebiVentaDetController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaDetLabel_notaCrediDebiVentaDetPK_idNotaVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaDetController.selected.notaCrediDebiVentaDetPK.idNotaVenta}" title="#{bundle.ViewNotaCrediDebiVentaDetTitle_notaCrediDebiVentaDetPK_idNotaVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaDetLabel_notaCrediDebiVentaDetPK_idSecuencia}"/>
+                        <h:outputText value="#{notaCrediDebiVentaDetController.selected.notaCrediDebiVentaDetPK.idSecuencia}" title="#{bundle.ViewNotaCrediDebiVentaDetTitle_notaCrediDebiVentaDetPK_idSecuencia}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaDetLabel_precioNotaVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaDetController.selected.precioNotaVenta}" title="#{bundle.ViewNotaCrediDebiVentaDetTitle_precioNotaVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaDetLabel_cantidadNotaVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaDetController.selected.cantidadNotaVenta}" title="#{bundle.ViewNotaCrediDebiVentaDetTitle_cantidadNotaVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaDetLabel_exentaNotaVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaDetController.selected.exentaNotaVenta}" title="#{bundle.ViewNotaCrediDebiVentaDetTitle_exentaNotaVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaDetLabel_gravada10NotaVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaDetController.selected.gravada10NotaVenta}" title="#{bundle.ViewNotaCrediDebiVentaDetTitle_gravada10NotaVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaDetLabel_gravada5NotaVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaDetController.selected.gravada5NotaVenta}" title="#{bundle.ViewNotaCrediDebiVentaDetTitle_gravada5NotaVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaDetLabel_iva10NotaVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaDetController.selected.iva10NotaVenta}" title="#{bundle.ViewNotaCrediDebiVentaDetTitle_iva10NotaVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaDetLabel_iva5NotaVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaDetController.selected.iva5NotaVenta}" title="#{bundle.ViewNotaCrediDebiVentaDetTitle_iva5NotaVenta}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaDetLabel_idEquipo}"/>
+                        <h:outputText value="#{notaCrediDebiVentaDetController.selected.idEquipo.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaCrediDebiVentaDetLabel_notaCrediDebiVenta}"/>
+                        <h:outputText value="#{notaCrediDebiVentaDetController.selected.notaCrediDebiVenta.idNotaVenta}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('NotaCrediDebiVentaDetViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

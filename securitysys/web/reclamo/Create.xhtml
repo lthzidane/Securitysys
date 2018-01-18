@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReclamoCreateDlg" widgetVar="ReclamoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateReclamoTitle}" closeOnEscape="true">
+
+            <h:form id="ReclamoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{reclamoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateReclamoLabel_descripcion}" for="descripcion" />
+                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{reclamoController.selected.descripcion}" title="#{bundle.CreateReclamoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_descripcion}"/>
+
+                        <p:outputLabel value="#{bundle.CreateReclamoLabel_fechaAlta}" for="fechaAlta" />
+                        <p:calendar id="fechaAlta" pattern="MM/dd/yyyy" value="#{reclamoController.selected.fechaAlta}" title="#{bundle.CreateReclamoTitle_fechaAlta}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_fechaAlta}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateReclamoLabel_idTipoReclamo1}" for="idTipoReclamo1" />
+                        <p:calendar id="idTipoReclamo1" pattern="MM/dd/yyyy" value="#{reclamoController.selected.idTipoReclamo1}" title="#{bundle.CreateReclamoTitle_idTipoReclamo1}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateReclamoLabel_solucion}" for="solucion" />
+                        <p:inputText id="solucion" value="#{reclamoController.selected.solucion}" title="#{bundle.CreateReclamoTitle_solucion}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{bundle.CreateReclamoLabel_contacto}" for="contacto" />
+                        <p:inputText id="contacto" value="#{reclamoController.selected.contacto}" title="#{bundle.CreateReclamoTitle_contacto}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_contacto}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{bundle.CreateReclamoLabel_idCliente}" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" value="#{reclamoController.selected.idCliente}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_idCliente}" converter="clienteConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clienteController.items}"
+                                           var="idClienteItem"
+                                           itemValue="#{idClienteItem}"
+                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateReclamoLabel_idDepartamento}" for="idDepartamento" />
+                        <p:selectOneMenu id="idDepartamento" value="#{reclamoController.selected.idDepartamento}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_idDepartamento}" converter="departamentoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{departamentoController.items}"
+                                           var="idDepartamentoItem"
+                                           itemValue="#{idDepartamentoItem}"
+                                           itemLabel="#{idDepartamentoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateReclamoLabel_idEstado}" for="idEstado" />
+                        <p:selectOneMenu id="idEstado" value="#{reclamoController.selected.idEstado}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_idEstado}" converter="estadoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{estadoController.items}"
+                                           var="idEstadoItem"
+                                           itemValue="#{idEstadoItem}"
+                                           itemLabel="#{idEstadoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateReclamoLabel_idSucursal}" for="idSucursal" />
+                        <p:selectOneMenu id="idSucursal" value="#{reclamoController.selected.idSucursal}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_idSucursal}" converter="sucursalConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sucursalController.items}"
+                                           var="idSucursalItem"
+                                           itemValue="#{idSucursalItem}"
+                                           itemLabel="#{idSucursalItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateReclamoLabel_idTipoReclamo}" for="idTipoReclamo" />
+                        <p:selectOneMenu id="idTipoReclamo" value="#{reclamoController.selected.idTipoReclamo}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_idTipoReclamo}" converter="tipoReclamoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoReclamoController.items}"
+                                           var="idTipoReclamoItem"
+                                           itemValue="#{idTipoReclamoItem}"
+                                           itemLabel="#{idTipoReclamoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateReclamoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{reclamoController.selected.idUsuario}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_idUsuario}" converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{reclamoController.saveNew}" value="#{bundle.Save}" update="display,:ReclamoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ReclamoCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ReclamoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,28 +1,27 @@
 package session;
 
-import bean.SucursalFacade;
 import entities.Sucursal;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import entities.Promocion;
+import entities.CuentaCliente;
+import entities.AperturaCierreCaja;
+import entities.Contrato;
+import entities.Presupuesto;
+import entities.OrdenTrabajo;
+import entities.Reclamo;
+import entities.Venta;
+import entities.NotaCrediDebiVenta;
+import entities.SerieComprobante;
+import entities.NotaRemisionVenta;
+import entities.Diagnostico;
+import entities.Solicitud;
+import java.util.List;
+import bean.SucursalFacade;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 
-@ManagedBean(name = "sucursalController")
+@Named(value = "sucursalController")
 @ViewScoped
 public class SucursalController extends AbstractController<Sucursal> {
-
-    @EJB
-    private SucursalFacade ejbFacade;
-
-    /**
-     * Initialize the concrete Sucursal controller bean. The AbstractController
-     * requires the EJB Facade object for most operations.
-     */
-    @PostConstruct
-    @Override
-    public void init() {
-        super.setFacade(ejbFacade);
-    }
 
     public SucursalController() {
         // Inform the Abstract parent controller of the concrete Sucursal Entity

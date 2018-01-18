@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CobroListForm">
+
+        <p:panel header="#{bundle.ListCobroTitle}">
+            <p:dataTable id="datalist"
+                         value="#{cobroController.items}"
+                         lazy="false"
+                         rowKey="#{item.idCobro}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{cobroController.selected}"
+                         filteredValue="#{cobroController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{cobroController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idCobro}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.idCobro}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCobroTitle_idCobro}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idCobro}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaCobro}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCobroTitle_fechaCobro}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaCobro}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nroRecibo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCobroTitle_nroRecibo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nroRecibo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.efectivo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCobroTitle_efectivo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.efectivo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estadoCobro}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCobroTitle_estadoCobro}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estadoCobro}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idAperturaCierre.idAperturaCierre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCobroTitle_idAperturaCierre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idAperturaCierre.idAperturaCierre}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.idFormaCobro.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCobroTitle_idFormaCobro}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idFormaCobro.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cobroController.prepareCreate}" update=":CobroCreateForm" oncomplete="PF('CobroCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CobroViewForm" oncomplete="PF('CobroViewDialog').show()" disabled="#{empty cobroController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CobroEditForm" oncomplete="PF('CobroEditDialog').show()" disabled="#{empty cobroController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{cobroController.delete}" update=":growl,datalist" disabled="#{empty cobroController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

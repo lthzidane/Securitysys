@@ -1,28 +1,20 @@
 package session;
 
 import entities.Equipo;
+import entities.PromocionDet;
+import entities.NotaCrediDebiVentaDet;
+import entities.DiagnosticoDet;
+import entities.NotaRemisionVentaDet;
+import entities.VentaDet;
+import entities.InstalacionDet;
+import java.util.List;
 import bean.EquipoFacade;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.annotation.PostConstruct;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 
-@ManagedBean(name = "equipoController")
+@Named(value = "equipoController")
 @ViewScoped
 public class EquipoController extends AbstractController<Equipo> {
-
-    @EJB
-    private EquipoFacade ejbFacade;
-
-    /**
-     * Initialize the concrete Equipo controller bean. The AbstractController
-     * requires the EJB Facade object for most operations.
-     */
-    @PostConstruct
-    @Override
-    public void init() {
-        super.setFacade(ejbFacade);
-    }
 
     public EquipoController() {
         // Inform the Abstract parent controller of the concrete Equipo Entity

@@ -6,36 +6,47 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author LOTHAR
+ * @author acer
  */
 @Entity
 @Table(name = "instalacion_det")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "InstalacionDet.findAll", query = "SELECT i FROM InstalacionDet i"),
-    @NamedQuery(name = "InstalacionDet.findByIdInstalacion", query = "SELECT i FROM InstalacionDet i WHERE i.instalacionDetPK.idInstalacion = :idInstalacion"),
-    @NamedQuery(name = "InstalacionDet.findByNroLinea", query = "SELECT i FROM InstalacionDet i WHERE i.instalacionDetPK.nroLinea = :nroLinea"),
-    @NamedQuery(name = "InstalacionDet.findByIdProductosKit", query = "SELECT i FROM InstalacionDet i WHERE i.idProductosKit = :idProductosKit"),
-    @NamedQuery(name = "InstalacionDet.findByCodProducto", query = "SELECT i FROM InstalacionDet i WHERE i.codProducto = :codProducto")})
+    @NamedQuery(name = "InstalacionDet.findAll", query = "SELECT i FROM InstalacionDet i")
+    , @NamedQuery(name = "InstalacionDet.findByIdInstalacion", query = "SELECT i FROM InstalacionDet i WHERE i.instalacionDetPK.idInstalacion = :idInstalacion")
+    , @NamedQuery(name = "InstalacionDet.findByIdSecuencia", query = "SELECT i FROM InstalacionDet i WHERE i.instalacionDetPK.idSecuencia = :idSecuencia")
+    , @NamedQuery(name = "InstalacionDet.findByDetalle", query = "SELECT i FROM InstalacionDet i WHERE i.detalle = :detalle")})
 public class InstalacionDet implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected InstalacionDetPK instalacionDetPK;
-    @Column(name = "id_productos_kit")
-    private BigInteger idProductosKit;
-    @Column(name = "cod_producto")
-    private BigInteger codProducto;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name = "detalle")
+    private String detalle;
+    @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo")
+    @ManyToOne(optional = false)
+    private Equipo idEquipo;
+    @JoinColumn(name = "id_instalacion", referencedColumnName = "id_instalacion", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private InstalacionCab instalacionCab;
 
     public InstalacionDet() {
     }
@@ -44,8 +55,13 @@ public class InstalacionDet implements Serializable {
         this.instalacionDetPK = instalacionDetPK;
     }
 
-    public InstalacionDet(BigInteger idInstalacion, BigInteger nroLinea) {
-        this.instalacionDetPK = new InstalacionDetPK(idInstalacion, nroLinea);
+    public InstalacionDet(InstalacionDetPK instalacionDetPK, String detalle) {
+        this.instalacionDetPK = instalacionDetPK;
+        this.detalle = detalle;
+    }
+
+    public InstalacionDet(int idInstalacion, int idSecuencia) {
+        this.instalacionDetPK = new InstalacionDetPK(idInstalacion, idSecuencia);
     }
 
     public InstalacionDetPK getInstalacionDetPK() {
@@ -56,20 +72,28 @@ public class InstalacionDet implements Serializable {
         this.instalacionDetPK = instalacionDetPK;
     }
 
-    public BigInteger getIdProductosKit() {
-        return idProductosKit;
+    public String getDetalle() {
+        return detalle;
     }
 
-    public void setIdProductosKit(BigInteger idProductosKit) {
-        this.idProductosKit = idProductosKit;
+    public void setDetalle(String detalle) {
+        this.detalle = detalle;
     }
 
-    public BigInteger getCodProducto() {
-        return codProducto;
+    public Equipo getIdEquipo() {
+        return idEquipo;
     }
 
-    public void setCodProducto(BigInteger codProducto) {
-        this.codProducto = codProducto;
+    public void setIdEquipo(Equipo idEquipo) {
+        this.idEquipo = idEquipo;
+    }
+
+    public InstalacionCab getInstalacionCab() {
+        return instalacionCab;
+    }
+
+    public void setInstalacionCab(InstalacionCab instalacionCab) {
+        this.instalacionCab = instalacionCab;
     }
 
     @Override

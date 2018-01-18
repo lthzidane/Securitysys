@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="SolicitudEditDlg" widgetVar="SolicitudEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditSolicitudTitle}" closeOnEscape="true">
+
+            <h:form id="SolicitudEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{solicitudController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditSolicitudLabel_idSolicitud}" for="idSolicitud" />
+                        <h:outputText id="idSolicitud" value="#{solicitudController.selected.idSolicitud}" />
+
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_fechaSolicitud}" for="fechaSolicitud" />
+                        <p:calendar id="fechaSolicitud" pattern="MM/dd/yyyy" value="#{solicitudController.selected.fechaSolicitud}" title="#{bundle.EditSolicitudTitle_fechaSolicitud}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_fechaSolicitud}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{solicitudController.selected.estado}" title="#{bundle.EditSolicitudTitle_estado}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_estado}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_idCliente}" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" value="#{solicitudController.selected.idCliente}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_idCliente}" converter="clienteConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clienteController.items}"
+                                           var="idClienteItem"
+                                           itemValue="#{idClienteItem}"
+                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_idSucursal}" for="idSucursal" />
+                        <p:selectOneMenu id="idSucursal" value="#{solicitudController.selected.idSucursal}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_idSucursal}" converter="sucursalConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sucursalController.items}"
+                                           var="idSucursalItem"
+                                           itemValue="#{idSucursalItem}"
+                                           itemLabel="#{idSucursalItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditSolicitudLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{solicitudController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_idUsuario}" converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{solicitudController.save}" value="#{bundle.Save}" update="display,:SolicitudListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SolicitudEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('SolicitudEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

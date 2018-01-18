@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoReclamoEditDlg" widgetVar="TipoReclamoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditTipoReclamoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoReclamoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoReclamoController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditTipoReclamoLabel_idTipoReclamo}" for="idTipoReclamo" />
+                        <h:outputText id="idTipoReclamo" value="#{tipoReclamoController.selected.idTipoReclamo}" />
+
+                        <p:outputLabel value="#{bundle.EditTipoReclamoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{tipoReclamoController.selected.descripcion}" title="#{bundle.EditTipoReclamoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditTipoReclamoRequiredMessage_descripcion}" size="50" maxlength="50"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoReclamoController.save}" value="#{bundle.Save}" update="display,:TipoReclamoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoReclamoEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TipoReclamoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

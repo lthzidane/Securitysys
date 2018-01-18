@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotaRemisionVentaCreateDlg" widgetVar="NotaRemisionVentaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateNotaRemisionVentaTitle}" closeOnEscape="true">
+
+            <h:form id="NotaRemisionVentaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{notaRemisionVentaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateNotaRemisionVentaLabel_fechaSalida}" for="fechaSalida" />
+                        <p:calendar id="fechaSalida" pattern="MM/dd/yyyy" value="#{notaRemisionVentaController.selected.fechaSalida}" title="#{bundle.CreateNotaRemisionVentaTitle_fechaSalida}" required="true" requiredMessage="#{bundle.CreateNotaRemisionVentaRequiredMessage_fechaSalida}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaRemisionVentaLabel_fechaLlegada}" for="fechaLlegada" />
+                        <p:calendar id="fechaLlegada" pattern="MM/dd/yyyy" value="#{notaRemisionVentaController.selected.fechaLlegada}" title="#{bundle.CreateNotaRemisionVentaTitle_fechaLlegada}" required="true" requiredMessage="#{bundle.CreateNotaRemisionVentaRequiredMessage_fechaLlegada}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaRemisionVentaLabel_puntoSalida}" for="puntoSalida" />
+                        <p:inputText id="puntoSalida" value="#{notaRemisionVentaController.selected.puntoSalida}" title="#{bundle.CreateNotaRemisionVentaTitle_puntoSalida}" required="true" requiredMessage="#{bundle.CreateNotaRemisionVentaRequiredMessage_puntoSalida}" size="60" maxlength="60"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaRemisionVentaLabel_puntoLlegada}" for="puntoLlegada" />
+                        <p:inputText id="puntoLlegada" value="#{notaRemisionVentaController.selected.puntoLlegada}" title="#{bundle.CreateNotaRemisionVentaTitle_puntoLlegada}" required="true" requiredMessage="#{bundle.CreateNotaRemisionVentaRequiredMessage_puntoLlegada}" size="60" maxlength="60"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaRemisionVentaLabel_estadoRemision}" for="estadoRemision" />
+                        <p:inputText id="estadoRemision" value="#{notaRemisionVentaController.selected.estadoRemision}" title="#{bundle.CreateNotaRemisionVentaTitle_estadoRemision}" required="true" requiredMessage="#{bundle.CreateNotaRemisionVentaRequiredMessage_estadoRemision}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{bundle.CreateNotaRemisionVentaLabel_idMotivoNota}" for="idMotivoNota" />
+                        <p:selectOneMenu id="idMotivoNota" value="#{notaRemisionVentaController.selected.idMotivoNota}" required="true" requiredMessage="#{bundle.CreateNotaRemisionVentaRequiredMessage_idMotivoNota}" converter="motivoNotaDebiConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{motivoNotaDebiController.items}"
+                                           var="idMotivoNotaItem"
+                                           itemValue="#{idMotivoNotaItem}"
+                                           itemLabel="#{idMotivoNotaItem.idMotivoNota.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateNotaRemisionVentaLabel_idMovil}" for="idMovil" />
+                        <p:selectOneMenu id="idMovil" value="#{notaRemisionVentaController.selected.idMovil}" required="true" requiredMessage="#{bundle.CreateNotaRemisionVentaRequiredMessage_idMovil}" converter="movilesConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{movilesController.items}"
+                                           var="idMovilItem"
+                                           itemValue="#{idMovilItem}"
+                                           itemLabel="#{idMovilItem.idMovil.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateNotaRemisionVentaLabel_idSucursal}" for="idSucursal" />
+                        <p:selectOneMenu id="idSucursal" value="#{notaRemisionVentaController.selected.idSucursal}" required="true" requiredMessage="#{bundle.CreateNotaRemisionVentaRequiredMessage_idSucursal}" converter="sucursalConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sucursalController.items}"
+                                           var="idSucursalItem"
+                                           itemValue="#{idSucursalItem}"
+                                           itemLabel="#{idSucursalItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateNotaRemisionVentaLabel_idTipoComprobante}" for="idTipoComprobante" />
+                        <p:selectOneMenu id="idTipoComprobante" value="#{notaRemisionVentaController.selected.idTipoComprobante}" required="true" requiredMessage="#{bundle.CreateNotaRemisionVentaRequiredMessage_idTipoComprobante}" converter="tipoComprobanteConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoComprobanteController.items}"
+                                           var="idTipoComprobanteItem"
+                                           itemValue="#{idTipoComprobanteItem}"
+                                           itemLabel="#{idTipoComprobanteItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateNotaRemisionVentaLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{notaRemisionVentaController.selected.idUsuario}" required="true" requiredMessage="#{bundle.CreateNotaRemisionVentaRequiredMessage_idUsuario}" converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateNotaRemisionVentaLabel_idVenta}" for="idVenta" />
+                        <p:selectOneMenu id="idVenta" value="#{notaRemisionVentaController.selected.idVenta}" required="true" requiredMessage="#{bundle.CreateNotaRemisionVentaRequiredMessage_idVenta}" converter="ventaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ventaController.items}"
+                                           var="idVentaItem"
+                                           itemValue="#{idVentaItem}"
+                                           itemLabel="#{idVentaItem.idVenta.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{notaRemisionVentaController.saveNew}" value="#{bundle.Save}" update="display,:NotaRemisionVentaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('NotaRemisionVentaCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('NotaRemisionVentaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DiagnosticoCreateDlg" widgetVar="DiagnosticoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDiagnosticoTitle}" closeOnEscape="true">
+
+            <h:form id="DiagnosticoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{diagnosticoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateDiagnosticoLabel_fechaDiagnostico}" for="fechaDiagnostico" />
+                        <p:calendar id="fechaDiagnostico" pattern="MM/dd/yyyy" value="#{diagnosticoController.selected.fechaDiagnostico}" title="#{bundle.CreateDiagnosticoTitle_fechaDiagnostico}" required="true" requiredMessage="#{bundle.CreateDiagnosticoRequiredMessage_fechaDiagnostico}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateDiagnosticoLabel_estadoDiag}" for="estadoDiag" />
+                        <p:inputText id="estadoDiag" value="#{diagnosticoController.selected.estadoDiag}" title="#{bundle.CreateDiagnosticoTitle_estadoDiag}" required="true" requiredMessage="#{bundle.CreateDiagnosticoRequiredMessage_estadoDiag}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{bundle.CreateDiagnosticoLabel_idReclamo}" for="idReclamo" />
+                        <p:selectOneMenu id="idReclamo" value="#{diagnosticoController.selected.idReclamo}" required="true" requiredMessage="#{bundle.CreateDiagnosticoRequiredMessage_idReclamo}" converter="reclamoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{reclamoController.items}"
+                                           var="idReclamoItem"
+                                           itemValue="#{idReclamoItem}"
+                                           itemLabel="#{idReclamoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateDiagnosticoLabel_idSucursal}" for="idSucursal" />
+                        <p:selectOneMenu id="idSucursal" value="#{diagnosticoController.selected.idSucursal}" required="true" requiredMessage="#{bundle.CreateDiagnosticoRequiredMessage_idSucursal}" converter="sucursalConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sucursalController.items}"
+                                           var="idSucursalItem"
+                                           itemValue="#{idSucursalItem}"
+                                           itemLabel="#{idSucursalItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateDiagnosticoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{diagnosticoController.selected.idUsuario}" required="true" requiredMessage="#{bundle.CreateDiagnosticoRequiredMessage_idUsuario}" converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{diagnosticoController.saveNew}" value="#{bundle.Save}" update="display,:DiagnosticoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DiagnosticoCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DiagnosticoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InstalacionCabCreateDlg" widgetVar="InstalacionCabCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInstalacionCabTitle}" closeOnEscape="true">
+
+            <h:form id="InstalacionCabCreateForm">
+
+                <h:panelGroup id="display" rendered="#{instalacionCabController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateInstalacionCabLabel_tipoInstalacion}" for="tipoInstalacion" />
+                        <p:inputText id="tipoInstalacion" value="#{instalacionCabController.selected.tipoInstalacion}" title="#{bundle.CreateInstalacionCabTitle_tipoInstalacion}" required="true" requiredMessage="#{bundle.CreateInstalacionCabRequiredMessage_tipoInstalacion}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{bundle.CreateInstalacionCabLabel_fechaInicio}" for="fechaInicio" />
+                        <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{instalacionCabController.selected.fechaInicio}" title="#{bundle.CreateInstalacionCabTitle_fechaInicio}" required="true" requiredMessage="#{bundle.CreateInstalacionCabRequiredMessage_fechaInicio}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateInstalacionCabLabel_fechaFin}" for="fechaFin" />
+                        <p:calendar id="fechaFin" pattern="MM/dd/yyyy" value="#{instalacionCabController.selected.fechaFin}" title="#{bundle.CreateInstalacionCabTitle_fechaFin}" required="true" requiredMessage="#{bundle.CreateInstalacionCabRequiredMessage_fechaFin}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateInstalacionCabLabel_idEstado}" for="idEstado" />
+                        <p:inputText id="idEstado" value="#{instalacionCabController.selected.idEstado}" title="#{bundle.CreateInstalacionCabTitle_idEstado}" required="true" requiredMessage="#{bundle.CreateInstalacionCabRequiredMessage_idEstado}"/>
+
+                        <p:outputLabel value="#{bundle.CreateInstalacionCabLabel_observacion}" for="observacion" />
+                        <p:inputText id="observacion" value="#{instalacionCabController.selected.observacion}" title="#{bundle.CreateInstalacionCabTitle_observacion}" required="true" requiredMessage="#{bundle.CreateInstalacionCabRequiredMessage_observacion}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.CreateInstalacionCabLabel_idOt}" for="idOt" />
+                        <p:selectOneMenu id="idOt" value="#{instalacionCabController.selected.idOt}" required="true" requiredMessage="#{bundle.CreateInstalacionCabRequiredMessage_idOt}" converter="ordenTrabajoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ordenTrabajoController.items}"
+                                           var="idOtItem"
+                                           itemValue="#{idOtItem}"
+                                           itemLabel="#{idOtItem.idOt.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{instalacionCabController.saveNew}" value="#{bundle.Save}" update="display,:InstalacionCabListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InstalacionCabCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('InstalacionCabCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

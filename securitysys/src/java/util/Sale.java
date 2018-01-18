@@ -37,7 +37,7 @@ public class Sale implements Serializable {
         this.precioUnitario = precioUnitario;
     }
  
-    public int getNroOrden() {
+    public int getIdOt() {
         return nroOrden;
     }
  

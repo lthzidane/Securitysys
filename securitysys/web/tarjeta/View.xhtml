@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TarjetaViewDlg" widgetVar="TarjetaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewTarjetaTitle}" closeOnEscape="true">
+
+            <h:form id="TarjetaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tarjetaController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewTarjetaLabel_idTarjeta}"/>
+                        <h:outputText value="#{tarjetaController.selected.idTarjeta}" title="#{bundle.ViewTarjetaTitle_idTarjeta}"/>
+
+                        <h:outputText value="#{bundle.ViewTarjetaLabel_descTarjeta}"/>
+                        <h:outputText value="#{tarjetaController.selected.descTarjeta}" title="#{bundle.ViewTarjetaTitle_descTarjeta}"/>
+
+                        <h:outputText value="#{bundle.ViewTarjetaLabel_nroTarjeta}"/>
+                        <h:outputText value="#{tarjetaController.selected.nroTarjeta}" title="#{bundle.ViewTarjetaTitle_nroTarjeta}"/>
+
+                        <h:outputText value="#{bundle.ViewTarjetaLabel_idEntidadEmisora}"/>
+                        <h:outputText value="#{tarjetaController.selected.idEntidadEmisora.idEntidadEmisora}"/>
+
+                        <h:outputText value="#{bundle.ViewTarjetaLabel_idMarcaTarjeta}"/>
+                        <h:outputText value="#{tarjetaController.selected.idMarcaTarjeta.idMarcaTarjeta}"/>
+
+                        <h:outputText value="#{bundle.ViewTarjetaLabel_idTipoTarjeta}"/>
+                        <h:outputText value="#{tarjetaController.selected.idTipoTarjeta.idTipoTarjeta}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('TarjetaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

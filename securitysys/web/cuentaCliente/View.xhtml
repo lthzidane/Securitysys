@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CuentaClienteViewDlg" widgetVar="CuentaClienteViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewCuentaClienteTitle}" closeOnEscape="true">
+
+            <h:form id="CuentaClienteViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{cuentaClienteController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewCuentaClienteLabel_idCuenta}"/>
+                        <h:outputText value="#{cuentaClienteController.selected.idCuenta}" title="#{bundle.ViewCuentaClienteTitle_idCuenta}"/>
+
+                        <h:outputText value="#{bundle.ViewCuentaClienteLabel_contacto}"/>
+                        <h:outputText value="#{cuentaClienteController.selected.contacto}" title="#{bundle.ViewCuentaClienteTitle_contacto}"/>
+
+                        <h:outputText value="#{bundle.ViewCuentaClienteLabel_fechaHabilitacion}"/>
+                        <h:outputText value="#{cuentaClienteController.selected.fechaHabilitacion}" title="#{bundle.ViewCuentaClienteTitle_fechaHabilitacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewCuentaClienteLabel_idCliente}"/>
+                        <h:outputText value="#{cuentaClienteController.selected.idCliente.idCliente}"/>
+
+                        <h:outputText value="#{bundle.ViewCuentaClienteLabel_contrato}"/>
+                        <h:outputText value="#{cuentaClienteController.selected.contrato.contratoPK}"/>
+
+                        <h:outputText value="#{bundle.ViewCuentaClienteLabel_idEstado}"/>
+                        <h:outputText value="#{cuentaClienteController.selected.idEstado.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewCuentaClienteLabel_idSegmento}"/>
+                        <h:outputText value="#{cuentaClienteController.selected.idSegmento.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewCuentaClienteLabel_idSucursal}"/>
+                        <h:outputText value="#{cuentaClienteController.selected.idSucursal.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('CuentaClienteViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

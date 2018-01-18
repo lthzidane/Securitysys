@@ -6,35 +6,39 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Entity
 @Table(name = "tipo_tarjeta")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TipoTarjeta.findAll", query = "SELECT t FROM TipoTarjeta t"),
-    @NamedQuery(name = "TipoTarjeta.findByIdTipoTarjeta", query = "SELECT t FROM TipoTarjeta t WHERE t.idTipoTarjeta = :idTipoTarjeta"),
-    @NamedQuery(name = "TipoTarjeta.findByDescTipoTarjeta", query = "SELECT t FROM TipoTarjeta t WHERE t.descTipoTarjeta = :descTipoTarjeta")})
+    @NamedQuery(name = "TipoTarjeta.findAll", query = "SELECT t FROM TipoTarjeta t")
+    , @NamedQuery(name = "TipoTarjeta.findByIdTipoTarjeta", query = "SELECT t FROM TipoTarjeta t WHERE t.idTipoTarjeta = :idTipoTarjeta")
+    , @NamedQuery(name = "TipoTarjeta.findByDescTipoTarjeta", query = "SELECT t FROM TipoTarjeta t WHERE t.descTipoTarjeta = :descTipoTarjeta")})
 public class TipoTarjeta implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(generator="TipoTarjetaSeq") 
-    @SequenceGenerator(name="TipoTarjetaSeq",sequenceName="tipo_tarjeta_id_tipo_tarjeta_seq_1", allocationSize=1) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_tipo_tarjeta")
     private Integer idTipoTarjeta;
@@ -43,6 +47,8 @@ public class TipoTarjeta implements Serializable {
     @Size(min = 1, max = 60)
     @Column(name = "desc_tipo_tarjeta")
     private String descTipoTarjeta;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoTarjeta")
+    private List<Tarjeta> tarjetaList;
 
     public TipoTarjeta() {
     }
@@ -53,7 +59,7 @@ public class TipoTarjeta implements Serializable {
 
     public TipoTarjeta(Integer idTipoTarjeta, String descTipoTarjeta) {
         this.idTipoTarjeta = idTipoTarjeta;
-        this.descTipoTarjeta = descTipoTarjeta;
+        this.descTipoTarjeta = descTipoTarjeta.toUpperCase();
     }
 
     public Integer getIdTipoTarjeta() {
@@ -70,6 +76,15 @@ public class TipoTarjeta implements Serializable {
 
     public void setDescTipoTarjeta(String descTipoTarjeta) {
         this.descTipoTarjeta = descTipoTarjeta.toUpperCase();
+    }
+
+    @XmlTransient
+    public List<Tarjeta> getTarjetaList() {
+        return tarjetaList;
+    }
+
+    public void setTarjetaList(List<Tarjeta> tarjetaList) {
+        this.tarjetaList = tarjetaList;
     }
 
     @Override

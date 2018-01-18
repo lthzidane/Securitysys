@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CobroDetCreateDlg" widgetVar="CobroDetCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCobroDetTitle}" closeOnEscape="true">
+
+            <h:form id="CobroDetCreateForm">
+
+                <h:panelGroup id="display" rendered="#{cobroDetController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateCobroDetLabel_cobroDetPK_idCobro}" for="cobroDetPK_idCobro" />
+                        <p:inputText id="cobroDetPK_idCobro" value="#{cobroDetController.selected.cobroDetPK.idCobro}" title="#{bundle.CreateCobroDetTitle_cobroDetPK_idCobro}" required="true" requiredMessage="#{bundle.CreateCobroDetRequiredMessage_cobroDetPK_idCobro}"/>
+
+                        <p:outputLabel value="#{bundle.CreateCobroDetLabel_cobroDetPK_idCtaACobrar}" for="cobroDetPK_idCtaACobrar" />
+                        <p:inputText id="cobroDetPK_idCtaACobrar" value="#{cobroDetController.selected.cobroDetPK.idCtaACobrar}" title="#{bundle.CreateCobroDetTitle_cobroDetPK_idCtaACobrar}" required="true" requiredMessage="#{bundle.CreateCobroDetRequiredMessage_cobroDetPK_idCtaACobrar}"/>
+
+                        <p:outputLabel value="#{bundle.CreateCobroDetLabel_cobroDetPK_idVenta}" for="cobroDetPK_idVenta" />
+                        <p:inputText id="cobroDetPK_idVenta" value="#{cobroDetController.selected.cobroDetPK.idVenta}" title="#{bundle.CreateCobroDetTitle_cobroDetPK_idVenta}" required="true" requiredMessage="#{bundle.CreateCobroDetRequiredMessage_cobroDetPK_idVenta}"/>
+
+                        <p:outputLabel value="#{bundle.CreateCobroDetLabel_montoCobroDet}" for="montoCobroDet" />
+                        <p:inputText id="montoCobroDet" value="#{cobroDetController.selected.montoCobroDet}" title="#{bundle.CreateCobroDetTitle_montoCobroDet}" required="true" requiredMessage="#{bundle.CreateCobroDetRequiredMessage_montoCobroDet}"/>
+
+                        <p:outputLabel value="#{bundle.CreateCobroDetLabel_cobro}" for="cobro" />
+                        <p:selectOneMenu id="cobro" value="#{cobroDetController.selected.cobro}" required="true" requiredMessage="#{bundle.CreateCobroDetRequiredMessage_cobro}" converter="cobroConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cobroController.items}"
+                                           var="cobroItem"
+                                           itemValue="#{cobroItem}"
+                                           itemLabel="#{cobroItem.idCobro.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateCobroDetLabel_ctaACobrar}" for="ctaACobrar" />
+                        <p:selectOneMenu id="ctaACobrar" value="#{cobroDetController.selected.ctaACobrar}" required="true" requiredMessage="#{bundle.CreateCobroDetRequiredMessage_ctaACobrar}" converter="ctaACobrarConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ctaACobrarController.items}"
+                                           var="ctaACobrarItem"
+                                           itemValue="#{ctaACobrarItem}"
+                                           itemLabel="#{ctaACobrarItem.ctaACobrarPK.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cobroDetController.saveNew}" value="#{bundle.Save}" update="display,:CobroDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CobroDetCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CobroDetCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

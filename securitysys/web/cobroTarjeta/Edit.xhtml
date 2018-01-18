@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CobroTarjetaEditDlg" widgetVar="CobroTarjetaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditCobroTarjetaTitle}" closeOnEscape="true">
+
+            <h:form id="CobroTarjetaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{cobroTarjetaController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditCobroTarjetaLabel_cobroTarjetaPK_idCobroTarjeta}" for="cobroTarjetaPK_idCobroTarjeta" />
+                        <h:outputText id="cobroTarjetaPK_idCobroTarjeta" value="#{cobroTarjetaController.selected.cobroTarjetaPK.idCobroTarjeta}" />
+
+
+                        <h:outputLabel value="#{bundle.EditCobroTarjetaLabel_cobroTarjetaPK_idCobro}" for="cobroTarjetaPK_idCobro" />
+                        <h:outputText id="cobroTarjetaPK_idCobro" value="#{cobroTarjetaController.selected.cobroTarjetaPK.idCobro}" />
+
+
+                        <h:outputLabel value="#{bundle.EditCobroTarjetaLabel_cobroTarjetaPK_idCtaACobrar}" for="cobroTarjetaPK_idCtaACobrar" />
+                        <h:outputText id="cobroTarjetaPK_idCtaACobrar" value="#{cobroTarjetaController.selected.cobroTarjetaPK.idCtaACobrar}" />
+
+
+                        <h:outputLabel value="#{bundle.EditCobroTarjetaLabel_cobroTarjetaPK_idVenta}" for="cobroTarjetaPK_idVenta" />
+                        <h:outputText id="cobroTarjetaPK_idVenta" value="#{cobroTarjetaController.selected.cobroTarjetaPK.idVenta}" />
+
+                        <p:outputLabel value="#{bundle.EditCobroTarjetaLabel_montoCobroTarjeta}" for="montoCobroTarjeta" />
+                        <p:inputText id="montoCobroTarjeta" value="#{cobroTarjetaController.selected.montoCobroTarjeta}" title="#{bundle.EditCobroTarjetaTitle_montoCobroTarjeta}" required="true" requiredMessage="#{bundle.EditCobroTarjetaRequiredMessage_montoCobroTarjeta}"/>
+
+                        <p:outputLabel value="#{bundle.EditCobroTarjetaLabel_cuotaTarjeta}" for="cuotaTarjeta" />
+                        <p:inputText id="cuotaTarjeta" value="#{cobroTarjetaController.selected.cuotaTarjeta}" title="#{bundle.EditCobroTarjetaTitle_cuotaTarjeta}" required="true" requiredMessage="#{bundle.EditCobroTarjetaRequiredMessage_cuotaTarjeta}"/>
+
+                        <p:outputLabel value="#{bundle.EditCobroTarjetaLabel_codAutorizacion}" for="codAutorizacion" />
+                        <p:inputText id="codAutorizacion" value="#{cobroTarjetaController.selected.codAutorizacion}" title="#{bundle.EditCobroTarjetaTitle_codAutorizacion}" required="true" requiredMessage="#{bundle.EditCobroTarjetaRequiredMessage_codAutorizacion}"/>
+
+                        <p:outputLabel value="#{bundle.EditCobroTarjetaLabel_vaucherNro}" for="vaucherNro" />
+                        <p:inputText id="vaucherNro" value="#{cobroTarjetaController.selected.vaucherNro}" title="#{bundle.EditCobroTarjetaTitle_vaucherNro}" required="true" requiredMessage="#{bundle.EditCobroTarjetaRequiredMessage_vaucherNro}"/>
+
+
+                        <h:outputLabel value="#{bundle.EditCobroTarjetaLabel_cobroDet}" for="cobroDet" />
+                        <h:outputText id="cobroDet" value="#{cobroTarjetaController.selected.cobroDet}" />
+
+                        <p:outputLabel value="#{bundle.EditCobroTarjetaLabel_idTarjeta}" for="idTarjeta" />
+                        <p:selectOneMenu id="idTarjeta" value="#{cobroTarjetaController.selected.idTarjeta}" required="true" requiredMessage="#{bundle.EditCobroTarjetaRequiredMessage_idTarjeta}" converter="tarjetaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tarjetaController.items}"
+                                           var="idTarjetaItem"
+                                           itemValue="#{idTarjetaItem}"
+                                           itemLabel="#{idTarjetaItem.idTarjeta.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cobroTarjetaController.save}" value="#{bundle.Save}" update="display,:CobroTarjetaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CobroTarjetaEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CobroTarjetaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

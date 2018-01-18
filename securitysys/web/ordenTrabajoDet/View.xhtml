@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrdenTrabajoDetViewDlg" widgetVar="OrdenTrabajoDetViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewOrdenTrabajoDetTitle}" closeOnEscape="true">
+
+            <h:form id="OrdenTrabajoDetViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{ordenTrabajoDetController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoDetLabel_ordenTrabajoDetPK_idOrdenTrabajo}"/>
+                        <h:outputText value="#{ordenTrabajoDetController.selected.ordenTrabajoDetPK.idOrdenTrabajo}" title="#{bundle.ViewOrdenTrabajoDetTitle_ordenTrabajoDetPK_idOrdenTrabajo}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoDetLabel_ordenTrabajoDetPK_idSecuencia}"/>
+                        <h:outputText value="#{ordenTrabajoDetController.selected.ordenTrabajoDetPK.idSecuencia}" title="#{bundle.ViewOrdenTrabajoDetTitle_ordenTrabajoDetPK_idSecuencia}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoDetLabel_detalle}"/>
+                        <h:outputText value="#{ordenTrabajoDetController.selected.detalle}" title="#{bundle.ViewOrdenTrabajoDetTitle_detalle}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenTrabajoDetLabel_ordenTrabajo}"/>
+                        <h:outputText value="#{ordenTrabajoDetController.selected.ordenTrabajo.idOt}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('OrdenTrabajoDetViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

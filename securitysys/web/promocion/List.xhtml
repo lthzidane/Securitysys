@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PromocionListForm">
+
+        <p:panel header="#{bundle.ListPromocionTitle}">
+            <p:dataTable id="datalist"
+                         value="#{promocionController.items}"
+                         lazy="false"
+                         rowKey="#{item.promocionPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{promocionController.selected}"
+                         filteredValue="#{promocionController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{promocionController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.promocionPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.promocionPK.idPromocion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPromocionTitle_promocionPK_idPromocion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.promocionPK.idPromocion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.promocionPK.idPresu}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPromocionTitle_promocionPK_idPresu}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.promocionPK.idPresu}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descipcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPromocionTitle_descipcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descipcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaIniPromo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPromocionTitle_fechaIniPromo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaIniPromo}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaFinPromo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPromocionTitle_fechaFinPromo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaFinPromo}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.presupuesto.idPresupuesto}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPromocionTitle_presupuesto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.presupuesto.idPresupuesto}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.idSucursal.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPromocionTitle_idSucursal}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idSucursal.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idUsuario.idUsuario}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPromocionTitle_idUsuario}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idUsuario.idUsuario}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{promocionController.prepareCreate}" update=":PromocionCreateForm" oncomplete="PF('PromocionCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PromocionViewForm" oncomplete="PF('PromocionViewDialog').show()" disabled="#{empty promocionController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PromocionEditForm" oncomplete="PF('PromocionEditDialog').show()" disabled="#{empty promocionController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{promocionController.delete}" update=":growl,datalist" disabled="#{empty promocionController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

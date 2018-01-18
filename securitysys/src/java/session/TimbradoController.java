@@ -1,28 +1,16 @@
 package session;
 
-import bean.TimbradoFacade;
 import entities.Timbrado;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import entities.Venta;
+import entities.NotaCrediDebiVenta;
+import java.util.List;
+import bean.TimbradoFacade;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 
-@ManagedBean(name = "timbradoController")
+@Named(value = "timbradoController")
 @ViewScoped
 public class TimbradoController extends AbstractController<Timbrado> {
-
-    @EJB
-    private TimbradoFacade ejbFacade;
-
-    /**
-     * Initialize the concrete Timbrado controller bean. The AbstractController
-     * requires the EJB Facade object for most operations.
-     */
-    @PostConstruct
-    @Override
-    public void init() {
-        super.setFacade(ejbFacade);
-    }
 
     public TimbradoController() {
         // Inform the Abstract parent controller of the concrete Timbrado Entity

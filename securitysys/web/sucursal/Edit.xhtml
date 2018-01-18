@@ -19,13 +19,13 @@
                         <h:outputText id="idSucursal" value="#{sucursalController.selected.idSucursal}" />
 
                         <p:outputLabel value="#{bundle.EditSucursalLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{sucursalController.selected.descripcion}" title="#{bundle.EditSucursalTitle_descripcion}" required="true" requiredMessage="#{bundle.EditSucursalRequiredMessage_descripcion}" size="50" maxlength="50"/>
+                        <p:inputText id="descripcion" value="#{sucursalController.selected.descripcion}" title="#{bundle.EditSucursalTitle_descripcion}" required="true" requiredMessage="#{bundle.EditSucursalRequiredMessage_descripcion}" size="50" maxlength="50" style="text-transform: uppercase"/>
 
                         <p:outputLabel value="#{bundle.EditSucursalLabel_dirSucursal}" for="dirSucursal" />
-                        <p:inputText id="dirSucursal" value="#{sucursalController.selected.dirSucursal}" title="#{bundle.EditSucursalTitle_dirSucursal}" required="true" requiredMessage="#{bundle.EditSucursalRequiredMessage_dirSucursal}" size="50" maxlength="50"/>
+                        <p:inputText id="dirSucursal" value="#{sucursalController.selected.dirSucursal}" title="#{bundle.EditSucursalTitle_dirSucursal}" required="true" requiredMessage="#{bundle.EditSucursalRequiredMessage_dirSucursal}" size="50" maxlength="50" style="text-transform: uppercase"/>
 
                         <p:outputLabel value="#{bundle.EditSucursalLabel_telSucursal}" for="telSucursal" />
-                        <p:inputText id="telSucursal" value="#{sucursalController.selected.telSucursal}" title="#{bundle.EditSucursalTitle_telSucursal}" required="true" requiredMessage="#{bundle.EditSucursalRequiredMessage_telSucursal}" size="30" maxlength="30"/>
+                        <p:inputText id="telSucursal" value="#{sucursalController.selected.telSucursal}" title="#{bundle.EditSucursalTitle_telSucursal}" required="true" requiredMessage="#{bundle.EditSucursalRequiredMessage_telSucursal}" size="30" maxlength="30" onkeydown="return event.keyCode &gt; = 48 &amp; &amp; event.keyCode &lt; = 57 || event.keyCode &gt; = 96 &amp; &amp; event.keyCode &lt; = 105 || event.keyCode == 8"/>
 
                         <p:outputLabel value="#{bundle.EditSucursalLabel_idCiudad}" for="idCiudad" />
                         <p:selectOneMenu id="idCiudad" value="#{sucursalController.selected.idCiudad}" required="true" requiredMessage="#{bundle.EditSucursalRequiredMessage_idCiudad}" converter="ciudadConverter">
@@ -33,13 +33,13 @@
                             <f:selectItems value="#{ciudadController.items}"
                                            var="idCiudadItem"
                                            itemValue="#{idCiudadItem}"
-                                           itemLabel="#{idCiudadItem.idCiudad.toString()}"
+                                           itemLabel="#{idCiudadItem.ciudad}"
                                            />
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{sucursalController.save}" value="#{bundle.Save}" update="display,:SucursalListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SucursalEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('SucursalEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{sucursalController.save}" value="#{bundle.Save}" update="display,:SucursalListForm:datalist,:growl" oncomplete="handleSubmit(args,'SucursalEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SucursalEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 
             </h:form>

@@ -8,7 +8,8 @@
 
     <ui:composition>
 
-        <p:dialog id="MovilesCreateDlg" widgetVar="MovilesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMovilesTitle}">
+        <p:dialog id="MovilesCreateDlg" widgetVar="MovilesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMovilesTitle}" closeOnEscape="true">
+
             <h:form id="MovilesCreateForm">
 
                 <h:panelGroup id="display" rendered="#{movilesController.selected != null}">
@@ -37,7 +38,7 @@
                             <f:selectItems value="#{tipoMovilController.items}"
                                            var="idTipoMovilItem"
                                            itemValue="#{idTipoMovilItem}"
-                                           itemLabel="#{idTipoMovilItem.descripcion.toString()}"
+                                           itemLabel="#{idTipoMovilItem.descripcion}"
                                            />
 
                         </p:selectOneMenu>

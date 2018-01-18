@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VentaViewDlg" widgetVar="VentaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewVentaTitle}" closeOnEscape="true">
+
+            <h:form id="VentaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="VentaTabView">
+
+                        <p:tab id="VentaTab1" title="#{bundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{ventaController.selected != null}">
+                                <h:outputText value="#{bundle.ViewVentaLabel_idVenta}"/>
+                                <h:outputText value="#{ventaController.selected.idVenta}" title="#{bundle.ViewVentaTitle_idVenta}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_nroComprobante}"/>
+                                <h:outputText value="#{ventaController.selected.nroComprobante}" title="#{bundle.ViewVentaTitle_nroComprobante}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_cantidadCuota}"/>
+                                <h:outputText value="#{ventaController.selected.cantidadCuota}" title="#{bundle.ViewVentaTitle_cantidadCuota}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_fechaVenta}"/>
+                                <h:outputText value="#{ventaController.selected.fechaVenta}" title="#{bundle.ViewVentaTitle_fechaVenta}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_estadoVenta}"/>
+                                <h:outputText value="#{ventaController.selected.estadoVenta}" title="#{bundle.ViewVentaTitle_estadoVenta}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_exenta}"/>
+                                <h:outputText value="#{ventaController.selected.exenta}" title="#{bundle.ViewVentaTitle_exenta}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_gravada5}"/>
+                                <h:outputText value="#{ventaController.selected.gravada5}" title="#{bundle.ViewVentaTitle_gravada5}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_gravada10}"/>
+                                <h:outputText value="#{ventaController.selected.gravada10}" title="#{bundle.ViewVentaTitle_gravada10}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_iva5}"/>
+                                <h:outputText value="#{ventaController.selected.iva5}" title="#{bundle.ViewVentaTitle_iva5}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_iva10}"/>
+                                <h:outputText value="#{ventaController.selected.iva10}" title="#{bundle.ViewVentaTitle_iva10}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_idAperturaCierre}"/>
+                                <h:outputText value="#{ventaController.selected.idAperturaCierre.idAperturaCierre}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_idCliente}"/>
+                                <h:outputText value="#{ventaController.selected.idCliente.idCliente}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_idPresupuesto}"/>
+                                <h:outputText value="#{ventaController.selected.idPresupuesto.idPresupuesto}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_idSerieComprobante}"/>
+                                <h:outputText value="#{ventaController.selected.idSerieComprobante.descripcion}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_idSucursal}"/>
+                                <h:outputText value="#{ventaController.selected.idSucursal.descripcion}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_idTimbrado}"/>
+                                <h:outputText value="#{ventaController.selected.idTimbrado.idTimbrado}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_idTipoComprobante}"/>
+                                <h:outputText value="#{ventaController.selected.idTipoComprobante.descripcion}"/>
+
+                                <h:outputText value="#{bundle.ViewVentaLabel_idUsuario}"/>
+                                <h:outputText value="#{ventaController.selected.idUsuario.idUsuario}"/>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('VentaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

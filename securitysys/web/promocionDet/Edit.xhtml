@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PromocionDetEditDlg" widgetVar="PromocionDetEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditPromocionDetTitle}" closeOnEscape="true">
+
+            <h:form id="PromocionDetEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{promocionDetController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditPromocionDetLabel_promocionDetPK_idPromocionCab}" for="promocionDetPK_idPromocionCab" />
+                        <h:outputText id="promocionDetPK_idPromocionCab" value="#{promocionDetController.selected.promocionDetPK.idPromocionCab}" />
+
+
+                        <h:outputLabel value="#{bundle.EditPromocionDetLabel_promocionDetPK_idSecuencia}" for="promocionDetPK_idSecuencia" />
+                        <h:outputText id="promocionDetPK_idSecuencia" value="#{promocionDetController.selected.promocionDetPK.idSecuencia}" />
+
+                        <p:outputLabel value="#{bundle.EditPromocionDetLabel_costoPromo}" for="costoPromo" />
+                        <p:inputText id="costoPromo" value="#{promocionDetController.selected.costoPromo}" title="#{bundle.EditPromocionDetTitle_costoPromo}" required="true" requiredMessage="#{bundle.EditPromocionDetRequiredMessage_costoPromo}"/>
+
+                        <p:outputLabel value="#{bundle.EditPromocionDetLabel_idEquipo}" for="idEquipo" />
+                        <p:selectOneMenu id="idEquipo" value="#{promocionDetController.selected.idEquipo}" required="true" requiredMessage="#{bundle.EditPromocionDetRequiredMessage_idEquipo}" converter="equipoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{equipoController.items}"
+                                           var="idEquipoItem"
+                                           itemValue="#{idEquipoItem}"
+                                           itemLabel="#{idEquipoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+
+                        <h:outputLabel value="#{bundle.EditPromocionDetLabel_promocion}" for="promocion" />
+                        <h:outputText id="promocion" value="#{promocionDetController.selected.promocion}" />
+
+                        <p:outputLabel value="#{bundle.EditPromocionDetLabel_idServicio}" for="idServicio" />
+                        <p:selectOneMenu id="idServicio" value="#{promocionDetController.selected.idServicio}" required="true" requiredMessage="#{bundle.EditPromocionDetRequiredMessage_idServicio}" converter="servicioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{servicioController.items}"
+                                           var="idServicioItem"
+                                           itemValue="#{idServicioItem}"
+                                           itemLabel="#{idServicioItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{promocionDetController.save}" value="#{bundle.Save}" update="display,:PromocionDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PromocionDetEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PromocionDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

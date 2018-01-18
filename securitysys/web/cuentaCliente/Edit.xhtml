@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CuentaClienteEditDlg" widgetVar="CuentaClienteEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditCuentaClienteTitle}" closeOnEscape="true">
+
+            <h:form id="CuentaClienteEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{cuentaClienteController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditCuentaClienteLabel_idCuenta}" for="idCuenta" />
+                        <h:outputText id="idCuenta" value="#{cuentaClienteController.selected.idCuenta}" />
+
+                        <p:outputLabel value="#{bundle.EditCuentaClienteLabel_contacto}" for="contacto" />
+                        <p:inputText id="contacto" value="#{cuentaClienteController.selected.contacto}" title="#{bundle.EditCuentaClienteTitle_contacto}" required="true" requiredMessage="#{bundle.EditCuentaClienteRequiredMessage_contacto}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{bundle.EditCuentaClienteLabel_fechaHabilitacion}" for="fechaHabilitacion" />
+                        <p:calendar id="fechaHabilitacion" pattern="MM/dd/yyyy" value="#{cuentaClienteController.selected.fechaHabilitacion}" title="#{bundle.EditCuentaClienteTitle_fechaHabilitacion}" required="true" requiredMessage="#{bundle.EditCuentaClienteRequiredMessage_fechaHabilitacion}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditCuentaClienteLabel_idCliente}" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" value="#{cuentaClienteController.selected.idCliente}" required="true" requiredMessage="#{bundle.EditCuentaClienteRequiredMessage_idCliente}" converter="clienteConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clienteController.items}"
+                                           var="idClienteItem"
+                                           itemValue="#{idClienteItem}"
+                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditCuentaClienteLabel_contrato}" for="contrato" />
+                        <p:selectOneMenu id="contrato" value="#{cuentaClienteController.selected.contrato}" required="true" requiredMessage="#{bundle.EditCuentaClienteRequiredMessage_contrato}" converter="contratoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{contratoController.items}"
+                                           var="contratoItem"
+                                           itemValue="#{contratoItem}"
+                                           itemLabel="#{contratoItem.contratoPK.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditCuentaClienteLabel_idEstado}" for="idEstado" />
+                        <p:selectOneMenu id="idEstado" value="#{cuentaClienteController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditCuentaClienteRequiredMessage_idEstado}" converter="estadoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{estadoController.items}"
+                                           var="idEstadoItem"
+                                           itemValue="#{idEstadoItem}"
+                                           itemLabel="#{idEstadoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditCuentaClienteLabel_idSegmento}" for="idSegmento" />
+                        <p:selectOneMenu id="idSegmento" value="#{cuentaClienteController.selected.idSegmento}" required="true" requiredMessage="#{bundle.EditCuentaClienteRequiredMessage_idSegmento}" converter="segmentoContratoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{segmentoContratoController.items}"
+                                           var="idSegmentoItem"
+                                           itemValue="#{idSegmentoItem}"
+                                           itemLabel="#{idSegmentoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditCuentaClienteLabel_idSucursal}" for="idSucursal" />
+                        <p:selectOneMenu id="idSucursal" value="#{cuentaClienteController.selected.idSucursal}" required="true" requiredMessage="#{bundle.EditCuentaClienteRequiredMessage_idSucursal}" converter="sucursalConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sucursalController.items}"
+                                           var="idSucursalItem"
+                                           itemValue="#{idSucursalItem}"
+                                           itemLabel="#{idSucursalItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cuentaClienteController.save}" value="#{bundle.Save}" update="display,:CuentaClienteListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CuentaClienteEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CuentaClienteEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

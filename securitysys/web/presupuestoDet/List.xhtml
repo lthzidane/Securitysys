@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PresupuestoDetListForm">
+
+        <p:panel header="#{bundle.ListPresupuestoDetTitle}">
+            <p:dataTable id="datalist"
+                         value="#{presupuestoDetController.items}"
+                         lazy="false"
+                         rowKey="#{item.presupuestoDetPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{presupuestoDetController.selected}"
+                         filteredValue="#{presupuestoDetController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{presupuestoDetController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.presupuestoDetPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.presupuestoDetPK.idPresupuesto}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPresupuestoDetTitle_presupuestoDetPK_idPresupuesto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.presupuestoDetPK.idPresupuesto}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.presupuestoDetPK.idSecuencia}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPresupuestoDetTitle_presupuestoDetPK_idSecuencia}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.presupuestoDetPK.idSecuencia}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cantidad}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPresupuestoDetTitle_cantidad}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidad}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.exenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPresupuestoDetTitle_exenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.exenta}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.gravada5}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPresupuestoDetTitle_gravada5}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.gravada5}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.gravada10}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPresupuestoDetTitle_gravada10}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.gravada10}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.precio}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoDetTitle_precio}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.precio}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idDescuento.descripcionDesc}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoDetTitle_idDescuento}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idDescuento.descripcionDesc}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.presupuesto.idPresupuesto}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoDetTitle_presupuesto}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.presupuesto.idPresupuesto}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idPromocion.promocionPK}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoDetTitle_idPromocion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idPromocion.promocionPK}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{presupuestoDetController.prepareCreate}" update=":PresupuestoDetCreateForm" oncomplete="PF('PresupuestoDetCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PresupuestoDetViewForm" oncomplete="PF('PresupuestoDetViewDialog').show()" disabled="#{empty presupuestoDetController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PresupuestoDetEditForm" oncomplete="PF('PresupuestoDetEditDialog').show()" disabled="#{empty presupuestoDetController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{presupuestoDetController.delete}" update=":growl,datalist" disabled="#{empty presupuestoDetController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

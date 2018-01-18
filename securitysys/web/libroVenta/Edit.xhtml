@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="LibroVentaEditDlg" widgetVar="LibroVentaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditLibroVentaTitle}" closeOnEscape="true">
+
+            <h:form id="LibroVentaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{libroVentaController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditLibroVentaLabel_libroVentaPK_idLibroVenta}" for="libroVentaPK_idLibroVenta" />
+                        <h:outputText id="libroVentaPK_idLibroVenta" value="#{libroVentaController.selected.libroVentaPK.idLibroVenta}" />
+
+
+                        <h:outputLabel value="#{bundle.EditLibroVentaLabel_libroVentaPK_idVenta}" for="libroVentaPK_idVenta" />
+                        <h:outputText id="libroVentaPK_idVenta" value="#{libroVentaController.selected.libroVentaPK.idVenta}" />
+
+                        <p:outputLabel value="#{bundle.EditLibroVentaLabel_rucCliente}" for="rucCliente" />
+                        <p:inputText id="rucCliente" value="#{libroVentaController.selected.rucCliente}" title="#{bundle.EditLibroVentaTitle_rucCliente}" required="true" requiredMessage="#{bundle.EditLibroVentaRequiredMessage_rucCliente}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{bundle.EditLibroVentaLabel_ventaExenta}" for="ventaExenta" />
+                        <p:inputText id="ventaExenta" value="#{libroVentaController.selected.ventaExenta}" title="#{bundle.EditLibroVentaTitle_ventaExenta}" required="true" requiredMessage="#{bundle.EditLibroVentaRequiredMessage_ventaExenta}"/>
+
+                        <p:outputLabel value="#{bundle.EditLibroVentaLabel_ventaGravada10}" for="ventaGravada10" />
+                        <p:inputText id="ventaGravada10" value="#{libroVentaController.selected.ventaGravada10}" title="#{bundle.EditLibroVentaTitle_ventaGravada10}" required="true" requiredMessage="#{bundle.EditLibroVentaRequiredMessage_ventaGravada10}"/>
+
+                        <p:outputLabel value="#{bundle.EditLibroVentaLabel_ventaGravada5}" for="ventaGravada5" />
+                        <p:inputText id="ventaGravada5" value="#{libroVentaController.selected.ventaGravada5}" title="#{bundle.EditLibroVentaTitle_ventaGravada5}" required="true" requiredMessage="#{bundle.EditLibroVentaRequiredMessage_ventaGravada5}"/>
+
+                        <p:outputLabel value="#{bundle.EditLibroVentaLabel_ivaGravada10}" for="ivaGravada10" />
+                        <p:inputText id="ivaGravada10" value="#{libroVentaController.selected.ivaGravada10}" title="#{bundle.EditLibroVentaTitle_ivaGravada10}" required="true" requiredMessage="#{bundle.EditLibroVentaRequiredMessage_ivaGravada10}"/>
+
+                        <p:outputLabel value="#{bundle.EditLibroVentaLabel_ivaGravada5}" for="ivaGravada5" />
+                        <p:inputText id="ivaGravada5" value="#{libroVentaController.selected.ivaGravada5}" title="#{bundle.EditLibroVentaTitle_ivaGravada5}" required="true" requiredMessage="#{bundle.EditLibroVentaRequiredMessage_ivaGravada5}"/>
+
+                        <p:outputLabel value="#{bundle.EditLibroVentaLabel_estadoLibroVenta}" for="estadoLibroVenta" />
+                        <p:inputText id="estadoLibroVenta" value="#{libroVentaController.selected.estadoLibroVenta}" title="#{bundle.EditLibroVentaTitle_estadoLibroVenta}" required="true" requiredMessage="#{bundle.EditLibroVentaRequiredMessage_estadoLibroVenta}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{bundle.EditLibroVentaLabel_periodoVenta}" for="periodoVenta" />
+                        <p:inputText id="periodoVenta" value="#{libroVentaController.selected.periodoVenta}" title="#{bundle.EditLibroVentaTitle_periodoVenta}" required="true" requiredMessage="#{bundle.EditLibroVentaRequiredMessage_periodoVenta}" size="60" maxlength="60"/>
+
+                        <p:outputLabel value="#{bundle.EditLibroVentaLabel_idCliente}" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" value="#{libroVentaController.selected.idCliente}" required="true" requiredMessage="#{bundle.EditLibroVentaRequiredMessage_idCliente}" converter="clienteConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clienteController.items}"
+                                           var="idClienteItem"
+                                           itemValue="#{idClienteItem}"
+                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+
+                        <h:outputLabel value="#{bundle.EditLibroVentaLabel_venta}" for="venta" />
+                        <h:outputText id="venta" value="#{libroVentaController.selected.venta}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{libroVentaController.save}" value="#{bundle.Save}" update="display,:LibroVentaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('LibroVentaEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('LibroVentaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

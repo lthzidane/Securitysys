@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ArqueoCreateDlg" widgetVar="ArqueoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateArqueoTitle}" closeOnEscape="true">
+
+            <h:form id="ArqueoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{arqueoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateArqueoLabel_arqueoPK_idArqueo}" for="arqueoPK_idArqueo" />
+                        <p:inputText id="arqueoPK_idArqueo" value="#{arqueoController.selected.arqueoPK.idArqueo}" title="#{bundle.CreateArqueoTitle_arqueoPK_idArqueo}" required="true" requiredMessage="#{bundle.CreateArqueoRequiredMessage_arqueoPK_idArqueo}"/>
+
+                        <p:outputLabel value="#{bundle.CreateArqueoLabel_arqueoPK_idValor}" for="arqueoPK_idValor" />
+                        <p:inputText id="arqueoPK_idValor" value="#{arqueoController.selected.arqueoPK.idValor}" title="#{bundle.CreateArqueoTitle_arqueoPK_idValor}" required="true" requiredMessage="#{bundle.CreateArqueoRequiredMessage_arqueoPK_idValor}"/>
+
+                        <p:outputLabel value="#{bundle.CreateArqueoLabel_arqueoPK_idAperturaCierre}" for="arqueoPK_idAperturaCierre" />
+                        <p:inputText id="arqueoPK_idAperturaCierre" value="#{arqueoController.selected.arqueoPK.idAperturaCierre}" title="#{bundle.CreateArqueoTitle_arqueoPK_idAperturaCierre}" required="true" requiredMessage="#{bundle.CreateArqueoRequiredMessage_arqueoPK_idAperturaCierre}"/>
+
+                        <p:outputLabel value="#{bundle.CreateArqueoLabel_cantidadValor}" for="cantidadValor" />
+                        <p:inputText id="cantidadValor" value="#{arqueoController.selected.cantidadValor}" title="#{bundle.CreateArqueoTitle_cantidadValor}" required="true" requiredMessage="#{bundle.CreateArqueoRequiredMessage_cantidadValor}"/>
+
+                        <p:outputLabel value="#{bundle.CreateArqueoLabel_fechaArqueo}" for="fechaArqueo" />
+                        <p:calendar id="fechaArqueo" pattern="MM/dd/yyyy" value="#{arqueoController.selected.fechaArqueo}" title="#{bundle.CreateArqueoTitle_fechaArqueo}" required="true" requiredMessage="#{bundle.CreateArqueoRequiredMessage_fechaArqueo}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateArqueoLabel_horaArqueo}" for="horaArqueo" />
+                        <p:calendar id="horaArqueo" pattern="HH:mm:ss" value="#{arqueoController.selected.horaArqueo}" title="#{bundle.CreateArqueoTitle_horaArqueo}" required="true" requiredMessage="#{bundle.CreateArqueoRequiredMessage_horaArqueo}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateArqueoLabel_estadoArqueo}" for="estadoArqueo" />
+                        <p:inputText id="estadoArqueo" value="#{arqueoController.selected.estadoArqueo}" title="#{bundle.CreateArqueoTitle_estadoArqueo}" required="true" requiredMessage="#{bundle.CreateArqueoRequiredMessage_estadoArqueo}" size="40" maxlength="40"/>
+
+                        <p:outputLabel value="#{bundle.CreateArqueoLabel_aperturaCierreCaja}" for="aperturaCierreCaja" />
+                        <p:selectOneMenu id="aperturaCierreCaja" value="#{arqueoController.selected.aperturaCierreCaja}" required="true" requiredMessage="#{bundle.CreateArqueoRequiredMessage_aperturaCierreCaja}" converter="aperturaCierreCajaConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{aperturaCierreCajaController.items}"
+                                           var="aperturaCierreCajaItem"
+                                           itemValue="#{aperturaCierreCajaItem}"
+                                           itemLabel="#{aperturaCierreCajaItem.idAperturaCierre.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateArqueoLabel_valor}" for="valor" />
+                        <p:selectOneMenu id="valor" value="#{arqueoController.selected.valor}" required="true" requiredMessage="#{bundle.CreateArqueoRequiredMessage_valor}" converter="valorConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{valorController.items}"
+                                           var="valorItem"
+                                           itemValue="#{valorItem}"
+                                           itemLabel="#{valorItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{arqueoController.saveNew}" value="#{bundle.Save}" update="display,:ArqueoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ArqueoCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ArqueoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

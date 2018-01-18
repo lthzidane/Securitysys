@@ -29,19 +29,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sebas
+ * @author acer
  */
 @Entity
 @Table(name = "promocion")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Promocion.findAll", query = "SELECT p FROM Promocion p"),
-    @NamedQuery(name = "Promocion.findByIdPromocion", query = "SELECT p FROM Promocion p WHERE p.promocionPK.idPromocion = :idPromocion"),
-    @NamedQuery(name = "Promocion.findByIdPresu", query = "SELECT p FROM Promocion p WHERE p.promocionPK.idPresu = :idPresu"),
-    @NamedQuery(name = "Promocion.findByDescipcion", query = "SELECT p FROM Promocion p WHERE p.descipcion = :descipcion"),
-    @NamedQuery(name = "Promocion.findByFechaIniPromo", query = "SELECT p FROM Promocion p WHERE p.fechaIniPromo = :fechaIniPromo"),
-    @NamedQuery(name = "Promocion.findByFechaFinPromo", query = "SELECT p FROM Promocion p WHERE p.fechaFinPromo = :fechaFinPromo")})
+    @NamedQuery(name = "Promocion.findAll", query = "SELECT p FROM Promocion p")
+    , @NamedQuery(name = "Promocion.findByIdPromocion", query = "SELECT p FROM Promocion p WHERE p.promocionPK.idPromocion = :idPromocion")
+    , @NamedQuery(name = "Promocion.findByIdPresu", query = "SELECT p FROM Promocion p WHERE p.promocionPK.idPresu = :idPresu")
+    , @NamedQuery(name = "Promocion.findByDescipcion", query = "SELECT p FROM Promocion p WHERE p.descipcion = :descipcion")
+    , @NamedQuery(name = "Promocion.findByFechaIniPromo", query = "SELECT p FROM Promocion p WHERE p.fechaIniPromo = :fechaIniPromo")
+    , @NamedQuery(name = "Promocion.findByFechaFinPromo", query = "SELECT p FROM Promocion p WHERE p.fechaFinPromo = :fechaFinPromo")})
 public class Promocion implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected PromocionPK promocionPK;
@@ -70,10 +71,15 @@ public class Promocion implements Serializable {
     @ManyToOne(optional = false)
     private Usuario idUsuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPromocion")
-    private List<Servicio> servicioList;
-    
+    private List<SolicitudDet> solicitudDetList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "promocion")
     private List<PromocionDet> promocionDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPromocion")
+    private List<PresupuestoDet> presupuestoDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPromocion")
+    private List<Servicio> servicioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPromocion")
+    private List<VentaDet> ventaDetList;
 
     public Promocion() {
     }
@@ -150,12 +156,12 @@ public class Promocion implements Serializable {
     }
 
     @XmlTransient
-    public List<Servicio> getServicioList() {
-        return servicioList;
+    public List<SolicitudDet> getSolicitudDetList() {
+        return solicitudDetList;
     }
 
-    public void setServicioList(List<Servicio> servicioList) {
-        this.servicioList = servicioList;
+    public void setSolicitudDetList(List<SolicitudDet> solicitudDetList) {
+        this.solicitudDetList = solicitudDetList;
     }
 
     @XmlTransient
@@ -165,6 +171,33 @@ public class Promocion implements Serializable {
 
     public void setPromocionDetList(List<PromocionDet> promocionDetList) {
         this.promocionDetList = promocionDetList;
+    }
+
+    @XmlTransient
+    public List<PresupuestoDet> getPresupuestoDetList() {
+        return presupuestoDetList;
+    }
+
+    public void setPresupuestoDetList(List<PresupuestoDet> presupuestoDetList) {
+        this.presupuestoDetList = presupuestoDetList;
+    }
+
+    @XmlTransient
+    public List<Servicio> getServicioList() {
+        return servicioList;
+    }
+
+    public void setServicioList(List<Servicio> servicioList) {
+        this.servicioList = servicioList;
+    }
+
+    @XmlTransient
+    public List<VentaDet> getVentaDetList() {
+        return ventaDetList;
+    }
+
+    public void setVentaDetList(List<VentaDet> ventaDetList) {
+        this.ventaDetList = ventaDetList;
     }
 
     @Override

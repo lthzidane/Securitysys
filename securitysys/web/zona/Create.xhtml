@@ -19,7 +19,7 @@
                         <p:inputText id="descripcion" value="#{zonaController.selected.descripcion}" title="#{bundle.CreateZonaTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateZonaRequiredMessage_descripcion}" size="50" maxlength="50" style="text-transform: uppercase"/>
 
                         <p:outputLabel value="#{bundle.CreateZonaLabel_idCiudad}" for="idCiudad" />
-                        <p:selectOneMenu id="idCiudad" value="#{zonaController.selected.idCiudad}" required="true" requiredMessage="#{bundle.CreateZonaRequiredMessage_idCiudad}">
+                        <p:selectOneMenu id="idCiudad" value="#{zonaController.selected.idCiudad}" required="true" requiredMessage="#{bundle.CreateZonaRequiredMessage_idCiudad}" converter="ciudadConverter">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{ciudadController.items}"
                                            var="idCiudadItem"

@@ -15,6 +15,9 @@
                 <h:panelGroup id="display" rendered="#{empresaController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
 
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_idEmpresa}" for="idEmpresa" rendered="false" />
+                        <p:inputText id="idEmpresa" value="#{empresaController.selected.idEmpresa}" title="#{bundle.CreateEmpresaTitle_idEmpresa}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_idEmpresa}" rendered="false"/>
+
                         <p:outputLabel value="#{bundle.CreateEmpresaLabel_propietario}" for="propietario" />
                         <p:inputText id="propietario" value="#{empresaController.selected.propietario}" title="#{bundle.CreateEmpresaTitle_propietario}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_propietario}" size="30" maxlength="30" style="text-transform: uppercase"/>
 

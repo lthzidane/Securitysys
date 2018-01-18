@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotaRemisionVentaDetViewDlg" widgetVar="NotaRemisionVentaDetViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewNotaRemisionVentaDetTitle}" closeOnEscape="true">
+
+            <h:form id="NotaRemisionVentaDetViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{notaRemisionVentaDetController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaDetLabel_notaRemisionVentaDetPK_idRemision}"/>
+                        <h:outputText value="#{notaRemisionVentaDetController.selected.notaRemisionVentaDetPK.idRemision}" title="#{bundle.ViewNotaRemisionVentaDetTitle_notaRemisionVentaDetPK_idRemision}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaDetLabel_notaRemisionVentaDetPK_idSecuencia}"/>
+                        <h:outputText value="#{notaRemisionVentaDetController.selected.notaRemisionVentaDetPK.idSecuencia}" title="#{bundle.ViewNotaRemisionVentaDetTitle_notaRemisionVentaDetPK_idSecuencia}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaDetLabel_cantidadRemision}"/>
+                        <h:outputText value="#{notaRemisionVentaDetController.selected.cantidadRemision}" title="#{bundle.ViewNotaRemisionVentaDetTitle_cantidadRemision}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaDetLabel_idEquipo}"/>
+                        <h:outputText value="#{notaRemisionVentaDetController.selected.idEquipo.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewNotaRemisionVentaDetLabel_notaRemisionVenta}"/>
+                        <h:outputText value="#{notaRemisionVentaDetController.selected.notaRemisionVenta.idRemision}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('NotaRemisionVentaDetViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
