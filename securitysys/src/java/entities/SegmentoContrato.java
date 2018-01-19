@@ -69,7 +69,7 @@ public class SegmentoContrato implements Serializable {
 
     public SegmentoContrato(Integer idSegmento, String descripcion) {
         this.idSegmento = idSegmento;
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.toUpperCase();
     }
 
     public Integer getIdSegmento() {
@@ -85,7 +85,7 @@ public class SegmentoContrato implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.toUpperCase();
     }
 
     @XmlTransient

@@ -82,9 +82,14 @@ public class Servicio implements Serializable {
     })
     @ManyToOne(optional = false)
     private Promocion idPromocion;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServicio")
     private List<SegmentoContrato> segmentoContratoList;
 
+    @Column(name = "id_presu")
+    private int idPresu;
+
+    
     public Servicio() {
     }
 
@@ -222,6 +227,20 @@ public class Servicio implements Serializable {
     @Override
     public String toString() {
         return "entities.Servicio[ idServicio=" + idServicio + " ]";
+    }
+
+    /**
+     * @return the idPresu
+     */
+    public int getIdPresu() {
+        return idPresu;
+    }
+
+    /**
+     * @param idPresu the idPresu to set
+     */
+    public void setIdPresu(int idPresu) {
+        this.idPresu = idPresu;
     }
 
 }
