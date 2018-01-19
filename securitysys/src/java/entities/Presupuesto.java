@@ -99,7 +99,7 @@ public class Presupuesto implements Serializable {
     private Cliente idCliente;
     @JoinColumn(name = "id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Diagnostico id;
+    private Diagnostico idDiagnostico;
     @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
     @ManyToOne(optional = false)
     private Estado idEstado;
@@ -230,12 +230,12 @@ public class Presupuesto implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public Diagnostico getId() {
-        return id;
+    public Diagnostico getIdDiagnostico() {
+        return idDiagnostico;
     }
 
-    public void setId(Diagnostico id) {
-        this.id = id;
+    public void setIdDiagnostico(Diagnostico idDiagnostico) {
+        this.idDiagnostico = idDiagnostico;
     }
 
     public Estado getIdEstado() {
@@ -289,7 +289,7 @@ public class Presupuesto implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        // TODO: Warning - this method won't work in the case the idDiagnostico fields are not set
         if (!(object instanceof Presupuesto)) {
             return false;
         }

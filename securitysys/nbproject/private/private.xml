@@ -44,10 +44,10 @@
             <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/timbrado/List.xhtml</file>
         </group>
         <group>
-            <file>file:/C:/test/Securitysys/securitysys/web/depositos/List.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/depositos/Edit.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/AperturaCajaBean.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/AperturaCierreCajaFacade.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/tecnico/Create.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/tecnico/Edit.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/tecnico/List.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/timbrado/List.xhtml</file>
         </group>
     </open-files>
 </project-private>

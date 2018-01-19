@@ -15,8 +15,8 @@
                     <p:panelGrid  columns="2" columnClasses="column" rendered="#{segmentoContratoController.selected != null}">
 
 
-                        <h:outputLabel value="#{bundle.EditSegmentoContratoLabel_idSegmento}" for="idSegmento" />
-                        <h:outputText id="idSegmento" value="#{segmentoContratoController.selected.idSegmento}" />
+                        <h:outputLabel value="#{bundle.EditSegmentoContratoLabel_idSegmento}" for="idSegmento" rendered="false"/>
+                        <h:outputText id="idSegmento" value="#{segmentoContratoController.selected.idSegmento}" rendered="false"/>
 
                         <p:outputLabel value="#{bundle.EditSegmentoContratoLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{segmentoContratoController.selected.descripcion}" title="#{bundle.EditSegmentoContratoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditSegmentoContratoRequiredMessage_descripcion}" size="60" maxlength="60"/>
@@ -27,7 +27,7 @@
                             <f:selectItems value="#{clienteController.items}"
                                            var="idClienteItem"
                                            itemValue="#{idClienteItem}"
-                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           itemLabel="#{idClienteItem.nombre} #{idClienteItem.apellido}"
                                            />
 
                         </p:selectOneMenu>
@@ -43,8 +43,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{segmentoContratoController.save}" value="#{bundle.Save}" update="display,:SegmentoContratoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SegmentoContratoEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('SegmentoContratoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{segmentoContratoController.save}" value="#{bundle.Save}" update="display,:SegmentoContratoListForm:datalist,:growl" oncomplete="handleSubmit(args,'SegmentoContratoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SegmentoContratoEditDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>

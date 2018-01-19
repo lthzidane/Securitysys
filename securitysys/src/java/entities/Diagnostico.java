@@ -60,7 +60,7 @@ public class Diagnostico implements Serializable {
     private String estadoDiag;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "diagnostico")
     private List<DiagnosticoDet> diagnosticoDetList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDiagnostico")
     private List<Presupuesto> presupuestoList;
     @JoinColumn(name = "id_reclamo", referencedColumnName = "id_reclamo")
     @ManyToOne(optional = false)

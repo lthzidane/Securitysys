@@ -46,8 +46,8 @@
                         <h:outputLabel value="#{bundle.EditArqueoLabel_valor}" for="valor" />
                         <h:outputText id="valor" value="#{arqueoController.selected.valor}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{arqueoController.save}" value="#{bundle.Save}" update="display,:ArqueoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ArqueoEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ArqueoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{arqueoController.save}" value="#{bundle.Save}" update="display,:ArqueoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ArqueoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ArqueoEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 
             </h:form>

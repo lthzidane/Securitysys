@@ -61,13 +61,13 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           itemLabel="#{idUsuarioItem.nombre}"
                                            />
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{aperturaCierreCajaController.save}" value="#{bundle.Save}" update="display,:AperturaCierreCajaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AperturaCierreCajaEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('AperturaCierreCajaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{aperturaCierreCajaController.save}" value="#{bundle.Save}" update="display,:AperturaCierreCajaListForm:datalist,:growl" oncomplete="handleSubmit(args,AperturaCierreCajaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AperturaCierreCajaEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 
             </h:form>

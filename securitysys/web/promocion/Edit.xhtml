@@ -52,13 +52,13 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           itemLabel="#{idUsuarioItem.nombre}"
                                            />
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{promocionController.save}" value="#{bundle.Save}" update="display,:PromocionListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PromocionEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PromocionEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{promocionController.save}" value="#{bundle.Save}" update="display,:PromocionListForm:datalist,:growl" oncomplete="handleSubmit(args,'PromocionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PromocionEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 
             </h:form>

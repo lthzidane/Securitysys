@@ -91,7 +91,7 @@ public class PresupuestoFacade extends AbstractFacade<Presupuesto> {
     }
 
     public Diagnostico findId(Presupuesto entity) {
-        return this.getMergedEntity(entity).getId();
+        return this.getMergedEntity(entity).getIdDiagnostico();
     }
 
     public boolean isIdEstadoEmpty(Presupuesto entity) {

@@ -99,9 +99,9 @@ public class Usuario implements Serializable {
     public Usuario(Integer idUsuario, String nombre, String contrasenha, int idDepartamento, String estado) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
-        this.contrasenha = contrasenha;
+        this.contrasenha = contrasenha.toUpperCase();
         this.idDepartamento = idDepartamento;
-        this.estado = estado;
+        this.estado = estado.toUpperCase();
     }
 
     public Integer getIdUsuario() {
@@ -133,7 +133,7 @@ public class Usuario implements Serializable {
     }
 
     public void setRol(String rol) {
-        this.rol = rol;
+        this.rol = rol.toUpperCase();
     }
 
     public int getIdDepartamento() {
@@ -149,7 +149,7 @@ public class Usuario implements Serializable {
     }
 
     public void setEstado(String estado) {
-        this.estado = estado;
+        this.estado = estado.toUpperCase();
     }
 
     @XmlTransient

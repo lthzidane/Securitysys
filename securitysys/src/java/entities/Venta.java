@@ -12,12 +12,14 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -52,6 +54,8 @@ public class Venta implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_venta")
+    @GeneratedValue(generator = "VentaSeq")
+    @SequenceGenerator(name = "VentaSeq", sequenceName = "venta_id_venta_seq", allocationSize = 1)
     private Integer idVenta;
     @Basic(optional = false)
     @NotNull
@@ -359,5 +363,5 @@ public class Venta implements Serializable {
     public String toString() {
         return "entities.Venta[ idVenta=" + idVenta + " ]";
     }
-    
+
 }

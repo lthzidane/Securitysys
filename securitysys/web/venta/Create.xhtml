@@ -17,8 +17,8 @@
 
                         <p:tab id="VentaTab1" title="#{bundle.TabHeaderPrefix} 1">
                             <p:panelGrid columns="2" columnClasses="column">
-                                <p:outputLabel value="#{bundle.CreateVentaLabel_idVenta}" for="idVenta" />
-                                <p:inputText id="idVenta" value="#{ventaController.selected.idVenta}" title="#{bundle.CreateVentaTitle_idVenta}" required="true" requiredMessage="#{bundle.CreateVentaRequiredMessage_idVenta}"/>
+                                <p:outputLabel value="#{bundle.CreateVentaLabel_idVenta}" for="idVenta" rendered="false"/>
+                                <p:inputText id="idVenta" value="#{ventaController.selected.idVenta}" title="#{bundle.CreateVentaTitle_idVenta}" required="true" requiredMessage="#{bundle.CreateVentaRequiredMessage_idVenta}" rendered="false"/>
 
                                 <p:outputLabel value="#{bundle.CreateVentaLabel_nroComprobante}" for="nroComprobante" />
                                 <p:inputText id="nroComprobante" value="#{ventaController.selected.nroComprobante}" title="#{bundle.CreateVentaTitle_nroComprobante}" required="true" requiredMessage="#{bundle.CreateVentaRequiredMessage_nroComprobante}"/>
@@ -64,7 +64,7 @@
                                     <f:selectItems value="#{clienteController.items}"
                                                    var="idClienteItem"
                                                    itemValue="#{idClienteItem}"
-                                                   itemLabel="#{idClienteItem.idCliente.toString()}"
+                                                   itemLabel="#{idClienteItem.nombre} #{idClienteItem.apellido}"
                                                    />
 
                                 </p:selectOneMenu>
@@ -137,8 +137,8 @@
                             </p:panelGrid>
                         </p:tab>
                     </p:tabView>
-                    <p:commandButton actionListener="#{ventaController.saveNew}" value="#{bundle.Save}" update="display,:VentaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('VentaCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('VentaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{ventaController.saveNew}" value="#{bundle.Save}" update="display,:VentaListForm:datalist,:growl" oncomplete="handleSubmit(args,'VentaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VentaCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 
             </h:form>

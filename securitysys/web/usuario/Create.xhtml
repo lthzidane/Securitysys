@@ -23,9 +23,9 @@
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_rol}" for="rol" />
                         <p:inputText id="rol" value="#{usuarioController.selected.rol}" title="#{bundle.CreateUsuarioTitle_rol}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_rol}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{usuarioController.selected.estado}" title="#{bundle.CreateUsuarioTitle_estado}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_estado}" size="10" maxlength="10"/>
+                        <p:inputText id="estado" value="#{usuarioController.selected.estado}" title="#{bundle.CreateUsuarioTitle_estado}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_estado}" size="10" maxlength="10" style="text-transform: uppercase"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
+                    <p:commandButton actionListener="#{usuarioController.saveNew}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 

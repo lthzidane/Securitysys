@@ -15,8 +15,8 @@
                 <h:panelGroup id="display" rendered="#{segmentoContratoController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
 
-                        <p:outputLabel value="#{bundle.CreateSegmentoContratoLabel_idSegmento}" for="idSegmento" />
-                        <p:inputText id="idSegmento" value="#{segmentoContratoController.selected.idSegmento}" title="#{bundle.CreateSegmentoContratoTitle_idSegmento}" required="true" requiredMessage="#{bundle.CreateSegmentoContratoRequiredMessage_idSegmento}"/>
+                        <p:outputLabel value="#{bundle.CreateSegmentoContratoLabel_idSegmento}" for="idSegmento" rendered="false"/>
+                        <p:inputText id="idSegmento" value="#{segmentoContratoController.selected.idSegmento}" title="#{bundle.CreateSegmentoContratoTitle_idSegmento}" required="true" requiredMessage="#{bundle.CreateSegmentoContratoRequiredMessage_idSegmento}" rendered="false"/>
 
                         <p:outputLabel value="#{bundle.CreateSegmentoContratoLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{segmentoContratoController.selected.descripcion}" title="#{bundle.CreateSegmentoContratoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateSegmentoContratoRequiredMessage_descripcion}" size="60" maxlength="60"/>
@@ -27,7 +27,7 @@
                             <f:selectItems value="#{clienteController.items}"
                                            var="idClienteItem"
                                            itemValue="#{idClienteItem}"
-                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           itemLabel="#{idClienteItem.nombre} #{idClienteItem.apellido}"
                                            />
 
                         </p:selectOneMenu>
@@ -38,13 +38,13 @@
                             <f:selectItems value="#{servicioController.items}"
                                            var="idServicioItem"
                                            itemValue="#{idServicioItem}"
-                                           itemLabel="#{idServicioItem.descripcion.toString()}"
+                                           itemLabel="#{idServicioItem.descripcion}"
                                            />
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{segmentoContratoController.saveNew}" value="#{bundle.Save}" update="display,:SegmentoContratoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SegmentoContratoCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('SegmentoContratoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{segmentoContratoController.saveNew}" value="#{bundle.Save}" update="display,:SegmentoContratoListForm:datalist,:growl" oncomplete="handleSubmit(args,'SegmentoContratoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SegmentoContratoCreateDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>

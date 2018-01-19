@@ -58,8 +58,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{arqueoController.saveNew}" value="#{bundle.Save}" update="display,:ArqueoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ArqueoCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ArqueoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{arqueoController.saveNew}" value="#{bundle.Save}" update="display,:ArqueoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ArqueoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ArqueoCreateDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>
