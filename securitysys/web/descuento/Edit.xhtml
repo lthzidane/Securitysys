@@ -27,8 +27,8 @@
                         <p:outputLabel value="#{bundle.EditDescuentoLabel_descripcionDesc}" for="descripcionDesc" />
                         <p:inputText id="descripcionDesc" value="#{descuentoController.selected.descripcionDesc}" title="#{bundle.EditDescuentoTitle_descripcionDesc}" required="true" requiredMessage="#{bundle.EditDescuentoRequiredMessage_descripcionDesc}" size="100" maxlength="100"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{descuentoController.save}" value="#{bundle.Save}" update="display,:DescuentoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DescuentoEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DescuentoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{descuentoController.save}" value="#{bundle.Save}" update="display,:DescuentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DescuentoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DescuentoEditDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>

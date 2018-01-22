@@ -105,8 +105,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{presupuestoController.saveNew}" value="#{bundle.Save}" update="display,:PresupuestoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PresupuestoCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PresupuestoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{presupuestoController.saveNew}" value="#{bundle.Save}" update="display,:PresupuestoListForm:datalist,:growl" oncomplete="handleSubmit(args,'PresupuestoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PresupuestoCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 
             </h:form>

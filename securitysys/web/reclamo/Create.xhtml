@@ -96,8 +96,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{reclamoController.saveNew}" value="#{bundle.Save}" update="display,:ReclamoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ReclamoCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ReclamoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{reclamoController.saveNew}" value="#{bundle.Save}" update="display,:ReclamoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ReclamoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReclamoCreateDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

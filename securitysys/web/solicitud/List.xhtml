@@ -1,99 +1,118 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="SolicitudListForm">
+    <ui:composition template="/resources/templates/template.xhtml">
 
-        <p:panel header="#{bundle.ListSolicitudTitle}">
-            <p:dataTable id="datalist"
-                         value="#{solicitudController.items}"
-                         lazy="false"
-                         rowKey="#{item.idSolicitud}"
-                         var="item"
-                         paginator="true"
-                         rows="10"
-                         rowsPerPageTemplate="10,20,30,40,50"
-                         selectionMode="single"
-                         selection="#{solicitudController.selected}"
-                         filteredValue="#{solicitudController.filteredItems}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{solicitudController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.idSolicitud}"  <<< Remove this line
-                -->
+        <ui:define name="title">Solicitud</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="#{bundle.ListSolicitudTitle}"/>
+        </ui:define>
 
+        <ui:define name="container">
+            <script name="jquery/jquery.js" library="primefaces"></script>
+            <h:outputStylesheet library="css" name="menu.css" />
+            <h:outputStylesheet library="css" name="facade.css" />
+            <p:growl id="growl" life="3000" />
 
-                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+            <h:form id="SolicitudListForm">
 
-                <p:column sortBy="#{item.idSolicitud}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListSolicitudTitle_idSolicitud}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idSolicitud}"/>
-                </p:column>
-
-
-                <p:column sortBy="#{item.fechaSolicitud}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListSolicitudTitle_fechaSolicitud}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.fechaSolicitud}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                </p:column>
+                <p:panel header="#{bundle.ListSolicitudTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{solicitudController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.idSolicitud}"
+                                 var="item"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 selectionMode="single"
+                                 selection="#{solicitudController.selected}"
+                                 filteredValue="#{solicitudController.filteredItems}">
+                        <!--
+                                 To enable Lazy Loading, please copy/replace the following lines above,
+                                 and be sure to replace the word HASH with the # symbol:
+                        
+                                 value="HASH{solicitudController.lazyItems}"
+                                 lazy="true"
+                                 rowKey="HASH{item.idSolicitud}"  <<< Remove this line
+                        -->
 
 
-                <p:column sortBy="#{item.estado}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListSolicitudTitle_estado}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.estado}"/>
-                </p:column>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                        <p:column sortBy="#{item.idSolicitud}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudTitle_idSolicitud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSolicitud}"/>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.idCliente.idCliente}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListSolicitudTitle_idCliente}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idCliente.idCliente}"/>
-                </p:column>
+                        <p:column sortBy="#{item.fechaSolicitud}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudTitle_fechaSolicitud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaSolicitud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.idSucursal.descripcion}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListSolicitudTitle_idSucursal}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idSucursal.descripcion}"/>
-                </p:column>
+                        <p:column sortBy="#{item.estado}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudTitle_estado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estado}"/>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.idUsuario.idUsuario}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListSolicitudTitle_idUsuario}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idUsuario.idUsuario}"/>
-                </p:column>
+                        <p:column sortBy="#{item.idCliente.idCliente}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudTitle_idCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCliente.idCliente}"/>
+                        </p:column>
 
-                <f:facet name="footer">
-                    <div class="footer-section">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{solicitudController.prepareCreate}" update=":SolicitudCreateForm" oncomplete="PF('SolicitudCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SolicitudViewForm" oncomplete="PF('SolicitudViewDialog').show()" disabled="#{empty solicitudController.selected}"/>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudEditForm" oncomplete="PF('SolicitudEditDialog').show()" disabled="#{empty solicitudController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{solicitudController.delete}" update=":growl,datalist" disabled="#{empty solicitudController.selected}"/>
-                    </div>
-                </f:facet>
 
-            </p:dataTable>
+                        <p:column sortBy="#{item.idSucursal.descripcion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudTitle_idSucursal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSucursal.descripcion}"/>
+                        </p:column>
 
-        </p:panel>
-    </h:form>
 
-</ui:composition>
+                        <p:column sortBy="#{item.idUsuario.idUsuario}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudTitle_idUsuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUsuario.idUsuario}"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <div class="footer-section">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{solicitudController.prepareCreate}" update=":SolicitudCreateForm" oncomplete="PF('SolicitudCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SolicitudViewForm" oncomplete="PF('SolicitudViewDialog').show()" disabled="#{empty solicitudController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudEditForm" oncomplete="PF('SolicitudEditDialog').show()" disabled="#{empty solicitudController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{solicitudController.delete}" update=":growl,datalist" disabled="#{empty solicitudController.selected}"/>
+                            </div>
+                        </f:facet>
+
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

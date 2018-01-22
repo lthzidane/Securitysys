@@ -83,12 +83,11 @@
                         </p:submenu>
 
                         <p:submenu label="Instalaciones">
-                            <p:menuitem value="Solicitud del Cliente" disabled="true" />
+                            <p:menuitem outcome="/solicitud/List" value="Solicitud del Cliente"/>
                             <p:menuitem outcome="/presupuesto/List" value="Presupuestos" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
                             <p:menuitem outcome="/OrdenTrabajo" value="Orden de Trabajo" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
-                            <p:menuitem outcome="/OrdenInstalacion" value="Instalaciones" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
-                            <p:menuitem value="Promociones" disabled="true" />                            
-                            <p:menuitem value="Descuentos" disabled="true" />                            
+                            <p:menuitem outcome="/OrdenInstalacion" value="Instalaciones" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />                       
+                            <p:menuitem outcome="/descuento/List" value="Descuentos" />                            
                         </p:submenu>
 
                         <p:submenu label="Reclamos">                            

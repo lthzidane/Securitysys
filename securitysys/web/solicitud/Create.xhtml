@@ -53,9 +53,9 @@
                                            />
 
                         </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{solicitudController.saveNew}" value="#{bundle.Save}" update="display,:SolicitudListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SolicitudCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('SolicitudCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    </p:panelGrid>us,
+                    <p:commandButton actionListener="#{solicitudController.saveNew}" value="#{bundle.Save}" update="display,:SolicitudListForm:datalist,:growl" oncomplete="handleSubmit(args,'SolicitudCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SolicitudCreateDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>
