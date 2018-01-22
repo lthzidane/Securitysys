@@ -33,11 +33,11 @@
                 <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
                 <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
-                <p:column sortBy="#{item.presupuestoDetPK.idPresupuesto}">
+                <p:column sortBy="#{item.presupuestoDetPK.idPresupuestoCab}">
                     <f:facet name="header">
-                        <h:outputText value="#{bundle.ListPresupuestoDetTitle_presupuestoDetPK_idPresupuesto}"/>
+                        <h:outputText value="#{bundle.ListPresupuestoDetTitle_presupuestoDetPK_idPresupuestoCab}"/>
                     </f:facet>
-                    <h:outputText value="#{item.presupuestoDetPK.idPresupuesto}"/>
+                    <h:outputText value="#{item.presupuestoDetPK.idPresupuestoCab}"/>
                 </p:column>
 
 
@@ -105,11 +105,11 @@
                     </p:column>
                 </ui:remove>
                 <ui:remove>
-                    <p:column sortBy="#{item.idPromocion.promocionPK}">
+                    <p:column sortBy="#{item.idPromocion.idPromocion}">
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListPresupuestoDetTitle_idPromocion}"/>
                         </f:facet>
-                        <h:outputText value="#{item.idPromocion.promocionPK}"/>
+                        <h:outputText value="#{item.idPromocion.idPromocion}"/>
                     </p:column>
                 </ui:remove>
                 <f:facet name="footer">

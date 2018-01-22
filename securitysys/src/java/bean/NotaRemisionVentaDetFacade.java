@@ -9,7 +9,7 @@ import entities.NotaRemisionVentaDet;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -18,7 +18,7 @@ import entities.NotaRemisionVenta;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class NotaRemisionVentaDetFacade extends AbstractFacade<NotaRemisionVentaDet> {

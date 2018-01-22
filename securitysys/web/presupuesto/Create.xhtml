@@ -45,7 +45,7 @@
                             <f:selectItems value="#{promocionController.items}"
                                            var="promocionItem"
                                            itemValue="#{promocionItem}"
-                                           itemLabel="#{promocionItem.promocionPK.toString()}"
+                                           itemLabel="#{promocionItem.idPromocion.toString()}"
                                            />
 
                         </p:selectOneMenu>
@@ -56,13 +56,13 @@
                             <f:selectItems value="#{clienteController.items}"
                                            var="idClienteItem"
                                            itemValue="#{idClienteItem}"
-                                           itemLabel="#{idClienteItem.nombre} #{idClienteItem.apellido}"
+                                           itemLabel="#{idClienteItem.idCliente.toString()}"
                                            />
 
                         </p:selectOneMenu>
 
-                        <p:outputLabel value="Id Diagnostico" for="id" />
-                        <p:selectOneMenu id="id" value="#{presupuestoController.selected.idDiagnostico}" required="true" requiredMessage="#{bundle.CreatePresupuestoRequiredMessage_id}" converter="diagnosticoConverter">
+                        <p:outputLabel value="#{bundle.CreatePresupuestoLabel_id}" for="id" />
+                        <p:selectOneMenu id="id" value="#{presupuestoController.selected.id}" required="true" requiredMessage="#{bundle.CreatePresupuestoRequiredMessage_id}" converter="diagnosticoConverter">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{diagnosticoController.items}"
                                            var="idItem"
@@ -100,13 +100,13 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.nombre}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
                                            />
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{presupuestoController.saveNew}" value="#{bundle.Save}" update="display,:PresupuestoListForm:datalist,:growl" oncomplete="handleSubmit(args,'PresupuestoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PresupuestoCreateDialog.hide()" immediate="true" />
+                    <p:commandButton actionListener="#{presupuestoController.saveNew}" value="#{bundle.Save}" update="display,:PresupuestoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PresupuestoCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PresupuestoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                 </h:panelGroup>
 
             </h:form>

@@ -56,6 +56,7 @@
                             </f:facet>
                             <h:outputText value="#{item.idZona.descripcion}"/>
                         </p:column>
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{rutaController.prepareCreate}" update=":RutaCreateForm" oncomplete="PF('RutaCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RutaViewForm" oncomplete="PF('RutaViewDialog').show()" disabled="#{empty rutaController.selected}"/>
@@ -64,6 +65,7 @@
                         </f:facet>
 
                     </p:dataTable>
+
                 </p:panel>
             </h:form>
 

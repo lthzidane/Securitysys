@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "usuario")
@@ -99,9 +99,9 @@ public class Usuario implements Serializable {
     public Usuario(Integer idUsuario, String nombre, String contrasenha, int idDepartamento, String estado) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
-        this.contrasenha = contrasenha.toUpperCase();
+        this.contrasenha = contrasenha;
         this.idDepartamento = idDepartamento;
-        this.estado = estado.toUpperCase();
+        this.estado = estado;
     }
 
     public Integer getIdUsuario() {
@@ -133,7 +133,7 @@ public class Usuario implements Serializable {
     }
 
     public void setRol(String rol) {
-        this.rol = rol.toUpperCase();
+        this.rol = rol;
     }
 
     public int getIdDepartamento() {
@@ -149,7 +149,7 @@ public class Usuario implements Serializable {
     }
 
     public void setEstado(String estado) {
-        this.estado = estado.toUpperCase();
+        this.estado = estado;
     }
 
     @XmlTransient

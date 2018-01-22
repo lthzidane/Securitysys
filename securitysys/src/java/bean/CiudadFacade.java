@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class CiudadFacade extends AbstractFacade<Ciudad> {
@@ -41,7 +41,7 @@ public class CiudadFacade extends AbstractFacade<Ciudad> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Ciudad> ciudad = cq.from(Ciudad.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ciudad, entity), cb.isNotEmpty(ciudad.get(Ciudad_.zonaList)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ciudad, entity), cb.isNotEmpty(ciudad.get(Ciudad_.zonaList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -56,7 +56,7 @@ public class CiudadFacade extends AbstractFacade<Ciudad> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Ciudad> ciudad = cq.from(Ciudad.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ciudad, entity), cb.isNotEmpty(ciudad.get(Ciudad_.clienteList)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ciudad, entity), cb.isNotEmpty(ciudad.get(Ciudad_.clienteList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -71,7 +71,7 @@ public class CiudadFacade extends AbstractFacade<Ciudad> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Ciudad> ciudad = cq.from(Ciudad.class);
-       ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ciudad, entity), cb.isNotEmpty(ciudad.get(Ciudad_.empresaList)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ciudad, entity), cb.isNotEmpty(ciudad.get(Ciudad_.empresaList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -86,7 +86,7 @@ public class CiudadFacade extends AbstractFacade<Ciudad> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Ciudad> ciudad = cq.from(Ciudad.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ciudad, entity), cb.isNotEmpty(ciudad.get(Ciudad_.sucursalList)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ciudad, entity), cb.isNotEmpty(ciudad.get(Ciudad_.sucursalList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

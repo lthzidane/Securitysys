@@ -9,7 +9,7 @@ import entities.SerieComprobante;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class SerieComprobanteFacade extends AbstractFacade<SerieComprobante> {

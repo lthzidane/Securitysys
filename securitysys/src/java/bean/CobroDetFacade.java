@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class CobroDetFacade extends AbstractFacade<CobroDet> {
@@ -37,13 +37,13 @@ public class CobroDetFacade extends AbstractFacade<CobroDet> {
         super(CobroDet.class);
     }
 
-//    public boolean isCobroEmpty(CobroDet entity) {
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-//        Root<CobroDet> cobroDet = cq.from(CobroDet.class);
+    public boolean isCobroEmpty(CobroDet entity) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<CobroDet> cobroDet = cq.from(CobroDet.class);
 //        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroDet, entity), cb.isNotNull(cobroDet.get(CobroDet_.cobro)));
-//        return em.createQuery(cq).getResultList().isEmpty();
-//    }
+        return em.createQuery(cq).getResultList().isEmpty();
+    }
 
     public Cobro findCobro(CobroDet entity) {
         return this.getMergedEntity(entity).getCobro();
@@ -53,7 +53,7 @@ public class CobroDetFacade extends AbstractFacade<CobroDet> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CobroDet> cobroDet = cq.from(CobroDet.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroDet, entity), cb.isNotNull(cobroDet.get(CobroDet_.ctaACobrar)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroDet, entity), cb.isNotNull(cobroDet.get(CobroDet_.ctaACobrar)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -61,13 +61,13 @@ public class CobroDetFacade extends AbstractFacade<CobroDet> {
         return this.getMergedEntity(entity).getCtaACobrar();
     }
 
-//    public boolean isCobroChequeListEmpty(CobroDet entity) {
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-//        Root<CobroDet> cobroDet = cq.from(CobroDet.class);
+    public boolean isCobroChequeListEmpty(CobroDet entity) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<CobroDet> cobroDet = cq.from(CobroDet.class);
 //        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroDet, entity), cb.isNotEmpty(cobroDet.get(CobroDet_.cobroChequeList)));
-//        return em.createQuery(cq).getResultList().isEmpty();
-//    }
+        return em.createQuery(cq).getResultList().isEmpty();
+    }
 
     public List<CobroCheque> findCobroChequeList(CobroDet entity) {
         CobroDet mergedEntity = this.getMergedEntity(entity);
@@ -76,13 +76,13 @@ public class CobroDetFacade extends AbstractFacade<CobroDet> {
         return cobroChequeList;
     }
 
-//    public boolean isCobroTarjetaListEmpty(CobroDet entity) {
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-//        Root<CobroDet> cobroDet = cq.from(CobroDet.class);
+    public boolean isCobroTarjetaListEmpty(CobroDet entity) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<CobroDet> cobroDet = cq.from(CobroDet.class);
 //        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroDet, entity), cb.isNotEmpty(cobroDet.get(CobroDet_.cobroTarjetaList)));
-//        return em.createQuery(cq).getResultList().isEmpty();
-//    }
+        return em.createQuery(cq).getResultList().isEmpty();
+    }
 
     public List<CobroTarjeta> findCobroTarjetaList(CobroDet entity) {
         CobroDet mergedEntity = this.getMergedEntity(entity);

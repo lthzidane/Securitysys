@@ -11,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -22,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "solicitud_det")
@@ -45,11 +44,7 @@ public class SolicitudDet implements Serializable {
     @JoinColumn(name = "id_descuento", referencedColumnName = "id_descuento")
     @ManyToOne(optional = false)
     private Descuento idDescuento;
-    @JoinColumns({
-        @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion", insertable = false, updatable = false)
-        ,
-        @JoinColumn(name = "id_presu", referencedColumnName = "id_presu", insertable = false, updatable = false)
-    })
+    @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion")
     @ManyToOne(optional = false)
     private Promocion idPromocion;
     @JoinColumn(name = "id_servicio", referencedColumnName = "id_servicio")
@@ -147,5 +142,5 @@ public class SolicitudDet implements Serializable {
     public String toString() {
         return "entities.SolicitudDet[ solicitudDetPK=" + solicitudDetPK + " ]";
     }
-
+    
 }

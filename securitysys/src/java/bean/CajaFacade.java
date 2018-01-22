@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class CajaFacade extends AbstractFacade<Caja> {
@@ -38,7 +38,7 @@ public class CajaFacade extends AbstractFacade<Caja> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Caja> caja = cq.from(Caja.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(caja, entity), cb.isNotEmpty(caja.get(Caja_.aperturaCierreCajaList)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(caja, entity), cb.isNotEmpty(caja.get(Caja_.aperturaCierreCajaList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

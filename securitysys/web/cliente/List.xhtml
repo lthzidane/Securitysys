@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/resources/templates/template.xhtml">
 
@@ -20,127 +20,136 @@
             <h:outputStylesheet library="css" name="facade.css" />
             <p:growl id="growl" life="3000" />
             <!--<ui:define name="body">-->
-            <h:form id="ClienteListForm">
+    <h:form id="ClienteListForm">
 
-                <p:panel header="#{bundle.ListClienteTitle}">
-                    <p:dataTable id="datalist"
-                                 value="#{clienteController.items}"
-                                 lazy="false"
-                                 rowKey="#{item.idCliente}"
-                                 var="item"
-                                 paginator="true"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 selectionMode="single"
-                                 selection="#{clienteController.selected}"
-                                 filteredValue="#{clienteController.filteredItems}">
-
-                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
-
-                        <p:column sortBy="#{item.idCliente}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_idCliente}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idCliente}"/>
-                        </p:column>
+        <p:panel header="#{bundle.ListClienteTitle}">
+            <p:dataTable id="datalist"
+                         value="#{clienteController.items}"
+                         lazy="false"
+                         rowKey="#{item.idCliente}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{clienteController.selected}"
+                         filteredValue="#{clienteController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{clienteController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idCliente}"  <<< Remove this line
+                -->
 
 
-                        <p:column sortBy="#{item.nombre}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_nombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombre}"/>
-                        </p:column>
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.idCliente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListClienteTitle_idCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idCliente}"/>
+                </p:column>
 
 
-                        <p:column sortBy="#{item.apellido}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_apellido}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apellido}"/>
-                        </p:column>
+                <p:column sortBy="#{item.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListClienteTitle_nombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombre}"/>
+                </p:column>
 
 
-                        <p:column sortBy="#{item.numeroDocumento}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_numeroDocumento}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.numeroDocumento}"/>
-                        </p:column>
+                <p:column sortBy="#{item.apellido}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListClienteTitle_apellido}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.apellido}"/>
+                </p:column>
 
 
-                        <p:column sortBy="#{item.direccion}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_direccion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.direccion}"/>
-                        </p:column>
+                <p:column sortBy="#{item.numeroDocumento}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListClienteTitle_numeroDocumento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.numeroDocumento}"/>
+                </p:column>
 
 
-                        <p:column sortBy="#{item.telefono}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_telefono}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.telefono}"/>
-                        </p:column>
+                <p:column sortBy="#{item.direccion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListClienteTitle_direccion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.direccion}"/>
+                </p:column>
 
-                        <ui:remove>
-                            <p:column sortBy="#{item.EMail}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListClienteTitle_EMail}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.EMail}"/>
-                            </p:column>
-                        </ui:remove>
-                        <ui:remove>
-                            <p:column sortBy="#{item.estadoCliente}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListClienteTitle_estadoCliente}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.estadoCliente}"/>
-                            </p:column>
-                        </ui:remove>
-                        <ui:remove>
-                            <p:column sortBy="#{item.idCiudad.idCiudad}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListClienteTitle_idCiudad}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.idCiudad.idCiudad}"/>
-                            </p:column>
-                        </ui:remove>
-                        <ui:remove>
-                            <p:column sortBy="#{item.idNacionalidad.descripcion}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListClienteTitle_idNacionalidad}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.idNacionalidad.descripcion}"/>
-                            </p:column>
-                        </ui:remove>
-                        <ui:remove>
-                            <p:column sortBy="#{item.idTipoDocumento.descripcion}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListClienteTitle_idTipoDocumento}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.idTipoDocumento.descripcion}"/>
-                            </p:column>
-                        </ui:remove>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{clienteController.prepareCreate}" update=":ClienteCreateForm" oncomplete="PF('ClienteCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty clienteController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ClienteEditForm" oncomplete="PF('ClienteEditDialog').show()" disabled="#{empty clienteController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{clienteController.delete}" update=":growl,datalist" disabled="#{empty clienteController.selected}"/>
+
+                <p:column sortBy="#{item.telefono}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListClienteTitle_telefono}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.telefono}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.EMail}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListClienteTitle_EMail}"/>
                         </f:facet>
+                        <h:outputText value="#{item.EMail}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.estadoCliente}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListClienteTitle_estadoCliente}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.estadoCliente}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idCiudad.idCiudad}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListClienteTitle_idCiudad}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idCiudad.idCiudad}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idNacionalidad.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListClienteTitle_idNacionalidad}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idNacionalidad.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idTipoDocumento.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListClienteTitle_idTipoDocumento}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idTipoDocumento.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{clienteController.prepareCreate}" update=":ClienteCreateForm" oncomplete="PF('ClienteCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty clienteController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ClienteEditForm" oncomplete="PF('ClienteEditDialog').show()" disabled="#{empty clienteController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{clienteController.delete}" update=":growl,datalist" disabled="#{empty clienteController.selected}"/>
+                </f:facet>
 
-                    </p:dataTable>
+            </p:dataTable>
 
-                </p:panel>
-            </h:form>
+        </p:panel>
+    </h:form>
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
-    </ui:composition>
+</ui:composition>
 
 </html>

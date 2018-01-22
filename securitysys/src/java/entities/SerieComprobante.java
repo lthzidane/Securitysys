@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "serie_comprobante")
@@ -72,8 +72,8 @@ public class SerieComprobante implements Serializable {
 
     public SerieComprobante(Integer idSerieComprobante, String descripcion, String prefijo) {
         this.idSerieComprobante = idSerieComprobante;
-        this.descripcion = descripcion.toUpperCase();
-        this.prefijo = prefijo.toUpperCase();
+        this.descripcion = descripcion;
+        this.prefijo = prefijo;
     }
 
     public Integer getIdSerieComprobante() {
@@ -89,7 +89,7 @@ public class SerieComprobante implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion.toUpperCase();
+        this.descripcion = descripcion;
     }
 
     public String getPrefijo() {
@@ -97,7 +97,7 @@ public class SerieComprobante implements Serializable {
     }
 
     public void setPrefijo(String prefijo) {
-        this.prefijo = prefijo.toUpperCase();
+        this.prefijo = prefijo;
     }
 
     @XmlTransient

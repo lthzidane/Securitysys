@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{bundle.Maintenance}">
+                    <p:menuitem value="#{bundle.AperturaCierreCajaHeading}..." outcome="/app/aperturaCierreCaja/index" />
+                    <p:menuitem value="#{bundle.ArqueoHeading}..." outcome="/app/arqueo/index" />
+                    <p:menuitem value="#{bundle.BancoHeading}..." outcome="/app/banco/index" />
+                    <p:menuitem value="#{bundle.CajaHeading}..." outcome="/app/caja/index" />
+                    <p:menuitem value="#{bundle.CiudadHeading}..." outcome="/app/ciudad/index" />
+                    <p:menuitem value="#{bundle.ClienteHeading}..." outcome="/app/cliente/index" />
+                    <p:menuitem value="#{bundle.CobroHeading}..." outcome="/app/cobro/index" />
+                    <p:menuitem value="#{bundle.CobroChequeHeading}..." outcome="/app/cobroCheque/index" />
+                    <p:menuitem value="#{bundle.CobroDetHeading}..." outcome="/app/cobroDet/index" />
+                    <p:menuitem value="#{bundle.CobroTarjetaHeading}..." outcome="/app/cobroTarjeta/index" />
+                    <p:menuitem value="#{bundle.ContratoHeading}..." outcome="/app/contrato/index" />
+                    <p:menuitem value="#{bundle.CtaACobrarHeading}..." outcome="/app/ctaACobrar/index" />
+                    <p:menuitem value="#{bundle.CuadrillaHeading}..." outcome="/app/cuadrilla/index" />
+                    <p:menuitem value="#{bundle.CuentaClienteHeading}..." outcome="/app/cuentaCliente/index" />
+                    <p:menuitem value="#{bundle.DepartamentoHeading}..." outcome="/app/departamento/index" />
+                    <p:menuitem value="#{bundle.DescuentoHeading}..." outcome="/app/descuento/index" />
+                    <p:menuitem value="#{bundle.DescuentoDetHeading}..." outcome="/app/descuentoDet/index" />
+                    <p:menuitem value="#{bundle.DiagnosticoHeading}..." outcome="/app/diagnostico/index" />
+                    <p:menuitem value="#{bundle.DiagnosticoDetHeading}..." outcome="/app/diagnosticoDet/index" />
+                    <p:menuitem value="#{bundle.EmpresaHeading}..." outcome="/app/empresa/index" />
+                    <p:menuitem value="#{bundle.EntidadEmisoraHeading}..." outcome="/app/entidadEmisora/index" />
+                    <p:menuitem value="#{bundle.EquipoHeading}..." outcome="/app/equipo/index" />
+                    <p:menuitem value="#{bundle.EstadoHeading}..." outcome="/app/estado/index" />
+                    <p:menuitem value="#{bundle.FormaCobroHeading}..." outcome="/app/formaCobro/index" />
+                    <p:menuitem value="#{bundle.InstalacionCabHeading}..." outcome="/app/instalacionCab/index" />
+                    <p:menuitem value="#{bundle.InstalacionDetHeading}..." outcome="/app/instalacionDet/index" />
+                    <p:menuitem value="#{bundle.ItinerarioHeading}..." outcome="/app/itinerario/index" />
+                    <p:menuitem value="#{bundle.LibroVentaHeading}..." outcome="/app/libroVenta/index" />
+                    <p:menuitem value="#{bundle.MarcaHeading}..." outcome="/app/marca/index" />
+                    <p:menuitem value="#{bundle.MarcaTarjetaHeading}..." outcome="/app/marcaTarjeta/index" />
+                    <p:menuitem value="#{bundle.MonedaHeading}..." outcome="/app/moneda/index" />
+                    <p:menuitem value="#{bundle.MotivoNotaDebiHeading}..." outcome="/app/motivoNotaDebi/index" />
+                    <p:menuitem value="#{bundle.MovilesHeading}..." outcome="/app/moviles/index" />
+                    <p:menuitem value="#{bundle.NacionalidadHeading}..." outcome="/app/nacionalidad/index" />
+                    <p:menuitem value="#{bundle.NotaCrediDebiVentaHeading}..." outcome="/app/notaCrediDebiVenta/index" />
+                    <p:menuitem value="#{bundle.NotaCrediDebiVentaDetHeading}..." outcome="/app/notaCrediDebiVentaDet/index" />
+                    <p:menuitem value="#{bundle.NotaRemisionVentaHeading}..." outcome="/app/notaRemisionVenta/index" />
+                    <p:menuitem value="#{bundle.NotaRemisionVentaDetHeading}..." outcome="/app/notaRemisionVentaDet/index" />
+                    <p:menuitem value="#{bundle.OrdenTrabajoHeading}..." outcome="/app/ordenTrabajo/index" />
+                    <p:menuitem value="#{bundle.OrdenTrabajoDetHeading}..." outcome="/app/ordenTrabajoDet/index" />
+                    <p:menuitem value="#{bundle.PresupuestoHeading}..." outcome="/app/presupuesto/index" />
+                    <p:menuitem value="#{bundle.PresupuestoDetHeading}..." outcome="/app/presupuestoDet/index" />
+                    <p:menuitem value="#{bundle.PromocionHeading}..." outcome="/app/promocion/index" />
+                    <p:menuitem value="#{bundle.PromocionDetHeading}..." outcome="/app/promocionDet/index" />
+                    <p:menuitem value="#{bundle.RecaudacionHeading}..." outcome="/app/recaudacion/index" />
+                    <p:menuitem value="#{bundle.ReclamoHeading}..." outcome="/app/reclamo/index" />
+                    <p:menuitem value="#{bundle.RutaHeading}..." outcome="/app/ruta/index" />
+                    <p:menuitem value="#{bundle.SegmentoContratoHeading}..." outcome="/app/segmentoContrato/index" />
+                    <p:menuitem value="#{bundle.SerieComprobanteHeading}..." outcome="/app/serieComprobante/index" />
+                    <p:menuitem value="#{bundle.ServicioHeading}..." outcome="/app/servicio/index" />
+                    <p:menuitem value="#{bundle.SolicitudHeading}..." outcome="/app/solicitud/index" />
+                    <p:menuitem value="#{bundle.SolicitudDetHeading}..." outcome="/app/solicitudDet/index" />
+                    <p:menuitem value="#{bundle.SucursalHeading}..." outcome="/app/sucursal/index" />
+                    <p:menuitem value="#{bundle.TarjetaHeading}..." outcome="/app/tarjeta/index" />
+                    <p:menuitem value="#{bundle.TecnicoHeading}..." outcome="/app/tecnico/index" />
+                    <p:menuitem value="#{bundle.TimbradoHeading}..." outcome="/app/timbrado/index" />
+                    <p:menuitem value="#{bundle.TipoComprobanteHeading}..." outcome="/app/tipoComprobante/index" />
+                    <p:menuitem value="#{bundle.TipoCuadrillaHeading}..." outcome="/app/tipoCuadrilla/index" />
+                    <p:menuitem value="#{bundle.TipoDocumentoHeading}..." outcome="/app/tipoDocumento/index" />
+                    <p:menuitem value="#{bundle.TipoMovilHeading}..." outcome="/app/tipoMovil/index" />
+                    <p:menuitem value="#{bundle.TipoReclamoHeading}..." outcome="/app/tipoReclamo/index" />
+                    <p:menuitem value="#{bundle.TipoTarjetaHeading}..." outcome="/app/tipoTarjeta/index" />
+                    <p:menuitem value="#{bundle.UsuarioHeading}..." outcome="/app/usuario/index" />
+                    <p:menuitem value="#{bundle.ValorHeading}..." outcome="/app/valor/index" />
+                    <p:menuitem value="#{bundle.VentaHeading}..." outcome="/app/venta/index" />
+                    <p:menuitem value="#{bundle.VentaDetHeading}..." outcome="/app/ventaDet/index" />
+                    <p:menuitem value="#{bundle.ZonaHeading}..." outcome="/app/zona/index" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

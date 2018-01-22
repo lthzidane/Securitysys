@@ -65,6 +65,14 @@
                 </p:column>
 
 
+                <p:column sortBy="#{item.idPresu}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListServicioTitle_idPresu}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPresu}"/>
+                </p:column>
+
+
                 <p:column sortBy="#{item.idDescuento.descripcionDesc}">
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListServicioTitle_idDescuento}"/>
@@ -72,14 +80,14 @@
                     <h:outputText value="#{item.idDescuento.descripcionDesc}"/>
                 </p:column>
 
-
-                <p:column sortBy="#{item.idEstado.descripcion}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListServicioTitle_idEstado}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idEstado.descripcion}"/>
-                </p:column>
-
+                <ui:remove>
+                    <p:column sortBy="#{item.idEstado.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListServicioTitle_idEstado}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idEstado.descripcion}"/>
+                    </p:column>
+                </ui:remove>
                 <ui:remove>
                     <p:column sortBy="#{item.idMoneda.descripcion}">
                         <f:facet name="header">
@@ -89,11 +97,11 @@
                     </p:column>
                 </ui:remove>
                 <ui:remove>
-                    <p:column sortBy="#{item.idPromocion.promocionPK}">
+                    <p:column sortBy="#{item.idPromocion.idPromocion}">
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListServicioTitle_idPromocion}"/>
                         </f:facet>
-                        <h:outputText value="#{item.idPromocion.promocionPK}"/>
+                        <h:outputText value="#{item.idPromocion.idPromocion}"/>
                     </p:column>
                 </ui:remove>
                 <f:facet name="footer">

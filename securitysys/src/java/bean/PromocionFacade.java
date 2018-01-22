@@ -9,7 +9,7 @@ import entities.Promocion;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class PromocionFacade extends AbstractFacade<Promocion> {
@@ -42,16 +42,16 @@ public class PromocionFacade extends AbstractFacade<Promocion> {
         super(Promocion.class);
     }
 
-    public boolean isPresupuestoEmpty(Promocion entity) {
+    public boolean isIdPresuEmpty(Promocion entity) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Promocion> promocion = cq.from(Promocion.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(promocion, entity), cb.isNotNull(promocion.get(Promocion_.presupuesto)));
+        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(promocion, entity), cb.isNotNull(promocion.get(Promocion_.idPresu)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
-    public Presupuesto findPresupuesto(Promocion entity) {
-        return this.getMergedEntity(entity).getPresupuesto();
+    public Presupuesto findIdPresu(Promocion entity) {
+        return this.getMergedEntity(entity).getIdPresu();
     }
 
     public boolean isIdSucursalEmpty(Promocion entity) {

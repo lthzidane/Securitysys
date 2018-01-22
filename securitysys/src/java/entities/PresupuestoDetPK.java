@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Embeddable
 public class PresupuestoDetPK implements Serializable {
@@ -21,7 +21,7 @@ public class PresupuestoDetPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_presupuesto_cab")
-    private int idPresupuesto;
+    private int idPresupuestoCab;
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_secuencia")
@@ -30,17 +30,17 @@ public class PresupuestoDetPK implements Serializable {
     public PresupuestoDetPK() {
     }
 
-    public PresupuestoDetPK(int idPresupuesto, int idSecuencia) {
-        this.idPresupuesto = idPresupuesto;
+    public PresupuestoDetPK(int idPresupuestoCab, int idSecuencia) {
+        this.idPresupuestoCab = idPresupuestoCab;
         this.idSecuencia = idSecuencia;
     }
 
-    public int getIdPresupuesto() {
-        return idPresupuesto;
+    public int getIdPresupuestoCab() {
+        return idPresupuestoCab;
     }
 
-    public void setIdPresupuesto(int idPresupuesto) {
-        this.idPresupuesto = idPresupuesto;
+    public void setIdPresupuestoCab(int idPresupuestoCab) {
+        this.idPresupuestoCab = idPresupuestoCab;
     }
 
     public int getIdSecuencia() {
@@ -54,7 +54,7 @@ public class PresupuestoDetPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) idPresupuesto;
+        hash += (int) idPresupuestoCab;
         hash += (int) idSecuencia;
         return hash;
     }
@@ -66,7 +66,7 @@ public class PresupuestoDetPK implements Serializable {
             return false;
         }
         PresupuestoDetPK other = (PresupuestoDetPK) object;
-        if (this.idPresupuesto != other.idPresupuesto) {
+        if (this.idPresupuestoCab != other.idPresupuestoCab) {
             return false;
         }
         if (this.idSecuencia != other.idSecuencia) {
@@ -77,7 +77,11 @@ public class PresupuestoDetPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.PresupuestoDetPK[ idPresupuesto=" + idPresupuesto + ", idSecuencia=" + idSecuencia + " ]";
+        return "entities.PresupuestoDetPK[ idPresupuestoCab=" + idPresupuestoCab + ", idSecuencia=" + idSecuencia + " ]";
+    }
+
+    public void setIdPresupuesto(Integer idPresupuesto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

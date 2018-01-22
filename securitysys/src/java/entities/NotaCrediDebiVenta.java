@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "nota_credi_debi_venta")

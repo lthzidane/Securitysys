@@ -15,8 +15,8 @@
                     <p:panelGrid  columns="2" columnClasses="column" rendered="#{presupuestoDetController.selected != null}">
 
 
-                        <h:outputLabel value="#{bundle.EditPresupuestoDetLabel_presupuestoDetPK_idPresupuesto}" for="presupuestoDetPK_idPresupuesto" />
-                        <h:outputText id="presupuestoDetPK_idPresupuesto" value="#{presupuestoDetController.selected.presupuestoDetPK.idPresupuesto}" />
+                        <h:outputLabel value="#{bundle.EditPresupuestoDetLabel_presupuestoDetPK_idPresupuestoCab}" for="presupuestoDetPK_idPresupuestoCab" />
+                        <h:outputText id="presupuestoDetPK_idPresupuestoCab" value="#{presupuestoDetController.selected.presupuestoDetPK.idPresupuestoCab}" />
 
 
                         <h:outputLabel value="#{bundle.EditPresupuestoDetLabel_presupuestoDetPK_idSecuencia}" for="presupuestoDetPK_idSecuencia" />
@@ -58,7 +58,7 @@
                             <f:selectItems value="#{promocionController.items}"
                                            var="idPromocionItem"
                                            itemValue="#{idPromocionItem}"
-                                           itemLabel="#{idPromocionItem.promocionPK.toString()}"
+                                           itemLabel="#{idPromocionItem.idPromocion.toString()}"
                                            />
 
                         </p:selectOneMenu>

@@ -13,15 +13,15 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Embeddable
 public class PromocionDetPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_promocion_cab")
-    private int idPromocionCab;
+    @Column(name = "id_promocion")
+    private int idPromocion;
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_secuencia")
@@ -30,17 +30,17 @@ public class PromocionDetPK implements Serializable {
     public PromocionDetPK() {
     }
 
-    public PromocionDetPK(int idPromocionCab, int idSecuencia) {
-        this.idPromocionCab = idPromocionCab;
+    public PromocionDetPK(int idPromocion, int idSecuencia) {
+        this.idPromocion = idPromocion;
         this.idSecuencia = idSecuencia;
     }
 
-    public int getIdPromocionCab() {
-        return idPromocionCab;
+    public int getIdPromocion() {
+        return idPromocion;
     }
 
-    public void setIdPromocionCab(int idPromocionCab) {
-        this.idPromocionCab = idPromocionCab;
+    public void setIdPromocion(int idPromocion) {
+        this.idPromocion = idPromocion;
     }
 
     public int getIdSecuencia() {
@@ -54,7 +54,7 @@ public class PromocionDetPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) idPromocionCab;
+        hash += (int) idPromocion;
         hash += (int) idSecuencia;
         return hash;
     }
@@ -66,7 +66,7 @@ public class PromocionDetPK implements Serializable {
             return false;
         }
         PromocionDetPK other = (PromocionDetPK) object;
-        if (this.idPromocionCab != other.idPromocionCab) {
+        if (this.idPromocion != other.idPromocion) {
             return false;
         }
         if (this.idSecuencia != other.idSecuencia) {
@@ -77,7 +77,7 @@ public class PromocionDetPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.PromocionDetPK[ idPromocionCab=" + idPromocionCab + ", idSecuencia=" + idSecuencia + " ]";
+        return "entities.PromocionDetPK[ idPromocion=" + idPromocion + ", idSecuencia=" + idSecuencia + " ]";
     }
     
 }

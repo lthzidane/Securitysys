@@ -15,8 +15,8 @@
                 <h:panelGroup id="display" rendered="#{promocionDetController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
 
-                        <p:outputLabel value="#{bundle.CreatePromocionDetLabel_promocionDetPK_idPromocionCab}" for="promocionDetPK_idPromocionCab" />
-                        <p:inputText id="promocionDetPK_idPromocionCab" value="#{promocionDetController.selected.promocionDetPK.idPromocionCab}" title="#{bundle.CreatePromocionDetTitle_promocionDetPK_idPromocionCab}" required="true" requiredMessage="#{bundle.CreatePromocionDetRequiredMessage_promocionDetPK_idPromocionCab}"/>
+                        <p:outputLabel value="#{bundle.CreatePromocionDetLabel_promocionDetPK_idPromocion}" for="promocionDetPK_idPromocion" />
+                        <p:inputText id="promocionDetPK_idPromocion" value="#{promocionDetController.selected.promocionDetPK.idPromocion}" title="#{bundle.CreatePromocionDetTitle_promocionDetPK_idPromocion}" required="true" requiredMessage="#{bundle.CreatePromocionDetRequiredMessage_promocionDetPK_idPromocion}"/>
 
                         <p:outputLabel value="#{bundle.CreatePromocionDetLabel_promocionDetPK_idSecuencia}" for="promocionDetPK_idSecuencia" />
                         <p:inputText id="promocionDetPK_idSecuencia" value="#{promocionDetController.selected.promocionDetPK.idSecuencia}" title="#{bundle.CreatePromocionDetTitle_promocionDetPK_idSecuencia}" required="true" requiredMessage="#{bundle.CreatePromocionDetRequiredMessage_promocionDetPK_idSecuencia}"/>
@@ -41,7 +41,7 @@
                             <f:selectItems value="#{promocionController.items}"
                                            var="promocionItem"
                                            itemValue="#{promocionItem}"
-                                           itemLabel="#{promocionItem.promocionPK.toString()}"
+                                           itemLabel="#{promocionItem.idPromocion.toString()}"
                                            />
 
                         </p:selectOneMenu>

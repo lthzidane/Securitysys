@@ -11,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "venta_det")
@@ -76,11 +75,7 @@ public class VentaDet implements Serializable {
     @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo")
     @ManyToOne(optional = false)
     private Equipo idEquipo;
-    @JoinColumns({
-        @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion", insertable = false, updatable = false)
-        ,
-        @JoinColumn(name = "id_presu", referencedColumnName = "id_presu", insertable = false, updatable = false)
-    })
+    @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion")
     @ManyToOne(optional = false)
     private Promocion idPromocion;
     @JoinColumn(name = "id_venta", referencedColumnName = "id_venta", insertable = false, updatable = false)
@@ -229,5 +224,5 @@ public class VentaDet implements Serializable {
     public String toString() {
         return "entities.VentaDet[ ventaDetPK=" + ventaDetPK + " ]";
     }
-
+    
 }

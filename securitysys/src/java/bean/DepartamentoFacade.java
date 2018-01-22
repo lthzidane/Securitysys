@@ -9,7 +9,6 @@ import entities.Departamento;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -18,7 +17,7 @@ import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class DepartamentoFacade extends AbstractFacade<Departamento> {
@@ -39,7 +38,7 @@ public class DepartamentoFacade extends AbstractFacade<Departamento> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Departamento> departamento = cq.from(Departamento.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(departamento, entity), cb.isNotEmpty(departamento.get(Departamento_.reclamoList)));
+        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(departamento, entity), cb.isNotEmpty(departamento.get(Departamento_.reclamoList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

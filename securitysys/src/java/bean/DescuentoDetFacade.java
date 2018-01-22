@@ -9,7 +9,6 @@ import entities.DescuentoDet;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -17,7 +16,7 @@ import entities.Descuento;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class DescuentoDetFacade extends AbstractFacade<DescuentoDet> {
@@ -38,7 +37,7 @@ public class DescuentoDetFacade extends AbstractFacade<DescuentoDet> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<DescuentoDet> descuentoDet = cq.from(DescuentoDet.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(descuentoDet, entity), cb.isNotNull(descuentoDet.get(DescuentoDet_.descuento)));
+        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(descuentoDet, entity), cb.isNotNull(descuentoDet.get(DescuentoDet_.descuento)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

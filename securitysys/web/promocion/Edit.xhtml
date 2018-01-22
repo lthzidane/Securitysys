@@ -15,12 +15,8 @@
                     <p:panelGrid  columns="2" columnClasses="column" rendered="#{promocionController.selected != null}">
 
 
-                        <h:outputLabel value="#{bundle.EditPromocionLabel_promocionPK_idPromocion}" for="promocionPK_idPromocion" />
-                        <h:outputText id="promocionPK_idPromocion" value="#{promocionController.selected.promocionPK.idPromocion}" />
-
-
-                        <h:outputLabel value="#{bundle.EditPromocionLabel_promocionPK_idPresu}" for="promocionPK_idPresu" />
-                        <h:outputText id="promocionPK_idPresu" value="#{promocionController.selected.promocionPK.idPresu}" />
+                        <h:outputLabel value="#{bundle.EditPromocionLabel_idPromocion}" for="idPromocion" />
+                        <h:outputText id="idPromocion" value="#{promocionController.selected.idPromocion}" />
 
                         <p:outputLabel value="#{bundle.EditPromocionLabel_descipcion}" for="descipcion" />
                         <p:inputText id="descipcion" value="#{promocionController.selected.descipcion}" title="#{bundle.EditPromocionTitle_descipcion}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_descipcion}" size="100" maxlength="100"/>
@@ -31,9 +27,16 @@
                         <p:outputLabel value="#{bundle.EditPromocionLabel_fechaFinPromo}" for="fechaFinPromo" />
                         <p:calendar id="fechaFinPromo" pattern="MM/dd/yyyy" value="#{promocionController.selected.fechaFinPromo}" title="#{bundle.EditPromocionTitle_fechaFinPromo}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_fechaFinPromo}" showOn="button"/>
 
+                        <p:outputLabel value="#{bundle.EditPromocionLabel_idPresu}" for="idPresu" />
+                        <p:selectOneMenu id="idPresu" value="#{promocionController.selected.idPresu}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_idPresu}" converter="presupuestoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{presupuestoController.items}"
+                                           var="idPresuItem"
+                                           itemValue="#{idPresuItem}"
+                                           itemLabel="#{idPresuItem.idPresupuesto.toString()}"
+                                           />
 
-                        <h:outputLabel value="#{bundle.EditPromocionLabel_presupuesto}" for="presupuesto" />
-                        <h:outputText id="presupuesto" value="#{promocionController.selected.presupuesto}" />
+                        </p:selectOneMenu>
 
                         <p:outputLabel value="#{bundle.EditPromocionLabel_idSucursal}" for="idSucursal" />
                         <p:selectOneMenu id="idSucursal" value="#{promocionController.selected.idSucursal}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_idSucursal}" converter="sucursalConverter">
@@ -52,13 +55,13 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.nombre}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
                                            />
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{promocionController.save}" value="#{bundle.Save}" update="display,:PromocionListForm:datalist,:growl" oncomplete="handleSubmit(args,'PromocionEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PromocionEditDialog.hide()" immediate="true"/>
+                    <p:commandButton actionListener="#{promocionController.save}" value="#{bundle.Save}" update="display,:PromocionListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PromocionEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PromocionEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                 </h:panelGroup>
 
             </h:form>

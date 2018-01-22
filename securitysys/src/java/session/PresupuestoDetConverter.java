@@ -29,25 +29,28 @@ public class PresupuestoDetConverter implements Converter {
 
     entities.PresupuestoDetPK getKey(String value) {
         entities.PresupuestoDetPK key;
-        String values[] = value.split(SEPARATOR_ESCAPED);
-        key = new entities.PresupuestoDetPK();
-        key.setIdPresupuesto(Integer.parseInt(values[0]));
-        key.setIdSecuencia(Integer.parseInt(values[1]));
+            String values[] = value.split(SEPARATOR_ESCAPED);
+            key = new entities.PresupuestoDetPK();
+            key.setIdPresupuestoCab(Integer.parseInt(values[0]));
+            key.setIdSecuencia(Integer.parseInt(values[1]));
+            key.setIdPresupuesto(Integer.valueOf(values[2]));
         return key;
     }
 
     String getStringKey(entities.PresupuestoDetPK value) {
         StringBuffer sb = new StringBuffer();
-        sb.append(value.getIdPresupuesto());
-        sb.append(SEPARATOR);
-        sb.append(value.getIdSecuencia());
+            sb.append(value.getIdPresupuestoCab());
+            sb.append(SEPARATOR);
+            sb.append(value.getIdSecuencia());
+            sb.append(SEPARATOR);
+            sb.append(value.getIdPresupuestoCab());
         return sb.toString();
     }
 
     @Override
     public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-        if (object == null
-                || (object instanceof String && ((String) object).length() == 0)) {
+        if (object == null || 
+            (object instanceof String && ((String) object).length() == 0)) {
             return null;
         }
         if (object instanceof PresupuestoDet) {
@@ -58,7 +61,7 @@ public class PresupuestoDetConverter implements Converter {
             return null;
         }
     }
-
+    
     private PresupuestoDetFacade getEjbFacade() {
         this.ejbFacade = CDI.current().select(PresupuestoDetFacade.class).get();
         return this.ejbFacade;

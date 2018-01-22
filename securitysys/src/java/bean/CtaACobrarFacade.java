@@ -9,7 +9,6 @@ import entities.CtaACobrar;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -19,7 +18,7 @@ import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class CtaACobrarFacade extends AbstractFacade<CtaACobrar> {
@@ -40,7 +39,7 @@ public class CtaACobrarFacade extends AbstractFacade<CtaACobrar> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CtaACobrar> ctaACobrar = cq.from(CtaACobrar.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ctaACobrar, entity), cb.isNotEmpty(ctaACobrar.get(CtaACobrar_.cobroDetList)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ctaACobrar, entity), cb.isNotEmpty(ctaACobrar.get(CtaACobrar_.cobroDetList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -55,7 +54,7 @@ public class CtaACobrarFacade extends AbstractFacade<CtaACobrar> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CtaACobrar> ctaACobrar = cq.from(CtaACobrar.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ctaACobrar, entity), cb.isNotNull(ctaACobrar.get(CtaACobrar_.venta)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(ctaACobrar, entity), cb.isNotNull(ctaACobrar.get(CtaACobrar_.venta)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

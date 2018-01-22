@@ -48,7 +48,7 @@
                             <f:selectItems value="#{promocionController.items}"
                                            var="promocionItem"
                                            itemValue="#{promocionItem}"
-                                           itemLabel="#{promocionItem.promocionPK.toString()}"
+                                           itemLabel="#{promocionItem.idPromocion.toString()}"
                                            />
 
                         </p:selectOneMenu>
@@ -103,13 +103,13 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.nombre}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
                                            />
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{presupuestoController.save}" value="#{bundle.Save}" update="display,:PresupuestoListForm:datalist,:growl" oncomplete="handleSubmit(args,'PresupuestoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PresupuestoEditDialog.hide()" immediate="true"/>
+                    <p:commandButton actionListener="#{presupuestoController.save}" value="#{bundle.Save}" update="display,:PresupuestoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PresupuestoEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PresupuestoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                 </h:panelGroup>
 
             </h:form>

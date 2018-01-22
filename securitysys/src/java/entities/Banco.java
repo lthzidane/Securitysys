@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "banco")
@@ -77,9 +77,9 @@ public class Banco implements Serializable {
 
     public Banco(Integer idBanco, String descBanco, String rucBanco, String dirBanco, String telBanco) {
         this.idBanco = idBanco;
-        this.descBanco = descBanco;
+        this.descBanco = descBanco.toUpperCase();
         this.rucBanco = rucBanco;
-        this.dirBanco = dirBanco;
+        this.dirBanco = dirBanco.toUpperCase();
         this.telBanco = telBanco;
     }
 
@@ -96,7 +96,7 @@ public class Banco implements Serializable {
     }
 
     public void setDescBanco(String descBanco) {
-        this.descBanco = descBanco;
+        this.descBanco = descBanco.toUpperCase();
     }
 
     public String getRucBanco() {
@@ -112,7 +112,7 @@ public class Banco implements Serializable {
     }
 
     public void setDirBanco(String dirBanco) {
-        this.dirBanco = dirBanco;
+        this.dirBanco = dirBanco.toUpperCase();
     }
 
     public String getTelBanco() {

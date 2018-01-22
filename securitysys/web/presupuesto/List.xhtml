@@ -1,187 +1,171 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/resources/templates/template.xhtml">
+    <h:form id="PresupuestoListForm">
 
-        <ui:define name="title">Presupuesto</ui:define>
-        <ui:define name="containerTitle">
-            <h:outputText styleClass="containerTitle" value="#{bundle.ListPresupuestoTitle}"/>
-        </ui:define>
-
-        <ui:define name="container">
-            <p:growl id="growl" life="3000" />
-
-            <h:form id="PresupuestoListForm">
-
-                <p:panel header="#{bundle.ListPresupuestoTitle}">
-                    <p:dataTable id="datalist"
-                                 value="#{presupuestoController.items}"
-                                 lazy="false"
-                                 rowKey="#{item.idPresupuesto}"
-                                 var="item"
-                                 paginator="true"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 selectionMode="single"
-                                 selection="#{presupuestoController.selected}"
-                                 filteredValue="#{presupuestoController.filteredItems}">
-                        <!--
-                                 To enable Lazy Loading, please copy/replace the following lines above,
-                                 and be sure to replace the word HASH with the # symbol:
-                        
-                                 value="HASH{presupuestoController.lazyItems}"
-                                 lazy="true"
-                                 rowKey="HASH{item.idPresupuesto}"  <<< Remove this line
-                        -->
+        <p:panel header="#{bundle.ListPresupuestoTitle}">
+            <p:dataTable id="datalist"
+                         value="#{presupuestoController.items}"
+                         lazy="false"
+                         rowKey="#{item.idPresupuesto}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{presupuestoController.selected}"
+                         filteredValue="#{presupuestoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{presupuestoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idPresupuesto}"  <<< Remove this line
+                -->
 
 
-                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
-                        <p:column sortBy="#{item.idPresupuesto}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPresupuestoTitle_idPresupuesto}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idPresupuesto}"/>
-                        </p:column>
-
-
-                        <p:column sortBy="#{item.fecha}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPresupuestoTitle_fecha}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fecha}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
+                <p:column sortBy="#{item.idPresupuesto}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPresupuestoTitle_idPresupuesto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPresupuesto}"/>
+                </p:column>
 
 
-                        <p:column sortBy="#{item.plazo}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPresupuestoTitle_plazo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.plazo}"/>
-                        </p:column>
+                <p:column sortBy="#{item.fecha}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPresupuestoTitle_fecha}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fecha}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
 
 
-                        <p:column sortBy="#{item.validez}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPresupuestoTitle_validez}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.validez}"/>
-                        </p:column>
+                <p:column sortBy="#{item.plazo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPresupuestoTitle_plazo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.plazo}"/>
+                </p:column>
 
 
-                        <p:column sortBy="#{item.exenta}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPresupuestoTitle_exenta}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.exenta}"/>
-                        </p:column>
+                <p:column sortBy="#{item.validez}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPresupuestoTitle_validez}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.validez}"/>
+                </p:column>
 
 
-                        <p:column sortBy="#{item.gravada5}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPresupuestoTitle_gravada5}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.gravada5}"/>
-                        </p:column>
+                <p:column sortBy="#{item.exenta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPresupuestoTitle_exenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.exenta}"/>
+                </p:column>
 
-                        <ui:remove>
-                            <p:column sortBy="#{item.gravada10}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPresupuestoTitle_gravada10}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.gravada10}"/>
-                            </p:column>
-                        </ui:remove>
-                        <ui:remove>
-                            <p:column sortBy="#{item.iva5}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPresupuestoTitle_iva5}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.iva5}"/>
-                            </p:column>
-                        </ui:remove>
-                        <ui:remove>
-                            <p:column sortBy="#{item.iva10}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPresupuestoTitle_iva10}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.iva10}"/>
-                            </p:column>
-                        </ui:remove>
-                        <ui:remove>
-                            <p:column sortBy="#{item.promocion.promocionPK}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPresupuestoTitle_promocion}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.promocion.promocionPK}"/>
-                            </p:column>
-                        </ui:remove>
-                        <ui:remove>
-                            <p:column sortBy="#{item.idCliente.idCliente}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPresupuestoTitle_idCliente}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.idCliente.idCliente}"/>
-                            </p:column>
-                        </ui:remove>
-                        <ui:remove>
-                            <p:column sortBy="#{item.id.id}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPresupuestoTitle_id}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.id.id}"/>
-                            </p:column>
-                        </ui:remove>
-                        <ui:remove>
-                            <p:column sortBy="#{item.idEstado.descripcion}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPresupuestoTitle_idEstado}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.idEstado.descripcion}"/>
-                            </p:column>
-                        </ui:remove>
-                        <ui:remove>
-                            <p:column sortBy="#{item.idSucursal.descripcion}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPresupuestoTitle_idSucursal}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.idSucursal.descripcion}"/>
-                            </p:column>
-                        </ui:remove>
-                        <ui:remove>
-                            <p:column sortBy="#{item.idUsuario.idUsuario}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPresupuestoTitle_idUsuario}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.idUsuario.idUsuario}"/>
-                            </p:column>
-                        </ui:remove>
-                        <f:facet name="footer">
-                            <div class="footer-section">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{presupuestoController.prepareCreate}" update=":PresupuestoCreateForm" oncomplete="PF('PresupuestoCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PresupuestoViewForm" oncomplete="PF('PresupuestoViewDialog').show()" disabled="#{empty presupuestoController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PresupuestoEditForm" oncomplete="PF('PresupuestoEditDialog').show()" disabled="#{empty presupuestoController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{presupuestoController.delete}" update=":growl,datalist" disabled="#{empty presupuestoController.selected}"/>
-                            </div>
+
+                <p:column sortBy="#{item.gravada5}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPresupuestoTitle_gravada5}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.gravada5}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.gravada10}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoTitle_gravada10}"/>
                         </f:facet>
+                        <h:outputText value="#{item.gravada10}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.iva5}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoTitle_iva5}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.iva5}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.iva10}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoTitle_iva10}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.iva10}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.promocion.idPromocion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoTitle_promocion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.promocion.idPromocion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idCliente.idCliente}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoTitle_idCliente}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idCliente.idCliente}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.id.id}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id.id}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idEstado.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoTitle_idEstado}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idEstado.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idSucursal.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoTitle_idSucursal}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idSucursal.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idUsuario.idUsuario}">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPresupuestoTitle_idUsuario}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idUsuario.idUsuario}"/>
+                    </p:column>
+                </ui:remove>
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{presupuestoController.prepareCreate}" update=":PresupuestoCreateForm" oncomplete="PF('PresupuestoCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PresupuestoViewForm" oncomplete="PF('PresupuestoViewDialog').show()" disabled="#{empty presupuestoController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PresupuestoEditForm" oncomplete="PF('PresupuestoEditDialog').show()" disabled="#{empty presupuestoController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{presupuestoController.delete}" update=":growl,datalist" disabled="#{empty presupuestoController.selected}"/>
+                    </div>
+                </f:facet>
 
-                    </p:dataTable>
+            </p:dataTable>
 
-                </p:panel>
-            </h:form>
+        </p:panel>
+    </h:form>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
-        </ui:define>
-    </ui:composition>
-
-</html>
+</ui:composition>

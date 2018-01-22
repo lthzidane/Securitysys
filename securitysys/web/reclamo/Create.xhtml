@@ -16,7 +16,7 @@
                     <p:panelGrid columns="2" columnClasses="column">
 
                         <p:outputLabel value="#{bundle.CreateReclamoLabel_descripcion}" for="descripcion" />
-                        <p:inputText size="150"  maxlength="140" id="descripcion" value="#{reclamoController.selected.descripcion}" title="#{bundle.CreateReclamoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_descripcion}"/>
+                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{reclamoController.selected.descripcion}" title="#{bundle.CreateReclamoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_descripcion}"/>
 
                         <p:outputLabel value="#{bundle.CreateReclamoLabel_fechaAlta}" for="fechaAlta" />
                         <p:calendar id="fechaAlta" pattern="MM/dd/yyyy" value="#{reclamoController.selected.fechaAlta}" title="#{bundle.CreateReclamoTitle_fechaAlta}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_fechaAlta}" showOn="button"/>
@@ -36,7 +36,7 @@
                             <f:selectItems value="#{clienteController.items}"
                                            var="idClienteItem"
                                            itemValue="#{idClienteItem}"
-                                           itemLabel="#{idClienteItem.nombre} #{idClienteItem.apellido}"
+                                           itemLabel="#{idClienteItem.idCliente.toString()}"
                                            />
 
                         </p:selectOneMenu>
@@ -91,13 +91,13 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.nombre}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
                                            />
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{reclamoController.saveNew}" value="#{bundle.Save}" update="display,:ReclamoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ReclamoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ReclamoCreateDialog.hide()" immediate="true" />
+                    <p:commandButton actionListener="#{reclamoController.saveNew}" value="#{bundle.Save}" update="display,:ReclamoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ReclamoCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ReclamoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                 </h:panelGroup>
 
             </h:form>

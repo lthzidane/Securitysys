@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "presupuesto")
@@ -90,7 +90,7 @@ public class Presupuesto implements Serializable {
     @NotNull
     @Column(name = "iva10")
     private int iva10;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "presupuesto")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "idPresu")
     private Promocion promocion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "presupuesto")
     private List<PresupuestoDet> presupuestoDetList;
@@ -99,7 +99,7 @@ public class Presupuesto implements Serializable {
     private Cliente idCliente;
     @JoinColumn(name = "id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Diagnostico idDiagnostico;
+    private Diagnostico id;
     @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
     @ManyToOne(optional = false)
     private Estado idEstado;
@@ -230,12 +230,12 @@ public class Presupuesto implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public Diagnostico getIdDiagnostico() {
-        return idDiagnostico;
+    public Diagnostico getId() {
+        return id;
     }
 
-    public void setIdDiagnostico(Diagnostico idDiagnostico) {
-        this.idDiagnostico = idDiagnostico;
+    public void setId(Diagnostico id) {
+        this.id = id;
     }
 
     public Estado getIdEstado() {
@@ -289,7 +289,7 @@ public class Presupuesto implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the idDiagnostico fields are not set
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Presupuesto)) {
             return false;
         }

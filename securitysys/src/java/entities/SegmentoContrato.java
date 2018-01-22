@@ -11,14 +11,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "segmento_contrato")
@@ -43,8 +41,6 @@ public class SegmentoContrato implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_segmento")
-    @GeneratedValue(generator = "SegmentoSeq")
-    @SequenceGenerator(name = "SegmentoSeq", sequenceName = "segmento_contrato_id_segmento_contrato_seq", allocationSize = 1)
     private Integer idSegmento;
     @Basic(optional = false)
     @NotNull
@@ -69,7 +65,7 @@ public class SegmentoContrato implements Serializable {
 
     public SegmentoContrato(Integer idSegmento, String descripcion) {
         this.idSegmento = idSegmento;
-        this.descripcion = descripcion.toUpperCase();
+        this.descripcion = descripcion;
     }
 
     public Integer getIdSegmento() {
@@ -85,7 +81,7 @@ public class SegmentoContrato implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion.toUpperCase();
+        this.descripcion = descripcion;
     }
 
     @XmlTransient

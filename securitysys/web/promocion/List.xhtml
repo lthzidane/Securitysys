@@ -22,7 +22,7 @@
                     <p:dataTable id="datalist"
                                  value="#{promocionController.items}"
                                  lazy="false"
-                                 rowKey="#{item.promocionPK}"
+                                 rowKey="#{item.idPromocion}"
                                  var="item"
                                  paginator="true"
                                  rows="10"
@@ -30,32 +30,15 @@
                                  selectionMode="single"
                                  selection="#{promocionController.selected}"
                                  filteredValue="#{promocionController.filteredItems}">
-                        <!--
-                                 To enable Lazy Loading, please copy/replace the following lines above,
-                                 and be sure to replace the word HASH with the # symbol:
-                        
-                                 value="HASH{promocionController.lazyItems}"
-                                 lazy="true"
-                                 rowKey="HASH{item.promocionPK}"  <<< Remove this line
-                        -->
-
 
                         <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
-                        <p:column sortBy="#{item.promocionPK.idPromocion}">
+                        <p:column sortBy="#{item.idPromocion}">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPromocionTitle_promocionPK_idPromocion}"/>
+                                <h:outputText value="#{bundle.ListPromocionTitle_idPromocion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.promocionPK.idPromocion}"/>
-                        </p:column>
-
-
-                        <p:column sortBy="#{item.promocionPK.idPresu}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPromocionTitle_promocionPK_idPresu}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.promocionPK.idPresu}"/>
+                            <h:outputText value="#{item.idPromocion}"/>
                         </p:column>
 
 
@@ -87,21 +70,21 @@
                         </p:column>
 
 
-                        <p:column sortBy="#{item.presupuesto.idPresupuesto}">
+                        <p:column sortBy="#{item.idPresu.idPresupuesto}">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPromocionTitle_presupuesto}"/>
+                                <h:outputText value="#{bundle.ListPromocionTitle_idPresu}"/>
                             </f:facet>
-                            <h:outputText value="#{item.presupuesto.idPresupuesto}"/>
+                            <h:outputText value="#{item.idPresu.idPresupuesto}"/>
                         </p:column>
 
-                        <ui:remove>
-                            <p:column sortBy="#{item.idSucursal.descripcion}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPromocionTitle_idSucursal}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.idSucursal.descripcion}"/>
-                            </p:column>
-                        </ui:remove>
+
+                        <p:column sortBy="#{item.idSucursal.descripcion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPromocionTitle_idSucursal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSucursal.descripcion}"/>
+                        </p:column>
+
                         <ui:remove>
                             <p:column sortBy="#{item.idUsuario.idUsuario}">
                                 <f:facet name="header">

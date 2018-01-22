@@ -14,18 +14,13 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import lombok.Data;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.data.FilterEvent;
-import session.util.JsfUtil;
 
 /**
  *

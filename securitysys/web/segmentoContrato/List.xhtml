@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/resources/templates/template.xhtml">
 
@@ -31,16 +31,7 @@
                          selectionMode="single"
                          selection="#{segmentoContratoController.selected}"
                          filteredValue="#{segmentoContratoController.filteredItems}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
                 
-                         value="HASH{segmentoContratoController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.idSegmento}"  <<< Remove this line
-                -->
-
-
                 <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
                 <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
@@ -76,12 +67,10 @@
                 </p:column>
 
                 <f:facet name="footer">
-                    <div class="footer-section">
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{segmentoContratoController.prepareCreate}" update=":SegmentoContratoCreateForm" oncomplete="PF('SegmentoContratoCreateDialog').show()"/>
                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SegmentoContratoViewForm" oncomplete="PF('SegmentoContratoViewDialog').show()" disabled="#{empty segmentoContratoController.selected}"/>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SegmentoContratoEditForm" oncomplete="PF('SegmentoContratoEditDialog').show()" disabled="#{empty segmentoContratoController.selected}"/>
                         <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{segmentoContratoController.delete}" update=":growl,datalist" disabled="#{empty segmentoContratoController.selected}"/>
-                    </div>
                 </f:facet>
 
             </p:dataTable>
@@ -94,6 +83,6 @@
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
-    </ui:composition>
+</ui:composition>
 
 </html>

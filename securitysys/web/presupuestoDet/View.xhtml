@@ -15,8 +15,8 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" columnClasses="column" rendered="#{presupuestoDetController.selected != null}">
 
-                        <h:outputText value="#{bundle.ViewPresupuestoDetLabel_presupuestoDetPK_idPresupuesto}"/>
-                        <h:outputText value="#{presupuestoDetController.selected.presupuestoDetPK.idPresupuesto}" title="#{bundle.ViewPresupuestoDetTitle_presupuestoDetPK_idPresupuesto}"/>
+                        <h:outputText value="#{bundle.ViewPresupuestoDetLabel_presupuestoDetPK_idPresupuestoCab}"/>
+                        <h:outputText value="#{presupuestoDetController.selected.presupuestoDetPK.idPresupuestoCab}" title="#{bundle.ViewPresupuestoDetTitle_presupuestoDetPK_idPresupuestoCab}"/>
 
                         <h:outputText value="#{bundle.ViewPresupuestoDetLabel_presupuestoDetPK_idSecuencia}"/>
                         <h:outputText value="#{presupuestoDetController.selected.presupuestoDetPK.idSecuencia}" title="#{bundle.ViewPresupuestoDetTitle_presupuestoDetPK_idSecuencia}"/>
@@ -43,7 +43,7 @@
                         <h:outputText value="#{presupuestoDetController.selected.presupuesto.idPresupuesto}"/>
 
                         <h:outputText value="#{bundle.ViewPresupuestoDetLabel_idPromocion}"/>
-                        <h:outputText value="#{presupuestoDetController.selected.idPromocion.promocionPK}"/>
+                        <h:outputText value="#{presupuestoDetController.selected.idPromocion.idPromocion}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('PresupuestoDetViewDialog').hide()"/>
                 </h:panelGroup>

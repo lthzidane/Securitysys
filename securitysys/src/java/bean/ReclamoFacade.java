@@ -9,7 +9,7 @@ import entities.Reclamo;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -22,22 +22,11 @@ import entities.TipoReclamo;
 import entities.Usuario;
 import entities.Diagnostico;
 import java.util.Date;
-import java.util.List;import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import entities.OrdenTrabajo;
-import entities.Cliente;
-import entities.Departamento;
-import entities.Estado;
-import entities.Sucursal;
-import entities.TipoReclamo;
-import entities.Usuario;
-import entities.Diagnostico;
 import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class ReclamoFacade extends AbstractFacade<Reclamo> {

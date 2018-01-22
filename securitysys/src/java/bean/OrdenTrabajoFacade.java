@@ -9,7 +9,7 @@ import entities.OrdenTrabajo;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -24,24 +24,11 @@ import entities.Solicitud;
 import entities.Sucursal;
 import entities.Usuario;
 import java.util.Date;
-import java.util.List;import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import entities.InstalacionCab;
-import entities.OrdenTrabajoDet;
-import entities.Cliente;
-import entities.Cuadrilla;
-import entities.Itinerario;
-import entities.Presupuesto;
-import entities.Reclamo;
-import entities.Solicitud;
-import entities.Sucursal;
-import entities.Usuario;
 import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class OrdenTrabajoFacade extends AbstractFacade<OrdenTrabajo> {
@@ -184,7 +171,7 @@ public class OrdenTrabajoFacade extends AbstractFacade<OrdenTrabajo> {
         return this.getMergedEntity(entity).getIdUsuario();
     }
 
-    OrdenTrabajo findByNroOrden(int parseInt) {
+    OrdenTrabajo findByNroOrden(Integer valueOf) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

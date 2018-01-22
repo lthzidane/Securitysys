@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "cobro_cheque")

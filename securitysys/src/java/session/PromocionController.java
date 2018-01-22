@@ -20,14 +20,4 @@ public class PromocionController extends AbstractController<Promocion> {
         super(Promocion.class);
     }
 
-    @Override
-    protected void setEmbeddableKeys() {
-        this.getSelected().getPromocionPK().setIdPresu(this.getSelected().getPresupuesto().getIdPresupuesto());
-    }
-
-    @Override
-    protected void initializeEmbeddableKey() {
-        this.getSelected().setPromocionPK(new entities.PromocionPK());
-    }
-
 }

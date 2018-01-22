@@ -11,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,14 +20,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "promocion_det")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PromocionDet.findAll", query = "SELECT p FROM PromocionDet p")
-    , @NamedQuery(name = "PromocionDet.findByIdPromocionCab", query = "SELECT p FROM PromocionDet p WHERE p.promocionDetPK.idPromocionCab = :idPromocionCab")
+    , @NamedQuery(name = "PromocionDet.findByIdPromocion", query = "SELECT p FROM PromocionDet p WHERE p.promocionDetPK.idPromocion = :idPromocion")
     , @NamedQuery(name = "PromocionDet.findByIdSecuencia", query = "SELECT p FROM PromocionDet p WHERE p.promocionDetPK.idSecuencia = :idSecuencia")
     , @NamedQuery(name = "PromocionDet.findByCostoPromo", query = "SELECT p FROM PromocionDet p WHERE p.costoPromo = :costoPromo")})
 public class PromocionDet implements Serializable {
@@ -43,11 +42,7 @@ public class PromocionDet implements Serializable {
     @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo")
     @ManyToOne(optional = false)
     private Equipo idEquipo;
-    @JoinColumns({
-        @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion", insertable = false, updatable = false)
-        ,
-        @JoinColumn(name = "id_presu", referencedColumnName = "id_presu", insertable = false, updatable = false)
-    })
+    @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Promocion promocion;
     @JoinColumn(name = "id_servicio", referencedColumnName = "id_servicio")
@@ -66,8 +61,8 @@ public class PromocionDet implements Serializable {
         this.costoPromo = costoPromo;
     }
 
-    public PromocionDet(int idPromocionCab, int idSecuencia) {
-        this.promocionDetPK = new PromocionDetPK(idPromocionCab, idSecuencia);
+    public PromocionDet(int idPromocion, int idSecuencia) {
+        this.promocionDetPK = new PromocionDetPK(idPromocion, idSecuencia);
     }
 
     public PromocionDetPK getPromocionDetPK() {
@@ -134,5 +129,5 @@ public class PromocionDet implements Serializable {
     public String toString() {
         return "entities.PromocionDet[ promocionDetPK=" + promocionDetPK + " ]";
     }
-
+    
 }

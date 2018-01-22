@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -28,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "servicio")
@@ -38,7 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Servicio.findByIdServicio", query = "SELECT s FROM Servicio s WHERE s.idServicio = :idServicio")
     , @NamedQuery(name = "Servicio.findByDescripcion", query = "SELECT s FROM Servicio s WHERE s.descripcion = :descripcion")
     , @NamedQuery(name = "Servicio.findByCantidad", query = "SELECT s FROM Servicio s WHERE s.cantidad = :cantidad")
-    , @NamedQuery(name = "Servicio.findByCosto", query = "SELECT s FROM Servicio s WHERE s.costo = :costo")})
+    , @NamedQuery(name = "Servicio.findByCosto", query = "SELECT s FROM Servicio s WHERE s.costo = :costo")
+    , @NamedQuery(name = "Servicio.findByIdPresu", query = "SELECT s FROM Servicio s WHERE s.idPresu = :idPresu")})
 public class Servicio implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,6 +60,8 @@ public class Servicio implements Serializable {
     @NotNull
     @Column(name = "costo")
     private int costo;
+    @Column(name = "id_presu")
+    private Integer idPresu;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServicio")
     private List<SolicitudDet> solicitudDetList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServicio")
@@ -75,21 +77,12 @@ public class Servicio implements Serializable {
     @JoinColumn(name = "id_moneda", referencedColumnName = "id_moneda")
     @ManyToOne(optional = false)
     private Moneda idMoneda;
-    @JoinColumns({
-        @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion", insertable = false, updatable = false)
-        ,
-        @JoinColumn(name = "id_presu", referencedColumnName = "id_presu", insertable = false, updatable = false)
-    })
+    @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion")
     @ManyToOne(optional = false)
     private Promocion idPromocion;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idServicio")
     private List<SegmentoContrato> segmentoContratoList;
 
-    @Column(name = "id_presu")
-    private int idPresu;
-
-    
     public Servicio() {
     }
 
@@ -134,6 +127,14 @@ public class Servicio implements Serializable {
 
     public void setCosto(int costo) {
         this.costo = costo;
+    }
+
+    public Integer getIdPresu() {
+        return idPresu;
+    }
+
+    public void setIdPresu(Integer idPresu) {
+        this.idPresu = idPresu;
     }
 
     @XmlTransient
@@ -228,19 +229,5 @@ public class Servicio implements Serializable {
     public String toString() {
         return "entities.Servicio[ idServicio=" + idServicio + " ]";
     }
-
-    /**
-     * @return the idPresu
-     */
-    public int getIdPresu() {
-        return idPresu;
-    }
-
-    /**
-     * @param idPresu the idPresu to set
-     */
-    public void setIdPresu(int idPresu) {
-        this.idPresu = idPresu;
-    }
-
+    
 }

@@ -21,9 +21,14 @@
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{bundle.EditUsuarioTitle_nombre}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_nombre}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_contrasenha}" for="contrasenha" />
-                        <p:inputText id="contrasenha" value="#{usuarioController.selected.contrasenha}" title="#{bundle.EditUsuarioTitle_contrasenha}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_contrasenha}"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_rol}" for="rol" />
-                        <p:inputText id="rol" value="#{usuarioController.selected.rol}" title="#{bundle.CreateUsuarioTitle_rol}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_rol}" style="text-transform: uppercase"/>
+                        <p:inputText id="contrasenha" value="#{usuarioController.selected.contrasenha}" title="#{bundle.EditUsuarioTitle_contrasenha}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_contrasenha}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_rol}" for="rol" />
+                        <p:inputText id="rol" value="#{usuarioController.selected.rol}" title="#{bundle.EditUsuarioTitle_rol}" size="5" maxlength="5" style="text-transform: uppercase"/>
+
+                        <p:outputLabel value="#{bundle.EditUsuarioLabel_idDepartamento}" for="idDepartamento" />
+                        <p:inputText id="idDepartamento" value="#{usuarioController.selected.idDepartamento}" title="#{bundle.EditUsuarioTitle_idDepartamento}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idDepartamento}" style="text-transform: uppercase"/>
+
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_estado}" for="estado" />
                         <p:inputText id="estado" value="#{usuarioController.selected.estado}" title="#{bundle.EditUsuarioTitle_estado}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_estado}" size="10" maxlength="10" style="text-transform: uppercase"/>
                     </p:panelGrid>

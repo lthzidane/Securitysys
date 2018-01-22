@@ -9,7 +9,6 @@ import entities.Cobro;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -20,7 +19,7 @@ import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class CobroFacade extends AbstractFacade<Cobro> {
@@ -41,7 +40,7 @@ public class CobroFacade extends AbstractFacade<Cobro> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Cobro> cobro = cq.from(Cobro.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobro, entity), cb.isNotEmpty(cobro.get(Cobro_.cobroDetList)));
+        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobro, entity), cb.isNotEmpty(cobro.get(Cobro_.cobroDetList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -56,7 +55,7 @@ public class CobroFacade extends AbstractFacade<Cobro> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Cobro> cobro = cq.from(Cobro.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobro, entity), cb.isNotNull(cobro.get(Cobro_.idAperturaCierre)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobro, entity), cb.isNotNull(cobro.get(Cobro_.idAperturaCierre)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -68,7 +67,7 @@ public class CobroFacade extends AbstractFacade<Cobro> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Cobro> cobro = cq.from(Cobro.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobro, entity), cb.isNotNull(cobro.get(Cobro_.idFormaCobro)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobro, entity), cb.isNotNull(cobro.get(Cobro_.idFormaCobro)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

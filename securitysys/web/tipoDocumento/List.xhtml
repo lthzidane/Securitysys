@@ -1,65 +1,81 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="TipoDocumentoListForm">
+    <ui:composition template="/resources/templates/template.xhtml">
 
-        <p:panel header="#{bundle.ListTipoDocumentoTitle}">
-            <p:dataTable id="datalist"
-                         value="#{tipoDocumentoController.items}"
-                         lazy="false"
-                         rowKey="#{item.idTipoDocumento}"
-                         var="item"
-                         paginator="true"
-                         rows="10"
-                         rowsPerPageTemplate="10,20,30,40,50"
-                         selectionMode="single"
-                         selection="#{tipoDocumentoController.selected}"
-                         filteredValue="#{tipoDocumentoController.filteredItems}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{tipoDocumentoController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.idTipoDocumento}"  <<< Remove this line
-                -->
+        <ui:define name="title">Banco</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="#{bundle.ListBancoTitle}"/>
+        </ui:define>
+
+        <ui:define name="container">
+            <script name="jquery/jquery.js" library="primefaces"></script>
+            <h:outputStylesheet library="css" name="menu.css" />
+            <h:outputStylesheet library="css" name="facade.css" />
+            <p:growl id="growl" life="3000" />
+            <h:form id="TipoDocumentoListForm">
+
+                <p:panel header="#{bundle.ListTipoDocumentoTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{tipoDocumentoController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.idTipoDocumento}"
+                                 var="item"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 selectionMode="single"
+                                 selection="#{tipoDocumentoController.selected}"
+                                 filteredValue="#{tipoDocumentoController.filteredItems}">
+                        <!--
+                                 To enable Lazy Loading, please copy/replace the following lines above,
+                                 and be sure to replace the word HASH with the # symbol:
+                        
+                                 value="HASH{tipoDocumentoController.lazyItems}"
+                                 lazy="true"
+                                 rowKey="HASH{item.idTipoDocumento}"  <<< Remove this line
+                        -->
 
 
-                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
-                <p:column sortBy="#{item.idTipoDocumento}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListTipoDocumentoTitle_idTipoDocumento}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idTipoDocumento}"/>
-                </p:column>
+                        <p:column sortBy="#{item.idTipoDocumento}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoDocumentoTitle_idTipoDocumento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idTipoDocumento}"/>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.descripcion}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListTipoDocumentoTitle_descripcion}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.descripcion}"/>
-                </p:column>
+                        <p:column sortBy="#{item.descripcion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTipoDocumentoTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
 
-                <f:facet name="footer">
-                    <div class="footer-section">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoDocumentoController.prepareCreate}" update=":TipoDocumentoCreateForm" oncomplete="PF('TipoDocumentoCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TipoDocumentoViewForm" oncomplete="PF('TipoDocumentoViewDialog').show()" disabled="#{empty tipoDocumentoController.selected}"/>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TipoDocumentoEditForm" oncomplete="PF('TipoDocumentoEditDialog').show()" disabled="#{empty tipoDocumentoController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tipoDocumentoController.delete}" update=":growl,datalist" disabled="#{empty tipoDocumentoController.selected}"/>
-                    </div>
-                </f:facet>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoDocumentoController.prepareCreate}" update=":TipoDocumentoCreateForm" oncomplete="PF('TipoDocumentoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TipoDocumentoViewForm" oncomplete="PF('TipoDocumentoViewDialog').show()" disabled="#{empty tipoDocumentoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TipoDocumentoEditForm" oncomplete="PF('TipoDocumentoEditDialog').show()" disabled="#{empty tipoDocumentoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tipoDocumentoController.delete}" update=":growl,datalist" disabled="#{empty tipoDocumentoController.selected}"/>
+                        </f:facet>
 
-            </p:dataTable>
+                    </p:dataTable>
 
-        </p:panel>
-    </h:form>
+                </p:panel>
+            </h:form>
 
-</ui:composition>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

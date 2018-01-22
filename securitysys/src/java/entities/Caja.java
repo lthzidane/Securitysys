@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "caja")
@@ -59,7 +59,7 @@ public class Caja implements Serializable {
 
     public Caja(Integer idCaja, String descripcion) {
         this.idCaja = idCaja;
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.toUpperCase();
     }
 
     public Integer getIdCaja() {
@@ -75,7 +75,7 @@ public class Caja implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.toUpperCase();
     }
 
     @XmlTransient

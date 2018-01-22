@@ -15,8 +15,8 @@
                     <p:panelGrid  columns="2" columnClasses="column" rendered="#{segmentoContratoController.selected != null}">
 
 
-                        <h:outputLabel value="#{bundle.EditSegmentoContratoLabel_idSegmento}" for="idSegmento" rendered="false"/>
-                        <h:outputText id="idSegmento" value="#{segmentoContratoController.selected.idSegmento}" rendered="false"/>
+                        <h:outputLabel value="#{bundle.EditSegmentoContratoLabel_idSegmento}" for="idSegmento" />
+                        <h:outputText id="idSegmento" value="#{segmentoContratoController.selected.idSegmento}" />
 
                         <p:outputLabel value="#{bundle.EditSegmentoContratoLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{segmentoContratoController.selected.descripcion}" title="#{bundle.EditSegmentoContratoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditSegmentoContratoRequiredMessage_descripcion}" size="60" maxlength="60"/>

@@ -16,7 +16,7 @@ public class PromocionDetController extends AbstractController<PromocionDet> {
 
     @Override
     protected void setEmbeddableKeys() {
-        this.getSelected().getPromocionDetPK().setIdPromocionCab(this.getSelected().getPromocion().getPromocionPK().getIdPromocion());
+        this.getSelected().getPromocionDetPK().setIdPromocion(this.getSelected().getPromocion().getIdPromocion());
     }
 
     @Override

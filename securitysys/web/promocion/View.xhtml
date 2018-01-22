@@ -15,11 +15,8 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" columnClasses="column" rendered="#{promocionController.selected != null}">
 
-                        <h:outputText value="#{bundle.ViewPromocionLabel_promocionPK_idPromocion}"/>
-                        <h:outputText value="#{promocionController.selected.promocionPK.idPromocion}" title="#{bundle.ViewPromocionTitle_promocionPK_idPromocion}"/>
-
-                        <h:outputText value="#{bundle.ViewPromocionLabel_promocionPK_idPresu}"/>
-                        <h:outputText value="#{promocionController.selected.promocionPK.idPresu}" title="#{bundle.ViewPromocionTitle_promocionPK_idPresu}"/>
+                        <h:outputText value="#{bundle.ViewPromocionLabel_idPromocion}"/>
+                        <h:outputText value="#{promocionController.selected.idPromocion}" title="#{bundle.ViewPromocionTitle_idPromocion}"/>
 
                         <h:outputText value="#{bundle.ViewPromocionLabel_descipcion}"/>
                         <h:outputText value="#{promocionController.selected.descipcion}" title="#{bundle.ViewPromocionTitle_descipcion}"/>
@@ -34,8 +31,8 @@
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
 
-                        <h:outputText value="#{bundle.ViewPromocionLabel_presupuesto}"/>
-                        <h:outputText value="#{promocionController.selected.presupuesto.idPresupuesto}"/>
+                        <h:outputText value="#{bundle.ViewPromocionLabel_idPresu}"/>
+                        <h:outputText value="#{promocionController.selected.idPresu.idPresupuesto}"/>
 
                         <h:outputText value="#{bundle.ViewPromocionLabel_idSucursal}"/>
                         <h:outputText value="#{promocionController.selected.idSucursal.descripcion}"/>

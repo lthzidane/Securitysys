@@ -19,10 +19,10 @@
                         <h:outputText id="idMovil" value="#{movilesController.selected.idMovil}" />
 
                         <p:outputLabel value="#{bundle.EditMovilesLabel_matricula}" for="matricula" />
-                        <p:inputText id="matricula" value="#{movilesController.selected.matricula}" title="#{bundle.EditMovilesTitle_matricula}" required="true" requiredMessage="#{bundle.EditMovilesRequiredMessage_matricula}" size="6" maxlength="6" style="text-transform: uppercase"  style="text-transform: uppercase"/>
+                        <p:inputText id="matricula" value="#{movilesController.selected.matricula}" title="#{bundle.EditMovilesTitle_matricula}" required="true" requiredMessage="#{bundle.EditMovilesRequiredMessage_matricula}" size="6" maxlength="6"/>
 
                         <p:outputLabel value="#{bundle.EditMovilesLabel_anio}" for="anio" />
-                        <p:inputText id="anio"  maxlength="4" value="#{movilesController.selected.anio}" title="#{bundle.EditMovilesTitle_año}" required="true" requiredMessage="#{bundle.EditMovilesRequiredMessage_anio}" onkeydown="return event.keyCode &gt; = 48 &amp; &amp; event.keyCode &lt; = 57 || event.keyCode &gt; = 96 &amp; &amp; event.keyCode &lt; = 105 || event.keyCode == 8"/>
+                        <p:inputText id="anio" value="#{movilesController.selected.anio}" title="#{bundle.EditMovilesTitle_anio}" required="true" requiredMessage="#{bundle.EditMovilesRequiredMessage_anio}"/>
 
                         <p:outputLabel value="#{bundle.EditMovilesLabel_idMarca}" for="idMarca" />
                         <p:selectOneMenu id="idMarca" value="#{movilesController.selected.idMarca}" required="true" requiredMessage="#{bundle.EditMovilesRequiredMessage_idMarca}" converter="marcaConverter">
@@ -30,7 +30,7 @@
                             <f:selectItems value="#{marcaController.items}"
                                            var="idMarcaItem"
                                            itemValue="#{idMarcaItem}"
-                                           itemLabel="#{idMarcaItem.descripcion}"
+                                           itemLabel="#{idMarcaItem.descripcion.toString()}"
                                            />
 
                         </p:selectOneMenu>
@@ -41,13 +41,13 @@
                             <f:selectItems value="#{tipoMovilController.items}"
                                            var="idTipoMovilItem"
                                            itemValue="#{idTipoMovilItem}"
-                                           itemLabel="#{idTipoMovilItem.descripcion}"
+                                           itemLabel="#{idTipoMovilItem.descripcion.toString()}"
                                            />
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{movilesController.save}" value="#{bundle.Save}" update="display,:MovilesListForm:datalist,:growl" oncomplete="handleSubmit(args,'MovilesEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="MovilesEditDialog.hide()" immediate="true" />
+                    <p:commandButton actionListener="#{movilesController.save}" value="#{bundle.Save}" update="display,:MovilesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MovilesEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MovilesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                 </h:panelGroup>
 
             </h:form>

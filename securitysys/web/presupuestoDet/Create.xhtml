@@ -15,8 +15,8 @@
                 <h:panelGroup id="display" rendered="#{presupuestoDetController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
 
-                        <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_presupuestoDetPK_idPresupuesto}" for="presupuestoDetPK_idPresupuesto" />
-                        <p:inputText id="presupuestoDetPK_idPresupuesto" value="#{presupuestoDetController.selected.presupuestoDetPK.idPresupuesto}" title="#{bundle.CreatePresupuestoDetTitle_presupuestoDetPK_idPresupuesto}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_presupuestoDetPK_idPresupuesto}"/>
+                        <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_presupuestoDetPK_idPresupuestoCab}" for="presupuestoDetPK_idPresupuestoCab" />
+                        <p:inputText id="presupuestoDetPK_idPresupuestoCab" value="#{presupuestoDetController.selected.presupuestoDetPK.idPresupuestoCab}" title="#{bundle.CreatePresupuestoDetTitle_presupuestoDetPK_idPresupuestoCab}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_presupuestoDetPK_idPresupuestoCab}"/>
 
                         <p:outputLabel value="#{bundle.CreatePresupuestoDetLabel_presupuestoDetPK_idSecuencia}" for="presupuestoDetPK_idSecuencia" />
                         <p:inputText id="presupuestoDetPK_idSecuencia" value="#{presupuestoDetController.selected.presupuestoDetPK.idSecuencia}" title="#{bundle.CreatePresupuestoDetTitle_presupuestoDetPK_idSecuencia}" required="true" requiredMessage="#{bundle.CreatePresupuestoDetRequiredMessage_presupuestoDetPK_idSecuencia}"/>
@@ -64,7 +64,7 @@
                             <f:selectItems value="#{promocionController.items}"
                                            var="idPromocionItem"
                                            itemValue="#{idPromocionItem}"
-                                           itemLabel="#{idPromocionItem.promocionPK.toString()}"
+                                           itemLabel="#{idPromocionItem.idPromocion.toString()}"
                                            />
 
                         </p:selectOneMenu>

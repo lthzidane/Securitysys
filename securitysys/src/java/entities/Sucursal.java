@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "sucursal")
@@ -100,8 +100,8 @@ public class Sucursal implements Serializable {
 
     public Sucursal(Integer idSucursal, String descripcion, String dirSucursal, String telSucursal) {
         this.idSucursal = idSucursal;
-        this.descripcion = descripcion.toUpperCase();
-        this.dirSucursal = dirSucursal.toUpperCase();
+        this.descripcion = descripcion;
+        this.dirSucursal = dirSucursal;
         this.telSucursal = telSucursal;
     }
 
@@ -118,7 +118,7 @@ public class Sucursal implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion.toUpperCase();
+        this.descripcion = descripcion;
     }
 
     public String getDirSucursal() {
@@ -126,7 +126,7 @@ public class Sucursal implements Serializable {
     }
 
     public void setDirSucursal(String dirSucursal) {
-        this.dirSucursal = dirSucursal.toUpperCase();
+        this.dirSucursal = dirSucursal;
     }
 
     public String getTelSucursal() {

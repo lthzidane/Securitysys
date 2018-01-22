@@ -9,7 +9,6 @@ import entities.CuentaCliente;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -21,7 +20,7 @@ import entities.Sucursal;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class CuentaClienteFacade extends AbstractFacade<CuentaCliente> {
@@ -42,7 +41,7 @@ public class CuentaClienteFacade extends AbstractFacade<CuentaCliente> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CuentaCliente> cuentaCliente = cq.from(CuentaCliente.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuentaCliente, entity), cb.isNotNull(cuentaCliente.get(CuentaCliente_.idCliente)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuentaCliente, entity), cb.isNotNull(cuentaCliente.get(CuentaCliente_.idCliente)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -54,7 +53,7 @@ public class CuentaClienteFacade extends AbstractFacade<CuentaCliente> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CuentaCliente> cuentaCliente = cq.from(CuentaCliente.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuentaCliente, entity), cb.isNotNull(cuentaCliente.get(CuentaCliente_.contrato)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuentaCliente, entity), cb.isNotNull(cuentaCliente.get(CuentaCliente_.contrato)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -66,7 +65,7 @@ public class CuentaClienteFacade extends AbstractFacade<CuentaCliente> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CuentaCliente> cuentaCliente = cq.from(CuentaCliente.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuentaCliente, entity), cb.isNotNull(cuentaCliente.get(CuentaCliente_.idEstado)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuentaCliente, entity), cb.isNotNull(cuentaCliente.get(CuentaCliente_.idEstado)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -78,7 +77,7 @@ public class CuentaClienteFacade extends AbstractFacade<CuentaCliente> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CuentaCliente> cuentaCliente = cq.from(CuentaCliente.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuentaCliente, entity), cb.isNotNull(cuentaCliente.get(CuentaCliente_.idSegmento)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuentaCliente, entity), cb.isNotNull(cuentaCliente.get(CuentaCliente_.idSegmento)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -90,7 +89,7 @@ public class CuentaClienteFacade extends AbstractFacade<CuentaCliente> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CuentaCliente> cuentaCliente = cq.from(CuentaCliente.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuentaCliente, entity), cb.isNotNull(cuentaCliente.get(CuentaCliente_.idSucursal)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuentaCliente, entity), cb.isNotNull(cuentaCliente.get(CuentaCliente_.idSucursal)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

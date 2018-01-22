@@ -9,7 +9,7 @@ import entities.VentaDet;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -20,7 +20,7 @@ import entities.Venta;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class VentaDetFacade extends AbstractFacade<VentaDet> {

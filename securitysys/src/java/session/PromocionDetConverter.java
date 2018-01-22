@@ -31,14 +31,14 @@ public class PromocionDetConverter implements Converter {
         entities.PromocionDetPK key;
         String values[] = value.split(SEPARATOR_ESCAPED);
         key = new entities.PromocionDetPK();
-        key.setIdPromocionCab(Integer.parseInt(values[0]));
+        key.setIdPromocion(Integer.parseInt(values[0]));
         key.setIdSecuencia(Integer.parseInt(values[1]));
         return key;
     }
 
     String getStringKey(entities.PromocionDetPK value) {
         StringBuffer sb = new StringBuffer();
-        sb.append(value.getIdPromocionCab());
+        sb.append(value.getIdPromocion());
         sb.append(SEPARATOR);
         sb.append(value.getIdSecuencia());
         return sb.toString();

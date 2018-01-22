@@ -9,7 +9,6 @@ import entities.CobroTarjeta;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -18,7 +17,7 @@ import entities.Tarjeta;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class CobroTarjetaFacade extends AbstractFacade<CobroTarjeta> {
@@ -39,7 +38,7 @@ public class CobroTarjetaFacade extends AbstractFacade<CobroTarjeta> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CobroTarjeta> cobroTarjeta = cq.from(CobroTarjeta.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroTarjeta, entity), cb.isNotNull(cobroTarjeta.get(CobroTarjeta_.cobroDet)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroTarjeta, entity), cb.isNotNull(cobroTarjeta.get(CobroTarjeta_.cobroDet)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -51,7 +50,7 @@ public class CobroTarjetaFacade extends AbstractFacade<CobroTarjeta> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CobroTarjeta> cobroTarjeta = cq.from(CobroTarjeta.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroTarjeta, entity), cb.isNotNull(cobroTarjeta.get(CobroTarjeta_.idTarjeta)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroTarjeta, entity), cb.isNotNull(cobroTarjeta.get(CobroTarjeta_.idTarjeta)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

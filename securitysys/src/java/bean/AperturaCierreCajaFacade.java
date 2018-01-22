@@ -5,10 +5,10 @@
  */
 package bean;
 
+import entities.AperturaCierreCaja;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import entities.AperturaCierreCaja;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class AperturaCierreCajaFacade extends AbstractFacade<AperturaCierreCaja> {
@@ -43,7 +43,7 @@ public class AperturaCierreCajaFacade extends AbstractFacade<AperturaCierreCaja>
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<AperturaCierreCaja> aperturaCierreCaja = cq.from(AperturaCierreCaja.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(aperturaCierreCaja, entity), cb.isNotEmpty(aperturaCierreCaja.get(AperturaCierreCajacobroList)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(aperturaCierreCaja, entity), cb.isNotEmpty(aperturaCierreCaja.get(AperturaCierreCaja_.cobroList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -58,7 +58,7 @@ public class AperturaCierreCajaFacade extends AbstractFacade<AperturaCierreCaja>
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<AperturaCierreCaja> aperturaCierreCaja = cq.from(AperturaCierreCaja.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(aperturaCierreCaja, entity), cb.isNotNull(aperturaCierreCaja.get(AperturaCierreCaja.idCaja)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(aperturaCierreCaja, entity), cb.isNotNull(aperturaCierreCaja.get(AperturaCierreCaja_.idCaja)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -70,7 +70,7 @@ public class AperturaCierreCajaFacade extends AbstractFacade<AperturaCierreCaja>
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<AperturaCierreCaja> aperturaCierreCaja = cq.from(AperturaCierreCaja.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(aperturaCierreCaja, entity), cb.isNotNull(aperturaCierreCaja.get(AperturaCierreCaja.idSucursal)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(aperturaCierreCaja, entity), cb.isNotNull(aperturaCierreCaja.get(AperturaCierreCaja_.idSucursal)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -82,7 +82,7 @@ public class AperturaCierreCajaFacade extends AbstractFacade<AperturaCierreCaja>
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<AperturaCierreCaja> aperturaCierreCaja = cq.from(AperturaCierreCaja.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(aperturaCierreCaja, entity), cb.isNotNull(aperturaCierreCaja.get(AperturaCierreCaja_.idUsuario)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(aperturaCierreCaja, entity), cb.isNotNull(aperturaCierreCaja.get(AperturaCierreCaja_.idUsuario)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -94,7 +94,7 @@ public class AperturaCierreCajaFacade extends AbstractFacade<AperturaCierreCaja>
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<AperturaCierreCaja> aperturaCierreCaja = cq.from(AperturaCierreCaja.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(aperturaCierreCaja, entity), cb.isNotEmpty(aperturaCierreCaja.get(AperturaCierreCaja_.ventaList)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(aperturaCierreCaja, entity), cb.isNotEmpty(aperturaCierreCaja.get(AperturaCierreCaja_.ventaList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -109,7 +109,7 @@ public class AperturaCierreCajaFacade extends AbstractFacade<AperturaCierreCaja>
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<AperturaCierreCaja> aperturaCierreCaja = cq.from(AperturaCierreCaja.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(aperturaCierreCaja, entity), cb.isNotEmpty(aperturaCierreCaja.get(AperturaCierreCaja_.arqueoList)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(aperturaCierreCaja, entity), cb.isNotEmpty(aperturaCierreCaja.get(AperturaCierreCaja_.arqueoList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

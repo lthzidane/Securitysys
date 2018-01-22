@@ -27,6 +27,9 @@
                         <h:outputText value="#{bundle.ViewServicioLabel_costo}"/>
                         <h:outputText value="#{servicioController.selected.costo}" title="#{bundle.ViewServicioTitle_costo}"/>
 
+                        <h:outputText value="#{bundle.ViewServicioLabel_idPresu}"/>
+                        <h:outputText value="#{servicioController.selected.idPresu}" title="#{bundle.ViewServicioTitle_idPresu}"/>
+
                         <h:outputText value="#{bundle.ViewServicioLabel_idDescuento}"/>
                         <h:outputText value="#{servicioController.selected.idDescuento.descripcionDesc}"/>
 
@@ -37,7 +40,7 @@
                         <h:outputText value="#{servicioController.selected.idMoneda.descripcion}"/>
 
                         <h:outputText value="#{bundle.ViewServicioLabel_idPromocion}"/>
-                        <h:outputText value="#{servicioController.selected.idPromocion.promocionPK}"/>
+                        <h:outputText value="#{servicioController.selected.idPromocion.idPromocion}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('ServicioViewDialog').hide()"/>
                 </h:panelGroup>

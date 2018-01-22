@@ -11,8 +11,10 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -29,23 +31,25 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "promocion")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Promocion.findAll", query = "SELECT p FROM Promocion p")
-    , @NamedQuery(name = "Promocion.findByIdPromocion", query = "SELECT p FROM Promocion p WHERE p.promocionPK.idPromocion = :idPromocion")
-    , @NamedQuery(name = "Promocion.findByIdPresu", query = "SELECT p FROM Promocion p WHERE p.promocionPK.idPresu = :idPresu")
+    , @NamedQuery(name = "Promocion.findByIdPromocion", query = "SELECT p FROM Promocion p WHERE p.idPromocion = :idPromocion")
     , @NamedQuery(name = "Promocion.findByDescipcion", query = "SELECT p FROM Promocion p WHERE p.descipcion = :descipcion")
     , @NamedQuery(name = "Promocion.findByFechaIniPromo", query = "SELECT p FROM Promocion p WHERE p.fechaIniPromo = :fechaIniPromo")
     , @NamedQuery(name = "Promocion.findByFechaFinPromo", query = "SELECT p FROM Promocion p WHERE p.fechaFinPromo = :fechaFinPromo")})
 public class Promocion implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected PromocionPK promocionPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_promocion")
+    private Integer idPromocion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -61,9 +65,9 @@ public class Promocion implements Serializable {
     @Column(name = "fecha_fin_promo")
     @Temporal(TemporalType.DATE)
     private Date fechaFinPromo;
-    @JoinColumn(name = "id_presu", referencedColumnName = "id_presupuesto", insertable = false, updatable = false)
+    @JoinColumn(name = "id_presu", referencedColumnName = "id_presupuesto")
     @OneToOne(optional = false)
-    private Presupuesto presupuesto;
+    private Presupuesto idPresu;
     @JoinColumn(name = "id_sucursal", referencedColumnName = "id_sucursal")
     @ManyToOne(optional = false)
     private Sucursal idSucursal;
@@ -84,27 +88,23 @@ public class Promocion implements Serializable {
     public Promocion() {
     }
 
-    public Promocion(PromocionPK promocionPK) {
-        this.promocionPK = promocionPK;
+    public Promocion(Integer idPromocion) {
+        this.idPromocion = idPromocion;
     }
 
-    public Promocion(PromocionPK promocionPK, String descipcion, Date fechaIniPromo, Date fechaFinPromo) {
-        this.promocionPK = promocionPK;
+    public Promocion(Integer idPromocion, String descipcion, Date fechaIniPromo, Date fechaFinPromo) {
+        this.idPromocion = idPromocion;
         this.descipcion = descipcion;
         this.fechaIniPromo = fechaIniPromo;
         this.fechaFinPromo = fechaFinPromo;
     }
 
-    public Promocion(int idPromocion, int idPresu) {
-        this.promocionPK = new PromocionPK(idPromocion, idPresu);
+    public Integer getIdPromocion() {
+        return idPromocion;
     }
 
-    public PromocionPK getPromocionPK() {
-        return promocionPK;
-    }
-
-    public void setPromocionPK(PromocionPK promocionPK) {
-        this.promocionPK = promocionPK;
+    public void setIdPromocion(Integer idPromocion) {
+        this.idPromocion = idPromocion;
     }
 
     public String getDescipcion() {
@@ -131,12 +131,12 @@ public class Promocion implements Serializable {
         this.fechaFinPromo = fechaFinPromo;
     }
 
-    public Presupuesto getPresupuesto() {
-        return presupuesto;
+    public Presupuesto getIdPresu() {
+        return idPresu;
     }
 
-    public void setPresupuesto(Presupuesto presupuesto) {
-        this.presupuesto = presupuesto;
+    public void setIdPresu(Presupuesto idPresu) {
+        this.idPresu = idPresu;
     }
 
     public Sucursal getIdSucursal() {
@@ -203,7 +203,7 @@ public class Promocion implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (promocionPK != null ? promocionPK.hashCode() : 0);
+        hash += (idPromocion != null ? idPromocion.hashCode() : 0);
         return hash;
     }
 
@@ -214,7 +214,7 @@ public class Promocion implements Serializable {
             return false;
         }
         Promocion other = (Promocion) object;
-        if ((this.promocionPK == null && other.promocionPK != null) || (this.promocionPK != null && !this.promocionPK.equals(other.promocionPK))) {
+        if ((this.idPromocion == null && other.idPromocion != null) || (this.idPromocion != null && !this.idPromocion.equals(other.idPromocion))) {
             return false;
         }
         return true;
@@ -222,7 +222,7 @@ public class Promocion implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Promocion[ promocionPK=" + promocionPK + " ]";
+        return "entities.Promocion[ idPromocion=" + idPromocion + " ]";
     }
     
 }

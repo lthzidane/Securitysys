@@ -49,13 +49,13 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.nombre}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
                                            />
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{diagnosticoController.saveNew}" value="#{bundle.Save}" update="display,:DiagnosticoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DiagnosticoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="DiagnosticoCreateDialog.hide()" immediate="true" />
+                    <p:commandButton actionListener="#{diagnosticoController.saveNew}" value="#{bundle.Save}" update="display,:DiagnosticoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DiagnosticoCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DiagnosticoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                 </h:panelGroup>
 
             </h:form>

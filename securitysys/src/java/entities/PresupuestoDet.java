@@ -11,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,14 +20,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "presupuesto_det")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PresupuestoDet.findAll", query = "SELECT p FROM PresupuestoDet p")
-    , @NamedQuery(name = "PresupuestoDet.findByIdPresupuesto", query = "SELECT p FROM PresupuestoDet p WHERE p.presupuestoDetPK.idPresupuesto = :idPresupuesto")
+    , @NamedQuery(name = "PresupuestoDet.findByIdPresupuestoCab", query = "SELECT p FROM PresupuestoDet p WHERE p.presupuestoDetPK.idPresupuestoCab = :idPresupuestoCab")
     , @NamedQuery(name = "PresupuestoDet.findByIdSecuencia", query = "SELECT p FROM PresupuestoDet p WHERE p.presupuestoDetPK.idSecuencia = :idSecuencia")
     , @NamedQuery(name = "PresupuestoDet.findByCantidad", query = "SELECT p FROM PresupuestoDet p WHERE p.cantidad = :cantidad")
     , @NamedQuery(name = "PresupuestoDet.findByExenta", query = "SELECT p FROM PresupuestoDet p WHERE p.exenta = :exenta")
@@ -66,11 +65,7 @@ public class PresupuestoDet implements Serializable {
     @JoinColumn(name = "id_presupuesto_cab", referencedColumnName = "id_presupuesto", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Presupuesto presupuesto;
-    @JoinColumns({
-        @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion", insertable = false, updatable = false)
-        ,
-        @JoinColumn(name = "id_presu", referencedColumnName = "id_presu", insertable = false, updatable = false)
-    })
+    @JoinColumn(name = "id_promocion", referencedColumnName = "id_promocion")
     @ManyToOne(optional = false)
     private Promocion idPromocion;
 
@@ -90,8 +85,8 @@ public class PresupuestoDet implements Serializable {
         this.precio = precio;
     }
 
-    public PresupuestoDet(int idPresupuesto, int idSecuencia) {
-        this.presupuestoDetPK = new PresupuestoDetPK(idPresupuesto, idSecuencia);
+    public PresupuestoDet(int idPresupuestoCab, int idSecuencia) {
+        this.presupuestoDetPK = new PresupuestoDetPK(idPresupuestoCab, idSecuencia);
     }
 
     public PresupuestoDetPK getPresupuestoDetPK() {
@@ -190,5 +185,5 @@ public class PresupuestoDet implements Serializable {
     public String toString() {
         return "entities.PresupuestoDet[ presupuestoDetPK=" + presupuestoDetPK + " ]";
     }
-
+    
 }

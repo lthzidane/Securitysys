@@ -1,6 +1,9 @@
 package session;
 
 import entities.Tecnico;
+import entities.Cuadrilla;
+import java.util.List;
+import bean.TecnicoFacade;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 

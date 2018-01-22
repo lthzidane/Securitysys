@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/resources/templates/template.xhtml">
         <ui:define name="title">Tipo Movil</ui:define>
@@ -18,55 +18,64 @@
             <h:outputStylesheet library="css" name="facade.css" />
             <p:growl id="growl" life="3000" />    
 
-            <h:form id="TipoMovilListForm">
+    <h:form id="TipoMovilListForm">
 
-                <p:panel header="#{bundle.ListTipoMovilTitle}">
-                    <p:dataTable id="datalist"
-                                 value="#{tipoMovilController.items}"
-                                 lazy="false"
-                                 rowKey="#{item.idTipoMovil}"
-                                 var="item"
-                                 paginator="true"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 selectionMode="single"
-                                 selection="#{tipoMovilController.selected}"
-                                 filteredValue="#{tipoMovilController.filteredItems}">
-
-                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
-
-                        <p:column sortBy="#{item.idTipoMovil}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTipoMovilTitle_idTipoMovil}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idTipoMovil}"/>
-                        </p:column>
+        <p:panel header="#{bundle.ListTipoMovilTitle}">
+            <p:dataTable id="datalist"
+                         value="#{tipoMovilController.items}"
+                         lazy="false"
+                         rowKey="#{item.idTipoMovil}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{tipoMovilController.selected}"
+                         filteredValue="#{tipoMovilController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{tipoMovilController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idTipoMovil}"  <<< Remove this line
+                -->
 
 
-                        <p:column sortBy="#{item.descripcion}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTipoMovilTitle_descripcion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.descripcion}"/>
-                        </p:column>
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoMovilController.prepareCreate}" update=":TipoMovilCreateForm" oncomplete="PF('TipoMovilCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TipoMovilViewForm" oncomplete="PF('TipoMovilViewDialog').show()" disabled="#{empty tipoMovilController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TipoMovilEditForm" oncomplete="PF('TipoMovilEditDialog').show()" disabled="#{empty tipoMovilController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tipoMovilController.delete}" update=":growl,datalist" disabled="#{empty tipoMovilController.selected}"/>
+                <p:column sortBy="#{item.idTipoMovil}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListTipoMovilTitle_idTipoMovil}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idTipoMovil}"/>
+                </p:column>
 
-                        </f:facet>
 
-                    </p:dataTable>
+                <p:column sortBy="#{item.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListTipoMovilTitle_descripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcion}"/>
+                </p:column>
 
-                </p:panel>
-            </h:form>
+                <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoMovilController.prepareCreate}" update=":TipoMovilCreateForm" oncomplete="PF('TipoMovilCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TipoMovilViewForm" oncomplete="PF('TipoMovilViewDialog').show()" disabled="#{empty tipoMovilController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TipoMovilEditForm" oncomplete="PF('TipoMovilEditDialog').show()" disabled="#{empty tipoMovilController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tipoMovilController.delete}" update=":growl,datalist" disabled="#{empty tipoMovilController.selected}"/>
+
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
-    </ui:composition>
+</ui:composition>
 </html>

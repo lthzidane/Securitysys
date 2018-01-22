@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/resources/templates/template.xhtml">
 
@@ -19,55 +19,64 @@
             <h:outputStylesheet library="css" name="facade.css" />
             <p:growl id="growl" life="3000" />
 
-            <h:form id="TipoTarjetaListForm">
+    <h:form id="TipoTarjetaListForm">
 
-                <p:panel header="#{bundle.ListTipoTarjetaTitle}">
-                    <p:dataTable id="datalist"
-                                 value="#{tipoTarjetaController.items}"
-                                 lazy="false"
-                                 rowKey="#{item.idTipoTarjeta}"
-                                 var="item"
-                                 paginator="true"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 selectionMode="single"
-                                 selection="#{tipoTarjetaController.selected}"
-                                 filteredValue="#{tipoTarjetaController.filteredItems}">
-
-                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
-
-                        <p:column sortBy="#{item.idTipoTarjeta}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTipoTarjetaTitle_idTipoTarjeta}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idTipoTarjeta}"/>
-                        </p:column>
+        <p:panel header="#{bundle.ListTipoTarjetaTitle}">
+            <p:dataTable id="datalist"
+                         value="#{tipoTarjetaController.items}"
+                         lazy="false"
+                         rowKey="#{item.idTipoTarjeta}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{tipoTarjetaController.selected}"
+                         filteredValue="#{tipoTarjetaController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{tipoTarjetaController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idTipoTarjeta}"  <<< Remove this line
+                -->
 
 
-                        <p:column sortBy="#{item.descTipoTarjeta}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTipoTarjetaTitle_descTipoTarjeta}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.descTipoTarjeta}"/>
-                        </p:column>
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoTarjetaController.prepareCreate}" update=":TipoTarjetaCreateForm" oncomplete="PF('TipoTarjetaCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TipoTarjetaViewForm" oncomplete="PF('TipoTarjetaViewDialog').show()" disabled="#{empty tipoTarjetaController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TipoTarjetaEditForm" oncomplete="PF('TipoTarjetaEditDialog').show()" disabled="#{empty tipoTarjetaController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tipoTarjetaController.delete}" update=":growl,datalist" disabled="#{empty tipoTarjetaController.selected}"/>
-                        </f:facet>
+                <p:column sortBy="#{item.idTipoTarjeta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListTipoTarjetaTitle_idTipoTarjeta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idTipoTarjeta}"/>
+                </p:column>
 
-                    </p:dataTable>
 
-                </p:panel>
-            </h:form>
-            
+                <p:column sortBy="#{item.descTipoTarjeta}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListTipoTarjetaTitle_descTipoTarjeta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descTipoTarjeta}"/>
+                </p:column>
+
+                <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoTarjetaController.prepareCreate}" update=":TipoTarjetaCreateForm" oncomplete="PF('TipoTarjetaCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TipoTarjetaViewForm" oncomplete="PF('TipoTarjetaViewDialog').show()" disabled="#{empty tipoTarjetaController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TipoTarjetaEditForm" oncomplete="PF('TipoTarjetaEditDialog').show()" disabled="#{empty tipoTarjetaController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tipoTarjetaController.delete}" update=":growl,datalist" disabled="#{empty tipoTarjetaController.selected}"/>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
-    </ui:composition>
+</ui:composition>
 
 </html>

@@ -15,8 +15,8 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" columnClasses="column" rendered="#{promocionDetController.selected != null}">
 
-                        <h:outputText value="#{bundle.ViewPromocionDetLabel_promocionDetPK_idPromocionCab}"/>
-                        <h:outputText value="#{promocionDetController.selected.promocionDetPK.idPromocionCab}" title="#{bundle.ViewPromocionDetTitle_promocionDetPK_idPromocionCab}"/>
+                        <h:outputText value="#{bundle.ViewPromocionDetLabel_promocionDetPK_idPromocion}"/>
+                        <h:outputText value="#{promocionDetController.selected.promocionDetPK.idPromocion}" title="#{bundle.ViewPromocionDetTitle_promocionDetPK_idPromocion}"/>
 
                         <h:outputText value="#{bundle.ViewPromocionDetLabel_promocionDetPK_idSecuencia}"/>
                         <h:outputText value="#{promocionDetController.selected.promocionDetPK.idSecuencia}" title="#{bundle.ViewPromocionDetTitle_promocionDetPK_idSecuencia}"/>
@@ -28,7 +28,7 @@
                         <h:outputText value="#{promocionDetController.selected.idEquipo.descripcion}"/>
 
                         <h:outputText value="#{bundle.ViewPromocionDetLabel_promocion}"/>
-                        <h:outputText value="#{promocionDetController.selected.promocion.promocionPK}"/>
+                        <h:outputText value="#{promocionDetController.selected.promocion.idPromocion}"/>
 
                         <h:outputText value="#{bundle.ViewPromocionDetLabel_idServicio}"/>
                         <h:outputText value="#{promocionDetController.selected.idServicio.descripcion}"/>

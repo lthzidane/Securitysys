@@ -17,7 +17,7 @@ import entities.CobroDet;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class CobroChequeFacade extends AbstractFacade<CobroCheque> {
@@ -38,7 +38,7 @@ public class CobroChequeFacade extends AbstractFacade<CobroCheque> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CobroCheque> cobroCheque = cq.from(CobroCheque.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroCheque, entity), cb.isNotNull(cobroCheque.get(CobroCheque_.idBanco)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroCheque, entity), cb.isNotNull(cobroCheque.get(CobroCheque_.idBanco)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -50,7 +50,7 @@ public class CobroChequeFacade extends AbstractFacade<CobroCheque> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<CobroCheque> cobroCheque = cq.from(CobroCheque.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroCheque, entity), cb.isNotNull(cobroCheque.get(CobroCheque_.cobroDet)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cobroCheque, entity), cb.isNotNull(cobroCheque.get(CobroCheque_.cobroDet)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

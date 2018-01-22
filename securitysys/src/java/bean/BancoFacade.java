@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class BancoFacade extends AbstractFacade<Banco> {
@@ -38,7 +38,7 @@ public class BancoFacade extends AbstractFacade<Banco> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Banco> banco = cq.from(Banco.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(banco, entity), cb.isNotEmpty(banco.get(Banco_.cobroChequeList)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(banco, entity), cb.isNotEmpty(banco.get(Banco_.cobroChequeList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

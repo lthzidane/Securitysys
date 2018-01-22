@@ -9,7 +9,6 @@ import entities.Cuadrilla;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -22,7 +21,7 @@ import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class CuadrillaFacade extends AbstractFacade<Cuadrilla> {
@@ -43,7 +42,7 @@ public class CuadrillaFacade extends AbstractFacade<Cuadrilla> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Cuadrilla> cuadrilla = cq.from(Cuadrilla.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuadrilla, entity), cb.isNotEmpty(cuadrilla.get(Cuadrilla_.ordenTrabajoList)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuadrilla, entity), cb.isNotEmpty(cuadrilla.get(Cuadrilla_.ordenTrabajoList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -58,7 +57,7 @@ public class CuadrillaFacade extends AbstractFacade<Cuadrilla> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Cuadrilla> cuadrilla = cq.from(Cuadrilla.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuadrilla, entity), cb.isNotNull(cuadrilla.get(Cuadrilla_.idMovil)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuadrilla, entity), cb.isNotNull(cuadrilla.get(Cuadrilla_.idMovil)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -70,7 +69,7 @@ public class CuadrillaFacade extends AbstractFacade<Cuadrilla> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Cuadrilla> cuadrilla = cq.from(Cuadrilla.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuadrilla, entity), cb.isNotNull(cuadrilla.get(Cuadrilla_.idTecnico)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuadrilla, entity), cb.isNotNull(cuadrilla.get(Cuadrilla_.idTecnico)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -82,7 +81,7 @@ public class CuadrillaFacade extends AbstractFacade<Cuadrilla> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Cuadrilla> cuadrilla = cq.from(Cuadrilla.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuadrilla, entity), cb.isNotNull(cuadrilla.get(Cuadrilla_.idTipoCuadrilla)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuadrilla, entity), cb.isNotNull(cuadrilla.get(Cuadrilla_.idTipoCuadrilla)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -94,7 +93,7 @@ public class CuadrillaFacade extends AbstractFacade<Cuadrilla> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Cuadrilla> cuadrilla = cq.from(Cuadrilla.class);
-        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuadrilla, entity), cb.isNotNull(cuadrilla.get(Cuadrilla_.idZona)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(cuadrilla, entity), cb.isNotNull(cuadrilla.get(Cuadrilla_.idZona)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

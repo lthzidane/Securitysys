@@ -137,8 +137,8 @@
                             </p:panelGrid>
                         </p:tab>
                     </p:tabView>
-                    <p:commandButton actionListener="#{ventaController.save}" value="#{bundle.Save}" update="display,:VentaListForm:datalist,:growl" oncomplete="handleSubmit(args,'VentaEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="VentaEditDialog.hide()" immediate="true"/>
+                    <p:commandButton actionListener="#{ventaController.save}" value="#{bundle.Save}" update="display,:VentaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('VentaEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('VentaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                 </h:panelGroup>
 
             </h:form>

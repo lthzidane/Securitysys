@@ -24,6 +24,9 @@
                         <p:outputLabel value="#{bundle.CreateServicioLabel_costo}" for="costo" />
                         <p:inputText id="costo" value="#{servicioController.selected.costo}" title="#{bundle.CreateServicioTitle_costo}" required="true" requiredMessage="#{bundle.CreateServicioRequiredMessage_costo}"/>
 
+                        <p:outputLabel value="#{bundle.CreateServicioLabel_idPresu}" for="idPresu" />
+                        <p:inputText id="idPresu" value="#{servicioController.selected.idPresu}" title="#{bundle.CreateServicioTitle_idPresu}"/>
+
                         <p:outputLabel value="#{bundle.CreateServicioLabel_idDescuento}" for="idDescuento" />
                         <p:selectOneMenu id="idDescuento" value="#{servicioController.selected.idDescuento}" required="true" requiredMessage="#{bundle.CreateServicioRequiredMessage_idDescuento}" converter="descuentoConverter">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -63,7 +66,7 @@
                             <f:selectItems value="#{promocionController.items}"
                                            var="idPromocionItem"
                                            itemValue="#{idPromocionItem}"
-                                           itemLabel="#{idPromocionItem.promocionPK.toString()}"
+                                           itemLabel="#{idPromocionItem.idPromocion.toString()}"
                                            />
 
                         </p:selectOneMenu>

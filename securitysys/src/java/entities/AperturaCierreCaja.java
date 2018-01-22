@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "apertura_cierre_caja")
@@ -75,7 +75,7 @@ public class AperturaCierreCaja implements Serializable {
     @Column(name = "monto_apertura")
     private int montoApertura;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAperturaCierre")
-    public List<Cobro> cobroList;
+    private List<Cobro> cobroList;
     @JoinColumn(name = "id_caja", referencedColumnName = "id_caja")
     @ManyToOne(optional = false)
     private Caja idCaja;

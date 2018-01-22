@@ -16,9 +16,6 @@ public class PromocionConverter implements Converter {
 
     private PromocionFacade ejbFacade;
 
-    private static final String SEPARATOR = "#";
-    private static final String SEPARATOR_ESCAPED = "\\#";
-
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
         if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
@@ -27,20 +24,15 @@ public class PromocionConverter implements Converter {
         return this.getEjbFacade().find(getKey(value));
     }
 
-    entities.PromocionPK getKey(String value) {
-        entities.PromocionPK key;
-        String values[] = value.split(SEPARATOR_ESCAPED);
-        key = new entities.PromocionPK();
-        key.setIdPromocion(Integer.parseInt(values[0]));
-        key.setIdPresu(Integer.parseInt(values[1]));
+    java.lang.Integer getKey(String value) {
+        java.lang.Integer key;
+        key = Integer.valueOf(value);
         return key;
     }
 
-    String getStringKey(entities.PromocionPK value) {
+    String getStringKey(java.lang.Integer value) {
         StringBuffer sb = new StringBuffer();
-        sb.append(value.getIdPromocion());
-        sb.append(SEPARATOR);
-        sb.append(value.getIdPresu());
+        sb.append(value);
         return sb.toString();
     }
 
@@ -52,7 +44,7 @@ public class PromocionConverter implements Converter {
         }
         if (object instanceof Promocion) {
             Promocion o = (Promocion) object;
-            return getStringKey(o.getPromocionPK());
+            return getStringKey(o.getIdPromocion());
         } else {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Promocion.class.getName()});
             return null;

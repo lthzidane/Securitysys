@@ -21,7 +21,11 @@
                         <p:inputText id="contrasenha" value="#{usuarioController.selected.contrasenha}" title="#{bundle.CreateUsuarioTitle_contrasenha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasenha}" size="20" maxlength="20"/>
 
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_rol}" for="rol" />
-                        <p:inputText id="rol" value="#{usuarioController.selected.rol}" title="#{bundle.CreateUsuarioTitle_rol}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_rol}" style="text-transform: uppercase"/>
+                        <p:inputText id="rol" value="#{usuarioController.selected.rol}" title="#{bundle.CreateUsuarioTitle_rol}" size="5" maxlength="5" style="text-transform: uppercase"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_idDepartamento}" for="idDepartamento" />
+                        <p:inputText id="idDepartamento" value="#{usuarioController.selected.idDepartamento}" title="#{bundle.CreateUsuarioTitle_idDepartamento}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_idDepartamento}"/>
+
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_estado}" for="estado" />
                         <p:inputText id="estado" value="#{usuarioController.selected.estado}" title="#{bundle.CreateUsuarioTitle_estado}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_estado}" size="10" maxlength="10" style="text-transform: uppercase"/>
                     </p:panelGrid>

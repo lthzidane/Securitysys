@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Entity
 @Table(name = "zona")
@@ -66,7 +66,7 @@ public class Zona implements Serializable {
 
     public Zona(Integer idZona, String descripcion) {
         this.idZona = idZona;
-        this.descripcion = descripcion.toUpperCase();
+        this.descripcion = descripcion;
     }
 
     public Integer getIdZona() {
@@ -82,7 +82,7 @@ public class Zona implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion.toUpperCase();
+        this.descripcion = descripcion;
     }
 
     public Ciudad getIdCiudad() {

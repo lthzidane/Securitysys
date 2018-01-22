@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Embeddable
 public class VentaDetPK implements Serializable {

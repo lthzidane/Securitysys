@@ -18,7 +18,7 @@
                         <p:outputLabel value="#{bundle.CreateDepartamentoLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{departamentoController.selected.descripcion}" title="#{bundle.CreateDepartamentoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_descripcion}" size="50" maxlength="50" style="text-transform: uppercase"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{departamentoController.create}" value="#{bundle.Save}" update="display,:DepartamentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DepartamentoCreateDialog');"/>
+                    <p:commandButton actionListener="#{departamentoController.saveNew}" value="#{bundle.Save}" update="display,:DepartamentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DepartamentoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DepartamentoCreateDialog.hide()" immediate="true"/>
                     <a href="Edit.xhtml"></a>
                 </h:panelGroup>

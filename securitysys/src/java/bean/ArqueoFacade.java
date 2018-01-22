@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  *
- * @author acer
+ * @author expsee
  */
 @Stateless
 public class ArqueoFacade extends AbstractFacade<Arqueo> {
@@ -40,7 +40,7 @@ public class ArqueoFacade extends AbstractFacade<Arqueo> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Arqueo> arqueo = cq.from(Arqueo.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(arqueo, entity), cb.isNotEmpty(arqueo.get(Arqueo_.recaudacionList)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(arqueo, entity), cb.isNotEmpty(arqueo.get(Arqueo_.recaudacionList)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -55,7 +55,7 @@ public class ArqueoFacade extends AbstractFacade<Arqueo> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Arqueo> arqueo = cq.from(Arqueo.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(arqueo, entity), cb.isNotNull(arqueo.get(Arqueo_.aperturaCierreCaja)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(arqueo, entity), cb.isNotNull(arqueo.get(Arqueo_.aperturaCierreCaja)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -67,7 +67,7 @@ public class ArqueoFacade extends AbstractFacade<Arqueo> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Arqueo> arqueo = cq.from(Arqueo.class);
-        ////cq.select(cb.literal(1L)).distinct(true).where(cb.equal(arqueo, entity), cb.isNotNull(arqueo.get(Arqueo_.valor)));
+//        //cq.select(cb.literal(1L)).distinct(true).where(cb.equal(arqueo, entity), cb.isNotNull(arqueo.get(Arqueo_.valor)));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
