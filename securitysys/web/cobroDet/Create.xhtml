@@ -50,7 +50,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{cobroDetController.saveNew}" value="#{bundle.Save}" update="display,:CobroDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CobroDetCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CobroDetCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CobroDetCreateDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>

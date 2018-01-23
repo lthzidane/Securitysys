@@ -70,7 +70,7 @@
                             <f:selectItems value="#{promocionController.items}"
                                            var="idPromocionItem"
                                            itemValue="#{idPromocionItem}"
-                                           itemLabel="#{idPromocionItem.idPromocion.toString()}"
+                                           itemLabel="#{idPromocionItem.descipcion}"
                                            />
 
                         </p:selectOneMenu>
@@ -86,8 +86,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ventaDetController.saveNew}" value="#{bundle.Save}" update="display,:VentaDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('VentaDetCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('VentaDetCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{ventaDetController.saveNew}" value="#{bundle.Save}" update="display,:VentaDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'VentaDetCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VentaDetCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 
             </h:form>

@@ -1,109 +1,211 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="InstalacionCabListForm">
+    <ui:composition template="/resources/templates/template.xhtml">
 
-        <p:panel header="#{bundle.ListInstalacionCabTitle}">
-            <p:dataTable id="datalist"
-                         value="#{instalacionCabController.items}"
-                         lazy="false"
-                         rowKey="#{item.idInstalacion}"
-                         var="item"
-                         paginator="true"
-                         rows="10"
-                         rowsPerPageTemplate="10,20,30,40,50"
-                         selectionMode="single"
-                         selection="#{instalacionCabController.selected}"
-                         filteredValue="#{instalacionCabController.filteredItems}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{instalacionCabController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.idInstalacion}"  <<< Remove this line
-                -->
+        <ui:define name="title">Instalacion</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="#{bundle.ListInstalacionCabTitle}"/>
+        </ui:define>
 
+        <ui:define name="container">
+            <script name="jquery/jquery.js" library="primefaces"></script>
+            <h:outputStylesheet library="css" name="menu.css" />
+            <h:outputStylesheet library="css" name="facade.css" />
+            <p:growl id="growl" life="3000" />
 
-                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+            <h:form id="InstalacionCabListForm">
 
-                <p:column sortBy="#{item.idInstalacion}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListInstalacionCabTitle_idInstalacion}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idInstalacion}"/>
-                </p:column>
-
-
-                <p:column sortBy="#{item.tipoInstalacion}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListInstalacionCabTitle_tipoInstalacion}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.tipoInstalacion}"/>
-                </p:column>
+                <p:panel header="#{bundle.ListInstalacionCabTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{instalacionCabController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.idInstalacion}"
+                                 var="item"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 selectionMode="single"
+                                 selection="#{instalacionCabController.selected}"
+                                 filteredValue="#{instalacionCabController.filteredItems}">
+                        <!--
+                                 To enable Lazy Loading, please copy/replace the following lines above,
+                                 and be sure to replace the word HASH with the # symbol:
+                        
+                                 value="HASH{instalacionCabController.lazyItems}"
+                                 lazy="true"
+                                 rowKey="HASH{item.idInstalacion}"  <<< Remove this line
+                        -->
 
 
-                <p:column sortBy="#{item.fechaInicio}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListInstalacionCabTitle_fechaInicio}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.fechaInicio}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                </p:column>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                        <p:column sortBy="#{item.idInstalacion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstalacionCabTitle_idInstalacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idInstalacion}"/>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.fechaFin}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListInstalacionCabTitle_fechaFin}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.fechaFin}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                </p:column>
+                        <p:column sortBy="#{item.tipoInstalacion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstalacionCabTitle_tipoInstalacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoInstalacion}"/>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.idEstado}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListInstalacionCabTitle_idEstado}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idEstado}"/>
-                </p:column>
+                        <p:column sortBy="#{item.fechaInicio}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstalacionCabTitle_fechaInicio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaInicio}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.observacion}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListInstalacionCabTitle_observacion}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.observacion}"/>
-                </p:column>
+                        <p:column sortBy="#{item.fechaFin}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstalacionCabTitle_fechaFin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaFin}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
 
-                <ui:remove>
-                    <p:column sortBy="#{item.idOt.idOt}">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListInstalacionCabTitle_idOt}"/>
+
+                        <p:column sortBy="#{item.idEstado}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstalacionCabTitle_idEstado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idEstado}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.observacion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstalacionCabTitle_observacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.observacion}"/>
+                        </p:column>
+
+                        <ui:remove>
+                            <p:column sortBy="#{item.idOt.idOt}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListInstalacionCabTitle_idOt}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idOt.idOt}"/>
+                            </p:column>
+                        </ui:remove>
+                        <f:facet name="footer">
+                            <div class="footer-section">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{instalacionCabController.prepareCreate}" update=":InstalacionCabCreateForm" oncomplete="PF('InstalacionCabCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InstalacionCabViewForm" oncomplete="PF('InstalacionCabViewDialog').show()" disabled="#{empty instalacionCabController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InstalacionCabEditForm" oncomplete="PF('InstalacionCabEditDialog').show()" disabled="#{empty instalacionCabController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{instalacionCabController.delete}" update=":growl,datalist" disabled="#{empty instalacionCabController.selected}"/>
+                            </div>
                         </f:facet>
-                        <h:outputText value="#{item.idOt.idOt}"/>
-                    </p:column>
-                </ui:remove>
-                <f:facet name="footer">
-                    <div class="footer-section">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{instalacionCabController.prepareCreate}" update=":InstalacionCabCreateForm" oncomplete="PF('InstalacionCabCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InstalacionCabViewForm" oncomplete="PF('InstalacionCabViewDialog').show()" disabled="#{empty instalacionCabController.selected}"/>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InstalacionCabEditForm" oncomplete="PF('InstalacionCabEditDialog').show()" disabled="#{empty instalacionCabController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{instalacionCabController.delete}" update=":growl,datalist" disabled="#{empty instalacionCabController.selected}"/>
-                    </div>
-                </f:facet>
 
-            </p:dataTable>
+                    </p:dataTable>
 
-        </p:panel>
-    </h:form>
+                </p:panel>
+            </h:form>
 
-</ui:composition>
+            <h:form id="InstalacionDetListForm">
+
+                <p:panel header="#{bundle.ListInstalacionDetTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{instalacionDetController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.instalacionDetPK}"
+                                 var="item"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 selectionMode="single"
+                                 selection="#{instalacionDetController.selected}"
+                                 filteredValue="#{instalacionDetController.filteredItems}">
+                        <!--
+                                 To enable Lazy Loading, please copy/replace the following lines above,
+                                 and be sure to replace the word HASH with the # symbol:
+                        
+                                 value="HASH{instalacionDetController.lazyItems}"
+                                 lazy="true"
+                                 rowKey="HASH{item.instalacionDetPK}"  <<< Remove this line
+                        -->
+
+
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                        <p:column sortBy="#{item.instalacionDetPK.idInstalacion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstalacionDetTitle_instalacionDetPK_idInstalacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.instalacionDetPK.idInstalacion}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.instalacionDetPK.idSecuencia}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstalacionDetTitle_instalacionDetPK_idSecuencia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.instalacionDetPK.idSecuencia}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.detalle}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstalacionDetTitle_detalle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.detalle}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.idEquipo.descripcion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstalacionDetTitle_idEquipo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idEquipo.descripcion}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.instalacionCab.idInstalacion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstalacionDetTitle_instalacionCab}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.instalacionCab.idInstalacion}"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <div class="footer-section">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{instalacionDetController.prepareCreate}" update=":InstalacionDetCreateForm" oncomplete="PF('InstalacionDetCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InstalacionDetViewForm" oncomplete="PF('InstalacionDetViewDialog').show()" disabled="#{empty instalacionDetController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InstalacionDetEditForm" oncomplete="PF('InstalacionDetEditDialog').show()" disabled="#{empty instalacionDetController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{instalacionDetController.delete}" update=":growl,datalist" disabled="#{empty instalacionDetController.selected}"/>
+                            </div>
+                        </f:facet>
+
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+            <ui:include src="/instalacionDet/Create.xhtml"/>
+            <ui:include src="/instalacionDet/Edit.xhtml"/>
+            <ui:include src="/instalacionDet/View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,139 +1,234 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="OrdenTrabajoListForm">
+    <ui:composition template="/resources/templates/template.xhtml">
 
-        <p:panel header="#{bundle.ListOrdenTrabajoTitle}">
-            <p:dataTable id="datalist"
-                         value="#{ordenTrabajoController.items}"
-                         lazy="false"
-                         rowKey="#{item.idOt}"
-                         var="item"
-                         paginator="true"
-                         rows="10"
-                         rowsPerPageTemplate="10,20,30,40,50"
-                         selectionMode="single"
-                         selection="#{ordenTrabajoController.selected}"
-                         filteredValue="#{ordenTrabajoController.filteredItems}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{ordenTrabajoController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.idOt}"  <<< Remove this line
-                -->
+        <ui:define name="title">Orden de Trabajo</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="#{bundle.ListOrdenTrabajoTitle}"/>
+        </ui:define>
 
+        <ui:define name="container">
+            <script name="jquery/jquery.js" library="primefaces"></script>
+            <h:outputStylesheet library="css" name="menu.css" />
+            <h:outputStylesheet library="css" name="facade.css" />
+            <p:growl id="growl" life="3000" />
 
-                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+            <h:form id="OrdenTrabajoListForm">
 
-                <p:column sortBy="#{item.idOt}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idOt}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idOt}"/>
-                </p:column>
-
-
-                <p:column sortBy="#{item.fechaOrden}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListOrdenTrabajoTitle_fechaOrden}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.fechaOrden}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                </p:column>
+                <p:panel header="#{bundle.ListOrdenTrabajoTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{ordenTrabajoController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.idOt}"
+                                 var="item"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 selectionMode="single"
+                                 selection="#{ordenTrabajoController.selected}"
+                                 filteredValue="#{ordenTrabajoController.filteredItems}">
+                        <!--
+                                 To enable Lazy Loading, please copy/replace the following lines above,
+                                 and be sure to replace the word HASH with the # symbol:
+                        
+                                 value="HASH{ordenTrabajoController.lazyItems}"
+                                 lazy="true"
+                                 rowKey="HASH{item.idOt}"  <<< Remove this line
+                        -->
 
 
-                <p:column sortBy="#{item.idEstado}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idEstado}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idEstado}"/>
-                </p:column>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                        <p:column sortBy="#{item.idOt}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idOt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idOt}"/>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.idCliente.idCliente}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idCliente}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idCliente.idCliente}"/>
-                </p:column>
+                        <p:column sortBy="#{item.fechaOrden}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdenTrabajoTitle_fechaOrden}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaOrden}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.idCuadrilla.idCuadrilla}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idCuadrilla}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idCuadrilla.idCuadrilla}"/>
-                </p:column>
+                        <p:column sortBy="#{item.idEstado}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idEstado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idEstado}"/>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.idItinerario.idItinerario}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idItinerario}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idItinerario.idItinerario}"/>
-                </p:column>
+                        <p:column sortBy="#{item.idCliente.idCliente}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCliente.idCliente}"/>
+                        </p:column>
 
-                <ui:remove>
-                    <p:column sortBy="#{item.idPresupuesto.idPresupuesto}">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idPresupuesto}"/>
+
+                        <p:column sortBy="#{item.idCuadrilla.idCuadrilla}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idCuadrilla}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCuadrilla.idCuadrilla}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.idItinerario.idItinerario}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idItinerario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idItinerario.idItinerario}"/>
+                        </p:column>
+
+                        <ui:remove>
+                            <p:column sortBy="#{item.idPresupuesto.idPresupuesto}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idPresupuesto}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idPresupuesto.idPresupuesto}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.idReclamo.descripcion}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idReclamo}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idReclamo.descripcion}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.idSolicitud.idSolicitud}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idSolicitud}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idSolicitud.idSolicitud}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.idSucursal.descripcion}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idSucursal}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idSucursal.descripcion}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.idUsuario.idUsuario}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idUsuario}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idUsuario.idUsuario}"/>
+                            </p:column>
+                        </ui:remove>
+                        <f:facet name="footer">
+                            <div class="footer-section">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ordenTrabajoController.prepareCreate}" update=":OrdenTrabajoCreateForm" oncomplete="PF('OrdenTrabajoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":OrdenTrabajoViewForm" oncomplete="PF('OrdenTrabajoViewDialog').show()" disabled="#{empty ordenTrabajoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":OrdenTrabajoEditForm" oncomplete="PF('OrdenTrabajoEditDialog').show()" disabled="#{empty ordenTrabajoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ordenTrabajoController.delete}" update=":growl,datalist" disabled="#{empty ordenTrabajoController.selected}"/>
+                            </div>
                         </f:facet>
-                        <h:outputText value="#{item.idPresupuesto.idPresupuesto}"/>
-                    </p:column>
-                </ui:remove>
-                <ui:remove>
-                    <p:column sortBy="#{item.idReclamo.descripcion}">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idReclamo}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idReclamo.descripcion}"/>
-                    </p:column>
-                </ui:remove>
-                <ui:remove>
-                    <p:column sortBy="#{item.idSolicitud.idSolicitud}">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idSolicitud}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idSolicitud.idSolicitud}"/>
-                    </p:column>
-                </ui:remove>
-                <ui:remove>
-                    <p:column sortBy="#{item.idSucursal.descripcion}">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idSucursal}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idSucursal.descripcion}"/>
-                    </p:column>
-                </ui:remove>
-                <ui:remove>
-                    <p:column sortBy="#{item.idUsuario.idUsuario}">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListOrdenTrabajoTitle_idUsuario}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idUsuario.idUsuario}"/>
-                    </p:column>
-                </ui:remove>
-                <f:facet name="footer">
-                    <div class="footer-section">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ordenTrabajoController.prepareCreate}" update=":OrdenTrabajoCreateForm" oncomplete="PF('OrdenTrabajoCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":OrdenTrabajoViewForm" oncomplete="PF('OrdenTrabajoViewDialog').show()" disabled="#{empty ordenTrabajoController.selected}"/>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":OrdenTrabajoEditForm" oncomplete="PF('OrdenTrabajoEditDialog').show()" disabled="#{empty ordenTrabajoController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ordenTrabajoController.delete}" update=":growl,datalist" disabled="#{empty ordenTrabajoController.selected}"/>
-                    </div>
-                </f:facet>
 
-            </p:dataTable>
+                    </p:dataTable>
 
-        </p:panel>
-    </h:form>
+                </p:panel>
+            </h:form>
 
-</ui:composition>
+            <h:form id="OrdenTrabajoDetListForm">
+
+                <p:panel header="#{bundle.ListOrdenTrabajoDetTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{ordenTrabajoDetController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.ordenTrabajoDetPK}"
+                                 var="item"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 selectionMode="single"
+                                 selection="#{ordenTrabajoDetController.selected}"
+                                 filteredValue="#{ordenTrabajoDetController.filteredItems}">
+                        <!--
+                                 To enable Lazy Loading, please copy/replace the following lines above,
+                                 and be sure to replace the word HASH with the # symbol:
+                        
+                                 value="HASH{ordenTrabajoDetController.lazyItems}"
+                                 lazy="true"
+                                 rowKey="HASH{item.ordenTrabajoDetPK}"  <<< Remove this line
+                        -->
+
+
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                        <p:column sortBy="#{item.ordenTrabajoDetPK.idOrdenTrabajo}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdenTrabajoDetTitle_ordenTrabajoDetPK_idOrdenTrabajo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ordenTrabajoDetPK.idOrdenTrabajo}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.ordenTrabajoDetPK.idSecuencia}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdenTrabajoDetTitle_ordenTrabajoDetPK_idSecuencia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ordenTrabajoDetPK.idSecuencia}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.detalle}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdenTrabajoDetTitle_detalle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.detalle}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.ordenTrabajo.idOt}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdenTrabajoDetTitle_ordenTrabajo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ordenTrabajo.idOt}"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <div class="footer-section">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ordenTrabajoDetController.prepareCreate}" update=":OrdenTrabajoDetCreateForm" oncomplete="PF('OrdenTrabajoDetCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":OrdenTrabajoDetViewForm" oncomplete="PF('OrdenTrabajoDetViewDialog').show()" disabled="#{empty ordenTrabajoDetController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":OrdenTrabajoDetEditForm" oncomplete="PF('OrdenTrabajoDetEditDialog').show()" disabled="#{empty ordenTrabajoDetController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ordenTrabajoDetController.delete}" update=":growl,datalist" disabled="#{empty ordenTrabajoDetController.selected}"/>
+                            </div>
+                        </f:facet>
+
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+            <ui:include src="/ordenTrabajoDet/Create.xhtml"/>
+            <ui:include src="/ordenTrabajoDet/Edit.xhtml"/>
+            <ui:include src="/ordenTrabajoDet/View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

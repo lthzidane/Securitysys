@@ -41,8 +41,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{instalacionCabController.saveNew}" value="#{bundle.Save}" update="display,:InstalacionCabListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InstalacionCabCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('InstalacionCabCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{instalacionCabController.saveNew}" value="#{bundle.Save}" update="display,:InstalacionCabListForm:datalist,:growl" oncomplete="handleSubmit(args,'InstalacionCabCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InstalacionCabCreateDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>

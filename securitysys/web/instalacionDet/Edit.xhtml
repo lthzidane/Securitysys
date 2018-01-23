@@ -40,8 +40,8 @@
                         <h:outputLabel value="#{bundle.EditInstalacionDetLabel_instalacionCab}" for="instalacionCab" />
                         <h:outputText id="instalacionCab" value="#{instalacionDetController.selected.instalacionCab}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{instalacionDetController.save}" value="#{bundle.Save}" update="display,:InstalacionDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InstalacionDetEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('InstalacionDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{instalacionDetController.save}" value="#{bundle.Save}" update="display,:InstalacionDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'InstalacionDetEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InstalacionDetEditDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>

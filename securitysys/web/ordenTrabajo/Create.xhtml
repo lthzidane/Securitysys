@@ -27,7 +27,7 @@
                             <f:selectItems value="#{clienteController.items}"
                                            var="idClienteItem"
                                            itemValue="#{idClienteItem}"
-                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           itemLabel="#{idClienteItem.nombre} #{idClienteItem.apellido}"
                                            />
 
                         </p:selectOneMenu>
@@ -104,13 +104,13 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           itemLabel="#{idUsuarioItem.nombre}"
                                            />
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ordenTrabajoController.saveNew}" value="#{bundle.Save}" update="display,:OrdenTrabajoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OrdenTrabajoCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('OrdenTrabajoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{ordenTrabajoController.saveNew}" value="#{bundle.Save}" update="display,:OrdenTrabajoListForm:datalist,:growl" oncomplete="handleSubmit(args,'OrdenTrabajoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OrdenTrabajoCreateDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>

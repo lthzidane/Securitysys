@@ -46,8 +46,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{instalacionDetController.saveNew}" value="#{bundle.Save}" update="display,:InstalacionDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InstalacionDetCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('InstalacionDetCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{instalacionDetController.saveNew}" value="#{bundle.Save}" update="display,:InstalacionDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'InstalacionDetCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InstalacionDetCreateDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>

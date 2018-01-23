@@ -37,8 +37,8 @@
                         <h:outputLabel value="#{bundle.EditCobroDetLabel_ctaACobrar}" for="ctaACobrar" />
                         <h:outputText id="ctaACobrar" value="#{cobroDetController.selected.ctaACobrar}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{cobroDetController.save}" value="#{bundle.Save}" update="display,:CobroDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CobroDetEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CobroDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{cobroDetController.save}" value="#{bundle.Save}" update="display,:CobroDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'CobroDetEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CobroDetEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 
             </h:form>

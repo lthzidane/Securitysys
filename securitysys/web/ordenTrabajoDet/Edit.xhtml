@@ -29,8 +29,8 @@
                         <h:outputLabel value="#{bundle.EditOrdenTrabajoDetLabel_ordenTrabajo}" for="ordenTrabajo" />
                         <h:outputText id="ordenTrabajo" value="#{ordenTrabajoDetController.selected.ordenTrabajo}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ordenTrabajoDetController.save}" value="#{bundle.Save}" update="display,:OrdenTrabajoDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OrdenTrabajoDetEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('OrdenTrabajoDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{ordenTrabajoDetController.save}" value="#{bundle.Save}" update="display,:OrdenTrabajoDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'OrdenTrabajoDetEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OrdenTrabajoDetEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 
             </h:form>
