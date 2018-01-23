@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DiagnosticoDetCreateDlg" widgetVar="DiagnosticoDetCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDiagnosticoDetTitle}" closeOnEscape="true">
+
+            <h:form id="DiagnosticoDetCreateForm">
+
+                <h:panelGroup id="display" rendered="#{diagnosticoDetController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateDiagnosticoDetLabel_diagnosticoDetPK_idDiagnostico}" for="diagnosticoDetPK_idDiagnostico" />
+                        <p:inputText id="diagnosticoDetPK_idDiagnostico" value="#{diagnosticoDetController.selected.diagnosticoDetPK.idDiagnostico}" title="#{bundle.CreateDiagnosticoDetTitle_diagnosticoDetPK_idDiagnostico}" required="true" requiredMessage="#{bundle.CreateDiagnosticoDetRequiredMessage_diagnosticoDetPK_idDiagnostico}"/>
+
+                        <p:outputLabel value="#{bundle.CreateDiagnosticoDetLabel_diagnosticoDetPK_idSecuencia}" for="diagnosticoDetPK_idSecuencia" />
+                        <p:inputText id="diagnosticoDetPK_idSecuencia" value="#{diagnosticoDetController.selected.diagnosticoDetPK.idSecuencia}" title="#{bundle.CreateDiagnosticoDetTitle_diagnosticoDetPK_idSecuencia}" required="true" requiredMessage="#{bundle.CreateDiagnosticoDetRequiredMessage_diagnosticoDetPK_idSecuencia}"/>
+
+                        <p:outputLabel value="#{bundle.CreateDiagnosticoDetLabel_detalle}" for="detalle" />
+                        <p:inputTextarea rows="4" cols="30" id="detalle" value="#{diagnosticoDetController.selected.detalle}" title="#{bundle.CreateDiagnosticoDetTitle_detalle}" required="true" requiredMessage="#{bundle.CreateDiagnosticoDetRequiredMessage_detalle}"/>
+
+                        <p:outputLabel value="#{bundle.CreateDiagnosticoDetLabel_diagnostico}" for="diagnostico" />
+                        <p:selectOneMenu id="diagnostico" value="#{diagnosticoDetController.selected.diagnostico}" required="true" requiredMessage="#{bundle.CreateDiagnosticoDetRequiredMessage_diagnostico}" converter="diagnosticoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{diagnosticoController.items}"
+                                           var="diagnosticoItem"
+                                           itemValue="#{diagnosticoItem}"
+                                           itemLabel="#{diagnosticoItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateDiagnosticoDetLabel_idEquipo}" for="idEquipo" />
+                        <p:selectOneMenu id="idEquipo" value="#{diagnosticoDetController.selected.idEquipo}" required="true" requiredMessage="#{bundle.CreateDiagnosticoDetRequiredMessage_idEquipo}" converter="equipoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{equipoController.items}"
+                                           var="idEquipoItem"
+                                           itemValue="#{idEquipoItem}"
+                                           itemLabel="#{idEquipoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{diagnosticoDetController.saveNew}" value="#{bundle.Save}" update="display,:DiagnosticoDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'DiagnosticoDetCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DiagnosticoDetCreateDialog.hide()" immediate="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

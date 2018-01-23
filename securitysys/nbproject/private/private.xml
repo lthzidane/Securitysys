@@ -44,12 +44,9 @@
             <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/timbrado/List.xhtml</file>
         </group>
         <group>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/entities/Servicio.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/entities/Promocion.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/src/java/entities/SegmentoContrato.java</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/moviles/Create.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/segmentoContrato/Create.xhtml</file>
-            <file>file:/C:/test/Securitysys/securitysys/web/moviles/Edit.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/ReclamoFacade.java</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/ReportesReclamos.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/ReportesReclamoBean.java</file>
         </group>
     </open-files>
 </project-private>

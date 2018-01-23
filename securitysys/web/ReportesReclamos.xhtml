@@ -48,8 +48,8 @@
                                             oncomplete="filtrarFechasRecl()" />
                                 </p:calendar>
                             </f:facet>
-                            <p:column id="columnReclFecha" headerText="Fecha Ingreso" sortBy="#{item.fechaIngreso}"> 
-                                <h:outputText value="#{item.fechaIngreso}">
+                            <p:column id="columnReclFecha" headerText="Fecha Ingreso" sortBy="#{item.fechaAlta}"> 
+                                <h:outputText value="#{item.fechaAlta}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </p:column>
@@ -60,16 +60,16 @@
                                 <h:outputText value="#{item.descripcion}"/>
                             </p:column>
                             <p:column headerText="Tipo de Reclamo">
-                                <h:outputText value="#{item.idTiporecla.descripcion}"/>
+                                <h:outputText value="#{item.idTipoReclamo.descripcion}"/>
                             </p:column>                                
                             <p:column headerText="Reportado por">
-                                <h:outputText value="#{item.idUsuario}"/>
+                                <h:outputText value="#{item.idUsuario.nombre}"/>
                             </p:column>
                             <p:column headerText="Cliente">
                                 <h:outputText value="#{item.idCliente.nombre} #{item.idCliente.apellido}"/>
                             </p:column>
                             <p:column headerText="Estado">
-                                <h:outputText value="#{item.idEstadoTrab.estado}"/>
+                                <h:outputText value="#{item.idEstado.descripcion}"/>
                             </p:column>
                             <f:facet name="footer">Total de registros: #{ReportesReclamoBean.listaReclamo.size()}.</f:facet>
                         </p:dataTable>

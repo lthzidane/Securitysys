@@ -52,8 +52,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{cobroController.save}" value="#{bundle.Save}" update="display,:CobroListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CobroEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CobroEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{cobroController.save}" value="#{bundle.Save}" update="display,:CobroListForm:datalist,:growl" oncomplete="handleSubmit(args,'CobroEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CobroEditDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>

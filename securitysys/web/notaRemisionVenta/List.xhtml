@@ -1,149 +1,168 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="NotaRemisionVentaListForm">
+    <ui:composition template="/resources/templates/template.xhtml">
 
-        <p:panel header="#{bundle.ListNotaRemisionVentaTitle}">
-            <p:dataTable id="datalist"
-                         value="#{notaRemisionVentaController.items}"
-                         lazy="false"
-                         rowKey="#{item.idRemision}"
-                         var="item"
-                         paginator="true"
-                         rows="10"
-                         rowsPerPageTemplate="10,20,30,40,50"
-                         selectionMode="single"
-                         selection="#{notaRemisionVentaController.selected}"
-                         filteredValue="#{notaRemisionVentaController.filteredItems}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{notaRemisionVentaController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.idRemision}"  <<< Remove this line
-                -->
+        <ui:define name="title">Nota Remision Venta</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="#{bundle.ListNotaRemisionVentaTitle}"/>
+        </ui:define>
 
+        <ui:define name="container">
+            <script name="jquery/jquery.js" library="primefaces"></script>
+            <h:outputStylesheet library="css" name="menu.css" />
+            <h:outputStylesheet library="css" name="facade.css" />
+            <p:growl id="growl" life="3000" />
 
-                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+            <h:form id="NotaRemisionVentaListForm">
 
-                <p:column sortBy="#{item.idRemision}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idRemision}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.idRemision}"/>
-                </p:column>
-
-
-                <p:column sortBy="#{item.fechaSalida}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_fechaSalida}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.fechaSalida}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                </p:column>
+                <p:panel header="#{bundle.ListNotaRemisionVentaTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{notaRemisionVentaController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.idRemision}"
+                                 var="item"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 selectionMode="single"
+                                 selection="#{notaRemisionVentaController.selected}"
+                                 filteredValue="#{notaRemisionVentaController.filteredItems}">
+                        <!--
+                                 To enable Lazy Loading, please copy/replace the following lines above,
+                                 and be sure to replace the word HASH with the # symbol:
+                        
+                                 value="HASH{notaRemisionVentaController.lazyItems}"
+                                 lazy="true"
+                                 rowKey="HASH{item.idRemision}"  <<< Remove this line
+                        -->
 
 
-                <p:column sortBy="#{item.fechaLlegada}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_fechaLlegada}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.fechaLlegada}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                </p:column>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                        <p:column sortBy="#{item.idRemision}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idRemision}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idRemision}"/>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.puntoSalida}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_puntoSalida}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.puntoSalida}"/>
-                </p:column>
+                        <p:column sortBy="#{item.fechaSalida}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_fechaSalida}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaSalida}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.puntoLlegada}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_puntoLlegada}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.puntoLlegada}"/>
-                </p:column>
+                        <p:column sortBy="#{item.fechaLlegada}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_fechaLlegada}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaLlegada}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.estadoRemision}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_estadoRemision}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.estadoRemision}"/>
-                </p:column>
+                        <p:column sortBy="#{item.puntoSalida}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_puntoSalida}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.puntoSalida}"/>
+                        </p:column>
 
-                <ui:remove>
-                    <p:column sortBy="#{item.idMotivoNota.idMotivoNota}">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idMotivoNota}"/>
+
+                        <p:column sortBy="#{item.puntoLlegada}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_puntoLlegada}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.puntoLlegada}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.estadoRemision}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_estadoRemision}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estadoRemision}"/>
+                        </p:column>
+
+                        <ui:remove>
+                            <p:column sortBy="#{item.idMotivoNota.idMotivoNota}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idMotivoNota}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idMotivoNota.idMotivoNota}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.idMovil.idMovil}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idMovil}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idMovil.idMovil}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.idSucursal.descripcion}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idSucursal}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idSucursal.descripcion}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.idTipoComprobante.descripcion}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idTipoComprobante}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idTipoComprobante.descripcion}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.idUsuario.idUsuario}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idUsuario}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idUsuario.idUsuario}"/>
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+                            <p:column sortBy="#{item.idVenta.idVenta}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idVenta}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idVenta.idVenta}"/>
+                            </p:column>
+                        </ui:remove>
+                        <f:facet name="footer">
+                            <div class="footer-section">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{notaRemisionVentaController.prepareCreate}" update=":NotaRemisionVentaCreateForm" oncomplete="PF('NotaRemisionVentaCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":NotaRemisionVentaViewForm" oncomplete="PF('NotaRemisionVentaViewDialog').show()" disabled="#{empty notaRemisionVentaController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":NotaRemisionVentaEditForm" oncomplete="PF('NotaRemisionVentaEditDialog').show()" disabled="#{empty notaRemisionVentaController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{notaRemisionVentaController.delete}" update=":growl,datalist" disabled="#{empty notaRemisionVentaController.selected}"/>
+                            </div>
                         </f:facet>
-                        <h:outputText value="#{item.idMotivoNota.idMotivoNota}"/>
-                    </p:column>
-                </ui:remove>
-                <ui:remove>
-                    <p:column sortBy="#{item.idMovil.idMovil}">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idMovil}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idMovil.idMovil}"/>
-                    </p:column>
-                </ui:remove>
-                <ui:remove>
-                    <p:column sortBy="#{item.idSucursal.descripcion}">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idSucursal}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idSucursal.descripcion}"/>
-                    </p:column>
-                </ui:remove>
-                <ui:remove>
-                    <p:column sortBy="#{item.idTipoComprobante.descripcion}">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idTipoComprobante}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idTipoComprobante.descripcion}"/>
-                    </p:column>
-                </ui:remove>
-                <ui:remove>
-                    <p:column sortBy="#{item.idUsuario.idUsuario}">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idUsuario}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idUsuario.idUsuario}"/>
-                    </p:column>
-                </ui:remove>
-                <ui:remove>
-                    <p:column sortBy="#{item.idVenta.idVenta}">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListNotaRemisionVentaTitle_idVenta}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idVenta.idVenta}"/>
-                    </p:column>
-                </ui:remove>
-                <f:facet name="footer">
-                    <div class="footer-section">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{notaRemisionVentaController.prepareCreate}" update=":NotaRemisionVentaCreateForm" oncomplete="PF('NotaRemisionVentaCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":NotaRemisionVentaViewForm" oncomplete="PF('NotaRemisionVentaViewDialog').show()" disabled="#{empty notaRemisionVentaController.selected}"/>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":NotaRemisionVentaEditForm" oncomplete="PF('NotaRemisionVentaEditDialog').show()" disabled="#{empty notaRemisionVentaController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{notaRemisionVentaController.delete}" update=":growl,datalist" disabled="#{empty notaRemisionVentaController.selected}"/>
-                    </div>
-                </f:facet>
 
-            </p:dataTable>
+                    </p:dataTable>
 
-        </p:panel>
-    </h:form>
+                </p:panel>
+            </h:form>
 
-</ui:composition>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

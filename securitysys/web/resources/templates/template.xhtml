@@ -92,20 +92,20 @@
 
                         <p:submenu label="Reclamos">                            
                             <p:menuitem outcome="/reclamo/List" value="Registrar Reclamos" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
-                            <p:menuitem value="Generar Itinerario" disabled="true" />                            
+                            <p:menuitem outcome="/itinerario/List" value="Generar Itinerario" />                            
                             <p:menuitem outcome="/diagnostico/List" value="Registrar Diagnostico" />                                                        
-                            <p:menuitem value="Presupuesto Reclamo" disabled="true" />                                                        
-                            <p:menuitem outcome="/SeguimientoReclamo" value="Seguimiento Reclamo" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
+                            <p:menuitem value="Presupuesto Reclamo" disabled="true" rendered="false" />                                                        
+                            <p:menuitem outcome="/SeguimientoReclamo" value="Seguimiento Reclamo" rendered="false" />
                         </p:submenu>
 
                         <p:submenu label="Ventas y Cobros" >
                             <p:menuitem outcome="/aperturaCierreCaja/List" value="Apertura y Cierre" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
                             <p:menuitem outcome="/arqueo/List" value="Arqueo de Caja" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />                            
                             <p:menuitem outcome="/venta/List" value="Registrar Ventas" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
-                            <p:menuitem outcome="/RegistrarCobros" value="Cobro" disabled="true" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
-                            <p:menuitem value="Libro de Venta" disabled="true" />                                                        
-                            <p:menuitem value="Nota de Remision" disabled="true" />                                                        
-                            <p:menuitem value="Ajustes" disabled="true" />    
+                            <p:menuitem outcome="/cobro/List" value="Cobro" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
+                            <p:menuitem value="Libro de Venta" outcome="/libroVenta/List" />                                                        
+                            <p:menuitem value="Nota de Remision" outcome="/notaRemisionVenta/List"/>                                                        
+                            <p:menuitem value="Ajustes" disabled="true" rendered="false" />    
                         </p:submenu>
 
                         <p:submenu label="Informes" >

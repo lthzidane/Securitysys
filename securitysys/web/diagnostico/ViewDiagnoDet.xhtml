@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DiagnosticoDetViewDlg" widgetVar="DiagnosticoDetViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewDiagnosticoDetTitle}" closeOnEscape="true">
+
+            <h:form id="DiagnosticoDetViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{diagnosticoDetController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewDiagnosticoDetLabel_diagnosticoDetPK_idDiagnostico}"/>
+                        <h:outputText value="#{diagnosticoDetController.selected.diagnosticoDetPK.idDiagnostico}" title="#{bundle.ViewDiagnosticoDetTitle_diagnosticoDetPK_idDiagnostico}"/>
+
+                        <h:outputText value="#{bundle.ViewDiagnosticoDetLabel_diagnosticoDetPK_idSecuencia}"/>
+                        <h:outputText value="#{diagnosticoDetController.selected.diagnosticoDetPK.idSecuencia}" title="#{bundle.ViewDiagnosticoDetTitle_diagnosticoDetPK_idSecuencia}"/>
+
+                        <h:outputText value="#{bundle.ViewDiagnosticoDetLabel_detalle}"/>
+                        <h:outputText value="#{diagnosticoDetController.selected.detalle}" title="#{bundle.ViewDiagnosticoDetTitle_detalle}"/>
+
+                        <h:outputText value="#{bundle.ViewDiagnosticoDetLabel_diagnostico}"/>
+                        <h:outputText value="#{diagnosticoDetController.selected.diagnostico.id}"/>
+
+                        <h:outputText value="#{bundle.ViewDiagnosticoDetLabel_idEquipo}"/>
+                        <h:outputText value="#{diagnosticoDetController.selected.idEquipo.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('DiagnosticoDetViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

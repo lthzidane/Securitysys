@@ -1,7 +1,6 @@
 package session;
 
 import entities.PromocionDet;
-import bean.PromocionDetFacade;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 

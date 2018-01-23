@@ -97,11 +97,60 @@ public class ReportesReclamoBean implements Serializable {
             cargarTabRepoReclamo();
         } else {
             listaReclamo = new ArrayList<>();
-            for (Reclamo rcl : reclamoFacade.findBetweenFechaIngreso(startDate, endDate)) {
+            for (Reclamo rcl : reclamoFacade.findBetweenfechaAlta(startDate, endDate)) {
                 listaReclamo.add(rcl);
             }
         }
 
     }
 
+    public ArrayList<Reclamo> getListaReclamo() {
+        return listaReclamo;
+    }
+
+    public void setListaReclamo(ArrayList<Reclamo> listaReclamo) {
+        this.listaReclamo = listaReclamo;
+    }
+
+    public List<Reclamo> getFilteredReclamos() {
+        return filteredReclamos;
+    }
+
+    public void setFilteredReclamos(List<Reclamo> filteredReclamos) {
+        this.filteredReclamos = filteredReclamos;
+    }
+
+    public Date getFromFecRecl() {
+        return fromFecRecl;
+    }
+
+    public void setFromFecRecl(Date fromFecRecl) {
+        this.fromFecRecl = fromFecRecl;
+    }
+
+    public Date getToFecRecl() {
+        return toFecRecl;
+    }
+
+    public void setToFecRecl(Date toFecRecl) {
+        this.toFecRecl = toFecRecl;
+    }
+
+    public bean.ReclamoFacade getReclamoFacade() {
+        return reclamoFacade;
+    }
+
+    public void setReclamoFacade(bean.ReclamoFacade reclamoFacade) {
+        this.reclamoFacade = reclamoFacade;
+    }
+
+    public Reclamo getReclamo() {
+        return reclamo;
+    }
+
+    public void setReclamo(Reclamo reclamo) {
+        this.reclamo = reclamo;
+    }
+
+    
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PromocionDetViewDlg" widgetVar="PromocionDetViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewPromocionDetTitle}" closeOnEscape="true">
+
+            <h:form id="PromocionDetViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{promocionDetController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewPromocionDetLabel_promocionDetPK_idPromocion}"/>
+                        <h:outputText value="#{promocionDetController.selected.promocionDetPK.idPromocion}" title="#{bundle.ViewPromocionDetTitle_promocionDetPK_idPromocion}"/>
+
+                        <h:outputText value="#{bundle.ViewPromocionDetLabel_promocionDetPK_idSecuencia}"/>
+                        <h:outputText value="#{promocionDetController.selected.promocionDetPK.idSecuencia}" title="#{bundle.ViewPromocionDetTitle_promocionDetPK_idSecuencia}"/>
+
+                        <h:outputText value="#{bundle.ViewPromocionDetLabel_costoPromo}"/>
+                        <h:outputText value="#{promocionDetController.selected.costoPromo}" title="#{bundle.ViewPromocionDetTitle_costoPromo}"/>
+
+                        <h:outputText value="#{bundle.ViewPromocionDetLabel_idEquipo}"/>
+                        <h:outputText value="#{promocionDetController.selected.idEquipo.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewPromocionDetLabel_promocion}"/>
+                        <h:outputText value="#{promocionDetController.selected.promocion.idPromocion}"/>
+
+                        <h:outputText value="#{bundle.ViewPromocionDetLabel_idServicio}"/>
+                        <h:outputText value="#{promocionDetController.selected.idServicio.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('PromocionDetViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

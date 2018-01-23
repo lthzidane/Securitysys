@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PromocionDetCreateDlg" widgetVar="PromocionDetCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePromocionDetTitle}" closeOnEscape="true">
+
+            <h:form id="PromocionDetCreateForm">
+
+                <h:panelGroup id="display" rendered="#{promocionDetController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreatePromocionDetLabel_promocionDetPK_idPromocion}" for="promocionDetPK_idPromocion" />
+                        <p:inputText id="promocionDetPK_idPromocion" value="#{promocionDetController.selected.promocionDetPK.idPromocion}" title="#{bundle.CreatePromocionDetTitle_promocionDetPK_idPromocion}" required="true" requiredMessage="#{bundle.CreatePromocionDetRequiredMessage_promocionDetPK_idPromocion}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePromocionDetLabel_promocionDetPK_idSecuencia}" for="promocionDetPK_idSecuencia" />
+                        <p:inputText id="promocionDetPK_idSecuencia" value="#{promocionDetController.selected.promocionDetPK.idSecuencia}" title="#{bundle.CreatePromocionDetTitle_promocionDetPK_idSecuencia}" required="true" requiredMessage="#{bundle.CreatePromocionDetRequiredMessage_promocionDetPK_idSecuencia}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePromocionDetLabel_costoPromo}" for="costoPromo" />
+                        <p:inputText id="costoPromo" value="#{promocionDetController.selected.costoPromo}" title="#{bundle.CreatePromocionDetTitle_costoPromo}" required="true" requiredMessage="#{bundle.CreatePromocionDetRequiredMessage_costoPromo}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePromocionDetLabel_idEquipo}" for="idEquipo" />
+                        <p:selectOneMenu id="idEquipo" value="#{promocionDetController.selected.idEquipo}" required="true" requiredMessage="#{bundle.CreatePromocionDetRequiredMessage_idEquipo}" converter="equipoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{equipoController.items}"
+                                           var="idEquipoItem"
+                                           itemValue="#{idEquipoItem}"
+                                           itemLabel="#{idEquipoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreatePromocionDetLabel_promocion}" for="promocion" />
+                        <p:selectOneMenu id="promocion" value="#{promocionDetController.selected.promocion}" required="true" requiredMessage="#{bundle.CreatePromocionDetRequiredMessage_promocion}" converter="promocionConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{promocionController.items}"
+                                           var="promocionItem"
+                                           itemValue="#{promocionItem}"
+                                           itemLabel="#{promocionItem.descipcion}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreatePromocionDetLabel_idServicio}" for="idServicio" />
+                        <p:selectOneMenu id="idServicio" value="#{promocionDetController.selected.idServicio}" required="true" requiredMessage="#{bundle.CreatePromocionDetRequiredMessage_idServicio}" converter="servicioConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{servicioController.items}"
+                                           var="idServicioItem"
+                                           itemValue="#{idServicioItem}"
+                                           itemLabel="#{idServicioItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{promocionDetController.saveNew}" value="#{bundle.Save}" update="display,:PromocionDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'PromocionDetCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PromocionDetCreateDialog.hide()" immediate="true" />
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

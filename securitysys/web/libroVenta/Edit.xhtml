@@ -61,8 +61,8 @@
                         <h:outputLabel value="#{bundle.EditLibroVentaLabel_venta}" for="venta" />
                         <h:outputText id="venta" value="#{libroVentaController.selected.venta}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{libroVentaController.save}" value="#{bundle.Save}" update="display,:LibroVentaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('LibroVentaEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('LibroVentaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{libroVentaController.save}" value="#{bundle.Save}" update="display,:LibroVentaListForm:datalist,:growl" oncomplete="handleSubmit(args,'LibroVentaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LibroVentaEditDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>

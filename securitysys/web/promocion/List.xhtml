@@ -107,9 +107,92 @@
                 </p:panel>
             </h:form>
 
+            <h:form id="PromocionDetListForm">
+
+                <p:panel header="#{bundle.ListPromocionDetTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{promocionDetController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.promocionDetPK}"
+                                 var="item"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 selectionMode="single"
+                                 selection="#{promocionDetController.selected}"
+                                 filteredValue="#{promocionDetController.filteredItems}">
+
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                        <p:column sortBy="#{item.promocionDetPK.idPromocion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPromocionDetTitle_promocionDetPK_idPromocion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.promocionDetPK.idPromocion}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.promocionDetPK.idSecuencia}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPromocionDetTitle_promocionDetPK_idSecuencia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.promocionDetPK.idSecuencia}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.costoPromo}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPromocionDetTitle_costoPromo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.costoPromo}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.idEquipo.descripcion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPromocionDetTitle_idEquipo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idEquipo.descripcion}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.promocion.idPromocion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPromocionDetTitle_promocion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.promocion.idPromocion}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.idServicio.descripcion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPromocionDetTitle_idServicio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idServicio.descripcion}"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <div class="footer-section">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{promocionDetController.prepareCreate}" update=":PromocionDetCreateForm" oncomplete="PF('PromocionDetCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PromocionDetViewForm" oncomplete="PF('PromocionDetViewDialog').show()" disabled="#{empty promocionDetController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PromocionDetEditForm" oncomplete="PF('PromocionDetEditDialog').show()" disabled="#{empty promocionDetController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{promocionDetController.delete}" update=":growl,datalist" disabled="#{empty promocionDetController.selected}"/>
+                            </div>
+                        </f:facet>
+
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+
+
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="CreatePromoDet.xhtml"/>
+            <ui:include src="EditPromoDet.xhtml"/>
+            <ui:include src="ViewPromoDet.xhtml"/>
         </ui:define>
     </ui:composition>
 

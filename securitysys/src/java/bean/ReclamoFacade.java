@@ -23,6 +23,7 @@ import entities.Usuario;
 import entities.Diagnostico;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -145,12 +146,32 @@ public class ReclamoFacade extends AbstractFacade<Reclamo> {
         return diagnosticoList;
     }
 
-    Iterable<Reclamo> findBetweenFechaIngreso(Date startDate, Date endDate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      public Reclamo findByIdReclamo(Integer idReclamo) {
+        try {
+            return (Reclamo) em.createNamedQuery("Reclamo.findByIdReclamo").setParameter("idReclamo", idReclamo).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
-    Reclamo findByIdReclamo(Integer idReclamo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Reclamo> findBetweenfechaAlta(Date startDate, Date endDate) {
+        try {
+            return (List<Reclamo>) em.createNamedQuery("Reclamo.findBetweenfechaAlta")
+                    .setParameter("startDate", startDate)
+                    .setParameter("endDate", endDate)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Reclamo> findAll() {
+        try {
+            return (List<Reclamo>) em.createNamedQuery("Reclamo.findAll").getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
     
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SolicitudDetViewDlg" widgetVar="SolicitudDetViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewSolicitudDetTitle}" closeOnEscape="true">
+
+            <h:form id="SolicitudDetViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{solicitudDetController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewSolicitudDetLabel_solicitudDetPK_idSolicitudCab}"/>
+                        <h:outputText value="#{solicitudDetController.selected.solicitudDetPK.idSolicitudCab}" title="#{bundle.ViewSolicitudDetTitle_solicitudDetPK_idSolicitudCab}"/>
+
+                        <h:outputText value="#{bundle.ViewSolicitudDetLabel_solicitudDetPK_idSecuencia}"/>
+                        <h:outputText value="#{solicitudDetController.selected.solicitudDetPK.idSecuencia}" title="#{bundle.ViewSolicitudDetTitle_solicitudDetPK_idSecuencia}"/>
+
+                        <h:outputText value="#{bundle.ViewSolicitudDetLabel_descripcion}"/>
+                        <h:outputText value="#{solicitudDetController.selected.descripcion}" title="#{bundle.ViewSolicitudDetTitle_descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewSolicitudDetLabel_idDescuento}"/>
+                        <h:outputText value="#{solicitudDetController.selected.idDescuento.descripcionDesc}"/>
+
+                        <h:outputText value="#{bundle.ViewSolicitudDetLabel_idPromocion}"/>
+                        <h:outputText value="#{solicitudDetController.selected.idPromocion.idPromocion}"/>
+
+                        <h:outputText value="#{bundle.ViewSolicitudDetLabel_idServicio}"/>
+                        <h:outputText value="#{solicitudDetController.selected.idServicio.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewSolicitudDetLabel_solicitud}"/>
+                        <h:outputText value="#{solicitudDetController.selected.solicitud.idSolicitud}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('SolicitudDetViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
