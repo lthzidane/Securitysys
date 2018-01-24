@@ -120,7 +120,7 @@
                     <p:tab title="Detalle_OT" titleStyle="font-size: 12px;">
                         <p:dataTable id="datatableOT" 
                                      value="#{ReportesOTBean.listaRepoOrdenesTrabajo}" 
-                                     rowKey="#{item.nroOrden}"
+                                     rowKey="#{item.idOt}"
                                      filteredValue="#{ReportesOTBean.filteredOrdenesTrabajo}"
                                      var="item"
                                      widgetVar="datatableOT"
@@ -144,19 +144,19 @@
                                 </h:outputText>
                             </p:column>
                             <p:column headerText="Nro. Orden" style="width: 80px;">
-                                <h:outputText value="#{item.nroOrden}"/>
+                                <h:outputText value="#{item.idOt}"/>
                             </p:column>
                             <p:column headerText="Tecnico">
-                                <h:outputText value="#{item.idTecnico.nombre}"/>
+                                <h:outputText value="#{item.idCuadrilla.idTipoCuadrilla.descripcion}"/>
                             </p:column>                                
                             <p:column headerText="Cliente">
                                 <h:outputText value="#{item.idCliente.nombre} #{item.idCliente.apellido}"/>
                             </p:column>
                             <p:column headerText="Servicio a Realizar">
-                                <h:outputText value="#{item.idServicio.descripcion}"/>
+                                <h:outputText value="#{item.idSolicitud.idSolicitud}"/>
                             </p:column>
                             <p:column headerText="Estado">
-                                <h:outputText value="#{item.idEstadoTrab.estado}"/>
+                                <h:outputText value="#{item.idEstado}"/>
                             </p:column>
                             <f:facet name="footer">Total de registros: #{ReportesOTBean.listaRepoOrdenesTrabajo.size()}.</f:facet>
                         </p:dataTable>
@@ -193,7 +193,7 @@
                             </f:facet>
 
                             <p:column headerText="Fecha Instalacion" style="width: 80px;" >
-                                <h:outputText value="#{item.fechainstalacion}">
+                                <h:outputText value="#{item.fechaInicio}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </p:column>
@@ -204,22 +204,22 @@
                                 <h:outputText value="#{item.tipoInstalacion}"/>
                             </p:column>                                
                             <p:column headerText="Descripcion" style="width: 80px;" >
-                                <h:outputText value="#{item.descripcion}"/>
+                                <h:outputText value="#{item.observacion}"/>
                             </p:column>
                             <p:column headerText="Nro. Orden" >
-                                <h:outputText value="#{item.nroOrden.nroOrden}"/>
+                                <h:outputText value="#{item.idOt.idOt}"/>
                             </p:column>
                             <p:column headerText="Cliente" >
-                                <h:outputText value="#{item.idCliente.nombre} #{item.nroOrden.idCliente.apellido}"/>
+                                <h:outputText value="#{item.idOt.idCliente.nombre} #{item.idOt.idCliente.apellido}"/>
                             </p:column>
-                            <p:column headerText="Tipo Servicio" >
-                                <h:outputText value="#{item.nroOrden.idServicio.descripcion}"/>
-                            </p:column>
+<!--                            <p:column headerText="Tipo Servicio" >
+                                <h:outputText value="#{item.idOt.idServicio.descripcion}"/>
+                            </p:column>-->
                             <p:column headerText="Responsable" >
-                                <h:outputText value="#{item.nroOrden.idTecnico.nombre}"/>
+                                <h:outputText value="#{item.idOt.idCuadrilla.idTecnico.nombre}"/>
                             </p:column>
                             <p:column headerText="Estado" >
-                                <h:outputText value="#{item.idEstadoTrab.estado}"/>
+                                <h:outputText value="#{item.idEstado}"/>
                             </p:column>
                             <f:facet name="footer">Total de registros: #{ReportesOTBean.listaRepoInstalaciones.size()}.</f:facet>
                         </p:dataTable>

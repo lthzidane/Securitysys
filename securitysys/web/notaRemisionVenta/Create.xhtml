@@ -47,7 +47,7 @@
                             <f:selectItems value="#{movilesController.items}"
                                            var="idMovilItem"
                                            itemValue="#{idMovilItem}"
-                                           itemLabel="#{idMovilItem.idMovil.toString()}"
+                                           itemLabel="#{idMovilItem.idMarca.descripcion} #{idMovilItem.idTipoMovil.descripcion}"
                                            />
 
                         </p:selectOneMenu>
@@ -80,7 +80,7 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           itemLabel="#{idUsuarioItem.nombre}"
                                            />
 
                         </p:selectOneMenu>

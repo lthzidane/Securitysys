@@ -211,9 +211,9 @@ public class ReportesOTBean implements Serializable {
         LineChartModel model = new LineChartModel();
 
         LineChartSeries series1 = new LineChartSeries();
-        series1.setLabel("Noviembre");
+        series1.setLabel("Diciembre");
         LineChartSeries series2 = new LineChartSeries();
-        series2.setLabel("Diciembre");
+        series2.setLabel("Enero");
 
         int dia = 1;
         for (dia = 1; dia <= 31; dia++) {
@@ -230,7 +230,7 @@ public class ReportesOTBean implements Serializable {
             fecha.setTime(ins.getFechaInicio());
 
             mes = fecha.get(Calendar.MONTH); //obtengo el mes para saber en que lista va
-            if (mes == Calendar.NOVEMBER) {
+            if (mes == Calendar.DECEMBER) {
                 //es serie1
                 if (fecha.get(Calendar.DAY_OF_MONTH) > dia) { //si es ya otra fecha
                     dia = fecha.get(Calendar.DAY_OF_MONTH); //obtengo el día
@@ -390,10 +390,10 @@ public class ReportesOTBean implements Serializable {
         pdf.add(com.lowagie.text.Image.getInstance(logo));
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");//new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
-        String startDateToStr = format.format(getFromFecOT());
-        String stopDateToStr = format.format(getToFecOT());
 
         if (getFromFecOT() != null && getToFecOT() != null) {
+            String startDateToStr = format.format(getFromFecOT());
+            String stopDateToStr = format.format(getToFecOT());
             pdf.add(new Paragraph("Ordenes de Trabajo del " + startDateToStr + " hasta " + stopDateToStr));
         } else {
             pdf.add(new Paragraph("Todas las Ordenes de Trabajo existentes"));
@@ -413,10 +413,10 @@ public class ReportesOTBean implements Serializable {
         pdf.add(com.lowagie.text.Image.getInstance(logo));
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");//new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
-        String startDateToStr = format.format(getFromFecInst());
-        String stopDateToStr = format.format(getToFecInst());
 
         if (getFromFecInst() != null && getToFecInst() != null) {
+            String startDateToStr = format.format(getFromFecInst());
+            String stopDateToStr = format.format(getToFecInst());
             pdf.add(new Paragraph("Instalaciones iniciadas entre el " + startDateToStr + " y el " + stopDateToStr));
         } else {
             pdf.add(new Paragraph("Todas las Instalaciones existentes"));
@@ -710,5 +710,4 @@ public class ReportesOTBean implements Serializable {
         this.instalacionCab = instalacionCab;
     }
 
-    
 }

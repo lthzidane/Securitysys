@@ -33,17 +33,11 @@
                         <h:outputText value="Nombre:" 
                                       style="color: #78797A; font: 100% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                         <h:outputText id="razonSocialCliente" value="#{ElaborarPresupuestoBean.razonsocial}" style="font-size: 11px;"/>
-                        <h:outputText value="Funcionario:"
-                                      style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
-                        <h:selectOneMenu id="funcionario" label="Funcionario" value="#{ElaborarPresupuestoBean.idFuncionario}">
-                            <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                            <f:selectItems value="#{ElaborarPresupuestoBean.listaFuncionarios}" var="est" itemLabel="#{est.nombre}" itemValue="#{est}"/>
-                        </h:selectOneMenu>
                         <h:outputText value="Estado:"
                                       style="color: #78797A; font: 80% Tahoma, sans-serif;text-decoration: none; font-size: 11px;" />
                         <h:selectOneMenu id="estado" label="Estado" value="#{ElaborarPresupuestoBean.idEstado}">
                             <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                            <f:selectItems value="#{ElaborarPresupuestoBean.listaEstados}" var="est" itemLabel="#{est.estado}" itemValue="#{est}"/>
+                            <f:selectItems value="#{ElaborarPresupuestoBean.listaEstados}" var="est" itemLabel="#{est.descripcion}" itemValue="#{est}"/>
                         </h:selectOneMenu>
                     </h:panelGrid>
 
@@ -62,8 +56,8 @@
                         <p:ajax event="rowEditCancel" listener="#{ElaborarPresupuestoBean.onRowCancelDetalle}" update="datatable" />
                         <p:column headerText="Cod Articulo" style="width: 80px;">
                             <p:cellEditor>
-                                <f:facet name="output"><div align="center"><h:outputText value="#{item.presupuestoDetPK.nroSecuencia}" /></div></f:facet>
-                                <f:facet name="input"><div align="center"><h:outputText value="#{item.presupuestoDetPK.nroSecuencia}" /></div></f:facet>
+                                <f:facet name="output"><div align="center"><h:outputText value="#{item.presupuestoDetPK.idSecuencia}" /></div></f:facet>
+                                <f:facet name="input"><div align="center"><h:outputText value="#{item.presupuestoDetPK.idSecuencia}" /></div></f:facet>
                             </p:cellEditor>
                         </p:column>
                         <p:column headerText="Descripcion">
@@ -72,7 +66,7 @@
                                 <f:facet name="input">
                                     <h:selectOneMenu id="producList" label="Derivado a" value="#{item.codProducto}">
                                         <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
-                                        <f:selectItems value="#{ElaborarPresupuestoBean.listaProductos}" var="prod" itemLabel="#{prod.descripcion}" itemValue="#{prod}"/>
+                                        <f:selectItems value="#{ElaborarPresupuestoBean.listaServicios}" var="prod" itemLabel="#{prod.descripcion}" itemValue="#{prod}"/>
                                     </h:selectOneMenu> 
                                 </f:facet>
                             </p:cellEditor>

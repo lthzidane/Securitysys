@@ -1,12 +1,12 @@
 package bean;
 
-import entities.Cliente;
 import entities.Estado;
 
 import entities.Presupuesto;
 
 import entities.PresupuestoDet;
 import entities.PresupuestoDetPK;
+import entities.Servicio;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -22,18 +22,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import lombok.Data;
 import org.primefaces.event.RowEditEvent;
-import session.util.JsfUtil;
 
 /**
  *
@@ -61,8 +55,8 @@ public class ElaborarPresupuestoBean implements Serializable {
     private Date fechaPedidoDate;
     private ArrayList<PresupuestoDet> listaDetalle = new ArrayList<>();
     private ArrayList<PresupuestoDet> listaDetallesEliminados = new ArrayList<>();
-    
-    
+    private List<Servicio> listaServicios = new ArrayList<>();
+
     private List<Estado> listaEstados = new ArrayList<>();
     private String sumaTotal;
     private String iva;
@@ -74,7 +68,7 @@ public class ElaborarPresupuestoBean implements Serializable {
     private String ciudad;
     private String direccion;
     private String telefono;
-    
+
     private Estado idEstado;
 
     private Presupuesto Presupuesto;
@@ -82,16 +76,17 @@ public class ElaborarPresupuestoBean implements Serializable {
 
     private static final DateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy"); //defino el formato de fecha
 
-  
     @EJB
     private bean.PresupuestoFacade PresupuestoFacade = new PresupuestoFacade();
 
     @EJB
     private bean.PresupuestoDetFacade presupuestoDetFacade = new PresupuestoDetFacade();
 
-  
     @EJB
     private bean.EstadoFacade estadoFacade = new EstadoFacade();
+
+    @EJB
+    private bean.ServicioFacade servicioFacade = new ServicioFacade();
 
     @PostConstruct
     void initialiseSession() {
@@ -112,11 +107,11 @@ public class ElaborarPresupuestoBean implements Serializable {
             //Crea un Presupuesto inicial
             this.Presupuesto = new Presupuesto();
 
-           
             this.Presupuesto.setFecha(date);
 
-           
             this.listaEstados = estadoFacade.findAll();
+
+            this.listaServicios = servicioFacade.findAll();
 
             proveedor = ""; //CNDDI = Codigo No Dependiente Del Idioma
             language = "ESN"; //{ESN,ENU,FRA} por defecto Español
@@ -142,7 +137,6 @@ public class ElaborarPresupuestoBean implements Serializable {
 
 //        persistPresupuestoDet(JsfUtil.PersistAction.CREATE, listaDetalle, "PresupuestoDet guardado correctamente");
 //        System.out.println("se guardó la PresupuestoDet con exito");
-
         //limpiar campos
         cargarVista();
 
@@ -275,34 +269,35 @@ public class ElaborarPresupuestoBean implements Serializable {
 //            }
 //        }
 //    }
+    public void refrescarFooter() {
+        System.out.println("Suma: " + getSumaTotal());
+        System.out.println("IVA: " + getIva());
+        System.out.println("Total: " + getPresupuestoTotal());
+    }
+//
+    public String getSumaTotal() {
+        int total = 0;
+        for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
+            if(det.getTotalDetalle() != null)
+                total += Integer.parseInt(det.getTotalDetalle());
+        }
+        this.sumaTotal = new DecimalFormat("###,###").format(total);
+        return this.sumaTotal;
+    }
 
-//    public void refrescarFooter() {
-//        System.out.println("Suma: " + getSumaTotal());
-//        System.out.println("IVA: " + getIva());
-//        System.out.println("Total: " + getPresupuestoTotal());
-//    }
-//
-//    public String getSumaTotal() {
-//        int total = 0;
-//        for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
-//            total += det.getTotalDetalle().intValue();
-//        }
-//        this.sumaTotal = new DecimalFormat("###,###").format(total);
-//        return this.sumaTotal;
-//    }
-//
-//    public String getIva() {
-//        int ivaCalculado = 0;
-//        int total = 0;
-//        for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
-//            total += det.getTotalDetalle().intValue();
-//        }
-//
-//        ivaCalculado = total * 10 / 100;
-//
-//        this.iva = new DecimalFormat("###,###").format(ivaCalculado);
-//        return this.iva;
-//    }
+    public String getIva() {
+        int ivaCalculado = 0;
+        int total = 0;
+        for (PresupuestoDet det : listaDetalle) { // this is the list used in the value attribute of datatable
+            if(det.getTotalDetalle() != null)
+                total += Integer.parseInt(det.getTotalDetalle());
+        }
+
+        ivaCalculado = total * 10 / 100;
+
+        this.iva = new DecimalFormat("###,###").format(ivaCalculado);
+        return this.iva;
+    }
 //
 //    public String getPresupuestoTotal() {
 //        int ivaCalculado = 0;
@@ -318,7 +313,6 @@ public class ElaborarPresupuestoBean implements Serializable {
 //        this.presupuestoTotal = new DecimalFormat("###,###").format(presupuestoCalculado);
 //        return this.presupuestoTotal;
 //    }
-
     public void obtenerDatosCliente() {
         String nroDocumentoCliente = this.cliente;
         System.out.println("nroDocumentoCliente: " + nroDocumentoCliente);
@@ -329,15 +323,14 @@ public class ElaborarPresupuestoBean implements Serializable {
             try {
                 con = DataConnect.getConnection();
                 ps = con.prepareStatement("SELECT  cl.id_cliente, "
-                        + "ci.ciudad, es.estado, td.tipo_docu, "
+                        + "ci.ciudad, td.id_tipo_documento, "
                         + "cl.nombre, cl.apellido, cl.direccion, "
-                        + "cl.telefono, cl.nro_documento "
+                        + "cl.telefono, cl.numero_documento "
                         + "FROM cliente cl, ciudad ci, "
-                        + "estado es, tipo_documento td "
-                        + "where nro_documento = ? "
+                        + "tipo_documento td "
+                        + "where numero_documento = ? "
                         + "and ci.id_ciudad = cl.id_ciudad "
-                        + "and es.id_estado = cl.id_estado "
-                        + "and td.id_tipo_docu = cl.id_tipo_docu");
+                        + "and td.id_tipo_documento = cl.id_tipo_documento");
                 ps.setString(1, nroDocumentoCliente);
                 //ps.setInt(1, Integer.parseInt(nroDocumentoCliente));
 
@@ -345,7 +338,7 @@ public class ElaborarPresupuestoBean implements Serializable {
 
                 while (rs.next()) {
                     this.idCliente = rs.getInt("id_cliente");
-                    this.nroDocumento = rs.getString("nro_documento");
+                    this.nroDocumento = rs.getString("numero_documento");
                     this.razonsocial = rs.getString("nombre") + " " + rs.getString("apellido");
                     this.ciudad = rs.getString("ciudad");
                     this.direccion = rs.getString("direccion");
@@ -362,39 +355,38 @@ public class ElaborarPresupuestoBean implements Serializable {
         }
     }
 
-//    public void onRowEditDetalle(RowEditEvent event) {
-//        PresupuestoDet det = (PresupuestoDet) event.getObject();
-//        BigInteger precio = det.getPrecio();
-//        BigInteger cantidad = det.getCantidad();
-//        BigInteger descuento = det.getTotalDescuento();
-//        int total = (precio.intValue() * cantidad.intValue()) - descuento.intValue();
-//        det.setTotalDetalle(new BigInteger(total + ""));
-//        //this.sumaTotal = refreshOrdenCompraTotal();
-//        System.out.println("Editando Producto: " + det.getCodProducto().getObservacion() + ", total a pagar: " + det.getTotalDetalle());
-//    }
-//
-//    public void onRowCancelDetalle(RowEditEvent event) {
-//        PresupuestoDet det = (PresupuestoDet) event.getObject();
-//
-//        String descripcion = det.getCodProducto().getObservacion(); //obtengo la descripción de la tarea
-//
-//        //si es vacio, es porque es nuevo
-//        if ("".equalsIgnoreCase(descripcion)) {
-//            //al cancelar borro la ultima fila insertada
-//            listaDetalle.remove(det);
-//        }
-//    }
-//
-//    public void addTarea() {
-//        int i = this.listaDetalle.size() + 1;
-//        PresupuestoDetPK detPK = new PresupuestoDetPK();
-//        detPK.setNroSecuencia(BigInteger.valueOf(i));
-//        PresupuestoDet predet = new PresupuestoDet(detPK);
-//        predet.setCodProducto(new Productos());
-//        predet.setTotalDescuento(BigInteger.ZERO);
-//        predet.setTotalDetalle(BigInteger.ZERO);
-//        this.listaDetalle.add(predet);
-//    }
+    public void onRowEditDetalle(RowEditEvent event) {
+        PresupuestoDet det = (PresupuestoDet) event.getObject();
+        int precio = det.getPrecio();
+        int cantidad = det.getCantidad();
+        String descuento = det.getTotalDescuento();
+        int total = (precio * cantidad) - Integer.parseInt(descuento);
+        det.setTotalDetalle(total + "");
+        //this.sumaTotal = refreshOrdenCompraTotal();
+        if(det.getCodProducto() != null)
+            System.out.println("Editando Producto: " + det.getCodProducto().getDescripcion() + ", total a pagar: " + det.getTotalDetalle());
+    }
+
+    public void onRowCancelDetalle(RowEditEvent event) {
+        PresupuestoDet det = (PresupuestoDet) event.getObject();
+
+        String descripcion = det.getCodProducto().getDescripcion(); //obtengo la descripción de la tarea
+
+        //si es vacio, es porque es nuevo
+        if ("".equalsIgnoreCase(descripcion)) {
+            //al cancelar borro la ultima fila insertada
+            listaDetalle.remove(det);
+        }
+    }
+
+    public void addTarea() {
+        int i = this.listaDetalle.size() + 1;
+        PresupuestoDetPK detPK = new PresupuestoDetPK();
+        detPK.setIdSecuencia(i);
+        PresupuestoDet predet = new PresupuestoDet(detPK);
+        //predet.setCodProducto(new Productos());
+        this.listaDetalle.add(predet);
+    }
 
     public void removeTarea(PresupuestoDet item) {
         listaDetallesEliminados.add(item);
@@ -405,6 +397,266 @@ public class ElaborarPresupuestoBean implements Serializable {
 
         int num = (int) Math.floor(Math.random() * (maximo - minimo + 1) + (minimo));
         return num;
+    }
+
+    public String getNroDeOrden() {
+        return nroDeOrden;
+    }
+
+    public void setNroDeOrden(String nroDeOrden) {
+        this.nroDeOrden = nroDeOrden;
+    }
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
+    }
+
+    public BigDecimal getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(BigDecimal pedido) {
+        this.pedido = pedido;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isTranslate() {
+        return translate;
+    }
+
+    public void setTranslate(boolean translate) {
+        this.translate = translate;
+    }
+
+    public boolean isMultilingual() {
+        return multilingual;
+    }
+
+    public void setMultilingual(boolean multilingual) {
+        this.multilingual = multilingual;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isEditando() {
+        return editando;
+    }
+
+    public void setEditando(boolean editando) {
+        this.editando = editando;
+    }
+
+    public String getFechaPedido() {
+        return fechaPedido;
+    }
+
+    public void setFechaPedido(String fechaPedido) {
+        this.fechaPedido = fechaPedido;
+    }
+
+    public Date getFechaPedidoDate() {
+        return fechaPedidoDate;
+    }
+
+    public void setFechaPedidoDate(Date fechaPedidoDate) {
+        this.fechaPedidoDate = fechaPedidoDate;
+    }
+
+    public ArrayList<PresupuestoDet> getListaDetalle() {
+        return listaDetalle;
+    }
+
+    public void setListaDetalle(ArrayList<PresupuestoDet> listaDetalle) {
+        this.listaDetalle = listaDetalle;
+    }
+
+    public ArrayList<PresupuestoDet> getListaDetallesEliminados() {
+        return listaDetallesEliminados;
+    }
+
+    public void setListaDetallesEliminados(ArrayList<PresupuestoDet> listaDetallesEliminados) {
+        this.listaDetallesEliminados = listaDetallesEliminados;
+    }
+
+    public List<Estado> getListaEstados() {
+        return listaEstados;
+    }
+
+    public void setListaEstados(List<Estado> listaEstados) {
+        this.listaEstados = listaEstados;
+    }
+
+
+
+    public void setSumaTotal(String sumaTotal) {
+        this.sumaTotal = sumaTotal;
+    }
+
+  
+
+    public void setIva(String iva) {
+        this.iva = iva;
+    }
+
+    public String getPresupuestoTotal() {
+        return presupuestoTotal;
+    }
+
+    public void setPresupuestoTotal(String presupuestoTotal) {
+        this.presupuestoTotal = presupuestoTotal;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public String getNroDocumento() {
+        return nroDocumento;
+    }
+
+    public void setNroDocumento(String nroDocumento) {
+        this.nroDocumento = nroDocumento;
+    }
+
+    public String getRazonsocial() {
+        return razonsocial;
+    }
+
+    public void setRazonsocial(String razonsocial) {
+        this.razonsocial = razonsocial;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public Estado getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Estado idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public Presupuesto getPresupuesto() {
+        return Presupuesto;
+    }
+
+    public void setPresupuesto(Presupuesto Presupuesto) {
+        this.Presupuesto = Presupuesto;
+    }
+
+    public PresupuestoDet getPresupuestoDet() {
+        return presupuestoDet;
+    }
+
+    public void setPresupuestoDet(PresupuestoDet presupuestoDet) {
+        this.presupuestoDet = presupuestoDet;
+    }
+
+    public PresupuestoFacade getPresupuestoFacade() {
+        return PresupuestoFacade;
+    }
+
+    public void setPresupuestoFacade(PresupuestoFacade PresupuestoFacade) {
+        this.PresupuestoFacade = PresupuestoFacade;
+    }
+
+    public PresupuestoDetFacade getPresupuestoDetFacade() {
+        return presupuestoDetFacade;
+    }
+
+    public void setPresupuestoDetFacade(PresupuestoDetFacade presupuestoDetFacade) {
+        this.presupuestoDetFacade = presupuestoDetFacade;
+    }
+
+    public EstadoFacade getEstadoFacade() {
+        return estadoFacade;
+    }
+
+    public void setEstadoFacade(EstadoFacade estadoFacade) {
+        this.estadoFacade = estadoFacade;
+    }
+
+    public List<Servicio> getListaServicios() {
+        return listaServicios;
+    }
+
+    public void setListaServicios(ArrayList<Servicio> listaServicios) {
+        this.listaServicios = listaServicios;
     }
 
 }

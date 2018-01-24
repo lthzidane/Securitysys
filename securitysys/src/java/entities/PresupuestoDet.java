@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -69,6 +70,15 @@ public class PresupuestoDet implements Serializable {
     @ManyToOne(optional = false)
     private Promocion idPromocion;
 
+    @Transient
+    private Servicio codProducto;
+    
+    @Transient
+    private String totalDescuento;
+    
+    @Transient
+    private String totalDetalle;
+    
     public PresupuestoDet() {
     }
 
@@ -185,5 +195,30 @@ public class PresupuestoDet implements Serializable {
     public String toString() {
         return "entities.PresupuestoDet[ presupuestoDetPK=" + presupuestoDetPK + " ]";
     }
+
+    public Servicio getCodProducto() {
+        return codProducto;
+    }
+
+    public void setCodProducto(Servicio codProducto) {
+        this.codProducto = codProducto;
+    }
+
+    public String getTotalDescuento() {
+        return totalDescuento;
+    }
+
+    public void setTotalDescuento(String totalDescuento) {
+        this.totalDescuento = totalDescuento;
+    }
+
+    public String getTotalDetalle() {
+        return totalDetalle;
+    }
+
+    public void setTotalDetalle(String totalDetalle) {
+        this.totalDetalle = totalDetalle;
+    }
+    
     
 }

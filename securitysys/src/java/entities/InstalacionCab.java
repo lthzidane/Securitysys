@@ -69,7 +69,7 @@ public class InstalacionCab implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_estado")
-    private int idEstado;
+    private int idEstado = 1;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)

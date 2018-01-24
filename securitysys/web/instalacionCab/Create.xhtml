@@ -25,7 +25,7 @@
                         <p:calendar id="fechaFin" pattern="MM/dd/yyyy" value="#{instalacionCabController.selected.fechaFin}" title="#{bundle.CreateInstalacionCabTitle_fechaFin}" required="true" requiredMessage="#{bundle.CreateInstalacionCabRequiredMessage_fechaFin}" showOn="button"/>
 
                         <p:outputLabel value="#{bundle.CreateInstalacionCabLabel_idEstado}" for="idEstado" />
-                        <p:inputText id="idEstado" value="#{instalacionCabController.selected.idEstado}" title="#{bundle.CreateInstalacionCabTitle_idEstado}" required="true" requiredMessage="#{bundle.CreateInstalacionCabRequiredMessage_idEstado}"/>
+                        <p:inputText disabled="true" id="idEstado" value="#{instalacionCabController.selected.idEstado==1?1:0}" title="#{bundle.CreateInstalacionCabTitle_idEstado}" required="true" requiredMessage="#{bundle.CreateInstalacionCabRequiredMessage_idEstado}"/>
 
                         <p:outputLabel value="#{bundle.CreateInstalacionCabLabel_observacion}" for="observacion" />
                         <p:inputText id="observacion" value="#{instalacionCabController.selected.observacion}" title="#{bundle.CreateInstalacionCabTitle_observacion}" required="true" requiredMessage="#{bundle.CreateInstalacionCabRequiredMessage_observacion}" size="100" maxlength="100"/>
