@@ -18,7 +18,7 @@
                         <p:outputLabel value="#{bundle.CreateEstadoLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{estadoController.selected.descripcion}" title="#{bundle.CreateEstadoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateEstadoRequiredMessage_descripcion}" size="20" maxlength="20" style="text-transform: uppercase"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{estadoController.create}" value="#{bundle.Save}" update="display,:EstadoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EstadoCreateDialog');"/>
+                    <p:commandButton actionListener="#{estadoController.saveNew}" value="#{bundle.Save}" update="display,:EstadoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EstadoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="EstadoCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 

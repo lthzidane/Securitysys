@@ -15,11 +15,11 @@
                 <h:panelGroup id="display" rendered="#{contratoController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
 
-                        <p:outputLabel value="#{bundle.CreateContratoLabel_contratoPK_idContrato}" for="contratoPK_idContrato" />
-                        <p:inputText id="contratoPK_idContrato" value="#{contratoController.selected.contratoPK.idContrato}" title="#{bundle.CreateContratoTitle_contratoPK_idContrato}" required="true" requiredMessage="#{bundle.CreateContratoRequiredMessage_contratoPK_idContrato}"/>
+                        <p:outputLabel value="#{bundle.CreateContratoLabel_contratoPK_idContrato}" for="contratoPK_idContrato" rendered="false"/>
+                        <p:inputText id="contratoPK_idContrato" value="#{contratoController.selected.contratoPK.idContrato}" title="#{bundle.CreateContratoTitle_contratoPK_idContrato}" required="true" requiredMessage="#{bundle.CreateContratoRequiredMessage_contratoPK_idContrato}" rendered="false"/>
 
-                        <p:outputLabel value="#{bundle.CreateContratoLabel_contratoPK_idCliente}" for="contratoPK_idCliente" />
-                        <p:inputText id="contratoPK_idCliente" value="#{contratoController.selected.contratoPK.idCliente}" title="#{bundle.CreateContratoTitle_contratoPK_idCliente}" required="true" requiredMessage="#{bundle.CreateContratoRequiredMessage_contratoPK_idCliente}"/>
+                        <p:outputLabel value="#{bundle.CreateContratoLabel_contratoPK_idCliente}" for="contratoPK_idCliente" rendered="false"/>
+                        <p:inputText id="contratoPK_idCliente" value="#{contratoController.selected.contratoPK.idCliente}" title="#{bundle.CreateContratoTitle_contratoPK_idCliente}" required="true" requiredMessage="#{bundle.CreateContratoRequiredMessage_contratoPK_idCliente}" rendered="false"/>
 
                         <p:outputLabel value="#{bundle.CreateContratoLabel_fechaIngreso}" for="fechaIngreso" />
                         <p:calendar id="fechaIngreso" pattern="MM/dd/yyyy" value="#{contratoController.selected.fechaIngreso}" title="#{bundle.CreateContratoTitle_fechaIngreso}" required="true" requiredMessage="#{bundle.CreateContratoRequiredMessage_fechaIngreso}" showOn="button"/>
@@ -30,7 +30,7 @@
                             <f:selectItems value="#{clienteController.items}"
                                            var="clienteItem"
                                            itemValue="#{clienteItem}"
-                                           itemLabel="#{clienteItem.idCliente.toString()}"
+                                           itemLabel="#{clienteItem.nombre} #{clienteItem.apellido}"
                                            />
 
                         </p:selectOneMenu>
@@ -68,8 +68,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{contratoController.saveNew}" value="#{bundle.Save}" update="display,:ContratoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ContratoCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ContratoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{contratoController.saveNew}" value="#{bundle.Save}" update="display,:ContratoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ContratoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ContratoCreateDialog.hide()" immediate="true" />
                 </h:panelGroup>
 
             </h:form>

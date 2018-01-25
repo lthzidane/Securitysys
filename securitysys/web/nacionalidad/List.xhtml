@@ -54,13 +54,17 @@
                                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{nacionalidadController.prepareCreate}" update=":NacionalidadCreateForm" oncomplete="PF('NacionalidadCreateDialog').show()"/>
                                 <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":NacionalidadViewForm" oncomplete="PF('NacionalidadViewDialog').show()" disabled="#{empty nacionalidadController.selected}"/>
                                 <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":NacionalidadEditForm" oncomplete="PF('NacionalidadEditDialog').show()" disabled="#{empty nacionalidadController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{nacionalidadController.delete}" update=":growl,datalist" disabled="#{empty nacionalidadController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{nacionalidadController.delete}" update=":growl,datalist" disabled="#{empty nacionalidadController.selected}">
+                                    <p:confirm header="#{bundle.ConfirmationHeader}" message="#{bundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+                                    </p:commandButton>
+                                    
                             </div>
                         </f:facet>
 
                     </p:dataTable>
 
                 </p:panel>
+                 <ui:include src="/confirmation.xhtml"/>
             </h:form>
 
             <ui:include src="Create.xhtml"/>

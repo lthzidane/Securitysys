@@ -59,7 +59,7 @@ public class TipoMovil implements Serializable {
 
     public TipoMovil(Integer idTipoMovil, String descripcion) {
         this.idTipoMovil = idTipoMovil;
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.toUpperCase();
     }
 
     public Integer getIdTipoMovil() {
@@ -75,7 +75,7 @@ public class TipoMovil implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.toUpperCase();
     }
 
     @XmlTransient

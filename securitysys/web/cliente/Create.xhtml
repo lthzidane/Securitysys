@@ -22,15 +22,25 @@
                         <p:inputText id="nombre" value="#{clienteController.selected.nombre}" title="#{bundle.CreateClienteTitle_nombre}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombre}" style="text-transform: uppercase"/>
                         <p:outputLabel value="#{bundle.CreateClienteLabel_apellido}" for="apellido" />
                         <p:inputText id="apellido" value="#{clienteController.selected.apellido}" title="#{bundle.CreateClienteTitle_apellido}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_apellido}" size="100" maxlength="100" style="text-transform: uppercase"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_idTipoDocumento}" for="idTipoDocumento" />
+                        <p:selectOneMenu id="idTipoDocumento" value="#{clienteController.selected.idTipoDocumento}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_idTipoDocumento}" converter="tipoDocumentoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoDocumentoController.items}"
+                                           var="idTipoDocumentoItem"
+                                           itemValue="#{idTipoDocumentoItem}"
+                                           itemLabel="#{idTipoDocumentoItem.descripcion}"
+                                           />
+
+                        </p:selectOneMenu>
 
                         <p:outputLabel value="#{bundle.CreateClienteLabel_numeroDocumento}" for="numeroDocumento" />
-                        <p:inputText id="numeroDocumento" value="#{clienteController.selected.numeroDocumento}" title="#{bundle.CreateClienteTitle_numeroDocumento}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_numeroDocumento}" size="30" maxlength="30" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
+                        <p:inputText id="numeroDocumento" value="#{clienteController.selected.numeroDocumento}" title="#{bundle.CreateClienteTitle_numeroDocumento}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_numeroDocumento}" size="30" maxlength="30" onkeydown="return event.keyCode &gt; = 48 &amp; &amp; event.keyCode &lt; = 57 || event.keyCode &gt; = 96 &amp; &amp; event.keyCode &lt; = 105 || event.keyCode == 8"/>
 
                         <p:outputLabel value="#{bundle.CreateClienteLabel_direccion}" for="direccion" />
                         <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.CreateClienteTitle_direccion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_direccion}" size="100" maxlength="100" style="text-transform: uppercase"/>
 
                         <p:outputLabel value="#{bundle.CreateClienteLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}" onkeydown="return event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57 || event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105 || event.keyCode == 8"/>
+                        <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}" onkeydown="return event.keyCode &gt; = 48 &amp; &amp; event.keyCode &lt; = 57 || event.keyCode &gt; = 96 &amp; &amp; event.keyCode &lt; = 105 || event.keyCode == 8"/>
 
                         <p:outputLabel value="#{bundle.CreateClienteLabel_EMail}" for="EMail" />
                         <p:inputText id="EMail" value="#{clienteController.selected.EMail}" title="#{bundle.CreateClienteTitle_EMail}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_EMail}" size="60" maxlength="60"/>
@@ -60,18 +70,9 @@
 
                         </p:selectOneMenu>
 
-                        <p:outputLabel value="#{bundle.CreateClienteLabel_idTipoDocumento}" for="idTipoDocumento" />
-                        <p:selectOneMenu id="idTipoDocumento" value="#{clienteController.selected.idTipoDocumento}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_idTipoDocumento}" converter="tipoDocumentoConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{tipoDocumentoController.items}"
-                                           var="idTipoDocumentoItem"
-                                           itemValue="#{idTipoDocumentoItem}"
-                                           itemLabel="#{idTipoDocumentoItem.descripcion}"
-                                           />
 
-                        </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{clienteController.create}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>
+                    <p:commandButton actionListener="#{clienteController.saveNew}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClienteCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 

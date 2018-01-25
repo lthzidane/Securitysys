@@ -11,10 +11,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,6 +41,10 @@ public class Nacionalidad implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_nacionalidad")
+    //ACA SE AGREGA LA SECUENCIA POR QUE NO ES DE TIPO SERIAL//
+     @GeneratedValue(generator = "NacionalidadSeq")
+    @SequenceGenerator(name = "NacionalidadSeq", sequenceName = "nacionalidad_id_nacionalidad_seq", allocationSize = 1)
+    //SE AGREGAN ESTAS 2 LINEAS SEGUN EL NOMBRE DE LA SECUENCIA EN LA BD//
     private Integer idNacionalidad;
     @Basic(optional = false)
     @NotNull

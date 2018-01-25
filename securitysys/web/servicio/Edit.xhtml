@@ -74,8 +74,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{servicioController.save}" value="#{bundle.Save}" update="display,:ServicioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ServicioEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ServicioEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{servicioController.save}" value="#{bundle.Save}" update="display,:ServicioListForm:datalist,:growl" oncomplete="handleSubmit(args,'ServicioCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ServicioCreateDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

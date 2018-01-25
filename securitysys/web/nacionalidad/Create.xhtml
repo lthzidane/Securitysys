@@ -14,9 +14,9 @@
 
                 <h:panelGroup id="display" rendered="#{nacionalidadController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
-
-                        <p:outputLabel value="#{bundle.CreateNacionalidadLabel_idNacionalidad}" for="idNacionalidad" />
-                        <p:inputText id="idNacionalidad" value="#{nacionalidadController.selected.idNacionalidad}" title="#{bundle.CreateNacionalidadTitle_idNacionalidad}" required="true" requiredMessage="#{bundle.CreateNacionalidadRequiredMessage_idNacionalidad}"/>
+                        
+                        <p:outputLabel value="#{bundle.CreateNacionalidadLabel_idNacionalidad}" for="idNacionalidad" rendered="false" />
+                        <p:inputText id="idNacionalidad" value="#{nacionalidadController.selected.idNacionalidad}" title="#{bundle.CreateNacionalidadTitle_idNacionalidad}" required="true" requiredMessage="#{bundle.CreateNacionalidadRequiredMessage_idNacionalidad}" rendered="false"/>
 
                         <p:outputLabel value="#{bundle.CreateNacionalidadLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{nacionalidadController.selected.descripcion}" title="#{bundle.CreateNacionalidadTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateNacionalidadRequiredMessage_descripcion}" size="30" maxlength="30"/>
