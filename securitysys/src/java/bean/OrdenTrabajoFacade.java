@@ -25,6 +25,7 @@ import entities.Sucursal;
 import entities.Usuario;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -171,12 +172,22 @@ public class OrdenTrabajoFacade extends AbstractFacade<OrdenTrabajo> {
         return this.getMergedEntity(entity).getIdUsuario();
     }
 
-    OrdenTrabajo findByNroOrden(Integer valueOf) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public OrdenTrabajo findByNroOrden(Integer nroOrden) {
+        try {
+            return (OrdenTrabajo) em.createNamedQuery("OrdenTrabajo.findByIdOt").setParameter("idOt", nroOrden).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
-    Iterable<OrdenTrabajo> findBetweenFechaOrden(Date startDate, Date endDate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<OrdenTrabajo> findBetweenFechaOrden(Date startDate, Date endDate) {
+        try {
+            return (List<OrdenTrabajo>) em.createNamedQuery("OrdenTrabajo.findBetweenFechaOrden")
+                    .setParameter("startDate", startDate)
+                    .setParameter("endDate", endDate)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
-    
 }

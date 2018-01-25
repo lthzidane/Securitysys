@@ -10,14 +10,14 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from v_orden_trabajo_cab  WHERE nro_orden = $P{NRO}]]>
+		<![CDATA[select * from v_orden_trabajo_cab  WHERE id_ot = $P{NRO}]]>
 	</queryString>
-	<field name="nro_orden" class="java.lang.Integer"/>
+	<field name="id_ot" class="java.lang.Integer"/>
 	<field name="fecha_orden" class="java.sql.Date"/>
 	<field name="id_servicio" class="java.math.BigDecimal"/>
 	<field name="id_tecnico" class="java.lang.Integer"/>
-	<field name="id_estado_trab" class="java.math.BigDecimal"/>
-	<field name="estado" class="java.lang.String"/>
+	<field name="id_estado" class="java.math.BigDecimal"/>
+	<field name="descripcion" class="java.lang.String"/>
 	<field name="id_cliente" class="java.math.BigDecimal"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="apellido" class="java.lang.String"/>
@@ -28,9 +28,9 @@
 	<field name="tecnico" class="java.lang.String"/>
 	<field name="servicio" class="java.lang.String"/>
 	<field name="tipo_documento" class="java.lang.String"/>
-	<field name="nro_documento" class="java.lang.String"/>
+	<field name="numero_documento" class="java.lang.String"/>
 	<group name="tester_grupo">
-		<groupExpression><![CDATA[$F{nro_orden}]]></groupExpression>
+		<groupExpression><![CDATA[$F{id_ot}]]></groupExpression>
 		<groupHeader>
 			<band height="199">
 				<image>
@@ -49,7 +49,7 @@
 				</staticText>
 				<textField>
 					<reportElement x="439" y="18" width="100" height="20" uuid="06756ae3-97c6-4ee1-8245-419d77d956c9"/>
-					<textFieldExpression><![CDATA[$F{nro_orden}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{id_ot}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="129" y="111" width="100" height="20" uuid="a8660d48-bc0f-41c2-855f-437099ac187d"/>
@@ -61,7 +61,7 @@
 				</textField>
 				<textField>
 					<reportElement x="129" y="153" width="100" height="20" uuid="caa6b536-d51f-4b89-bc32-807817f19b35"/>
-					<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="13" y="111" width="100" height="20" uuid="a5aa0ffd-4faa-4e03-a4f2-4f7fba1a783a"/>
@@ -113,7 +113,7 @@
 				</textField>
 				<textField>
 					<reportElement x="411" y="111" width="130" height="20" uuid="06e31934-7cd8-458a-ae5e-4a26b82c2cad"/>
-					<textFieldExpression><![CDATA[$F{nro_documento}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{numero_documento}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -133,7 +133,7 @@
 			<subreport>
 				<reportElement x="0" y="12" width="555" height="77" uuid="d32fce86-ca84-4889-a374-f9764144f44d"/>
 				<subreportParameter name="NRO">
-					<subreportParameterExpression><![CDATA[$F{nro_orden}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$F{id_ot}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "orden_trabajo_det.jasper"]]></subreportExpression>

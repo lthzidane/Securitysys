@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OrdenTrabajo.findAll", query = "SELECT o FROM OrdenTrabajo o")
     , @NamedQuery(name = "OrdenTrabajo.findByIdOt", query = "SELECT o FROM OrdenTrabajo o WHERE o.idOt = :idOt")
     , @NamedQuery(name = "OrdenTrabajo.findByFechaOrden", query = "SELECT o FROM OrdenTrabajo o WHERE o.fechaOrden = :fechaOrden")
-    , @NamedQuery(name = "OrdenTrabajo.findByIdEstado", query = "SELECT o FROM OrdenTrabajo o WHERE o.idEstado = :idEstado")})
+    , @NamedQuery(name = "OrdenTrabajo.findByIdEstado", query = "SELECT o FROM OrdenTrabajo o WHERE o.idEstado = :idEstado"),
+    @NamedQuery(name = "OrdenTrabajo.findBetweenFechaOrden", query = "SELECT o FROM OrdenTrabajo o WHERE o.fechaOrden BETWEEN :startDate AND :endDate")})
 public class OrdenTrabajo implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -46,7 +46,7 @@
             <h:form id="form">
                 <p:dataTable id="datatable" 
                              value="#{ImpresionOTBean.listaOrdenesTrabajo}" 
-                             rowKey="#{item.nroOrden}"
+                             rowKey="#{item.idOt}"
                              filterEvent="enter"
                              var="item"
                              scrollable="true"
@@ -58,32 +58,32 @@
                         Ordenes de Trabajo Existentes
                     </f:facet>
 
-                    <p:column headerText="Nro. Orden" style="width: 80px;" filterBy="#{item.nroOrden}" filterMatchMode="contains" filterStyle="width:100%">
-                        <div align="center"><h:outputText value="#{item.nroOrden}"/></div>
+                    <p:column headerText="Nro. Orden" style="width: 80px;" filterBy="#{item.idOt}" filterMatchMode="contains" filterStyle="width:100%">
+                        <div align="center"><h:outputText value="#{item.idOt}"/></div>
                     </p:column>
                     <p:column headerText="Fecha" style="width: 80px;" filterBy="#{item.fechaOrden}" filterMatchMode="contains" filterStyle="width:100%">
                         <h:outputText value="#{item.fechaOrden}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
-                    <p:column headerText="Tecnico" filterBy="#{item.idTecnico.nombre}" filterMatchMode="contains" filterStyle="width:100%">
-                        <h:outputText value="#{item.idTecnico.nombre}"/>
+                    <p:column headerText="Tecnico" filterBy="#{item.idCuadrilla.idTecnico.nombre}" filterMatchMode="contains" filterStyle="width:100%">
+                        <h:outputText value="#{item.idCuadrilla.idTecnico.nombre}"/>
                     </p:column>                                
                     <p:column headerText="Cliente" filterBy="#{item.idCliente.nombre}" filterMatchMode="contains" filterStyle="width:100%">
                         <h:outputText value="#{item.idCliente.nombre} #{item.idCliente.apellido}"/>
                     </p:column>
-                    <p:column headerText="Servicio a Realizar" filterBy="#{item.idServicio.descripcion}" filterMatchMode="contains" filterStyle="width:100%">
-                        <h:outputText value="#{item.idServicio.descripcion}"/>
+                    <p:column headerText="Servicio a Realizar" filterBy="#{item.idSolicitud.idSolicitud}" filterMatchMode="contains" filterStyle="width:100%">
+                        <h:outputText value="#{item.idSolicitud.idSolicitud}"/>
                     </p:column>
-                    <p:column headerText="Estado" filterBy="#{item.idEstadoTrab.estado}" filterMatchMode="contains" filterStyle="width:100%">
-                        <h:outputText value="#{item.idEstadoTrab.estado}"/>
+                    <p:column headerText="Estado" filterBy="#{item.idEstado}" filterMatchMode="contains" filterStyle="width:100%">
+                        <h:outputText value="#{item.idEstado}"/>
                     </p:column>
                     <p:column headerText="Imprimir" >
                         <p:commandLink id="buttonMostrarReporte"
                                        ajax="false"
                                        onclick="monitorExporting(showStatus, hideStatus);"
                                        value="Mostrar Reporte" 
-                                       action="#{ImpresionOTBean.mostrarReporte(item.nroOrden)}"
+                                       action="#{ImpresionOTBean.mostrarReporte(item.idOt)}"
                                        update="@form"/> 
                     </p:column>
 
