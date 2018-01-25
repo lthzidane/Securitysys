@@ -8,7 +8,7 @@ import com.lowagie.text.BadElementException;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
-import entities.Reclamo;
+import entities.Venta;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -39,27 +39,27 @@ public class ReportesVentasBean implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(ReportesVentasBean.class.getName());
 
-    private ArrayList<Reclamo> listaReclamo = new ArrayList<>();
-    private List<Reclamo> filteredReclamos;
+    private ArrayList<Venta> listaVenta = new ArrayList<>();
+    private List<Venta> filteredVentas;
 
-    private Date fromFecRecl;
-    private Date toFecRecl;
+    private Date fromFecVent;
+    private Date toFecVent;
 
     @EJB
-    private bean.ReclamoFacade reclamoFacade;
+    private bean.VentaFacade ventaFacade;
 
-    private Reclamo reclamo;
+    private Venta venta;
 
     @PostConstruct
     void initialiseSession() {
-        cargarTabRepoReclamo();
+        cargarTabRepoVenta();
     }
 
-    public void cargarTabRepoReclamo() {
+    public void cargarTabRepoVenta() {
         try {
-            listaReclamo = new ArrayList<>();
-            for (Reclamo rcl : reclamoFacade.findAll()) {
-                listaReclamo.add(rcl);
+            listaVenta = new ArrayList<>();
+            for (Venta vent : ventaFacade.findAll()) {
+                listaVenta.add(vent);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -77,80 +77,79 @@ public class ReportesVentasBean implements Serializable {
         pdf.add(com.lowagie.text.Image.getInstance(logo));
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");//new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
-        String startDateToStr = format.format(fromFecRecl);
-        String stopDateToStr = format.format(toFecRecl);
 
-        if (fromFecRecl != null && toFecRecl != null) {
-            pdf.add(new Paragraph("Reclamos del " + startDateToStr + " hasta " + stopDateToStr));
+        if (fromFecVent != null && toFecVent != null) {
+            String startDateToStr = format.format(fromFecVent);
+            String stopDateToStr = format.format(toFecVent);
+            pdf.add(new Paragraph("Ventas del " + startDateToStr + " hasta " + stopDateToStr));
         } else {
-            pdf.add(new Paragraph("Todas los Reclamos existentes"));
+            pdf.add(new Paragraph("Todas los Ventas existentes"));
         }
 
         pdf.add(new Paragraph(" "));
     }
 
-    public void filtrarFechasRecl() {
-        Date startDate = fromFecRecl;
-        Date endDate = toFecRecl;
+    public void filtrarFechasVent() {
+        Date startDate = fromFecVent;
+        Date endDate = toFecVent;
 
         if (startDate == null && endDate == null) {
-            cargarTabRepoReclamo();
+            cargarTabRepoVenta();
         } else {
-            listaReclamo = new ArrayList<>();
-            for (Reclamo rcl : reclamoFacade.findBetweenfechaAlta(startDate, endDate)) {
-                listaReclamo.add(rcl);
+            listaVenta = new ArrayList<>();
+            for (Venta rcl : ventaFacade.findBetweenfechaVenta(startDate, endDate)) {
+                listaVenta.add(rcl);
             }
         }
 
     }
 
-    public ArrayList<Reclamo> getListaReclamo() {
-        return listaReclamo;
+    public ArrayList<Venta> getListaVenta() {
+        return listaVenta;
     }
 
-    public void setListaReclamo(ArrayList<Reclamo> listaReclamo) {
-        this.listaReclamo = listaReclamo;
+    public void setListaVenta(ArrayList<Venta> listaVenta) {
+        this.listaVenta = listaVenta;
     }
 
-    public List<Reclamo> getFilteredReclamos() {
-        return filteredReclamos;
+    public List<Venta> getFilteredVentas() {
+        return filteredVentas;
     }
 
-    public void setFilteredReclamos(List<Reclamo> filteredReclamos) {
-        this.filteredReclamos = filteredReclamos;
+    public void setFilteredVentas(List<Venta> filteredVentas) {
+        this.filteredVentas = filteredVentas;
     }
 
-    public Date getFromFecRecl() {
-        return fromFecRecl;
+    public Date getFromFecVent() {
+        return fromFecVent;
     }
 
-    public void setFromFecRecl(Date fromFecRecl) {
-        this.fromFecRecl = fromFecRecl;
+    public void setFromFecVent(Date fromFecVent) {
+        this.fromFecVent = fromFecVent;
     }
 
-    public Date getToFecRecl() {
-        return toFecRecl;
+    public Date getToFecVent() {
+        return toFecVent;
     }
 
-    public void setToFecRecl(Date toFecRecl) {
-        this.toFecRecl = toFecRecl;
+    public void setToFecVent(Date toFecVent) {
+        this.toFecVent = toFecVent;
     }
 
-    public ReclamoFacade getReclamoFacade() {
-        return reclamoFacade;
+    public VentaFacade getVentaFacade() {
+        return ventaFacade;
     }
 
-    public void setReclamoFacade(ReclamoFacade reclamoFacade) {
-        this.reclamoFacade = reclamoFacade;
+    public void setVentaFacade(VentaFacade ventaFacade) {
+        this.ventaFacade = ventaFacade;
     }
 
-    public Reclamo getReclamo() {
-        return reclamo;
+    public Venta getVenta() {
+        return venta;
     }
 
-    public void setReclamo(Reclamo reclamo) {
-        this.reclamo = reclamo;
+    public void setVenta(Venta venta) {
+        this.venta = venta;
     }
 
-    
 }

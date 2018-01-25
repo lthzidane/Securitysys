@@ -26,7 +26,10 @@ import entities.NotaCrediDebiVenta;
 import entities.VentaDet;
 import entities.NotaRemisionVenta;
 import entities.LibroVenta;
+import entities.Reclamo;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -216,6 +219,17 @@ public class VentaFacade extends AbstractFacade<Venta> {
         List<LibroVenta> libroVentaList = mergedEntity.getLibroVentaList();
         libroVentaList.size();
         return libroVentaList;
+    }
+    
+    public List<Venta> findBetweenfechaVenta(Date startDate, Date endDate) {
+        try {
+            return (List<Venta>) em.createNamedQuery("Venta.findBetweenfechaVenta")
+                    .setParameter("startDate", startDate)
+                    .setParameter("endDate", endDate)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
     
 }

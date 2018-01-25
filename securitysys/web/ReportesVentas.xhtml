@@ -25,42 +25,39 @@
                 }
             </style>
             <h:form id="form">
-                <p:remoteCommand name="filtrarFechasRecl" update="form:tabView:datatableRecl" actionListener="#{ReportesVentasBean.filtrarFechasRecl}" />
+                <p:remoteCommand name="filtrarFechasVent" update="form:tabView:datatableVent" actionListener="#{ReportesVentasBean.filtrarFechasVent}" />
                 <p:tabView id="tabView">
                     <p:tab title="Detalle Venta" titleStyle="font-size: 12px;">
-                        <p:dataTable id="datatableRecl" 
-                                     value="#{ReportesVentasBean.listaReclamo}" 
-                                     rowKey="#{item.idReclamo}"
-                                     filteredValue="#{ReportesVentasBean.filteredReclamos}"
+                        <p:dataTable id="datatableVent" 
+                                     value="#{ReportesVentasBean.listaVenta}" 
+                                     rowKey="#{item.idVenta}"
+                                     filteredValue="#{ReportesVentasBean.filteredVentas}"
                                      var="item"
-                                     widgetVar="datatableRecl"
+                                     widgetVar="datatableVent"
                                      scrollable="true"
                                      scrollHeight="300"
-                                     emptyMessage="No hay Reclamos que mostrar">
+                                     emptyMessage="No hay Ventas que mostrar">
                             <f:facet name="header">
-                                Reclamos por Fecha de Ingreso
+                                Ventas por Fecha de Ingreso
                                 <br />
                                 <h:outputText value="Fecha Inicio: " />
-                                <p:calendar id="from" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesVentasBean.fromFecRecl}"/>
+                                <p:calendar id="from" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesVentasBean.fromFecVent}"/>
                                 <h:outputText value="Fecha Fin: " />
-                                <p:calendar id="to" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesVentasBean.toFecRecl}" >
+                                <p:calendar id="to" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesVentasBean.toFecVent}" >
                                     <p:ajax event="dateSelect" 
-                                            oncomplete="filtrarFechasRecl()" />
+                                            oncomplete="filtrarFechasVent()" />
                                 </p:calendar>
                             </f:facet>
-                            <p:column id="columnReclFecha" headerText="Fecha Ingreso" sortBy="#{item.fechaAlta}"> 
-                                <h:outputText value="#{item.fechaAlta}">
+                            <p:column id="columnVentFecha" headerText="Fecha Ingreso" sortBy="#{item.fechaVenta}"> 
+                                <h:outputText value="#{item.fechaVenta}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </p:column>
                             <p:column headerText="Nro. Orden" style="width: 80px;">
-                                <h:outputText value="#{item.idReclamo}"/>
+                                <h:outputText value="#{item.idVenta}"/>
                             </p:column>
-                            <p:column headerText="Descripcion">
-                                <h:outputText value="#{item.descripcion}"/>
-                            </p:column>
-                            <p:column headerText="Tipo de Reclamo">
-                                <h:outputText value="#{item.idTipoReclamo.descripcion}"/>
+                            <p:column headerText="Tipo de Comprobante">
+                                <h:outputText value="#{item.idTipoComprobante.descripcion}"/>
                             </p:column>                                
                             <p:column headerText="Reportado por">
                                 <h:outputText value="#{item.idUsuario.nombre}"/>
@@ -68,18 +65,18 @@
                             <p:column headerText="Cliente">
                                 <h:outputText value="#{item.idCliente.nombre} #{item.idCliente.apellido}"/>
                             </p:column>
-                            <p:column headerText="Estado">
-                                <h:outputText value="#{item.idEstado.descripcion}"/>
+                            <p:column headerText="Nro Comprobante">
+                                <h:outputText value="#{item.nroComprobante}"/>
                             </p:column>
-                            <f:facet name="footer">Total de registros: #{ReportesVentasBean.listaReclamo.size()}.</f:facet>
+                            <f:facet name="footer">Total de registros: #{ReportesVentasBean.listaVenta.size()}.</f:facet>
                         </p:dataTable>
                         <br/>
                         <p:commandButton id="buttonMostrarOrdenesTrabajoPorFecha" 
                                          value="Exportar a PDF" 
                                          ajax="false" 
                                          icon="ui-icon-extlink">
-                            <p:dataExporter type="pdf" target="datatableRecl" 
-                                            fileName="reclamos"
+                            <p:dataExporter type="pdf" target="datatableVent" 
+                                            fileName="ventas"
                                             preProcessor="#{ReportesVentasBean.preProcessPDF}" pageOnly="true" />   
                         </p:commandButton>
                     </p:tab>

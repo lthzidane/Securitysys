@@ -44,7 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Venta.findByGravada5", query = "SELECT v FROM Venta v WHERE v.gravada5 = :gravada5")
     , @NamedQuery(name = "Venta.findByGravada10", query = "SELECT v FROM Venta v WHERE v.gravada10 = :gravada10")
     , @NamedQuery(name = "Venta.findByIva5", query = "SELECT v FROM Venta v WHERE v.iva5 = :iva5")
-    , @NamedQuery(name = "Venta.findByIva10", query = "SELECT v FROM Venta v WHERE v.iva10 = :iva10")})
+    , @NamedQuery(name = "Venta.findByIva10", query = "SELECT v FROM Venta v WHERE v.iva10 = :iva10")
+    , @NamedQuery(name = "Venta.findBetweenfechaVenta", query = "SELECT v FROM Venta v WHERE v.fechaVenta BETWEEN :startDate AND :endDate")})
 public class Venta implements Serializable {
 
     private static final long serialVersionUID = 1L;
