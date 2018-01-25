@@ -75,7 +75,7 @@ public class ImpresionOTBean implements Serializable{
 
         try {
 
-            listaOrdenesTrabajo = new ArrayList<OrdenTrabajo>();
+            setListaOrdenesTrabajo(new ArrayList<OrdenTrabajo>());
             obtenerOrdenesTrabajo();
             
             
@@ -86,7 +86,7 @@ public class ImpresionOTBean implements Serializable{
 
     private void obtenerOrdenesTrabajo() {
         for(OrdenTrabajo ot : ordenTrabajoCabFacade.findAll() ) {
-            listaOrdenesTrabajo.add(ot);
+            getListaOrdenesTrabajo().add(ot);
         }
         
     }
@@ -99,7 +99,7 @@ public class ImpresionOTBean implements Serializable{
         
         if (filters.isEmpty()) {
             System.out.println("Filtro por primera vez todos");
-            listaOrdenesTrabajo.clear();
+            getListaOrdenesTrabajo().clear();
             obtenerOrdenesTrabajo();
         }
     }
@@ -175,5 +175,19 @@ public class ImpresionOTBean implements Serializable{
     public static void addSuccessMessage(String client, String message) {
         FacesContext.getCurrentInstance().addMessage(client, new FacesMessage(FacesMessage.SEVERITY_INFO, message, ""));
     }        
+
+    /**
+     * @return the listaOrdenesTrabajo
+     */
+    public ArrayList<OrdenTrabajo> getListaOrdenesTrabajo() {
+        return listaOrdenesTrabajo;
+    }
+
+    /**
+     * @param listaOrdenesTrabajo the listaOrdenesTrabajo to set
+     */
+    public void setListaOrdenesTrabajo(ArrayList<OrdenTrabajo> listaOrdenesTrabajo) {
+        this.listaOrdenesTrabajo = listaOrdenesTrabajo;
+    }
     
 }

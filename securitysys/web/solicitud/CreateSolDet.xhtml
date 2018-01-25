@@ -15,8 +15,8 @@
                 <h:panelGroup id="display" rendered="#{solicitudDetController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
 
-                        <p:outputLabel value="#{bundle.CreateSolicitudDetLabel_solicitudDetPK_idSolicitudCab}" for="solicitudDetPK_idSolicitudCab" />
-                        <p:inputText id="solicitudDetPK_idSolicitudCab" value="#{solicitudDetController.selected.solicitudDetPK.idSolicitudCab}" title="#{bundle.CreateSolicitudDetTitle_solicitudDetPK_idSolicitudCab}" required="true" requiredMessage="#{bundle.CreateSolicitudDetRequiredMessage_solicitudDetPK_idSolicitudCab}"/>
+                        <p:outputLabel value="#{bundle.CreateSolicitudDetLabel_solicitudDetPK_idSolicitudCab}" for="solicitudDetPK_idSolicitudCab" rendered="false"/>
+                        <p:inputText id="solicitudDetPK_idSolicitudCab" value="#{solicitudDetController.selected.solicitudDetPK.idSolicitudCab}" title="#{bundle.CreateSolicitudDetTitle_solicitudDetPK_idSolicitudCab}" required="true" requiredMessage="#{bundle.CreateSolicitudDetRequiredMessage_solicitudDetPK_idSolicitudCab}" rendered="false"/>
 
                         <p:outputLabel value="#{bundle.CreateSolicitudDetLabel_solicitudDetPK_idSecuencia}" for="solicitudDetPK_idSecuencia" />
                         <p:inputText id="solicitudDetPK_idSecuencia" value="#{solicitudDetController.selected.solicitudDetPK.idSecuencia}" title="#{bundle.CreateSolicitudDetTitle_solicitudDetPK_idSecuencia}" required="true" requiredMessage="#{bundle.CreateSolicitudDetRequiredMessage_solicitudDetPK_idSecuencia}"/>
