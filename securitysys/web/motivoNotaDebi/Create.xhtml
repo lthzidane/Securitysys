@@ -22,7 +22,7 @@
                         <p:inputText id="tipoNota" value="#{motivoNotaDebiController.selected.tipoNota}" title="#{bundle.CreateMotivoNotaDebiTitle_tipoNota}" required="true" requiredMessage="#{bundle.CreateMotivoNotaDebiRequiredMessage_tipoNota}" size="60" maxlength="60"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{motivoNotaDebiController.saveNew}" value="#{bundle.Save}" update="display,:MotivoNotaDebiListForm:datalist,:growl" oncomplete="handleSubmit(args,'MotivoNotaDebiCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" MotivoNotaDebiCreateDialog.hide()"  immediate="true" />
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MotivoNotaDebiCreateDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

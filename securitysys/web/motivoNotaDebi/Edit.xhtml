@@ -25,7 +25,7 @@
                         <p:inputText id="tipoNota" value="#{motivoNotaDebiController.selected.tipoNota}" title="#{bundle.EditMotivoNotaDebiTitle_tipoNota}" required="true" requiredMessage="#{bundle.EditMotivoNotaDebiRequiredMessage_tipoNota}" size="60" maxlength="60"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{motivoNotaDebiController.save}" value="#{bundle.Save}" update="display,:MotivoNotaDebiListForm:datalist,:growl" oncomplete="handleSubmit(args,'MotivoNotaDebiEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" MotivoNotaDebiEditDialog.hide()"  immediate="true" />
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MotivoNotaDebiEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>
