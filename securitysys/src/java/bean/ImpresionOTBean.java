@@ -121,7 +121,7 @@ public class ImpresionOTBean implements Serializable{
             if( vNroOrden != null ){    
                 int sucursalFactura = vNroOrden.intValue();
                 map.put("NRO", sucursalFactura);
-                String pathReporte = "C:\\test\\Securitysys\\securitysys\\src\\java\\reportes\\reporte_test.jasper";
+                String pathReporte = "C:\\develop\\Securitysys\\securitysys\\src\\java\\reportes\\reporte_test.jasper";
                 facturaReport = (JasperReport) JRLoader.loadObject(new FileInputStream(pathReporte));
             }
             
@@ -136,15 +136,15 @@ public class ImpresionOTBean implements Serializable{
                 if (reportByte != null) {
                     showPDFventa(reportByte, pdf);
                     //crearArchivoDesdeByteArray(reportByte, pdf);
-                    FacesContext.getCurrentInstance().addMessage("generalMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Factura enviada a la impresora", ""));
+                    FacesContext.getCurrentInstance().addMessage("generalMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "OT enviada a la impresora", ""));
                 }
             }else{
-                FacesContext.getCurrentInstance().addMessage("generalMessage", new FacesMessage(FacesMessage.SEVERITY_WARN, "No hay Facturas que mostrar para los valores ingresados", ""));
+                FacesContext.getCurrentInstance().addMessage("generalMessage", new FacesMessage(FacesMessage.SEVERITY_WARN, "No hay OT que mostrar para los valores ingresados", ""));
             }
 
         }catch(Exception e){
             e.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage("generalMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ocurrió un error al generar la factura", ""));
+            FacesContext.getCurrentInstance().addMessage("generalMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ocurrió un error al generar la OT", ""));
         } 
     }
         
