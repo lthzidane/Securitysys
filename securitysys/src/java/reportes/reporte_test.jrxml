@@ -15,7 +15,6 @@
 	<field name="id_ot" class="java.lang.Integer"/>
 	<field name="fecha_orden" class="java.sql.Date"/>
 	<field name="id_servicio" class="java.math.BigDecimal"/>
-	<field name="id_tecnico" class="java.lang.Integer"/>
 	<field name="id_estado" class="java.math.BigDecimal"/>
 	<field name="descripcion" class="java.lang.String"/>
 	<field name="id_cliente" class="java.math.BigDecimal"/>

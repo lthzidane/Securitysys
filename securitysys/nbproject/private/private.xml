@@ -43,6 +43,11 @@
             <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
             <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/timbrado/List.xhtml</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/reportes/reporte_test.jrxml</file>
+            <file>file:/C:/test/Securitysys/securitysys/web/ImpresionOT.xhtml</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/reportes/orden_trabajo_det.jrxml</file>
+            <file>file:/C:/test/Securitysys/securitysys/src/java/bean/ImpresionOTBean.java</file>
+        </group>
     </open-files>
 </project-private>
