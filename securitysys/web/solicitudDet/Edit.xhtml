@@ -62,8 +62,8 @@
                         <h:outputLabel value="#{bundle.EditSolicitudDetLabel_solicitud}" for="solicitud" />
                         <h:outputText id="solicitud" value="#{solicitudDetController.selected.solicitud}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{solicitudDetController.save}" value="#{bundle.Save}" update="display,:SolicitudDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SolicitudDetEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('SolicitudDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{solicitudDetController.save}" value="#{bundle.Save}" update="display,:SolicitudDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'SolicitudDetEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" SolicitudDetEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

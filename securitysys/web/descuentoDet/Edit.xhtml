@@ -27,10 +27,10 @@
 
 
                         <h:outputLabel value="#{bundle.EditDescuentoDetLabel_descuento}" for="descuento" />
-                        <h:outputText id="descuento" value="#{descuentoDetController.selected.descuento}" />
+                        <h:outputText id="descuento" value="#{descuentoDetController.selected.descuento.descripcionDesc}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{descuentoDetController.save}" value="#{bundle.Save}" update="display,:DescuentoDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DescuentoDetEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DescuentoDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{descuentoDetController.save}" value="#{bundle.Save}" update="display,:DescuentoDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'DescuentoDetEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DescuentoDetEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

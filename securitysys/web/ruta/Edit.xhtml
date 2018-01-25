@@ -33,7 +33,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{rutaController.save}" value="#{bundle.Save}" update="display,:RutaListForm:datalist,:growl" oncomplete="handleSubmit(args,'RutaEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="RutaEditDialog.hide()" immediate="true"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RutaEditDialog.hide()" immediate="true"/>
                 </h:panelGroup>
 
             </h:form>

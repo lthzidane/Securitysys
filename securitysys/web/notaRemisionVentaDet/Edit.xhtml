@@ -40,8 +40,8 @@
                         <h:outputLabel value="#{bundle.EditNotaRemisionVentaDetLabel_notaRemisionVenta}" for="notaRemisionVenta" />
                         <h:outputText id="notaRemisionVenta" value="#{notaRemisionVentaDetController.selected.notaRemisionVenta}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{notaRemisionVentaDetController.save}" value="#{bundle.Save}" update="display,:NotaRemisionVentaDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('NotaRemisionVentaDetEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('NotaRemisionVentaDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{notaRemisionVentaDetController.save}" value="#{bundle.Save}" update="display,:NotaRemisionVentaDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'NotaRemisionVentaDetEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" NotaRemisionVentaDetEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

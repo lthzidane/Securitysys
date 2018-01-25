@@ -61,8 +61,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{cobroTarjetaController.saveNew}" value="#{bundle.Save}" update="display,:CobroTarjetaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CobroTarjetaCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CobroTarjetaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{cobroTarjetaController.saveNew}" value="#{bundle.Save}" update="display,:CobroTarjetaListForm:datalist,:growl" oncomplete="handleSubmit(args,'CobroTarjetaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}"  onclick="CobroTarjetaCreateDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

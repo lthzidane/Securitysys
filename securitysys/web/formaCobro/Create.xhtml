@@ -21,8 +21,8 @@
                         <p:outputLabel value="#{bundle.CreateFormaCobroLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{formaCobroController.selected.descripcion}" title="#{bundle.CreateFormaCobroTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateFormaCobroRequiredMessage_descripcion}" size="50" maxlength="50"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{formaCobroController.saveNew}" value="#{bundle.Save}" update="display,:FormaCobroListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('FormaCobroCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('FormaCobroCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{formaCobroController.saveNew}" value="#{bundle.Save}" update="display,:FormaCobroListForm:datalist,:growl" oncomplete="handleSubmit(args,'FormaCobroCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" FormaCobroCreateDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

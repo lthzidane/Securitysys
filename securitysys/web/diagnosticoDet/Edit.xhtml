@@ -40,8 +40,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{diagnosticoDetController.save}" value="#{bundle.Save}" update="display,:DiagnosticoDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DiagnosticoDetEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DiagnosticoDetEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{diagnosticoDetController.save}" value="#{bundle.Save}" update="display,:DiagnosticoDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'DiagnosticoDetEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}"  onclick="DiagnosticoDetEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

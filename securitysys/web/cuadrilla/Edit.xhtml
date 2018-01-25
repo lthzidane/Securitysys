@@ -62,8 +62,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{cuadrillaController.save}" value="#{bundle.Save}" update="display,:CuadrillaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CuadrillaEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CuadrillaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{cuadrillaController.save}" value="#{bundle.Save}" update="display,:CuadrillaListForm:datalist,:growl" oncomplete="handleSubmit(args,'CuadrillaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}"  onclick="CuadrillaEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

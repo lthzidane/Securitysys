@@ -21,7 +21,7 @@
                         <p:outputLabel value="#{bundle.EditCiudadLabel_ciudad}" for="ciudad" />
                         <p:inputText id="ciudad" value="#{ciudadController.selected.ciudad}" title="#{bundle.EditCiudadTitle_ciudad}" size="30" required="true" requiredMessage="#{bundle.EditCiudadRequiredMessage_ciudad}" style="text-transform: uppercase"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ciudadController.save}" value="#{bundle.Save}" update="display,:CiudadListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CiudadEditDialog'));"/>
+                    <p:commandButton actionListener="#{ciudadController.save}" value="#{bundle.Save}" update="display,:CiudadListForm:datalist,:growl" oncomplete="handleSubmit(args,'CiudadEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CiudadEditDialog.hide()" immediate="true" />
                 </h:panelGroup>
 

@@ -35,8 +35,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{descuentoDetController.saveNew}" value="#{bundle.Save}" update="display,:DescuentoDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DescuentoDetCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DescuentoDetCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{descuentoDetController.saveNew}" value="#{bundle.Save}" update="display,:DescuentoDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'DescuentoDetCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DescuentoDetCreateDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

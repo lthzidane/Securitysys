@@ -57,8 +57,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{promocionDetController.saveNew}" value="#{bundle.Save}" update="display,:PromocionDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PromocionDetCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PromocionDetCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{promocionDetController.saveNew}" value="#{bundle.Save}" update="display,:PromocionDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'PromocionDetCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" PromocionDetCreateDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

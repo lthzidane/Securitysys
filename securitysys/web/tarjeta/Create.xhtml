@@ -54,8 +54,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tarjetaController.saveNew}" value="#{bundle.Save}" update="display,:TarjetaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TarjetaCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TarjetaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{tarjetaController.saveNew}" value="#{bundle.Save}" update="display,:TarjetaListForm:datalist,:growl" oncomplete="handleSubmit(args,'TarjetaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" TarjetaCreateDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

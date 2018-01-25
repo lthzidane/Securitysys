@@ -21,8 +21,8 @@
                         <p:outputLabel value="#{bundle.EditTipoDocumentoLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{tipoDocumentoController.selected.descripcion}" title="#{bundle.EditTipoDocumentoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditTipoDocumentoRequiredMessage_descripcion}" size="100" maxlength="100"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tipoDocumentoController.save}" value="#{bundle.Save}" update="display,:TipoDocumentoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoDocumentoEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TipoDocumentoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{tipoDocumentoController.save}" value="#{bundle.Save}" update="display,:TipoDocumentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoDocumentoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" TipoDocumentoEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

@@ -60,8 +60,8 @@
                         <h:outputLabel value="#{bundle.EditCobroChequeLabel_cobroDet}" for="cobroDet" />
                         <h:outputText id="cobroDet" value="#{cobroChequeController.selected.cobroDet}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{cobroChequeController.save}" value="#{bundle.Save}" update="display,:CobroChequeListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CobroChequeEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CobroChequeEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{cobroChequeController.save}" value="#{bundle.Save}" update="display,:CobroChequeListForm:datalist,:growl" oncomplete="handleSubmit(args,'CobroChequeEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}"  onclick="CobroChequeEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

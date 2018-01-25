@@ -18,8 +18,8 @@
                         <p:outputLabel value="#{bundle.CreateValorLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{valorController.selected.descripcion}" title="#{bundle.CreateValorTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateValorRequiredMessage_descripcion}" size="50" maxlength="50"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{valorController.saveNew}" value="#{bundle.Save}" update="display,:ValorListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ValorCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ValorCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{valorController.saveNew}" value="#{bundle.Save}" update="display,:ValorListForm:datalist,:growl" oncomplete="handleSubmit(args,'ValorCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}"  onclick="ValorCreateDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

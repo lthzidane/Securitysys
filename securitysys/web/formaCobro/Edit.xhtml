@@ -21,8 +21,8 @@
                         <p:outputLabel value="#{bundle.EditFormaCobroLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{formaCobroController.selected.descripcion}" title="#{bundle.EditFormaCobroTitle_descripcion}" required="true" requiredMessage="#{bundle.EditFormaCobroRequiredMessage_descripcion}" size="50" maxlength="50"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{formaCobroController.save}" value="#{bundle.Save}" update="display,:FormaCobroListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('FormaCobroEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('FormaCobroEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{formaCobroController.save}" value="#{bundle.Save}" update="display,:FormaCobroListForm:datalist,:growl" oncomplete="handleSubmit(args,'FormaCobroEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" FormaCobroEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

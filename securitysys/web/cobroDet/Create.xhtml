@@ -49,7 +49,7 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{cobroDetController.saveNew}" value="#{bundle.Save}" update="display,:CobroDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CobroDetCreateDialog'));"/>
+                    <p:commandButton actionListener="#{cobroDetController.saveNew}" value="#{bundle.Save}" update="display,:CobroDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'CobroDetCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CobroDetCreateDialog.hide()" immediate="true" />
                 </h:panelGroup>
 

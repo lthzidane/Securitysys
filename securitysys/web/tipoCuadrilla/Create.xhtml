@@ -18,8 +18,8 @@
                         <p:outputLabel value="#{bundle.CreateTipoCuadrillaLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{tipoCuadrillaController.selected.descripcion}" title="#{bundle.CreateTipoCuadrillaTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateTipoCuadrillaRequiredMessage_descripcion}" size="100" maxlength="100"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tipoCuadrillaController.saveNew}" value="#{bundle.Save}" update="display,:TipoCuadrillaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoCuadrillaCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TipoCuadrillaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{tipoCuadrillaController.saveNew}" value="#{bundle.Save}" update="display,:TipoCuadrillaListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoCuadrillaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" TipoCuadrillaCreateDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

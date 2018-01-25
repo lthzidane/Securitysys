@@ -46,8 +46,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{notaRemisionVentaDetController.saveNew}" value="#{bundle.Save}" update="display,:NotaRemisionVentaDetListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('NotaRemisionVentaDetCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('NotaRemisionVentaDetCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{notaRemisionVentaDetController.saveNew}" value="#{bundle.Save}" update="display,:NotaRemisionVentaDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'NotaRemisionVentaDetCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" NotaRemisionVentaDetCreateDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

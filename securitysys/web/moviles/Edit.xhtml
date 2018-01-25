@@ -46,8 +46,8 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{movilesController.save}" value="#{bundle.Save}" update="display,:MovilesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MovilesEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MovilesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{movilesController.save}" value="#{bundle.Save}" update="display,:MovilesListForm:datalist,:growl" oncomplete="handleSubmit(args,'MovilesEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" MovilesEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

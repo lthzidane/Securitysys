@@ -43,8 +43,8 @@
                         <h:outputLabel value="#{bundle.EditRecaudacionLabel_formaCobro}" for="formaCobro" />
                         <h:outputText id="formaCobro" value="#{recaudacionController.selected.formaCobro}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{recaudacionController.save}" value="#{bundle.Save}" update="display,:RecaudacionListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RecaudacionEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('RecaudacionEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{recaudacionController.save}" value="#{bundle.Save}" update="display,:RecaudacionListForm:datalist,:growl" oncomplete="handleSubmit(args,'RecaudacionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}"  onclick="RecaudacionEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

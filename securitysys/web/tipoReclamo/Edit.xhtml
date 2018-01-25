@@ -21,8 +21,8 @@
                         <p:outputLabel value="#{bundle.EditTipoReclamoLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{tipoReclamoController.selected.descripcion}" title="#{bundle.EditTipoReclamoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditTipoReclamoRequiredMessage_descripcion}" size="50" maxlength="50"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tipoReclamoController.save}" value="#{bundle.Save}" update="display,:TipoReclamoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoReclamoEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TipoReclamoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    <p:commandButton actionListener="#{tipoReclamoController.save}" value="#{bundle.Save}" update="display,:TipoReclamoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoReclamoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" TipoReclamoEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>
