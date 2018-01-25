@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\test\\Securitysys\\securitysys\\src\\java\\reportes\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\develop\\Securitysys\\securitysys\\src\\java\\reportes\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="NRO" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
