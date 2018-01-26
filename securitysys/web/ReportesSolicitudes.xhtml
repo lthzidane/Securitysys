@@ -27,7 +27,7 @@
             <h:form id="form">
                 <p:remoteCommand name="filtrarFechasRecl" update="form:tabView:datatableRecl" actionListener="#{ReportesReclamoBean.filtrarFechasRecl}" />
                 <p:tabView id="tabView">
-                    <p:tab title="Detalle Reclamo" titleStyle="font-size: 12px;">
+                    <p:tab title="Detalle Solicitud" titleStyle="font-size: 12px;">
                         <p:dataTable id="datatableRecl" 
                                      value="#{ReportesReclamoBean.listaReclamo}" 
                                      rowKey="#{item.idReclamo}"

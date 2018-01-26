@@ -5,19 +5,28 @@
  */
 package entities;
 
+import bean.DataConnect;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,6 +62,8 @@ public class Venta implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_venta")
+    @GeneratedValue(generator = "VentaSeq")
+    @SequenceGenerator(name = "VentaSeq", sequenceName = "venta_id_venta_seq", allocationSize = 1)
     private Integer idVenta;
     @Basic(optional = false)
     @NotNull
@@ -156,6 +167,9 @@ public class Venta implements Serializable {
     }
 
     public int getNroComprobante() {
+        
+        setNroComprobante(getNextValNroComprobante().intValue());
+        
         return nroComprobante;
     }
 
@@ -361,4 +375,24 @@ public class Venta implements Serializable {
         return "entities.Venta[ idVenta=" + idVenta + " ]";
     }
     
+    
+    public BigInteger getNextValNroComprobante() {
+        BigInteger nextVal = new BigInteger("0");
+        try {
+            Connection con = DataConnect.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT nextval('nro_comprobante_id_nro_comprobante_seq')");
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+               BigDecimal uv =  rs.getBigDecimal("nextval");
+               
+               nextVal = uv.toBigInteger();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener Secuencia de InstalacionDet -->" + ex.getMessage());
+        }
+
+        return nextVal;
+    }
 }

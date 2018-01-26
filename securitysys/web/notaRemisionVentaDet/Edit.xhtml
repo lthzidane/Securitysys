@@ -41,7 +41,7 @@
                         <h:outputText id="notaRemisionVenta" value="#{notaRemisionVentaDetController.selected.notaRemisionVenta}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{notaRemisionVentaDetController.save}" value="#{bundle.Save}" update="display,:NotaRemisionVentaDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'NotaRemisionVentaDetEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" NotaRemisionVentaDetEditDialog.hide()"  immediate="true" />
+                    <p:commandButton value="#{bundle.Cancel}" onclick="NotaRemisionVentaDetEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

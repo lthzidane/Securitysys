@@ -117,7 +117,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{notaCrediDebiVentaController.saveNew}" value="#{bundle.Save}" update="display,:NotaCrediDebiVentaListForm:datalist,:growl" oncomplete="handleSubmit(args,'NotaCrediDebiVentaCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" NotaCrediDebiVentaCreateDialog.hide()"  immediate="true" />
+                    <p:commandButton value="#{bundle.Cancel}" onclick="NotaCrediDebiVentaCreateDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>

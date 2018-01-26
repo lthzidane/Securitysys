@@ -59,7 +59,7 @@
                         <h:outputText id="notaCrediDebiVenta" value="#{notaCrediDebiVentaDetController.selected.notaCrediDebiVenta}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{notaCrediDebiVentaDetController.save}" value="#{bundle.Save}" update="display,:NotaCrediDebiVentaDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'NotaCrediDebiVentaDetEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" NotaCrediDebiVentaDetEditDialog.hide()"  immediate="true" />
+                    <p:commandButton value="#{bundle.Cancel}" onclick="NotaCrediDebiVentaDetEditDialog.hide()"  immediate="true" />
                 </h:panelGroup>
 
             </h:form>
