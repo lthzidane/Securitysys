@@ -42,36 +42,8 @@
                     PF('bui').hide();
                 }
             </script>            
-            <script type="text/javascript">
-                function exportToPdfOT() {
-                    //get your image 
-                    var imageElement = PF('chartOT').exportAsImage();
-
-                    console.log($("chartImageSrc"));
-                    console.log($(imageElement).attr("src"));
-
-                    //get the value of the 'src' attribute of this object and fill the hidden input
-                    $("#form\\:chartImageSrc").val($(imageElement).attr("src"));
-                    //var hiden = 
-
-                    console.log($("#form\\:chartImageSrc").val());
-                }
-            </script>
-            <script type="text/javascript">
-                function exportToPdfIns() {
-                    //get your image 
-                    var imageElement = PF('chartIns').exportAsImage();
-
-                    console.log($("chartImageSrc"));
-                    console.log($(imageElement).attr("src"));
-
-                    //get the value of the 'src' attribute of this object and fill the hidden input
-                    $("#form\\:chartImageSrc").val($(imageElement).attr("src"));
-                    //var hiden = 
-
-                    console.log($("#form\\:chartImageSrc").val());
-                }
-            </script>
+            
+            
             <style type="text/css">
                 .divider{
                     width:5px;
@@ -83,130 +55,66 @@
                 }
             </style>
             <h:form id="form">
-                <p:remoteCommand name="filtrarFechasOT" update="form:tabView:datatableOT" actionListener="#{ReportesReferencialesBean.filtrarFechasOT}" />
-                <p:remoteCommand name="filtrarFechasInst" update="form:tabView:datatableInst" actionListener="#{ReportesReferencialesBean.filtrarFechasInst}" />
-                <p:remoteCommand name="exportToPdfRemoteCommand" 
-                                 action="#{ReportesReferencialesBean.exportOT2Pdf}"/>
-                <h:inputHidden id="chartImageSrc" 
-                               value="#{ReportesReferencialesBean.chartImageSrcBase64}" />
+                
+                
                 <p:tabView id="tabView">
 
-                    <p:tab title="Detalle_OT" titleStyle="font-size: 12px;">
-                        <p:dataTable id="datatableOT" 
-                                     value="#{ReportesReferencialesBean.listaRepoOrdenesTrabajo}" 
-                                     rowKey="#{item.idOt}"
-                                     filteredValue="#{ReportesReferencialesBean.filteredOrdenesTrabajo}"
+                    <p:tab title="Clientes" titleStyle="font-size: 12px;">
+                        <p:dataTable id="datatableCliente" 
+                                     value="#{ReportesReferencialesBean.listaRepoCliente}" 
+                                     rowKey="#{item.idCliente}"
+                                     
                                      var="item"
-                                     widgetVar="datatableOT"
+                                     widgetVar="datatableCliente"
                                      scrollable="true"
                                      scrollHeight="300"
-                                     emptyMessage="No hay Ordenes de Trabajo que mostrar">
+                                     emptyMessage="No hay Clientes que mostrar">
                             <f:facet name="header">
-                                Ordenes de Trabajo
-                                <br />
-                                <h:outputText value="Fecha Inicio: " />
-                                <p:calendar id="from" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesReferencialesBean.fromFecOT}"/>
-                                <h:outputText value="Fecha Fin: " />
-                                <p:calendar id="to" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesReferencialesBean.toFecOT}" >
-                                    <p:ajax event="dateSelect" 
-                                            oncomplete="filtrarFechasOT()" />
-                                </p:calendar>
+                                Clientes
+                                
                             </f:facet>
-                            <p:column id="columnReclFecha" headerText="Fecha" sortBy="#{item.fechaOrden}"> 
-                                <h:outputText value="#{item.fechaOrden}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </h:outputText>
+                            <p:column id="columnClieNombre" headerText="Nombre" sortBy="#{item.nombre}" filterBy="#{item.nombre}"> 
+                                <h:outputText value="#{item.nombre}"/>
                             </p:column>
-                            <p:column headerText="Nro. Orden" style="width: 80px;">
-                                <h:outputText value="#{item.idOt}"/>
+                            <p:column headerText="Apellido" sortBy="#{item.apellido}" filterBy="#{item.apellido}">
+                                <h:outputText value="#{item.apellido}"/>
                             </p:column>
-                            <p:column headerText="Tecnico">
-                                <h:outputText value="#{item.idCuadrilla.idTipoCuadrilla.descripcion}"/>
+                            <p:column headerText="Tipo de Documento" sortBy="#{item.idTipoDocumento.descripcion}" filterBy="#{item.idTipoDocumento.descripcion}">
+                                <h:outputText value="#{item.idTipoDocumento.descripcion}"/>
                             </p:column>                                
-                            <p:column headerText="Cliente">
-                                <h:outputText value="#{item.idCliente.nombre} #{item.idCliente.apellido}"/>
+                            <p:column headerText="Numero de Documento" sortBy="#{item.numeroDocumento}" filterBy="#{item.numeroDocumento}">
+                                <h:outputText value="#{item.numeroDocumento}"/>
                             </p:column>
-                            <p:column headerText="Servicio a Realizar">
-                                <h:outputText value="#{item.idSolicitud.idSolicitud}"/>
+                            <p:column headerText="Ciudad" sortBy="#{item.idCiudad.ciudad}" filterBy="#{item.idCiudad.ciudad}">
+                                <h:outputText value="#{item.idCiudad.ciudad}"/>
                             </p:column>
-                            <p:column headerText="Estado">
-                                <h:outputText value="#{item.idEstado}"/>
+                            <p:column headerText="Estado" sortBy="#{item.estadoCliente}" filterBy="#{item.estadoCliente}">
+                                <h:outputText value="#{item.estadoCliente}"/>
                             </p:column>
-                            <f:facet name="footer">Total de registros: #{ReportesReferencialesBean.listaRepoOrdenesTrabajo.size()}.</f:facet>
+                            <f:facet name="footer">Total de registros: #{ReportesReferencialesBean.listaRepoCliente.size()}.</f:facet>
                         </p:dataTable>
                         <br/>
-                        <p:commandButton id="buttonMostrarOrdenesTrabajoPorFecha" 
+                        <p:commandButton id="buttonMostrarClienteXLS" 
+                                         value="Exportar a XLS" 
+                                         ajax="false" 
+                                         icon="ui-icon-extlink">
+                            <p:dataExporter type="xls" target="datatableCliente" 
+                                            fileName="Cliente" pageOnly="true"
+                                            
+                                            />   
+                        </p:commandButton>
+                          <p:commandButton id="buttonMostrarClientePDF" 
                                          value="Exportar a PDF" 
                                          ajax="false" 
                                          icon="ui-icon-extlink">
-                            <p:dataExporter type="pdf" target="datatableOT" 
-                                            fileName="ordenesDeTrabajo"
-                                            preProcessor="#{ReportesReferencialesBean.preProcessPDF}" pageOnly="true" />   
+                            <p:dataExporter type="pdf" target="datatableCliente" 
+                                            preProcessor="#{ReportesReferencialesBean.preProcessPDF}" fileName="Cliente" pageOnly="true"
+                                            
+                                            />   
                         </p:commandButton>
                     </p:tab>
 
-                    <p:tab title="Detalle_Ins" titleStyle="font-size: 12px;">
-                        <p:dataTable id="datatableInst" 
-                                     value="#{ReportesReferencialesBean.listaRepoInstalaciones}" 
-                                     rowKey="#{item.idInstalacion}"
-                                     filteredValue="#{ReportesReferencialesBean.filteredInstalaciones}"
-                                     var="item"
-                                     scrollable="true"
-                                     scrollHeight="300"
-                                     emptyMessage="No hay Instalaciones que mostrar">
-                            <f:facet name="header">
-                                Ordenes de Instalacion por Fecha de Instalacion
-                                <br />
-                                <h:outputText value="Fecha Inicio: " />
-                                <p:calendar id="fromInst" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesReferencialesBean.fromFecInst}"/>
-                                <h:outputText value="Fecha Fin: " />
-                                <p:calendar id="toInst" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesReferencialesBean.toFecInst}" >
-                                    <p:ajax event="dateSelect" 
-                                            oncomplete="filtrarFechasInst()" />
-                                </p:calendar>
-                            </f:facet>
-
-                            <p:column headerText="Fecha Instalacion" style="width: 80px;" >
-                                <h:outputText value="#{item.fechaInicio}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </h:outputText>
-                            </p:column>
-                            <p:column headerText="Id Instalacion" style="width: 80px;" >
-                                <h:outputText value="#{item.idInstalacion}"/>
-                            </p:column>
-                            <p:column headerText="Tipo Instalacion" >
-                                <h:outputText value="#{item.tipoInstalacion}"/>
-                            </p:column>                                
-                            <p:column headerText="Descripcion" style="width: 80px;" >
-                                <h:outputText value="#{item.observacion}"/>
-                            </p:column>
-                            <p:column headerText="Nro. Orden" >
-                                <h:outputText value="#{item.idOt.idOt}"/>
-                            </p:column>
-                            <p:column headerText="Cliente" >
-                                <h:outputText value="#{item.idOt.idCliente.nombre} #{item.idOt.idCliente.apellido}"/>
-                            </p:column>
-<!--                            <p:column headerText="Tipo Servicio" >
-                                <h:outputText value="#{item.idOt.idServicio.descripcion}"/>
-                            </p:column>-->
-                            <p:column headerText="Responsable" >
-                                <h:outputText value="#{item.idOt.idCuadrilla.idTecnico.nombre}"/>
-                            </p:column>
-                            <p:column headerText="Estado" >
-                                <h:outputText value="#{item.idEstado}"/>
-                            </p:column>
-                            <f:facet name="footer">Total de registros: #{ReportesReferencialesBean.listaRepoInstalaciones.size()}.</f:facet>
-                        </p:dataTable>
-                        <br/>
-                        <p:commandButton id="buttonMostrarInstalacionesPorFecha" 
-                                         value="Exportar a PDF" 
-                                         ajax="false" 
-                                         icon="ui-icon-extlink">
-                            <p:dataExporter type="pdf" target="datatableInst" 
-                                            fileName="instalaciones"
-                                            preProcessor="#{ReportesReferencialesBean.preProcessPDFInst}" pageOnly="true" />   
-                        </p:commandButton>
-                    </p:tab>
+                    
                 </p:tabView>
 
                 <p:blockUI block="tabView" widgetVar="bui">
