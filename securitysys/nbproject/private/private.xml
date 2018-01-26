@@ -44,24 +44,10 @@
             <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/timbrado/List.xhtml</file>
         </group>
         <group>
-            <file>file:/C:/develop/Securitysys/securitysys/web/META-INF/context.xml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/solicitud/List.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/WEB-INF/include/template.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/entities/Promocion.java</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/reportes/reporte_test.jrxml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/contrato/Create.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/bean/ImpresionOTBean.java</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/moviles/List.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/ElaborarPresupuesto.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/Bundle.properties</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/resources/templates/template.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/tipoDocumento/Edit.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/contrato/Edit.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/bean/ReportesOTBean.java</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/entities/Servicio.java</file>
+            <file>file:/C:/develop/Securitysys/securitysys/src/java/reportes/orden_trabajo_det.jrxml</file>
             <file>file:/C:/develop/Securitysys/securitysys/web/moviles/Edit.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/servicio/Create.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/solicitud/CreateSolDet.xhtml</file>
+            <file>file:/C:/develop/Securitysys/securitysys/src/java/reportes/reporte_test.jrxml</file>
+            <file>file:/C:/develop/Securitysys/securitysys/web/moviles/List.xhtml</file>
         </group>
     </open-files>
 </project-private>

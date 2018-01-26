@@ -85,7 +85,7 @@
 
                         <p:submenu label="Instalaciones">
                             <p:menuitem outcome="/solicitud/List" value="Solicitud del Cliente"/>
-                            <p:menuitem outcome="/ElaborarPresupuesto" value="Presupuestos" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
+                            <p:menuitem outcome="/presupuesto/List" value="Presupuestos" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
                             <p:menuitem outcome="/ordenTrabajo/List" value="Orden de Trabajo" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />
                             <p:menuitem outcome="/instalacionCab/List" value="Instalaciones" rendered="#{login.showMenu(access.Empleado_View) || login.showMenu(access.Admin_View)}" />                       
                             <p:menuitem outcome="/promocion/List" value="Promocion" />

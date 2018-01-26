@@ -11,12 +11,40 @@
         <p:dialog id="OrdenTrabajoCreateDlg" widgetVar="OrdenTrabajoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateOrdenTrabajoTitle}" closeOnEscape="true">
 
             <h:form id="OrdenTrabajoCreateForm">
+                <script type="text/javascript">
+                    PrimeFaces.locales["es"] = {
+                        closeText: "Cerrar",
+                        prevText: "Anterior",
+                        nextText: "Siguiente",
+                        monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                        monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                        dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+                        dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+                        dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+                        weekHeader: "Semana",
+                        firstDay: 0,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: "",
+                        timeOnlyTitle: "Solo hora",
+                        timeText: "Tiempo",
+                        hourText: "Hora",
+                        minuteText: "Minuto",
+                        secondText: "Segundo",
+                        currentText: "Fecha actual",
+                        ampm: false,
+                        month: "Mes",
+                        week: "Semana",
+                        day: "Día",
+                        allDayText: "Todo el día"
+                    };
+                </script>
 
                 <h:panelGroup id="display" rendered="#{ordenTrabajoController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
 
                         <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_fechaOrden}" for="fechaOrden" />
-                        <p:calendar id="fechaOrden" pattern="MM/dd/yyyy" value="#{ordenTrabajoController.selected.fechaOrden}" title="#{bundle.CreateOrdenTrabajoTitle_fechaOrden}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_fechaOrden}" showOn="button"/>
+                        <p:calendar id="fechaOrden" pattern="MM/dd/yyyy" value="#{ordenTrabajoController.selected.fechaOrden}" title="#{bundle.CreateOrdenTrabajoTitle_fechaOrden}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_fechaOrden}" showOn="button" locale="es_ES"/>
 
                         <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_idEstado}" for="idEstado" />
                         <p:inputText id="idEstado" value="#{ordenTrabajoController.selected.idEstado}" title="#{bundle.CreateOrdenTrabajoTitle_idEstado}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idEstado}"/>
@@ -38,7 +66,7 @@
                             <f:selectItems value="#{cuadrillaController.items}"
                                            var="idCuadrillaItem"
                                            itemValue="#{idCuadrillaItem}"
-                                           itemLabel="#{idCuadrillaItem.idCuadrilla.toString()}"
+                                           itemLabel="#{idCuadrillaItem.idTipoCuadrilla.descripcion}"
                                            />
 
                         </p:selectOneMenu>
@@ -60,7 +88,7 @@
                             <f:selectItems value="#{presupuestoController.items}"
                                            var="idPresupuestoItem"
                                            itemValue="#{idPresupuestoItem}"
-                                           itemLabel="#{idPresupuestoItem.idPresupuesto.toString()}"
+                                           itemLabel="#{idPresupuestoItem.promocion.descipcion}"
                                            />
 
                         </p:selectOneMenu>
