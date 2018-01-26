@@ -504,6 +504,7 @@ public class ReportesOTBean implements Serializable {
      * @return the listaRepoOrdenesTrabajo
      */
     public ArrayList<OrdenTrabajo> getListaRepoOrdenesTrabajo() {
+        
         return listaRepoOrdenesTrabajo;
     }
 

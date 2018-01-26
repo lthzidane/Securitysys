@@ -42,8 +42,8 @@
                     PF('bui').hide();
                 }
             </script>            
-            
-            
+
+
             <style type="text/css">
                 .divider{
                     width:5px;
@@ -55,15 +55,15 @@
                 }
             </style>
             <h:form id="form">
-                
-                
+
+
                 <p:tabView id="tabView">
 
                     <p:tab title="Clientes" titleStyle="font-size: 12px;">
                         <p:dataTable id="datatableCliente" 
                                      value="#{ReportesReferencialesBean.listaRepoCliente}" 
                                      rowKey="#{item.idCliente}"
-                                     
+
                                      var="item"
                                      widgetVar="datatableCliente"
                                      scrollable="true"
@@ -71,7 +71,6 @@
                                      emptyMessage="No hay Clientes que mostrar">
                             <f:facet name="header">
                                 Clientes
-                                
                             </f:facet>
                             <p:column id="columnClieNombre" headerText="Nombre" sortBy="#{item.nombre}" filterBy="#{item.nombre}"> 
                                 <h:outputText value="#{item.nombre}"/>
@@ -100,21 +99,71 @@
                                          icon="ui-icon-extlink">
                             <p:dataExporter type="xls" target="datatableCliente" 
                                             fileName="Cliente" pageOnly="true"
-                                            
+
                                             />   
                         </p:commandButton>
-                          <p:commandButton id="buttonMostrarClientePDF" 
+                        <p:commandButton id="buttonMostrarClientePDF" 
                                          value="Exportar a PDF" 
                                          ajax="false" 
                                          icon="ui-icon-extlink">
                             <p:dataExporter type="pdf" target="datatableCliente" 
                                             preProcessor="#{ReportesReferencialesBean.preProcessPDF}" fileName="Cliente" pageOnly="true"
-                                            
+
+                                            />   
+                        </p:commandButton>
+                    </p:tab>
+                    <p:tab title="Contrato" titleStyle="font-size: 12px;" rendered="false">
+                        <p:dataTable id="datatableContrato" 
+                                     value="#{ReportesReferencialesBean.listaContratos}" 
+                                     rowKey="#{item.contratoPK.idContrato}"
+
+                                     var="item"
+                                     widgetVar="datatableContrato"
+                                     scrollable="true"
+                                     scrollHeight="300"
+                                     emptyMessage="No hay Contratos que mostrar">
+                            <f:facet name="header">
+                                Contratos
+                            </f:facet>
+                            <p:column id="columnContratoId" headerText="Contrato" sortBy="#{item.contratoPK.idContrato}" filterBy="#{item.contratoPK.idContrato}"> 
+                                <h:outputText value="#{item.contratoPK.idContrato}"/>
+                            </p:column>
+                            <p:column headerText="Nombre" sortBy="#{item.cliente.nombre}" filterBy="#{item.cliente.nombre}">
+                                <h:outputText value="#{item.cliente.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Apellido" sortBy="#{item.cliente.apellido}" filterBy="#{item.cliente.apellido}">
+                                <h:outputText value="#{item.cliente.apellido}"/>
+                            </p:column>
+                            <p:column headerText="Estado" sortBy="#{item.idEstado.descripcion}" filterBy="#{item.idEstado.descripcion}">
+                                <h:outputText value="#{item.idEstado.descripcion}"/>
+                            </p:column>                                
+                            <p:column headerText="Servicio" sortBy="#{item.idServicio.descripcion}" filterBy="#{item.idServicio.descripcion}">
+                                <h:outputText value="#{item.idServicio.descripcion}"/>
+                            </p:column>
+
+                            <f:facet name="footer">Total de registros: #{ReportesReferencialesBean.listaContratos.size()}.</f:facet>
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton id="buttonMostrarContratoXLS" 
+                                         value="Exportar a XLS" 
+                                         ajax="false" 
+                                         icon="ui-icon-extlink">
+                            <p:dataExporter type="xls" target="datatableContrato" 
+                                            fileName="Contratos" pageOnly="true"
+
+                                            />   
+                        </p:commandButton>
+                        <p:commandButton id="buttonMostrarContratoPDF" 
+                                         value="Exportar a PDF" 
+                                         ajax="false" 
+                                         icon="ui-icon-extlink">
+                            <p:dataExporter type="pdf" target="datatableContrato" 
+                                            preProcessor="#{ReportesReferencialesBean.preProcessPDF}" fileName="Contrato" pageOnly="true"
+
                                             />   
                         </p:commandButton>
                     </p:tab>
 
-                    
                 </p:tabView>
 
                 <p:blockUI block="tabView" widgetVar="bui">
