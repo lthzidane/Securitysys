@@ -9,23 +9,23 @@
     <ui:composition>
 
         <p:dialog id="AperturaCierreCajaCreateDlg" widgetVar="AperturaCierreCajaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAperturaCierreCajaTitle}" closeOnEscape="true">
-
+<h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="AperturaCierreCajaCreateForm">
 
                 <h:panelGroup id="display" rendered="#{aperturaCierreCajaController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
 
                         <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_fechaApertura}" for="fechaApertura" />
-                        <p:calendar id="fechaApertura" pattern="MM/dd/yyyy" value="#{aperturaCierreCajaController.selected.fechaApertura}" title="#{bundle.CreateAperturaCierreCajaTitle_fechaApertura}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_fechaApertura}" showOn="button"/>
+                        <p:calendar id="fechaApertura" pattern="MM/dd/yyyy" value="#{aperturaCierreCajaController.selected.fechaApertura}" title="#{bundle.CreateAperturaCierreCajaTitle_fechaApertura}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_fechaApertura}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_horaApertura}" for="horaApertura" />
-                        <p:calendar id="horaApertura" pattern="HH:mm:ss" value="#{aperturaCierreCajaController.selected.horaApertura}" title="#{bundle.CreateAperturaCierreCajaTitle_horaApertura}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_horaApertura}" showOn="button"/>
+                        <p:calendar id="horaApertura" pattern="HH:mm:ss" value="#{aperturaCierreCajaController.selected.horaApertura}" title="#{bundle.CreateAperturaCierreCajaTitle_horaApertura}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_horaApertura}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_fechaCierre}" for="fechaCierre" />
-                        <p:calendar id="fechaCierre" pattern="MM/dd/yyyy" value="#{aperturaCierreCajaController.selected.fechaCierre}" title="#{bundle.CreateAperturaCierreCajaTitle_fechaCierre}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_fechaCierre}" showOn="button"/>
+                        <p:calendar id="fechaCierre" pattern="MM/dd/yyyy" value="#{aperturaCierreCajaController.selected.fechaCierre}" title="#{bundle.CreateAperturaCierreCajaTitle_fechaCierre}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_fechaCierre}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_horaCierre}" for="horaCierre" />
-                        <p:calendar id="horaCierre" pattern="HH:mm:ss" value="#{aperturaCierreCajaController.selected.horaCierre}" title="#{bundle.CreateAperturaCierreCajaTitle_horaCierre}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_horaCierre}" showOn="button"/>
+                        <p:calendar id="horaCierre" pattern="HH:mm:ss" value="#{aperturaCierreCajaController.selected.horaCierre}" title="#{bundle.CreateAperturaCierreCajaTitle_horaCierre}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_horaCierre}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreateAperturaCierreCajaLabel_montoApertura}" for="montoApertura" />
                         <p:inputText id="montoApertura" value="#{aperturaCierreCajaController.selected.montoApertura}" title="#{bundle.CreateAperturaCierreCajaTitle_montoApertura}" required="true" requiredMessage="#{bundle.CreateAperturaCierreCajaRequiredMessage_montoApertura}"/>

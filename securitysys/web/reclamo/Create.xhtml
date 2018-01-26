@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="ReclamoCreateDlg" widgetVar="ReclamoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateReclamoTitle}" closeOnEscape="true">
-
+<h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="ReclamoCreateForm">
 
                 <h:panelGroup id="display" rendered="#{reclamoController.selected != null}">
@@ -19,10 +19,10 @@
                         <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{reclamoController.selected.descripcion}" title="#{bundle.CreateReclamoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_descripcion}"/>
 
                         <p:outputLabel value="#{bundle.CreateReclamoLabel_fechaAlta}" for="fechaAlta" />
-                        <p:calendar id="fechaAlta" pattern="MM/dd/yyyy" value="#{reclamoController.selected.fechaAlta}" title="#{bundle.CreateReclamoTitle_fechaAlta}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_fechaAlta}" showOn="button"/>
+                        <p:calendar id="fechaAlta" pattern="MM/dd/yyyy" value="#{reclamoController.selected.fechaAlta}" title="#{bundle.CreateReclamoTitle_fechaAlta}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_fechaAlta}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreateReclamoLabel_idTipoReclamo1}" for="idTipoReclamo1" />
-                        <p:calendar id="idTipoReclamo1" pattern="MM/dd/yyyy" value="#{reclamoController.selected.idTipoReclamo1}" title="#{bundle.CreateReclamoTitle_idTipoReclamo1}"  showOn="button"/>
+                        <p:calendar id="idTipoReclamo1" pattern="MM/dd/yyyy" value="#{reclamoController.selected.idTipoReclamo1}" title="#{bundle.CreateReclamoTitle_idTipoReclamo1}"  showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreateReclamoLabel_solucion}" for="solucion" />
                         <p:inputText id="solucion" value="#{reclamoController.selected.solucion}" title="#{bundle.CreateReclamoTitle_solucion}" size="150" maxlength="150"/>

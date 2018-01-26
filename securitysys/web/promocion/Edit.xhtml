@@ -8,7 +8,7 @@
 
     <ui:composition>
         <p:dialog id="PromocionEditDlg" widgetVar="PromocionEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditPromocionTitle}" closeOnEscape="true">
-
+<h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="PromocionEditForm">
 
                 <h:panelGroup id="display">
@@ -22,10 +22,10 @@
                         <p:inputText id="descipcion" value="#{promocionController.selected.descipcion}" title="#{bundle.EditPromocionTitle_descipcion}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_descipcion}" size="100" maxlength="100"/>
 
                         <p:outputLabel value="#{bundle.EditPromocionLabel_fechaIniPromo}" for="fechaIniPromo" />
-                        <p:calendar id="fechaIniPromo" pattern="MM/dd/yyyy" value="#{promocionController.selected.fechaIniPromo}" title="#{bundle.EditPromocionTitle_fechaIniPromo}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_fechaIniPromo}" showOn="button"/>
+                        <p:calendar id="fechaIniPromo" pattern="MM/dd/yyyy" value="#{promocionController.selected.fechaIniPromo}" title="#{bundle.EditPromocionTitle_fechaIniPromo}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_fechaIniPromo}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditPromocionLabel_fechaFinPromo}" for="fechaFinPromo" />
-                        <p:calendar id="fechaFinPromo" pattern="MM/dd/yyyy" value="#{promocionController.selected.fechaFinPromo}" title="#{bundle.EditPromocionTitle_fechaFinPromo}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_fechaFinPromo}" showOn="button"/>
+                        <p:calendar id="fechaFinPromo" pattern="MM/dd/yyyy" value="#{promocionController.selected.fechaFinPromo}" title="#{bundle.EditPromocionTitle_fechaFinPromo}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_fechaFinPromo}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditPromocionLabel_idPresu}" for="idPresu" />
                         <p:selectOneMenu id="idPresu" value="#{promocionController.selected.idPresu}" required="true" requiredMessage="#{bundle.EditPromocionRequiredMessage_idPresu}" converter="presupuestoConverter">

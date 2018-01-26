@@ -8,7 +8,7 @@
 
     <ui:composition>
         <p:dialog id="ArqueoEditDlg" widgetVar="ArqueoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditArqueoTitle}" closeOnEscape="true">
-
+            <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="ArqueoEditForm">
 
                 <h:panelGroup id="display">
@@ -30,10 +30,10 @@
                         <p:inputText id="cantidadValor" value="#{arqueoController.selected.cantidadValor}" title="#{bundle.EditArqueoTitle_cantidadValor}" required="true" requiredMessage="#{bundle.EditArqueoRequiredMessage_cantidadValor}"/>
 
                         <p:outputLabel value="#{bundle.EditArqueoLabel_fechaArqueo}" for="fechaArqueo" />
-                        <p:calendar id="fechaArqueo" pattern="MM/dd/yyyy" value="#{arqueoController.selected.fechaArqueo}" title="#{bundle.EditArqueoTitle_fechaArqueo}" required="true" requiredMessage="#{bundle.EditArqueoRequiredMessage_fechaArqueo}" showOn="button"/>
+                        <p:calendar id="fechaArqueo" pattern="MM/dd/yyyy" value="#{arqueoController.selected.fechaArqueo}" title="#{bundle.EditArqueoTitle_fechaArqueo}" required="true" requiredMessage="#{bundle.EditArqueoRequiredMessage_fechaArqueo}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditArqueoLabel_horaArqueo}" for="horaArqueo" />
-                        <p:calendar id="horaArqueo" pattern="HH:mm:ss" value="#{arqueoController.selected.horaArqueo}" title="#{bundle.EditArqueoTitle_horaArqueo}" required="true" requiredMessage="#{bundle.EditArqueoRequiredMessage_horaArqueo}" showOn="button"/>
+                        <p:calendar id="horaArqueo" pattern="HH:mm:ss" value="#{arqueoController.selected.horaArqueo}" title="#{bundle.EditArqueoTitle_horaArqueo}" required="true" requiredMessage="#{bundle.EditArqueoRequiredMessage_horaArqueo}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditArqueoLabel_estadoArqueo}" for="estadoArqueo" />
                         <p:inputText id="estadoArqueo" value="#{arqueoController.selected.estadoArqueo}" title="#{bundle.EditArqueoTitle_estadoArqueo}" required="true" requiredMessage="#{bundle.EditArqueoRequiredMessage_estadoArqueo}" size="40" maxlength="40"/>

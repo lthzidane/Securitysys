@@ -8,7 +8,7 @@
 
     <ui:composition>
         <p:dialog id="NotaRemisionVentaEditDlg" widgetVar="NotaRemisionVentaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditNotaRemisionVentaTitle}" closeOnEscape="true">
-
+            <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="NotaRemisionVentaEditForm">
 
                 <h:panelGroup id="display">
@@ -19,10 +19,10 @@
                         <h:outputText id="idRemision" value="#{notaRemisionVentaController.selected.idRemision}" />
 
                         <p:outputLabel value="#{bundle.EditNotaRemisionVentaLabel_fechaSalida}" for="fechaSalida" />
-                        <p:calendar id="fechaSalida" pattern="MM/dd/yyyy" value="#{notaRemisionVentaController.selected.fechaSalida}" title="#{bundle.EditNotaRemisionVentaTitle_fechaSalida}" required="true" requiredMessage="#{bundle.EditNotaRemisionVentaRequiredMessage_fechaSalida}" showOn="button"/>
+                        <p:calendar id="fechaSalida" pattern="MM/dd/yyyy" value="#{notaRemisionVentaController.selected.fechaSalida}" title="#{bundle.EditNotaRemisionVentaTitle_fechaSalida}" required="true" requiredMessage="#{bundle.EditNotaRemisionVentaRequiredMessage_fechaSalida}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditNotaRemisionVentaLabel_fechaLlegada}" for="fechaLlegada" />
-                        <p:calendar id="fechaLlegada" pattern="MM/dd/yyyy" value="#{notaRemisionVentaController.selected.fechaLlegada}" title="#{bundle.EditNotaRemisionVentaTitle_fechaLlegada}" required="true" requiredMessage="#{bundle.EditNotaRemisionVentaRequiredMessage_fechaLlegada}" showOn="button"/>
+                        <p:calendar id="fechaLlegada" pattern="MM/dd/yyyy" value="#{notaRemisionVentaController.selected.fechaLlegada}" title="#{bundle.EditNotaRemisionVentaTitle_fechaLlegada}" required="true" requiredMessage="#{bundle.EditNotaRemisionVentaRequiredMessage_fechaLlegada}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditNotaRemisionVentaLabel_puntoSalida}" for="puntoSalida" />
                         <p:inputText id="puntoSalida" value="#{notaRemisionVentaController.selected.puntoSalida}" title="#{bundle.EditNotaRemisionVentaTitle_puntoSalida}" required="true" requiredMessage="#{bundle.EditNotaRemisionVentaRequiredMessage_puntoSalida}" size="60" maxlength="60"/>

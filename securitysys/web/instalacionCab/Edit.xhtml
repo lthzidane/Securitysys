@@ -8,7 +8,7 @@
 
     <ui:composition>
         <p:dialog id="InstalacionCabEditDlg" widgetVar="InstalacionCabEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditInstalacionCabTitle}" closeOnEscape="true">
-
+            <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="InstalacionCabEditForm">
 
                 <h:panelGroup id="display">
@@ -22,10 +22,10 @@
                         <p:inputText id="tipoInstalacion" value="#{instalacionCabController.selected.tipoInstalacion}" title="#{bundle.EditInstalacionCabTitle_tipoInstalacion}" required="true" requiredMessage="#{bundle.EditInstalacionCabRequiredMessage_tipoInstalacion}" size="20" maxlength="20"/>
 
                         <p:outputLabel value="#{bundle.EditInstalacionCabLabel_fechaInicio}" for="fechaInicio" />
-                        <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{instalacionCabController.selected.fechaInicio}" title="#{bundle.EditInstalacionCabTitle_fechaInicio}" required="true" requiredMessage="#{bundle.EditInstalacionCabRequiredMessage_fechaInicio}" showOn="button"/>
+                        <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{instalacionCabController.selected.fechaInicio}" title="#{bundle.EditInstalacionCabTitle_fechaInicio}" required="true" requiredMessage="#{bundle.EditInstalacionCabRequiredMessage_fechaInicio}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditInstalacionCabLabel_fechaFin}" for="fechaFin" />
-                        <p:calendar id="fechaFin" pattern="MM/dd/yyyy" value="#{instalacionCabController.selected.fechaFin}" title="#{bundle.EditInstalacionCabTitle_fechaFin}" required="true" requiredMessage="#{bundle.EditInstalacionCabRequiredMessage_fechaFin}" showOn="button"/>
+                        <p:calendar id="fechaFin" pattern="MM/dd/yyyy" value="#{instalacionCabController.selected.fechaFin}" title="#{bundle.EditInstalacionCabTitle_fechaFin}" required="true" requiredMessage="#{bundle.EditInstalacionCabRequiredMessage_fechaFin}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditInstalacionCabLabel_idEstado}" for="idEstado" />
                         <p:inputText id="idEstado" value="#{instalacionCabController.selected.idEstado}" title="#{bundle.EditInstalacionCabTitle_idEstado}" required="true" requiredMessage="#{bundle.EditInstalacionCabRequiredMessage_idEstado}"/>

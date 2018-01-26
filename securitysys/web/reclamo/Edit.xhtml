@@ -8,7 +8,7 @@
 
     <ui:composition>
         <p:dialog id="ReclamoEditDlg" widgetVar="ReclamoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditReclamoTitle}" closeOnEscape="true">
-
+            <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="ReclamoEditForm">
 
                 <h:panelGroup id="display">
@@ -22,10 +22,10 @@
                         <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{reclamoController.selected.descripcion}" title="#{bundle.EditReclamoTitle_descripcion}" required="true" requiredMessage="#{bundle.EditReclamoRequiredMessage_descripcion}"/>
 
                         <p:outputLabel value="#{bundle.EditReclamoLabel_fechaAlta}" for="fechaAlta" />
-                        <p:calendar id="fechaAlta" pattern="MM/dd/yyyy" value="#{reclamoController.selected.fechaAlta}" title="#{bundle.EditReclamoTitle_fechaAlta}" required="true" requiredMessage="#{bundle.EditReclamoRequiredMessage_fechaAlta}" showOn="button"/>
+                        <p:calendar id="fechaAlta" pattern="MM/dd/yyyy" value="#{reclamoController.selected.fechaAlta}" title="#{bundle.EditReclamoTitle_fechaAlta}" required="true" requiredMessage="#{bundle.EditReclamoRequiredMessage_fechaAlta}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditReclamoLabel_idTipoReclamo1}" for="idTipoReclamo1" />
-                        <p:calendar id="idTipoReclamo1" pattern="MM/dd/yyyy" value="#{reclamoController.selected.idTipoReclamo1}" title="#{bundle.EditReclamoTitle_idTipoReclamo1}"  showOn="button"/>
+                        <p:calendar id="idTipoReclamo1" pattern="MM/dd/yyyy" value="#{reclamoController.selected.idTipoReclamo1}" title="#{bundle.EditReclamoTitle_idTipoReclamo1}"  showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditReclamoLabel_solucion}" for="solucion" />
                         <p:inputText id="solucion" value="#{reclamoController.selected.solucion}" title="#{bundle.EditReclamoTitle_solucion}" size="150" maxlength="150"/>

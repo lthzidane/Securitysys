@@ -8,7 +8,7 @@
 
     <ui:composition>
         <p:dialog id="TimbradoEditDlg" widgetVar="TimbradoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditTimbradoTitle}" closeOnEscape="true">
-
+            <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="TimbradoEditForm">
 
                 <h:panelGroup id="display">
@@ -19,10 +19,10 @@
                         <h:outputText id="idTimbrado" value="#{timbradoController.selected.idTimbrado}" />
 
                         <p:outputLabel value="#{bundle.EditTimbradoLabel_fechaDesde}" for="fechaDesde" />
-                        <p:calendar id="fechaDesde" pattern="MM/dd/yyyy" value="#{timbradoController.selected.fechaDesde}" title="#{bundle.EditTimbradoTitle_fechaDesde}" required="true" requiredMessage="#{bundle.EditTimbradoRequiredMessage_fechaDesde}" showOn="button"/>
+                        <p:calendar id="fechaDesde" pattern="MM/dd/yyyy" value="#{timbradoController.selected.fechaDesde}" title="#{bundle.EditTimbradoTitle_fechaDesde}" required="true" requiredMessage="#{bundle.EditTimbradoRequiredMessage_fechaDesde}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditTimbradoLabel_fechaHasta}" for="fechaHasta" />
-                        <p:calendar id="fechaHasta" pattern="MM/dd/yyyy" value="#{timbradoController.selected.fechaHasta}" title="#{bundle.EditTimbradoTitle_fechaHasta}" required="true" requiredMessage="#{bundle.EditTimbradoRequiredMessage_fechaHasta}" showOn="button"/>
+                        <p:calendar id="fechaHasta" pattern="MM/dd/yyyy" value="#{timbradoController.selected.fechaHasta}" title="#{bundle.EditTimbradoTitle_fechaHasta}" required="true" requiredMessage="#{bundle.EditTimbradoRequiredMessage_fechaHasta}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditTimbradoLabel_nroDesde}" for="nroDesde" />
                         <p:inputText id="nroDesde" value="#{timbradoController.selected.nroDesde}" title="#{bundle.EditTimbradoTitle_nroDesde}" required="true" requiredMessage="#{bundle.EditTimbradoRequiredMessage_nroDesde}"/>

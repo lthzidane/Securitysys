@@ -8,7 +8,7 @@
 
     <ui:composition>
         <p:dialog id="OrdenTrabajoEditDlg" widgetVar="OrdenTrabajoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditOrdenTrabajoTitle}" closeOnEscape="true">
-
+        <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="OrdenTrabajoEditForm">
 
                 <h:panelGroup id="display">
@@ -19,7 +19,7 @@
                         <h:outputText id="idOt" value="#{ordenTrabajoController.selected.idOt}" />
 
                         <p:outputLabel value="#{bundle.EditOrdenTrabajoLabel_fechaOrden}" for="fechaOrden" />
-                        <p:calendar id="fechaOrden" pattern="MM/dd/yyyy" value="#{ordenTrabajoController.selected.fechaOrden}" title="#{bundle.EditOrdenTrabajoTitle_fechaOrden}" required="true" requiredMessage="#{bundle.EditOrdenTrabajoRequiredMessage_fechaOrden}" showOn="button"/>
+                        <p:calendar id="fechaOrden" pattern="MM/dd/yyyy" value="#{ordenTrabajoController.selected.fechaOrden}" title="#{bundle.EditOrdenTrabajoTitle_fechaOrden}" required="true" requiredMessage="#{bundle.EditOrdenTrabajoRequiredMessage_fechaOrden}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditOrdenTrabajoLabel_idEstado}" for="idEstado" />
                         <p:inputText id="idEstado" value="#{ordenTrabajoController.selected.idEstado}" title="#{bundle.EditOrdenTrabajoTitle_idEstado}" required="true" requiredMessage="#{bundle.EditOrdenTrabajoRequiredMessage_idEstado}"/>
@@ -30,7 +30,7 @@
                             <f:selectItems value="#{clienteController.items}"
                                            var="idClienteItem"
                                            itemValue="#{idClienteItem}"
-                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           itemLabel="#{idClienteItem.nombre} #{idClienteItem.apellido}"
                                            />
 
                         </p:selectOneMenu>
@@ -41,7 +41,7 @@
                             <f:selectItems value="#{cuadrillaController.items}"
                                            var="idCuadrillaItem"
                                            itemValue="#{idCuadrillaItem}"
-                                           itemLabel="#{idCuadrillaItem.idCuadrilla.toString()}"
+                                           itemLabel="#{idCuadrillaItem.idTipoCuadrilla.descripcion}"
                                            />
 
                         </p:selectOneMenu>
@@ -63,7 +63,7 @@
                             <f:selectItems value="#{presupuestoController.items}"
                                            var="idPresupuestoItem"
                                            itemValue="#{idPresupuestoItem}"
-                                           itemLabel="#{idPresupuestoItem.idPresupuesto.toString()}"
+                                           itemLabel="#{idPresupuestoItem.promocion.descipcion}"
                                            />
 
                         </p:selectOneMenu>
@@ -107,7 +107,7 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           itemLabel="#{idUsuarioItem.nombre}"
                                            />
 
                         </p:selectOneMenu>

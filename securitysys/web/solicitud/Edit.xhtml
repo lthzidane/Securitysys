@@ -8,7 +8,7 @@
 
     <ui:composition>
         <p:dialog id="SolicitudEditDlg" widgetVar="SolicitudEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditSolicitudTitle}" closeOnEscape="true">
-
+        <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="SolicitudEditForm">
 
                 <h:panelGroup id="display">
@@ -19,7 +19,7 @@
                         <h:outputText id="idSolicitud" value="#{solicitudController.selected.idSolicitud}" />
 
                         <p:outputLabel value="#{bundle.EditSolicitudLabel_fechaSolicitud}" for="fechaSolicitud" />
-                        <p:calendar id="fechaSolicitud" pattern="MM/dd/yyyy" value="#{solicitudController.selected.fechaSolicitud}" title="#{bundle.EditSolicitudTitle_fechaSolicitud}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_fechaSolicitud}" showOn="button"/>
+                        <p:calendar id="fechaSolicitud" pattern="MM/dd/yyyy" value="#{solicitudController.selected.fechaSolicitud}" title="#{bundle.EditSolicitudTitle_fechaSolicitud}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_fechaSolicitud}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditSolicitudLabel_estado}" for="estado" />
                         <p:inputText id="estado" value="#{solicitudController.selected.estado}" title="#{bundle.EditSolicitudTitle_estado}" required="true" requiredMessage="#{bundle.EditSolicitudRequiredMessage_estado}" size="50" maxlength="50"/>

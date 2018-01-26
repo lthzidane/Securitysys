@@ -9,14 +9,14 @@
     <ui:composition>
 
         <p:dialog id="PresupuestoCreateDlg" widgetVar="PresupuestoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePresupuestoTitle}" closeOnEscape="true">
-
+        <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="PresupuestoCreateForm">
 
                 <h:panelGroup id="display" rendered="#{presupuestoController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
 
                         <p:outputLabel value="#{bundle.CreatePresupuestoLabel_fecha}" for="fecha" />
-                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{presupuestoController.selected.fecha}" title="#{bundle.CreatePresupuestoTitle_fecha}" required="true" requiredMessage="#{bundle.CreatePresupuestoRequiredMessage_fecha}" showOn="button"/>
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{presupuestoController.selected.fecha}" title="#{bundle.CreatePresupuestoTitle_fecha}" required="true" requiredMessage="#{bundle.CreatePresupuestoRequiredMessage_fecha}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreatePresupuestoLabel_plazo}" for="plazo" />
                         <p:inputText id="plazo" value="#{presupuestoController.selected.plazo}" title="#{bundle.CreatePresupuestoTitle_plazo}" required="true" requiredMessage="#{bundle.CreatePresupuestoRequiredMessage_plazo}" size="30" maxlength="30"/>
@@ -45,7 +45,7 @@
                             <f:selectItems value="#{promocionController.items}"
                                            var="promocionItem"
                                            itemValue="#{promocionItem}"
-                                           itemLabel="#{promocionItem.idPromocion.toString()}"
+                                           itemLabel="#{promocionItem.descipcion}"
                                            />
 
                         </p:selectOneMenu>
@@ -56,7 +56,7 @@
                             <f:selectItems value="#{clienteController.items}"
                                            var="idClienteItem"
                                            itemValue="#{idClienteItem}"
-                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           itemLabel="#{idClienteItem.nombre} #{idClienteItem.apellido}"
                                            />
 
                         </p:selectOneMenu>
@@ -67,7 +67,7 @@
                             <f:selectItems value="#{diagnosticoController.items}"
                                            var="idItem"
                                            itemValue="#{idItem}"
-                                           itemLabel="#{idItem.id.toString()}"
+                                           itemLabel="#{idItem.estadoDiag}"
                                            />
 
                         </p:selectOneMenu>
@@ -100,7 +100,7 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           itemLabel="#{idUsuarioItem.nombre}"
                                            />
 
                         </p:selectOneMenu>

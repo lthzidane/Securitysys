@@ -9,14 +9,14 @@
     <ui:composition>
 
         <p:dialog id="DiagnosticoCreateDlg" widgetVar="DiagnosticoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDiagnosticoTitle}" closeOnEscape="true">
-
+<h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="DiagnosticoCreateForm">
 
                 <h:panelGroup id="display" rendered="#{diagnosticoController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
 
                         <p:outputLabel value="#{bundle.CreateDiagnosticoLabel_fechaDiagnostico}" for="fechaDiagnostico" />
-                        <p:calendar id="fechaDiagnostico" pattern="MM/dd/yyyy" value="#{diagnosticoController.selected.fechaDiagnostico}" title="#{bundle.CreateDiagnosticoTitle_fechaDiagnostico}" required="true" requiredMessage="#{bundle.CreateDiagnosticoRequiredMessage_fechaDiagnostico}" showOn="button"/>
+                        <p:calendar id="fechaDiagnostico" pattern="MM/dd/yyyy" value="#{diagnosticoController.selected.fechaDiagnostico}" title="#{bundle.CreateDiagnosticoTitle_fechaDiagnostico}" required="true" requiredMessage="#{bundle.CreateDiagnosticoRequiredMessage_fechaDiagnostico}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreateDiagnosticoLabel_estadoDiag}" for="estadoDiag" />
                         <p:inputText id="estadoDiag" value="#{diagnosticoController.selected.estadoDiag}" title="#{bundle.CreateDiagnosticoTitle_estadoDiag}" required="true" requiredMessage="#{bundle.CreateDiagnosticoRequiredMessage_estadoDiag}" size="50" maxlength="50"/>
@@ -49,7 +49,7 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           itemLabel="#{idUsuarioItem.nombre}"
                                            />
 
                         </p:selectOneMenu>

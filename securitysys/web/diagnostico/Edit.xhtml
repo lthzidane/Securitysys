@@ -8,7 +8,7 @@
 
     <ui:composition>
         <p:dialog id="DiagnosticoEditDlg" widgetVar="DiagnosticoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditDiagnosticoTitle}" closeOnEscape="true">
-
+            <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="DiagnosticoEditForm">
 
                 <h:panelGroup id="display">
@@ -19,7 +19,7 @@
                         <h:outputText id="id" value="#{diagnosticoController.selected.id}" />
 
                         <p:outputLabel value="#{bundle.EditDiagnosticoLabel_fechaDiagnostico}" for="fechaDiagnostico" />
-                        <p:calendar id="fechaDiagnostico" pattern="MM/dd/yyyy" value="#{diagnosticoController.selected.fechaDiagnostico}" title="#{bundle.EditDiagnosticoTitle_fechaDiagnostico}" required="true" requiredMessage="#{bundle.EditDiagnosticoRequiredMessage_fechaDiagnostico}" showOn="button"/>
+                        <p:calendar id="fechaDiagnostico" pattern="MM/dd/yyyy" value="#{diagnosticoController.selected.fechaDiagnostico}" title="#{bundle.EditDiagnosticoTitle_fechaDiagnostico}" required="true" requiredMessage="#{bundle.EditDiagnosticoRequiredMessage_fechaDiagnostico}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditDiagnosticoLabel_estadoDiag}" for="estadoDiag" />
                         <p:inputText id="estadoDiag" value="#{diagnosticoController.selected.estadoDiag}" title="#{bundle.EditDiagnosticoTitle_estadoDiag}" required="true" requiredMessage="#{bundle.EditDiagnosticoRequiredMessage_estadoDiag}" size="50" maxlength="50"/>
@@ -52,7 +52,7 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           itemLabel="#{idUsuarioItem.nombre}"
                                            />
 
                         </p:selectOneMenu>

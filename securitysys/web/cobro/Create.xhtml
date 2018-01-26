@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="CobroCreateDlg" widgetVar="CobroCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCobroTitle}" closeOnEscape="true">
-
+            <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="CobroCreateForm">
 
                 <h:panelGroup id="display" rendered="#{cobroController.selected != null}">
@@ -19,7 +19,7 @@
                         <p:inputText id="idCobro" value="#{cobroController.selected.idCobro}" title="#{bundle.CreateCobroTitle_idCobro}" required="true" requiredMessage="#{bundle.CreateCobroRequiredMessage_idCobro}"/>
 
                         <p:outputLabel value="#{bundle.CreateCobroLabel_fechaCobro}" for="fechaCobro" />
-                        <p:calendar id="fechaCobro" pattern="MM/dd/yyyy" value="#{cobroController.selected.fechaCobro}" title="#{bundle.CreateCobroTitle_fechaCobro}" required="true" requiredMessage="#{bundle.CreateCobroRequiredMessage_fechaCobro}" showOn="button"/>
+                        <p:calendar id="fechaCobro" pattern="MM/dd/yyyy" value="#{cobroController.selected.fechaCobro}" title="#{bundle.CreateCobroTitle_fechaCobro}" required="true" requiredMessage="#{bundle.CreateCobroRequiredMessage_fechaCobro}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreateCobroLabel_nroRecibo}" for="nroRecibo" />
                         <p:inputText id="nroRecibo" value="#{cobroController.selected.nroRecibo}" title="#{bundle.CreateCobroTitle_nroRecibo}" required="true" requiredMessage="#{bundle.CreateCobroRequiredMessage_nroRecibo}" size="50" maxlength="50"/>

@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="TimbradoCreateDlg" widgetVar="TimbradoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTimbradoTitle}" closeOnEscape="true">
-
+            <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="TimbradoCreateForm">
 
                 <h:panelGroup id="display" rendered="#{timbradoController.selected != null}">
@@ -19,10 +19,10 @@
                         <p:inputText id="idTimbrado" value="#{timbradoController.selected.idTimbrado}" title="#{bundle.CreateTimbradoTitle_idTimbrado}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_idTimbrado}" rendered="false"/>
 
                         <p:outputLabel value="#{bundle.CreateTimbradoLabel_fechaDesde}" for="fechaDesde" />
-                        <p:calendar id="fechaDesde" pattern="MM/dd/yyyy" value="#{timbradoController.selected.fechaDesde}" title="#{bundle.CreateTimbradoTitle_fechaDesde}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_fechaDesde}" showOn="button"/>
+                        <p:calendar id="fechaDesde" pattern="MM/dd/yyyy" value="#{timbradoController.selected.fechaDesde}" title="#{bundle.CreateTimbradoTitle_fechaDesde}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_fechaDesde}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreateTimbradoLabel_fechaHasta}" for="fechaHasta" />
-                        <p:calendar id="fechaHasta" pattern="MM/dd/yyyy" value="#{timbradoController.selected.fechaHasta}" title="#{bundle.CreateTimbradoTitle_fechaHasta}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_fechaHasta}" showOn="button"/>
+                        <p:calendar id="fechaHasta" pattern="MM/dd/yyyy" value="#{timbradoController.selected.fechaHasta}" title="#{bundle.CreateTimbradoTitle_fechaHasta}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_fechaHasta}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreateTimbradoLabel_nroDesde}" for="nroDesde" />
                         <p:inputText id="nroDesde" value="#{timbradoController.selected.nroDesde}" title="#{bundle.CreateTimbradoTitle_nroDesde}" required="true" requiredMessage="#{bundle.CreateTimbradoRequiredMessage_nroDesde}"/>

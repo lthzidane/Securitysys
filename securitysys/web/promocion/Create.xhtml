@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="PromocionCreateDlg" widgetVar="PromocionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePromocionTitle}" closeOnEscape="true">
-
+<h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="PromocionCreateForm">
 
                 <h:panelGroup id="display" rendered="#{promocionController.selected != null}">
@@ -19,10 +19,10 @@
                         <p:inputText id="descipcion" value="#{promocionController.selected.descipcion}" title="#{bundle.CreatePromocionTitle_descipcion}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_descipcion}" size="100" maxlength="100"/>
 
                         <p:outputLabel value="#{bundle.CreatePromocionLabel_fechaIniPromo}" for="fechaIniPromo" />
-                        <p:calendar id="fechaIniPromo" pattern="MM/dd/yyyy" value="#{promocionController.selected.fechaIniPromo}" title="#{bundle.CreatePromocionTitle_fechaIniPromo}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_fechaIniPromo}" showOn="button"/>
+                        <p:calendar id="fechaIniPromo" pattern="MM/dd/yyyy" value="#{promocionController.selected.fechaIniPromo}" title="#{bundle.CreatePromocionTitle_fechaIniPromo}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_fechaIniPromo}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreatePromocionLabel_fechaFinPromo}" for="fechaFinPromo" />
-                        <p:calendar id="fechaFinPromo" pattern="MM/dd/yyyy" value="#{promocionController.selected.fechaFinPromo}" title="#{bundle.CreatePromocionTitle_fechaFinPromo}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_fechaFinPromo}" showOn="button"/>
+                        <p:calendar id="fechaFinPromo" pattern="MM/dd/yyyy" value="#{promocionController.selected.fechaFinPromo}" title="#{bundle.CreatePromocionTitle_fechaFinPromo}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_fechaFinPromo}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreatePromocionLabel_idPresu}" for="idPresu" />
                         <p:selectOneMenu id="idPresu" value="#{promocionController.selected.idPresu}" required="true" requiredMessage="#{bundle.CreatePromocionRequiredMessage_idPresu}" converter="presupuestoConverter">
@@ -30,7 +30,7 @@
                             <f:selectItems value="#{presupuestoController.items}"
                                            var="idPresuItem"
                                            itemValue="#{idPresuItem}"
-                                           itemLabel="#{idPresuItem.idPresupuesto.toString()}"
+                                           itemLabel="#{idPresuItem.promocion.descipcion}"
                                            />
 
                         </p:selectOneMenu>

@@ -8,7 +8,7 @@
 
     <ui:composition>
         <p:dialog id="CobroEditDlg" widgetVar="CobroEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditCobroTitle}" closeOnEscape="true">
-
+            <h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="CobroEditForm">
 
                 <h:panelGroup id="display">
@@ -19,7 +19,7 @@
                         <h:outputText id="idCobro" value="#{cobroController.selected.idCobro}" />
 
                         <p:outputLabel value="#{bundle.EditCobroLabel_fechaCobro}" for="fechaCobro" />
-                        <p:calendar id="fechaCobro" pattern="MM/dd/yyyy" value="#{cobroController.selected.fechaCobro}" title="#{bundle.EditCobroTitle_fechaCobro}" required="true" requiredMessage="#{bundle.EditCobroRequiredMessage_fechaCobro}" showOn="button"/>
+                        <p:calendar id="fechaCobro" pattern="MM/dd/yyyy" value="#{cobroController.selected.fechaCobro}" title="#{bundle.EditCobroTitle_fechaCobro}" required="true" requiredMessage="#{bundle.EditCobroRequiredMessage_fechaCobro}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.EditCobroLabel_nroRecibo}" for="nroRecibo" />
                         <p:inputText id="nroRecibo" value="#{cobroController.selected.nroRecibo}" title="#{bundle.EditCobroTitle_nroRecibo}" required="true" requiredMessage="#{bundle.EditCobroRequiredMessage_nroRecibo}" size="50" maxlength="50"/>
