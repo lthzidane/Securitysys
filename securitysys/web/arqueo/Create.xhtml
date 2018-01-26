@@ -55,7 +55,6 @@
                                            itemValue="#{valorItem}"
                                            itemLabel="#{valorItem.descripcion.toString()}"
                                            />
-
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{arqueoController.saveNew}" value="#{bundle.Save}" update="display,:ArqueoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ArqueoCreateDialog');"/>

@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -74,6 +75,9 @@ public class Arqueo implements Serializable {
     @JoinColumn(name = "id_valor", referencedColumnName = "id_valor", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Valor valor;
+
+    @Transient
+    private int valorTotal;
 
     public Arqueo() {
     }
@@ -183,5 +187,33 @@ public class Arqueo implements Serializable {
     public String toString() {
         return "entities.Arqueo[ arqueoPK=" + arqueoPK + " ]";
     }
-    
+
+    public int getValorTotal() {
+        
+        switch(this.valor.getDescripcion()){
+            case "BILLETE DE DOS MIL" : setValorTotal(this.cantidadValor*2000);
+                break;
+            case "BILLETES DE CINCO MIL" : setValorTotal(this.cantidadValor*5000);
+                break;
+            case "BILLETES DE DIEZ MIL" : setValorTotal(this.cantidadValor*10000);
+                break;
+            case "BILLETES DE VENTE MIL" : setValorTotal(this.cantidadValor*20000);
+                break;    
+            case "BILLETES DE CINCUENTA MIL" : setValorTotal(this.cantidadValor*50000);
+                break;    
+            case "BILLETES DE CIEN MIL" : setValorTotal(this.cantidadValor*100000);
+                break;     
+        }
+
+//        if ("BILLETE DE DOS MIL".equalsIgnoreCase(this.valor.getDescripcion())) {
+//            setValorTotal(this.cantidadValor*2000);
+//        }
+
+        return valorTotal;
+    }
+
+    public void setValorTotal(int valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
 }

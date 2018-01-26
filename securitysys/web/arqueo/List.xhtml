@@ -50,20 +50,18 @@
                             <h:outputText value="#{item.arqueoPK.idArqueo}"/>
                         </p:column>
 
-
-                        <p:column sortBy="#{item.arqueoPK.idValor}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArqueoTitle_arqueoPK_idValor}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.arqueoPK.idValor}"/>
-                        </p:column>
-
-
                         <p:column sortBy="#{item.arqueoPK.idAperturaCierre}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListArqueoTitle_arqueoPK_idAperturaCierre}"/>
                             </f:facet>
                             <h:outputText value="#{item.arqueoPK.idAperturaCierre}"/>
+                        </p:column>
+
+                        <p:column sortBy="#{item.valor.descripcion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListArqueoTitle_arqueoPK_idValor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valor.descripcion}"/>
                         </p:column>
 
 
@@ -74,6 +72,12 @@
                             <h:outputText value="#{item.cantidadValor}"/>
                         </p:column>
 
+                        <p:column sortBy="#{item.valorTotal}">
+                            <f:facet name="header">
+                                <h:outputText value="Valor Total"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorTotal}"/>
+                        </p:column>                        
 
                         <p:column sortBy="#{item.fechaArqueo}">
                             <f:facet name="header">
