@@ -57,6 +57,15 @@
                             <h:outputText value="#{item.arqueoPK.idAperturaCierre}"/>
                         </p:column>
 
+                        <p:column sortBy="#{item.aperturaCierreCaja.montoApertura}">
+                            <f:facet name="header">
+                                <h:outputText value="Monto Apertura"/>
+                            </f:facet>
+                            <h:outputText value="#{item.aperturaCierreCaja.montoApertura}">
+                                <f:convertNumber type="currency" currencySymbol="Gs. " />
+                            </h:outputText>
+                        </p:column>                        
+
                         <p:column sortBy="#{item.valor.descripcion}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListArqueoTitle_arqueoPK_idValor}"/>
@@ -76,7 +85,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Valor Total"/>
                             </f:facet>
-                            <h:outputText value="#{item.valorTotal}"/>
+                            <h:outputText value="#{item.valorTotal}">
+                                <f:convertNumber type="currency" currencySymbol="Gs. " />
+                            </h:outputText>
                         </p:column>                        
 
                         <p:column sortBy="#{item.fechaArqueo}">

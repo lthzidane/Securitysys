@@ -78,6 +78,9 @@ public class Arqueo implements Serializable {
 
     @Transient
     private int valorTotal;
+    
+    @Transient
+    private int diferencia;
 
     public Arqueo() {
     }
