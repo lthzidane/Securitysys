@@ -15,6 +15,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import entities.Diagnostico;
 import entities.Equipo;
+import entities.OrdenTrabajo;
+import java.util.List;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -58,5 +61,15 @@ public class DiagnosticoDetFacade extends AbstractFacade<DiagnosticoDet> {
     public Equipo findIdEquipo(DiagnosticoDet entity) {
         return this.getMergedEntity(entity).getIdEquipo();
     }
-    
+
+    public List<DiagnosticoDet> findByIdDiagnostico(int idDiagnostico) {
+        try {
+            return (List<DiagnosticoDet>) em.createNamedQuery("DiagnosticoDet.findByIdDiagnostico")
+                    .setParameter("idDiagnostico", idDiagnostico)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
 }

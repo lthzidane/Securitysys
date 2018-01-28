@@ -14,9 +14,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import entities.Descuento;
+import entities.DiagnosticoDet;
 import entities.Equipo;
 import entities.Promocion;
 import entities.Venta;
+import java.util.List;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -83,6 +86,16 @@ public class VentaDetFacade extends AbstractFacade<VentaDet> {
 
     public Venta findVenta(VentaDet entity) {
         return this.getMergedEntity(entity).getVenta();
+    }
+    
+    public List<VentaDet> findByIdVenta(int idVenta) {
+        try {
+            return (List<VentaDet>) em.createNamedQuery("VentaDet.findByIdVenta")
+                    .setParameter("idVenta", idVenta)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
     
 }

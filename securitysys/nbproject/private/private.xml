@@ -44,18 +44,9 @@
             <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/timbrado/List.xhtml</file>
         </group>
         <group>
-            <file>file:/C:/develop/Securitysys/securitysys/web/arqueo/Create.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/arqueo/List.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/entities/ArqueoPK.java</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/bean/OrdenInstalacionBean.java</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/entities/Venta.java</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/entities/Arqueo.java</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/entities/AperturaCierreCaja.java</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/session/ArqueoController.java</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/ElaborarPresupuesto.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/venta/Create.xhtml</file>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/entities/Cliente.java</file>
-            <file>file:/C:/develop/Securitysys/securitysys/web/ReportesSolicitudes.xhtml</file>
+            <file>file:/C:/develop/Securitysys/securitysys/src/java/reportes/jcReportFactura.jrxml</file>
+            <file>file:/C:/develop/Securitysys/securitysys/src/java/bean/ReportesVentasBean.java</file>
+            <file>file:/C:/develop/Securitysys/securitysys/src/java/util/numbers2word/Main.java</file>
         </group>
     </open-files>
 </project-private>

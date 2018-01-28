@@ -90,7 +90,9 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVentaTitle_exenta}"/>
                             </f:facet>
-                            <h:outputText value="#{item.exenta}"/>
+                            <h:outputText value="#{item.exenta}">
+                                <f:convertNumber type="currency" currencySymbol="Gs. " />
+                            </h:outputText>
                         </p:column>
 
                         <ui:remove>
@@ -98,7 +100,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListVentaTitle_gravada5}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.gravada5}"/>
+                                <h:outputText value="#{item.gravada5}">
+                                    <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                </h:outputText>
                             </p:column>
                         </ui:remove>
                         <ui:remove>
@@ -106,7 +110,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListVentaTitle_gravada10}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.gravada10}"/>
+                                <h:outputText value="#{item.gravada10}">
+                                    <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                </h:outputText>
                             </p:column>
                         </ui:remove>
                         <ui:remove>
@@ -114,7 +120,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListVentaTitle_iva5}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.iva5}"/>
+                                <h:outputText value="#{item.iva5}">
+                                    <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                </h:outputText>
                             </p:column>
                         </ui:remove>
                         <ui:remove>
@@ -122,7 +130,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListVentaTitle_iva10}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.iva10}"/>
+                                <h:outputText value="#{item.iva10}">
+                                    <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                </h:outputText>
                             </p:column>
                         </ui:remove>
                         <ui:remove>
@@ -258,23 +268,9 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVentaDetTitle_precioVenta}"/>
                             </f:facet>
-                            <h:outputText value="#{item.precioVenta}"/>
-                        </p:column>
-
-
-                        <p:column sortBy="#{item.exento}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListVentaDetTitle_exento}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.exento}"/>
-                        </p:column>
-
-
-                        <p:column sortBy="#{item.gravada5}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListVentaDetTitle_gravada5}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.gravada5}"/>
+                            <h:outputText value="#{item.precioVenta}">
+                                <f:convertNumber type="currency" currencySymbol="Gs. " />
+                            </h:outputText>
                         </p:column>
 
                         <ui:remove>
@@ -282,15 +278,38 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListVentaDetTitle_gravada10}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.gravada10}"/>
+                                <h:outputText value="#{item.gravada10}">
+                                    <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                </h:outputText>
                             </p:column>
                         </ui:remove>
+                        
+                        <p:column sortBy="#{item.gravada5}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaDetTitle_gravada5}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gravada5}">
+                                <f:convertNumber type="currency" currencySymbol="Gs. " />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column sortBy="#{item.exento}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaDetTitle_exento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.exento}">
+                                <f:convertNumber type="currency" currencySymbol="Gs. " />
+                            </h:outputText>
+                        </p:column>
+
                         <ui:remove>
                             <p:column sortBy="#{item.iva5}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListVentaDetTitle_iva5}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.iva5}"/>
+                                <h:outputText value="#{item.iva5}">
+                                    <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                </h:outputText>
                             </p:column>
                         </ui:remove>
                         <ui:remove>

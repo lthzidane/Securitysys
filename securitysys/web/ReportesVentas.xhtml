@@ -24,6 +24,34 @@
                     width: 65px !important
                 }
             </style>
+            <script type="text/javascript">
+                function monitorExporting(start, complete) {
+                    if (PrimeFaces.cookiesEnabled()) {
+                        if (start) {
+                            start();
+                        }
+                        window.chartExportingMonitor = setInterval(function () {
+                            var exportingComplete = PrimeFaces.getCookie('cookie.pdf.exporting');
+                            console.log('exportingComplete:' + exportingComplete);
+                            if (exportingComplete === 'true') {
+                                if (complete) {
+                                    complete();
+                                }
+                                clearInterval(window.chartExportingMonitor);
+                                PrimeFaces.setCookie('cookie.pdf.exporting', null);
+                            }
+                        }, 3000);
+                    }
+                }
+
+                function showStatus() {
+                    PF('bui').show();
+                }
+
+                function hideStatus() {
+                    PF('bui').hide();
+                }
+            </script>
             <h:form id="form">
                 <p:remoteCommand name="filtrarFechasVent" update="form:tabView:datatableVent" actionListener="#{ReportesVentasBean.filtrarFechasVent}" />
                 <p:tabView id="tabView">
@@ -68,8 +96,21 @@
                             <p:column headerText="Nro Comprobante">
                                 <h:outputText value="#{item.nroComprobante}"/>
                             </p:column>
+                            <p:column headerText="Factura" >
+                                <p:commandLink id="buttonMostrarReporte"
+                                               ajax="false"
+                                               onclick="monitorExporting(showStatus, hideStatus);"
+                                               value="Imprimir Factura" 
+                                               action="#{ReportesVentasBean.mostrarReporteVentas(item.idVenta)}"
+                                               update="@form"/> 
+                            </p:column>
                             <f:facet name="footer">Total de registros: #{ReportesVentasBean.listaVenta.size()}.</f:facet>
                         </p:dataTable>
+                        <p:blockUI block="datatableVent" widgetVar="bui">
+                            Cargando Reporte<br />
+                            <h:graphicImage library="images" name="ajaxloadingbar.gif"/>
+                        </p:blockUI>
+
                         <br/>
                         <p:commandButton id="buttonMostrarOrdenesTrabajoPorFecha" 
                                          value="Exportar a PDF" 

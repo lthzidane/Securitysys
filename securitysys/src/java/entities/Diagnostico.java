@@ -5,13 +5,16 @@
  */
 package entities;
 
+import bean.DiagnosticoDetFacade;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,7 +61,7 @@ public class Diagnostico implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "estado_diag")
     private String estadoDiag;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "diagnostico")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "diagnostico")
     private List<DiagnosticoDet> diagnosticoDetList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
     private List<Presupuesto> presupuestoList;

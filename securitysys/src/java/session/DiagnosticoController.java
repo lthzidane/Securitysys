@@ -1,10 +1,6 @@
 package session;
 
 import entities.Diagnostico;
-import entities.DiagnosticoDet;
-import entities.Presupuesto;
-import java.util.List;
-import bean.DiagnosticoFacade;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 
