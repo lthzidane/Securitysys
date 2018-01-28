@@ -11,7 +11,7 @@
 LPAD(f.id_serie_comprobante::text, 3, '0') as serie, 
 LPAD(f.nro_comprobante::text, 3, '0') as comp,
 LPAD(f.id_venta::text, 3, '0') as NUM,
-c.id_cliente as id, c.nombre, c.direccion, c.telefono as persona_telefono,
+c.id_cliente as id, c.nombre || ' ' || c.apellido as nombre, c.direccion, c.telefono as persona_telefono,
 f.fecha_venta as f_Registro, u.nombre as vendedor, f.estado_venta as observacion,
 p.id_equipo as IDP, p.descripcion as NameP,
 d.cantidad, d.precio_venta as precioU,(d.cantidad * d.precio_venta) as total

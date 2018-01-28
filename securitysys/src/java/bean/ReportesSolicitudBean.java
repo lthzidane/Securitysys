@@ -4,33 +4,41 @@
  */
 package bean;
 
-import com.lowagie.text.BadElementException;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import entities.Reclamo;
-import java.io.File;
+import entities.Solicitud;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import lombok.Data;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
  * @author sebas
  */
-@ManagedBean(name = "ReportesReclamoBean")
+@ManagedBean(name = "ReportesSolicitudBean")
 @ViewScoped
 @Data
 public class ReportesSolicitudBean implements Serializable {
@@ -39,118 +47,144 @@ public class ReportesSolicitudBean implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(ReportesSolicitudBean.class.getName());
 
-    private ArrayList<Reclamo> listaReclamo = new ArrayList<>();
-    private List<Reclamo> filteredReclamos;
+    private ArrayList<Solicitud> listaSolicitud = new ArrayList<>();
+    private List<Solicitud> filteredSolicidudes;
 
-    private Date fromFecRecl;
-    private Date toFecRecl;
+    private Date fromFecSolic;
+    private Date toFecSolic;
 
     @EJB
-    private bean.ReclamoFacade reclamoFacade;
+    private bean.SolicitudFacade solicitudFacade;
 
-    private Reclamo reclamo;
+    private Solicitud solicitud;
 
     @PostConstruct
     void initialiseSession() {
-        cargarTabRepoReclamo();
+        cargarTabRepoSolicitud();
     }
 
-    public void cargarTabRepoReclamo() {
+    public void cargarTabRepoSolicitud() {
         try {
-            listaReclamo = new ArrayList<>();
-            for (Reclamo rcl : reclamoFacade.findAll()) {
-                listaReclamo.add(rcl);
+            listaSolicitud = new ArrayList<>();
+            for (Solicitud sol : solicitudFacade.findAll()) {
+                listaSolicitud.add(sol);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException, ParseException {
-        com.lowagie.text.Document pdf = (com.lowagie.text.Document) document;
-        pdf.open();
-        pdf.setPageSize(PageSize.LEGAL.rotate());
-
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        String logo = externalContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "Security.png";
-
-        pdf.add(com.lowagie.text.Image.getInstance(logo));
-
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");//new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
-
-        if (fromFecRecl != null && toFecRecl != null) {
-            String startDateToStr = format.format(fromFecRecl);
-            String stopDateToStr = format.format(toFecRecl);
-            pdf.add(new Paragraph("Reclamos del " + startDateToStr + " hasta " + stopDateToStr));
-        } else {
-            pdf.add(new Paragraph("Todas los Reclamos existentes"));
-        }
-
-        pdf.add(new Paragraph(" "));
+    public Date getFromFecSolic() {
+        return fromFecSolic;
     }
 
-    public void filtrarFechasRecl() {
-        Date startDate = fromFecRecl;
-        Date endDate = toFecRecl;
+    public void setFromFecSolic(Date fromFecSolic) {
+        this.fromFecSolic = fromFecSolic;
+    }
 
-        if (startDate == null && endDate == null) {
-            cargarTabRepoReclamo();
-        } else {
-            listaReclamo = new ArrayList<>();
-            for (Reclamo rcl : reclamoFacade.findBetweenfechaAlta(startDate, endDate)) {
-                listaReclamo.add(rcl);
+    public Date getToFecSolic() {
+        return toFecSolic;
+    }
+
+    public void setToFecSolic(Date toFecSolic) {
+        this.toFecSolic = toFecSolic;
+    }
+
+    public ArrayList<Solicitud> getListaSolicitud() {
+        return listaSolicitud;
+    }
+
+    public void setListaSolicitud(ArrayList<Solicitud> listaSolicitud) {
+        this.listaSolicitud = listaSolicitud;
+    }
+
+    public List<Solicitud> getFilteredSolicidudes() {
+        return filteredSolicidudes;
+    }
+
+    public void setFilteredSolicidudes(List<Solicitud> filteredSolicidudes) {
+        this.filteredSolicidudes = filteredSolicidudes;
+    }
+
+    public SolicitudFacade getSolicitudFacade() {
+        return solicitudFacade;
+    }
+
+    public void setSolicitudFacade(SolicitudFacade solicitudFacade) {
+        this.solicitudFacade = solicitudFacade;
+    }
+
+    public Solicitud getSolicitud() {
+        return solicitud;
+    }
+
+    public void setSolicitud(Solicitud solicitud) {
+        this.solicitud = solicitud;
+    }
+
+    public void mostrarReporte(BigDecimal vNroSolicitud) {
+        System.out.println("mostrando Reporte");
+
+        //Obtener Current FacesContext
+        String pdf = "Solicitud_" + vNroSolicitud;
+        try {
+
+            Class.forName("org.postgresql.Driver");
+            Connection cnPostgres = DriverManager.getConnection("jdbc:postgresql://localhost:5432/security", "postgres", "1234");
+
+            JasperReport facturaReport = null;
+            Map<String, Object> map = new HashMap<String, Object>();
+
+            System.out.println("vNroSolicitud:" + vNroSolicitud);
+            if (vNroSolicitud != null) {
+                int sucursalFactura = vNroSolicitud.intValue();
+                map.put("NRO", sucursalFactura);
+                String pathReporte = "C:\\develop\\Securitysys\\securitysys\\src\\java\\reportes\\reporte_solicitudes.jasper";
+                facturaReport = (JasperReport) JRLoader.loadObject(new FileInputStream(pathReporte));
             }
+
+            JasperPrint p = JasperFillManager.fillReport(facturaReport, map, cnPostgres);
+
+            int cantPaginas = p.getPages().size();
+            System.out.println("Cantidad de Páginas del reporte: " + cantPaginas);
+
+            if (cantPaginas > 0) {
+                byte[] reportByte = JasperExportManager.exportReportToPdf(p);
+                // si se genero un reporte, se muestra, y registra su cantidad
+                if (reportByte != null) {
+                    showPDFventa(reportByte, pdf);
+                    //crearArchivoDesdeByteArray(reportByte, pdf);
+                    FacesContext.getCurrentInstance().addMessage("generalMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitud enviada a la impresora", ""));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage("generalMessage", new FacesMessage(FacesMessage.SEVERITY_WARN, "No hay Solicitud que mostrar para los valores ingresados", ""));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage("generalMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ocurrió un error al generar la Solicitud", ""));
+        }
+    }
+
+    public void showPDFventa(byte[] bytes, String name) throws IOException {
+        // set cookie to be able to ask it and close status dialog for example
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.addResponseCookie("cookie.pdf.exporting", "true", Collections.<String, Object>emptyMap());
+
+        HttpServletResponse res = (HttpServletResponse) externalContext.getResponse();
+        res.setContentType("application/pdf");
+        res.setHeader("Content-disposition", "attachment; filename=" + name + ".pdf");
+
+        try {
+            ServletOutputStream out = res.getOutputStream();
+            out.write(bytes);
+            out.flush();
+            out.close();
+
+        } catch (IOException ex) {
+            throw ex;
         }
 
+        FacesContext.getCurrentInstance().responseComplete();
     }
-
-    public ArrayList<Reclamo> getListaReclamo() {
-        return listaReclamo;
-    }
-
-    public void setListaReclamo(ArrayList<Reclamo> listaReclamo) {
-        this.listaReclamo = listaReclamo;
-    }
-
-    public List<Reclamo> getFilteredReclamos() {
-        return filteredReclamos;
-    }
-
-    public void setFilteredReclamos(List<Reclamo> filteredReclamos) {
-        this.filteredReclamos = filteredReclamos;
-    }
-
-    public Date getFromFecRecl() {
-        return fromFecRecl;
-    }
-
-    public void setFromFecRecl(Date fromFecRecl) {
-        this.fromFecRecl = fromFecRecl;
-    }
-
-    public Date getToFecRecl() {
-        return toFecRecl;
-    }
-
-    public void setToFecRecl(Date toFecRecl) {
-        this.toFecRecl = toFecRecl;
-    }
-
-    public bean.ReclamoFacade getReclamoFacade() {
-        return reclamoFacade;
-    }
-
-    public void setReclamoFacade(bean.ReclamoFacade reclamoFacade) {
-        this.reclamoFacade = reclamoFacade;
-    }
-
-    public Reclamo getReclamo() {
-        return reclamo;
-    }
-
-    public void setReclamo(Reclamo reclamo) {
-        this.reclamo = reclamo;
-    }
-
-    
 }

@@ -10,13 +10,30 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from v_orden_trabajo_cab  WHERE id_ot = $P{NRO}]]>
+		<![CDATA[select * from 
+		(SELECT  so.id_solicitud, 
+				us.nombre as tecnico, 
+				su.descripcion as sucursal, 
+				so.id_cliente,
+				cl.nombre,
+				cl.apellido,
+				cl.direccion,
+				cl.telefono,
+				cl.id_ciudad,
+				ci.ciudad, 
+				so.fecha_solicitud, 
+				so.estado
+		  FROM solicitud so
+		  inner join usuario us on so.id_usuario=us.id_usuario
+		  inner join sucursal su on so.id_sucursal=su.id_sucursal
+		  inner join cliente cl on so.id_cliente=cl.id_cliente
+		  inner join ciudad ci on cl.id_ciudad=ci.id_ciudad)  as solCab
+		WHERE id_solicitud = $P{NRO}]]>
 	</queryString>
-	<field name="id_ot" class="java.lang.Integer"/>
-	<field name="fecha_orden" class="java.sql.Date"/>
-	<field name="id_servicio" class="java.math.BigDecimal"/>
-	<field name="id_estado" class="java.math.BigDecimal"/>
-	<field name="descripcion" class="java.lang.String"/>
+	<field name="id_solicitud" class="java.lang.Integer"/>
+	<field name="fecha_solicitud" class="java.sql.Date"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="sucursal" class="java.lang.String"/>
 	<field name="id_cliente" class="java.math.BigDecimal"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="apellido" class="java.lang.String"/>
@@ -25,11 +42,8 @@
 	<field name="id_ciudad" class="java.math.BigDecimal"/>
 	<field name="ciudad" class="java.lang.String"/>
 	<field name="tecnico" class="java.lang.String"/>
-	<field name="servicio" class="java.lang.String"/>
-	<field name="tipo_documento" class="java.lang.String"/>
-	<field name="numero_documento" class="java.lang.String"/>
 	<group name="tester_grupo">
-		<groupExpression><![CDATA[$F{id_ot}]]></groupExpression>
+		<groupExpression><![CDATA[$F{id_solicitud}]]></groupExpression>
 		<groupHeader>
 			<band height="199">
 				<image>
@@ -44,35 +58,27 @@
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<text><![CDATA[Orden de Trabajo Nro]]></text>
+					<text><![CDATA[Solicitud Nro]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="439" y="18" width="100" height="20" uuid="06756ae3-97c6-4ee1-8245-419d77d956c9"/>
-					<textFieldExpression><![CDATA[$F{id_ot}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{id_solicitud}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="129" y="111" width="100" height="20" uuid="a8660d48-bc0f-41c2-855f-437099ac187d"/>
-					<textFieldExpression><![CDATA[$F{fecha_orden}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="129" y="133" width="100" height="20" uuid="a2877cd6-006e-4203-8dad-21d3fa61bff9"/>
-					<textFieldExpression><![CDATA[$F{servicio}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{fecha_solicitud}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="129" y="153" width="100" height="20" uuid="caa6b536-d51f-4b89-bc32-807817f19b35"/>
-					<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{sucursal}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="13" y="111" width="100" height="20" uuid="a5aa0ffd-4faa-4e03-a4f2-4f7fba1a783a"/>
-					<text><![CDATA[Fecha de Orden	]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="13" y="133" width="100" height="20" uuid="18ac83e6-0cc1-4018-9461-94fba7017d02"/>
-					<text><![CDATA[Tipo de Servicio]]></text>
+					<text><![CDATA[Fecha de Solicitud	]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="13" y="153" width="100" height="20" uuid="e46febbe-016e-454d-a48a-89d786f31994"/>
-					<text><![CDATA[Estado de Trabajo]]></text>
+					<text><![CDATA[Estado de Solicitud]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="263" y="91" width="42" height="20" uuid="e2c86960-91d4-4d98-8432-4b191e683dae"/>
@@ -102,18 +108,6 @@
 					<reportElement x="316" y="153" width="223" height="20" uuid="20067c0c-e0ae-4399-918d-4b7a4035b121"/>
 					<textFieldExpression><![CDATA[$F{ciudad}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="263" y="113" width="42" height="20" uuid="e1f0bf64-768e-4d3b-9fa8-a5d87cb1bca3"/>
-					<text><![CDATA[Doc]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="316" y="111" width="95" height="20" uuid="81127806-41d9-4824-8f48-9a40f3f3b4f6"/>
-					<textFieldExpression><![CDATA[$F{tipo_documento}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="411" y="111" width="130" height="20" uuid="06e31934-7cd8-458a-ae5e-4a26b82c2cad"/>
-					<textFieldExpression><![CDATA[$F{numero_documento}]]></textFieldExpression>
-				</textField>
 				<image>
 					<reportElement x="13" y="0" width="116" height="107" uuid="2a3a9d08-8a02-452e-b598-79c123db08e6"/>
 					<imageExpression><![CDATA["C:\\test\\Securitysys\\securitysys\\web\\resources\\images\\Security.png"]]></imageExpression>
@@ -136,10 +130,10 @@
 			<subreport>
 				<reportElement x="0" y="12" width="555" height="77" uuid="d32fce86-ca84-4889-a374-f9764144f44d"/>
 				<subreportParameter name="NRO">
-					<subreportParameterExpression><![CDATA[$F{id_ot}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$F{id_solicitud}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "orden_trabajo_det.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "solicitudes_det.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

@@ -14,54 +14,60 @@
             <p:growl id="growl" life="3000" />
             <script name="jquery/jquery.js" library="primefaces"></script> 
             <h:outputScript library="js" name="jsfcrud.js"/>
-            <style type="text/css">
-                .divider{
-                    width:5px;
-                    height:auto;
-                    display:inline-block;
+            <script type="text/javascript">
+                function monitorExporting(start, complete) {
+                    if (PrimeFaces.cookiesEnabled()) {
+                        if (start) {
+                            start();
+                        }
+                        window.chartExportingMonitor = setInterval(function () {
+                            var exportingComplete = PrimeFaces.getCookie('cookie.pdf.exporting');
+                            console.log('exportingComplete:' + exportingComplete);
+                            if (exportingComplete === 'true') {
+                                if (complete) {
+                                    complete();
+                                }
+                                clearInterval(window.chartExportingMonitor);
+                                PrimeFaces.setCookie('cookie.pdf.exporting', null);
+                            }
+                        }, 3000);
+                    }
                 }
-                .calendarClass input {
-                    width: 65px !important
+
+                function showStatus() {
+                    PF('bui').show();
                 }
-            </style>
+
+                function hideStatus() {
+                    PF('bui').hide();
+                }
+            </script>
             <h:form id="form">
-                <p:remoteCommand name="filtrarFechasRecl" update="form:tabView:datatableRecl" actionListener="#{ReportesReclamoBean.filtrarFechasRecl}" />
                 <p:tabView id="tabView">
                     <p:tab title="Detalle Solicitud" titleStyle="font-size: 12px;">
-                        <p:dataTable id="datatableRecl" 
-                                     value="#{ReportesReclamoBean.listaReclamo}" 
-                                     rowKey="#{item.idReclamo}"
-                                     filteredValue="#{ReportesReclamoBean.filteredReclamos}"
+                        <p:dataTable id="datatableSolic" 
+                                     value="#{ReportesSolicitudBean.listaSolicitud}" 
+                                     rowKey="#{item.idSolicitud}"
+                                     filteredValue="#{ReportesSolicitudBean.filteredSolicidudes}"
                                      var="item"
-                                     widgetVar="datatableRecl"
+                                     widgetVar="datatableSolic"
                                      scrollable="true"
                                      scrollHeight="300"
-                                     emptyMessage="No hay Reclamos que mostrar">
+                                     emptyMessage="No hay Solicitudes que mostrar">
                             <f:facet name="header">
-                                Reclamos por Fecha de Ingreso
-                                <br />
-                                <h:outputText value="Fecha Inicio: " />
-                                <p:calendar id="from" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesReclamoBean.fromFecRecl}"/>
-                                <h:outputText value="Fecha Fin: " />
-                                <p:calendar id="to" pattern="dd/MM/yyyy" locale="es" styleClass="calendarClass" value="#{ReportesReclamoBean.toFecRecl}" >
-                                    <p:ajax event="dateSelect" 
-                                            oncomplete="filtrarFechasRecl()" />
-                                </p:calendar>
+                                Solicitudes por fecha de ingreso
                             </f:facet>
-                            <p:column id="columnReclFecha" headerText="Fecha Ingreso" sortBy="#{item.fechaAlta}"> 
-                                <h:outputText value="#{item.fechaAlta}">
+                            <p:column id="columnReclFecha" headerText="Fecha Ingreso" sortBy="#{item.fechaSolicitud}"> 
+                                <h:outputText value="#{item.fechaSolicitud}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </p:column>
-                            <p:column headerText="Nro. Orden" style="width: 80px;">
-                                <h:outputText value="#{item.idReclamo}"/>
+                            <p:column headerText="Nro. Solicitud" style="width: 80px;">
+                                <h:outputText value="#{item.idSolicitud}"/>
+                            </p:column>            
+                            <p:column headerText="Sucursal">
+                                <h:outputText value="#{item.idSucursal.descripcion}"/>
                             </p:column>
-                            <p:column headerText="Descripcion">
-                                <h:outputText value="#{item.descripcion}"/>
-                            </p:column>
-                            <p:column headerText="Tipo de Reclamo">
-                                <h:outputText value="#{item.idTipoReclamo.descripcion}"/>
-                            </p:column>                                
                             <p:column headerText="Reportado por">
                                 <h:outputText value="#{item.idUsuario.nombre}"/>
                             </p:column>
@@ -69,19 +75,23 @@
                                 <h:outputText value="#{item.idCliente.nombre} #{item.idCliente.apellido}"/>
                             </p:column>
                             <p:column headerText="Estado">
-                                <h:outputText value="#{item.idEstado.descripcion}"/>
+                                <h:outputText value="#{item.estado}"/>
                             </p:column>
-                            <f:facet name="footer">Total de registros: #{ReportesReclamoBean.listaReclamo.size()}.</f:facet>
+                            <p:column headerText="Imprimir" >
+                                <p:commandLink id="buttonMostrarReporte"
+                                               ajax="false"
+                                               onclick="monitorExporting(showStatus, hideStatus);"
+                                               value="Mostrar Reporte" 
+                                               action="#{ReportesSolicitudBean.mostrarReporte(item.idSolicitud)}"
+                                               update="@form"/> 
+                            </p:column>
+                            <f:facet name="footer">Total de registros: #{ReportesSolicitudBean.listaSolicitud.size()}.</f:facet>
                         </p:dataTable>
+                        <p:blockUI block="datatableSolic" widgetVar="bui">
+                            Cargando Reporte<br />
+                            <h:graphicImage library="images" name="ajaxloadingbar.gif"/>
+                        </p:blockUI> 
                         <br/>
-                        <p:commandButton id="buttonMostrarOrdenesTrabajoPorFecha" 
-                                         value="Exportar a PDF" 
-                                         ajax="false" 
-                                         icon="ui-icon-extlink">
-                            <p:dataExporter type="pdf" target="datatableRecl" 
-                                            fileName="reclamos"
-                                            preProcessor="#{ReportesReclamoBean.preProcessPDF}" pageOnly="true" />   
-                        </p:commandButton>
                     </p:tab>
                 </p:tabView>
             </h:form>  
