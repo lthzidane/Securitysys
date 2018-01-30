@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="promociones_det" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="811fb6e6-9de1-46c3-84ff-1e9adf3760e2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NRO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from v_presupuesto_det WHERE id_presupuesto_cab = $P{NRO}]]>
+	</queryString>
+	<field name="id_presupuesto_cab" class="java.lang.Integer"/>
+	<field name="id_secuencia" class="java.math.BigDecimal"/>
+        <field name="descuento" class="java.lang.String"/>
+	<field name="promocion" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Integer"/>
+        <field name="exenta" class="java.lang.Integer"/>
+        <field name="gravada5" class="java.lang.Integer"/>
+        <field name="gravada10" class="java.lang.Integer"/>
+        <field name="precio" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="158" y="22" width="143" height="20" uuid="032c3db7-80c9-49a2-91ff-85f2d5ed015f"/>
+				<text><![CDATA[promocion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="22" width="74" height="20" uuid="d6280794-4246-4338-bc8c-802460d228a3"/>
+				<text><![CDATA[id_presupuesto_cab]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="22" width="68" height="20" uuid="ca0ab64e-4564-47d2-b45c-b3b8c3156a51"/>
+				<text><![CDATA[id_secuencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="442" y="21" width="100" height="20" uuid="8e186aff-f5d7-4f37-bc42-aaab9265e86f"/>
+				<text><![CDATA[precio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="21" width="141" height="20" uuid="29943dc5-6ede-4b78-820b-8c6e6af4fbdb"/>
+				<text><![CDATA[diagnostico]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="158" y="0" width="143" height="20" uuid="09e851a0-f428-4184-8199-f7df34df0872"/>
+				<textFieldExpression><![CDATA[$F{promocion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="16" y="0" width="74" height="20" uuid="9b9f2937-84b4-4966-be2e-a7740858cb66"/>
+				<textFieldExpression><![CDATA[$F{id_presupuesto_cab}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="0" width="68" height="20" uuid="22b9d513-b6eb-4568-8943-4fe3711ad07b"/>
+				<textFieldExpression><![CDATA[$F{id_secuencia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0">
+				<reportElement x="442" y="0" width="100" height="20" uuid="8d27f873-8833-4b38-ba57-d86d05b16d6d"/>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="0" width="141" height="20" uuid="b70b13c0-9ad8-47b4-a8a9-bcd4d2235407"/>
+				<textFieldExpression><![CDATA[$F{descuento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
