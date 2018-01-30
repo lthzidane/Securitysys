@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/resources/templates/template.xhtml">
+        <ui:define name="title">Reportes de Presupuestos</ui:define>
+        <ui:define name="containerTitle">
+            <h:outputText styleClass="containerTitle" value="Reportes de Presupuesto"/>
+        </ui:define>
+        <ui:define name="container">
+            <p:growl id="growl" life="3000" />
+            <script name="jquery/jquery.js" library="primefaces"></script> 
+            <h:outputScript library="js" name="jsfcrud.js"/>
+            <script type="text/javascript">
+                function monitorExporting(start, complete) {
+                    if (PrimeFaces.cookiesEnabled()) {
+                        if (start) {
+                            start();
+                        }
+                        window.chartExportingMonitor = setInterval(function () {
+                            var exportingComplete = PrimeFaces.getCookie('cookie.pdf.exporting');
+                            console.log('exportingComplete:' + exportingComplete);
+                            if (exportingComplete === 'true') {
+                                if (complete) {
+                                    complete();
+                                }
+                                clearInterval(window.chartExportingMonitor);
+                                PrimeFaces.setCookie('cookie.pdf.exporting', null);
+                            }
+                        }, 3000);
+                    }
+                }
+
+                function showStatus() {
+                    PF('bui').show();
+                }
+
+                function hideStatus() {
+                    PF('bui').hide();
+                }
+            </script>
+            <h:form id="form">
+                <p:tabView id="tabView">
+                    <p:tab title="Detalle Presupuesto" titleStyle="font-size: 12px;">
+                        <p:dataTable id="datatablePresu" 
+                                     value="#{ReportesPresupuestoBean.listaPresupuesto}" 
+                                     rowKey="#{item.idPresupuesto}"
+                                     filteredValue="#{ReportesPresupuestoBean.filteredPrespuestos}"
+                                     var="item"
+                                     widgetVar="datatablePresu"
+                                     scrollable="true"
+                                     scrollHeight="300"
+                                     emptyMessage="No hay Presupuestos que mostrar">
+                            <f:facet name="header">
+                                Presupuestos por fecha de ingreso
+                            </f:facet>
+                            <p:column id="columnPresuFecha" headerText="Fecha Ingreso" sortBy="#{item.fecha}"> 
+                                <h:outputText value="#{item.fecha}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Nro. Presupuesto" style="width: 80px;">
+                                <h:outputText value="#{item.idPresupuesto}"/>
+                            </p:column>            
+                            <p:column headerText="Sucursal">
+                                <h:outputText value="#{item.idSucursal.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Reportado por">
+                                <h:outputText value="#{item.idUsuario.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Cliente">
+                                <h:outputText value="#{item.idCliente.nombre} #{item.idCliente.apellido}"/>
+                            </p:column>
+                            <p:column headerText="Estado">
+                                <h:outputText value="#{item.idEstado.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Imprimir" >
+                                <p:commandLink id="buttonMostrarReporte"
+                                               ajax="false"
+                                               onclick="monitorExporting(showStatus, hideStatus);"
+                                               value="Mostrar Reporte" 
+                                               action="#{ReportesPresupuestoBean.mostrarReporte(item.idPresupuesto)}"
+                                               update="@form"/> 
+                            </p:column>
+                            <f:facet name="footer">Total de registros: #{ReportesPresupuestoBean.listaPresupuesto.size()}.</f:facet>
+                        </p:dataTable>
+                        <p:blockUI block="datatablePresu" widgetVar="bui">
+                            Cargando Reporte<br />
+                            <h:graphicImage library="images" name="ajaxloadingbar.gif"/>
+                        </p:blockUI> 
+                        <br/>
+                    </p:tab>
+                </p:tabView>
+            </h:form>  
+        </ui:define>
+    </ui:composition>
+</html>
