@@ -31,13 +31,15 @@
                         <p:inputText id="gravada5" value="#{presupuestoController.selected.gravada5}" title="#{bundle.CreatePresupuestoTitle_gravada5}" required="true" requiredMessage="#{bundle.CreatePresupuestoRequiredMessage_gravada5}"/>
 
                         <p:outputLabel value="#{bundle.CreatePresupuestoLabel_gravada10}" for="gravada10" />
-                        <p:inputText id="gravada10" value="#{presupuestoController.selected.gravada10}" title="#{bundle.CreatePresupuestoTitle_gravada10}" required="true" requiredMessage="#{bundle.CreatePresupuestoRequiredMessage_gravada10}"/>
+                        <p:inputText id="gravada10" value="#{presupuestoController.selected.gravada10}" title="#{bundle.CreatePresupuestoTitle_gravada10}" required="true" requiredMessage="#{bundle.CreatePresupuestoRequiredMessage_gravada10}"> 
+                            <p:ajax event="blur" update="iva10"/>
+                        </p:inputText>
 
                         <p:outputLabel value="#{bundle.CreatePresupuestoLabel_iva5}" for="iva5" />
                         <p:inputText id="iva5" value="#{presupuestoController.selected.iva5}" title="#{bundle.CreatePresupuestoTitle_iva5}" required="true" requiredMessage="#{bundle.CreatePresupuestoRequiredMessage_iva5}"/>
 
                         <p:outputLabel value="#{bundle.CreatePresupuestoLabel_iva10}" for="iva10" />
-                        <p:inputText id="iva10" value="#{presupuestoController.selected.iva10}" title="#{bundle.CreatePresupuestoTitle_iva10}" required="true" requiredMessage="#{bundle.CreatePresupuestoRequiredMessage_iva10}"/>
+                        <p:inputText id="iva10" value="#{presupuestoController.selected.iva10}" title="#{bundle.CreatePresupuestoTitle_iva10}" required="true" requiredMessage="#{bundle.CreatePresupuestoRequiredMessage_iva10}" disabled="true"/>
 
                         <p:outputLabel value="#{bundle.CreatePresupuestoLabel_promocion}" for="promocion" />
                         <p:selectOneMenu id="promocion" value="#{presupuestoController.selected.promocion}"  converter="promocionConverter">

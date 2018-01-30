@@ -57,26 +57,26 @@
                             <f:facet name="header">
                                 Promociones por fecha
                             </f:facet>
-                            <p:column id="columnPromFechaIni" headerText="Fecha Inicio" sortBy="#{item.fechaIniPromo}" filterBy="#{item.fechaIniPromo}"> 
+                            <p:column id="columnPromFechaIni" headerText="Fecha Inicio" sortBy="#{item.fechaIniPromo}"> 
                                 <h:outputText value="#{item.fechaIniPromo}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </p:column>
-                            <p:column id="columnPromFechaFin" headerText="Fecha Fin" sortBy="#{item.fechaFinPromo}" filterBy="#{item.fechaFinPromo}"> 
+                            <p:column id="columnPromFechaFin" headerText="Fecha Fin" sortBy="#{item.fechaFinPromo}"> 
                                 <h:outputText value="#{item.fechaFinPromo}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </p:column>
-                            <p:column headerText="Nro. Promocion" style="width: 80px;" sortBy="#{item.idPromocion}" filterBy="#{item.idPromocion}">
+                            <p:column headerText="Nro. Promocion" style="width: 80px;" sortBy="#{item.idPromocion}" >
                                 <h:outputText value="#{item.idPromocion}"/>
                             </p:column>            
-                            <p:column headerText="Sucursal" sortBy="#{item.idSucursal.descripcion}" filterBy="#{item.idSucursal.descripcion}">
+                            <p:column headerText="Sucursal" sortBy="#{item.idSucursal.descripcion}">
                                 <h:outputText value="#{item.idSucursal.descripcion}" />
                             </p:column>
-                            <p:column headerText="Descripcion" sortBy="#{item.descipcion}" filterBy="#{item.descipcion}">
+                            <p:column headerText="Descripcion" sortBy="#{item.descipcion}">
                                 <h:outputText value="#{item.descipcion}"/>
                             </p:column>
-                            <p:column headerText="Creado por" sortBy="#{item.idUsuario.nombre}" filterBy="#{item.idUsuario.nombre}">
+                            <p:column headerText="Creado por" sortBy="#{item.idUsuario.nombre}">
                                 <h:outputText value="#{item.idUsuario.nombre}"/>
                             </p:column>
                             <p:column headerText="Imprimir" >

@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="ContratoCreateDlg" widgetVar="ContratoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateContratoTitle}" closeOnEscape="true">
-
+<h:outputScript library="js" name="jsfcrud.js"/>
             <h:form id="ContratoCreateForm">
 
                 <h:panelGroup id="display" rendered="#{contratoController.selected != null}">
@@ -22,7 +22,7 @@
                         <p:inputText id="contratoPK_idCliente" value="#{contratoController.selected.contratoPK.idCliente}" title="#{bundle.CreateContratoTitle_contratoPK_idCliente}" required="true" requiredMessage="#{bundle.CreateContratoRequiredMessage_contratoPK_idCliente}" rendered="false"/>
 
                         <p:outputLabel value="#{bundle.CreateContratoLabel_fechaIngreso}" for="fechaIngreso" />
-                        <p:calendar id="fechaIngreso" pattern="MM/dd/yyyy" value="#{contratoController.selected.fechaIngreso}" title="#{bundle.CreateContratoTitle_fechaIngreso}" required="true" requiredMessage="#{bundle.CreateContratoRequiredMessage_fechaIngreso}" showOn="button"/>
+                        <p:calendar id="fechaIngreso" pattern="MM/dd/yyyy" value="#{contratoController.selected.fechaIngreso}" title="#{bundle.CreateContratoTitle_fechaIngreso}" required="true" requiredMessage="#{bundle.CreateContratoRequiredMessage_fechaIngreso}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreateContratoLabel_cliente}" for="cliente" />
                         <p:selectOneMenu id="cliente" value="#{contratoController.selected.cliente}" required="true" requiredMessage="#{bundle.CreateContratoRequiredMessage_cliente}" converter="clienteConverter">

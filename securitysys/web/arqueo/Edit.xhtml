@@ -40,11 +40,11 @@
 
 
                         <h:outputLabel value="#{bundle.EditArqueoLabel_aperturaCierreCaja}" for="aperturaCierreCaja" />
-                        <h:outputText id="aperturaCierreCaja" value="#{arqueoController.selected.aperturaCierreCaja}" />
+                        <h:outputText id="aperturaCierreCaja" value="#{arqueoController.selected.aperturaCierreCaja.idAperturaCierre}" />
 
 
                         <h:outputLabel value="#{bundle.EditArqueoLabel_valor}" for="valor" />
-                        <h:outputText id="valor" value="#{arqueoController.selected.valor}" />
+                        <h:outputText id="valor" value="#{arqueoController.selected.valor.descripcion}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{arqueoController.save}" value="#{bundle.Save}" update="display,:ArqueoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ArqueoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ArqueoEditDialog.hide()" immediate="true"/>

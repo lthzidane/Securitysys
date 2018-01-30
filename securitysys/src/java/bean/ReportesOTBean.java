@@ -160,9 +160,9 @@ public class ReportesOTBean implements Serializable {
         LineChartModel model = new LineChartModel();
 
         LineChartSeries series1 = new LineChartSeries();
-        series1.setLabel("Noviembre");
+        series1.setLabel("Diciembre 2017");
         LineChartSeries series2 = new LineChartSeries();
-        series2.setLabel("Diciembre");
+        series2.setLabel("Enero 2018");
 
         int dia = 1;
         for (dia = 1; dia <= 31; dia++) {
@@ -211,9 +211,9 @@ public class ReportesOTBean implements Serializable {
         LineChartModel model = new LineChartModel();
 
         LineChartSeries series1 = new LineChartSeries();
-        series1.setLabel("Diciembre");
+        series1.setLabel("Diciembre 2017");
         LineChartSeries series2 = new LineChartSeries();
-        series2.setLabel("Enero");
+        series2.setLabel("Enero 2018");
 
         int dia = 1;
         for (dia = 1; dia <= 31; dia++) {

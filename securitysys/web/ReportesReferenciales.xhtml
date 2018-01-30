@@ -164,6 +164,116 @@
                         </p:commandButton>
                     </p:tab>
 
+                    <p:tab title="Arqueo" titleStyle="font-size: 12px;" rendered="false">
+                        <p:dataTable id="datatableArqueo"
+                                     value="#{ReportesReferencialesBean.listaArqueo}" 
+                                     rowKey="#{item.arqueoPK.idArqueo}"
+
+                                     var="item"
+                                     widgetVar="datatableArqueo"
+                                     scrollable="true"
+                                     scrollHeight="300"
+                                     emptyMessage="No hay Arqueos que mostrar">
+                            <f:facet name="header">
+                                Arqueos
+                            </f:facet>
+
+                            <p:column sortBy="#{item.arqueoPK.idArqueo}" filterBy="#{item.arqueoPK.idArqueo}"> 
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListArqueoTitle_arqueoPK_idArqueo}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.arqueoPK.idArqueo}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{item.arqueoPK.idAperturaCierre}" filterBy="#{item.arqueoPK.idAperturaCierre}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListArqueoTitle_arqueoPK_idAperturaCierre}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.arqueoPK.idAperturaCierre}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{item.aperturaCierreCaja.montoApertura}" filterBy="#{item.aperturaCierreCaja.montoApertura}">
+                                <f:facet name="header">
+                                    <h:outputText value="Monto Apertura"/>
+                                </f:facet>
+                                <h:outputText value="#{item.aperturaCierreCaja.montoApertura}">
+                                    <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                </h:outputText>
+                            </p:column>                        
+
+                            <p:column sortBy="#{item.valor.descripcion}" filterBy="#{item.valor.descripcion}"> 
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListArqueoTitle_arqueoPK_idValor}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.valor.descripcion}"/>
+                            </p:column>
+
+
+                            <p:column sortBy="#{item.cantidadValor}" filterBy="#{item.cantidadValor}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListArqueoTitle_cantidadValor}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cantidadValor}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{item.valorTotal}" filterBy="#{item.valorTotal}"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Valor Total"/>
+                                </f:facet>
+                                <h:outputText value="#{item.valorTotal}">
+                                    <f:convertNumber type="currency" currencySymbol="Gs. " />
+                                </h:outputText>
+                            </p:column>                        
+
+                            <p:column sortBy="#{item.fechaArqueo}" filterBy="#{item.fechaArqueo}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListArqueoTitle_fechaArqueo}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fechaArqueo}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>
+
+
+                            <p:column sortBy="#{item.horaArqueo}" filterBy="#{item.horaArqueo}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListArqueoTitle_horaArqueo}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.horaArqueo}">
+                                    <f:convertDateTime pattern="HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+
+
+                            <p:column sortBy="#{item.estadoArqueo}" filterBy="#{item.estadoArqueo}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListArqueoTitle_estadoArqueo}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.estadoArqueo}"/>
+                            </p:column>
+
+                            <f:facet name="footer">Total de registros: #{ReportesReferencialesBean.listaArqueo.size()}.</f:facet>
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton id="buttonMostrarArqueoXLS" 
+                                         value="Exportar a XLS" 
+                                         ajax="false" 
+                                         icon="ui-icon-extlink">
+                            <p:dataExporter type="xls" target="datatableArqueo" 
+                                            fileName="Arqueo" pageOnly="true"
+
+                                            />   
+                        </p:commandButton>
+                        <p:commandButton id="buttonMostrarArqueoPDF" 
+                                         value="Exportar a PDF" 
+                                         ajax="false" 
+                                         icon="ui-icon-extlink">
+                            <p:dataExporter type="pdf" target="datatableArqueo" 
+                                            preProcessor="#{ReportesReferencialesBean.preProcessPDF}" fileName="Arqueo" pageOnly="true"
+
+                                            />   
+                        </p:commandButton>
+                    </p:tab>
                 </p:tabView>
 
                 <p:blockUI block="tabView" widgetVar="bui">

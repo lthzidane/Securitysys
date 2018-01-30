@@ -44,7 +44,16 @@
             <file>file:/C:/Users/sebas/Documents/GitHub/Securitysys/securitysys/web/timbrado/List.xhtml</file>
         </group>
         <group>
-            <file>file:/C:/develop/Securitysys/securitysys/src/java/reportes/promociones_det.jrxml</file>
+            <file>file:/C:/develop/Securitysys/securitysys/web/arqueo/Edit.xhtml</file>
+            <file>file:/C:/develop/Securitysys/securitysys/web/arqueo/Create.xhtml</file>
+            <file>file:/C:/develop/Securitysys/securitysys/web/arqueo/List.xhtml</file>
+            <file>file:/C:/develop/Securitysys/securitysys/src/java/reportes/jcReportFactura.jrxml</file>
+            <file>file:/C:/develop/Securitysys/securitysys/web/ReportesOT.xhtml</file>
+            <file>file:/C:/develop/Securitysys/securitysys/src/java/bean/ReportesOTBean.java</file>
+            <file>file:/C:/develop/Securitysys/securitysys/web/ReportesPromociones.xhtml</file>
+            <file>file:/C:/develop/Securitysys/securitysys/src/java/bean/ReportesReferencialesBean.java</file>
+            <file>file:/C:/develop/Securitysys/securitysys/web/reclamo/Create.xhtml</file>
+            <file>file:/C:/develop/Securitysys/securitysys/web/ReportesReferenciales.xhtml</file>
         </group>
     </open-files>
 </project-private>

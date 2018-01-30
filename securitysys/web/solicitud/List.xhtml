@@ -43,7 +43,7 @@
                         -->
 
 
-                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton,:SolicitudDetListForm"/>
                         <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
                         <p:column sortBy="#{item.idSolicitud}" filterBy="idSolicitud">
@@ -113,7 +113,7 @@
 
                 <p:panel header="#{bundle.ListSolicitudDetTitle}">
                     <p:dataTable id="datalist"
-                                 value="#{solicitudDetController.items}"
+                                 value="#{solicitudController.selected.solicitudDetList}"
                                  lazy="false"
                                  rowKey="#{item.solicitudDetPK}"
                                  var="item"

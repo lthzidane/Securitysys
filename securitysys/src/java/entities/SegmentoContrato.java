@@ -11,12 +11,14 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -41,6 +43,8 @@ public class SegmentoContrato implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_segmento")
+    @GeneratedValue(generator = "SegmentoSeq")
+    @SequenceGenerator(name = "SegmentoSeq", sequenceName = "segmento_contrato_id_segmento_contrato_seq", allocationSize = 1)
     private Integer idSegmento;
     @Basic(optional = false)
     @NotNull

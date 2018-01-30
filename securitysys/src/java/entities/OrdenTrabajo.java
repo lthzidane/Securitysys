@@ -116,6 +116,9 @@ public class OrdenTrabajo implements Serializable {
     }
 
     public int getIdEstado() {
+        if (getIdOt()==null){
+            setIdEstado(4);
+        }
         return idEstado;
     }
 

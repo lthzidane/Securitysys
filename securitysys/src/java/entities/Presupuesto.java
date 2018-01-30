@@ -198,6 +198,9 @@ public class Presupuesto implements Serializable {
     }
 
     public int getIva10() {
+        if (getGravada10()>0 ) {
+            setIva10(Integer.divideUnsigned(getGravada10(), 11));
+        }
         return iva10;
     }
 

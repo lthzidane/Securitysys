@@ -16,7 +16,7 @@
                     <p:panelGrid columns="2" columnClasses="column">
 
                         <p:outputLabel value="#{bundle.CreateReclamoLabel_descripcion}" for="descripcion" />
-                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{reclamoController.selected.descripcion}" title="#{bundle.CreateReclamoTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_descripcion}"/>
+                        <p:inputText id="descripcion" value="#{reclamoController.selected.descripcion}" title="#{bundle.CreateReclamoTitle_descripcion}" size="150" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_descripcion}"/>
 
                         <p:outputLabel value="#{bundle.CreateReclamoLabel_fechaAlta}" for="fechaAlta" />
                         <p:calendar id="fechaAlta" pattern="MM/dd/yyyy" value="#{reclamoController.selected.fechaAlta}" title="#{bundle.CreateReclamoTitle_fechaAlta}" required="true" requiredMessage="#{bundle.CreateReclamoRequiredMessage_fechaAlta}" showOn="button" locale="es"/>
@@ -36,7 +36,7 @@
                             <f:selectItems value="#{clienteController.items}"
                                            var="idClienteItem"
                                            itemValue="#{idClienteItem}"
-                                           itemLabel="#{idClienteItem.idCliente.toString()}"
+                                           itemLabel="#{idClienteItem.nombre} #{idClienteItem.apellido}"
                                            />
 
                         </p:selectOneMenu>
@@ -91,7 +91,7 @@
                             <f:selectItems value="#{usuarioController.items}"
                                            var="idUsuarioItem"
                                            itemValue="#{idUsuarioItem}"
-                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           itemLabel="#{idUsuarioItem.nombre}"
                                            />
 
                         </p:selectOneMenu>

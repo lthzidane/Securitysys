@@ -8,6 +8,7 @@ import com.lowagie.text.BadElementException;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
+import entities.Arqueo;
 import entities.Cliente;
 import entities.Contrato;
 import entities.Servicio;
@@ -43,6 +44,9 @@ public class ReportesReferencialesBean implements Serializable {
     private List<Cliente> listaRepoCliente = new ArrayList<>();
 
     private List<Servicio> listaRepoServicios = new ArrayList<>();
+    private List<Arqueo> listaArqueo = new ArrayList<>();
+
+    private List<Arqueo> filteredArqueo;
 
     private List<Contrato> filteredContrato;
     private List<Cliente> filteredCliente;
@@ -61,11 +65,15 @@ public class ReportesReferencialesBean implements Serializable {
     @EJB
     private bean.ServicioFacade servicioFacade;
 
+    @EJB
+    private bean.ArqueoFacade arqueoFacade;
+
     @PostConstruct
     void initialiseSession() {
         cargarTabContrato();
         cargarTabCliente();
         cargarTabServicio();
+        cargarTabArqueo();
     }
 
     public void cargarTabContrato() {
@@ -89,6 +97,15 @@ public class ReportesReferencialesBean implements Serializable {
     private void cargarTabCliente() {
         try {
             setListaRepoCliente(getClienteFacade().findAll());
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void cargarTabArqueo() {
+        try {
+            setListaArqueo(getArqueoFacade().findAll());
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -182,6 +199,48 @@ public class ReportesReferencialesBean implements Serializable {
 
     public void setServicioFacade(ServicioFacade servicioFacade) {
         this.servicioFacade = servicioFacade;
+    }
+
+    /**
+     * @return the listaArqueo
+     */
+    public List<Arqueo> getListaArqueo() {
+        return listaArqueo;
+    }
+
+    /**
+     * @param listaArqueo the listaArqueo to set
+     */
+    public void setListaArqueo(List<Arqueo> listaArqueo) {
+        this.listaArqueo = listaArqueo;
+    }
+
+    /**
+     * @return the filteredArqueo
+     */
+    public List<Arqueo> getFilteredArqueo() {
+        return filteredArqueo;
+    }
+
+    /**
+     * @param filteredArqueo the filteredArqueo to set
+     */
+    public void setFilteredArqueo(List<Arqueo> filteredArqueo) {
+        this.filteredArqueo = filteredArqueo;
+    }
+
+    /**
+     * @return the arqueoFacade
+     */
+    public bean.ArqueoFacade getArqueoFacade() {
+        return arqueoFacade;
+    }
+
+    /**
+     * @param arqueoFacade the arqueoFacade to set
+     */
+    public void setArqueoFacade(bean.ArqueoFacade arqueoFacade) {
+        this.arqueoFacade = arqueoFacade;
     }
 
 }

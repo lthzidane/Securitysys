@@ -19,7 +19,7 @@
                         <p:calendar id="fechaOrden" pattern="MM/dd/yyyy" value="#{ordenTrabajoController.selected.fechaOrden}" title="#{bundle.CreateOrdenTrabajoTitle_fechaOrden}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_fechaOrden}" showOn="button" locale="es"/>
 
                         <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_idEstado}" for="idEstado" />
-                        <p:inputText id="idEstado" value="#{ordenTrabajoController.selected.idEstado}" title="#{bundle.CreateOrdenTrabajoTitle_idEstado}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idEstado}"/>
+                        <p:inputText id="idEstado" value="#{ordenTrabajoController.selected.idEstado}" title="#{bundle.CreateOrdenTrabajoTitle_idEstado}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idEstado}" disabled="true"/>
 
                         <p:outputLabel value="#{bundle.CreateOrdenTrabajoLabel_idCliente}" for="idCliente" />
                         <p:selectOneMenu id="idCliente" value="#{ordenTrabajoController.selected.idCliente}" required="true" requiredMessage="#{bundle.CreateOrdenTrabajoRequiredMessage_idCliente}" converter="clienteConverter">
@@ -38,7 +38,7 @@
                             <f:selectItems value="#{cuadrillaController.items}"
                                            var="idCuadrillaItem"
                                            itemValue="#{idCuadrillaItem}"
-                                           itemLabel="#{idCuadrillaItem.idTipoCuadrilla.descripcion}"
+                                           itemLabel="#{idCuadrillaItem.idTipoCuadrilla.descripcion} - #{idCuadrillaItem.idZona.descripcion}"
                                            />
 
                         </p:selectOneMenu>
